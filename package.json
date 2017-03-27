@@ -1,0 +1,36 @@
+{
+  "name": "cloutconnect",
+  "version": "0.0.1",
+  "description": "An app to connect social influencers with brands",
+  "main": "app.js",
+  "scripts": {
+    "test": "none"
+  },
+  "repository": {
+    "type": "git",
+    "url": "none"
+  },
+  "keywords": [
+    "none"
+  ],
+  "author": "Blake Rogers",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "*",
+    "bluebird": "^3.5.0",
+    "body-parser": "*",
+    "connect-flash": "*",
+    "cookie-parser": "^1.4.1",
+    "express": "*",
+    "express-handlebars": "*",
+    "express-messages": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "mongodb": "*",
+    "mongoose": "*",
+    "passport": "*",
+    "passport-http": "*",
+    "passport-local": "*",
+    "requestify": "^0.2.5"
+  }
+}
