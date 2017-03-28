@@ -17,6 +17,7 @@ var sites = require('./routes/site');
 
 
 var app = express();
+    app.set('port', (process.env.PORT || 5000));
     app.set('views',path.join(__dirname,'views/layouts'));
     app.engine('handlebars',handlebars({defaultLayout:'layout'}));
     app.set('view engine','handlebars');
@@ -62,5 +63,6 @@ app.use('/site',sites);
 
 
 
-app.listen(3000);
-console.log('loginapp listening on port 3000');
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
