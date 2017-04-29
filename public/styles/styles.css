@@ -1,0 +1,20 @@
+#login_div{
+    margin-top: -20px;
+    background-size: 1500px;
+    background-repeat: no-repeat;
+    height: 1500px;
+}
+
+#login_form{
+    margin-top: 100px;
+
+}
+#login_label{
+    color: white;
+
+}
+#dashboard{
+    height: 1000px;
+    margin-top: 20px;
+}
+
