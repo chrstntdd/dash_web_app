@@ -8,9 +8,13 @@ var expValidator = require('express-validator');
 var flash = require('connect-flash');
 var messages = require('express-messages');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://heroku_d41xhhbh:8noui905v24of65nfletr5eu5s@ds129469.mlab.com:29469/heroku_d41xhhbh');
+mongoose.connect('mongodb://heroku_d41xhhbh:8noui905v24of65nfletr5eu5s@ds129469.mlab.com:29469/heroku_d41xhhbh',function(error){
+  if (error){
+    mongoose.connect('mongodb://localhost/pogo')
+  }
+});
 
-// mongoose.connect('mongodb://localhost/pogo')
+
 
 //Define Routes
 var index = require('./routes/index');
