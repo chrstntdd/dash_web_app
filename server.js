@@ -9,9 +9,14 @@ var flash = require('connect-flash');
 var messages = require('express-messages');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://heroku_d41xhhbh:8noui905v24of65nfletr5eu5s@ds129469.mlab.com:29469/heroku_d41xhhbh',function(error){
+  
   if (error){
+    console.log('attempting locale connection')
     mongoose.connect('mongodb://localhost/pogo')
+  }else{
+    console.log('connecting to remote server')
   }
+  
 });
 
 
