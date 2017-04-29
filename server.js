@@ -68,7 +68,9 @@ app.use(expValidator({
 
 
 
-app.use('/',index);
+app.use('/',function(req,res){
+  res.send('hello woooorld');
+});
 app.use('/api/sites',sites);
 app.use('/api/users',users);
 app.listen(app.get('port'), function() {

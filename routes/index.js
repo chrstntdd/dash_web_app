@@ -83,43 +83,42 @@ function json(object){
     return JSON.stringify(object);
 }
 router.get('/',function(req,res){
-    res.send('Hello world');
-    // if (req.session.user){
-    //     var user = req.session.user
-    // //console.log(user.name)
-    //     if (user.monitored_sites){
-    //         //console.log(user.sites);
-    //         Site.monitoredSites(user.monitored_sites,function(err,sites){
-    //             if (sites){
-    //                 res.render('sites',{
-    //                     user:user,
-    //                     sites:sites,
-    //                     layout:false,
-    //                     helpers: {
-    //                        monthAverage: function(options){
-    //                             return monthAverageFor(this);
-    //                         },
-    //                         dayAverage: function(options){
-    //                             return dayAverageFor(this);
-    //                         },
-    //                         weekAverage: function(otions){
-    //                             return weekAverageFor(this);
-    //                         },
-    //                         json: function(options){
-    //                             return json(this);
-    //                         }
+    if (req.session.user){
+        var user = req.session.user
+    //console.log(user.name)
+        if (user.monitored_sites){
+            //console.log(user.sites);
+            Site.monitoredSites(user.monitored_sites,function(err,sites){
+                if (sites){
+                    res.render('sites',{
+                        user:user,
+                        sites:sites,
+                        layout:false,
+                        helpers: {
+                           monthAverage: function(options){
+                                return monthAverageFor(this);
+                            },
+                            dayAverage: function(options){
+                                return dayAverageFor(this);
+                            },
+                            weekAverage: function(otions){
+                                return weekAverageFor(this);
+                            },
+                            json: function(options){
+                                return json(this);
+                            }
 
-    //                     }
-    //                 })
-    //             }
-    //         });
-    //     }else{
-    //      res.render('sites',{user:user})
-    //     }
+                        }
+                    })
+                }
+            });
+        }else{
+         res.render('sites',{user:user})
+        }
         
-    // }else{
-    //     res.render('index');
-    // }
+    }else{
+        res.render('index');
+    }
    
 });
 router.get('/login',function(req,res){
