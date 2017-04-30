@@ -8,8 +8,8 @@ var expValidator = require('express-validator');
 var flash = require('connect-flash');
 var messages = require('express-messages');
 var mongoose = require('mongoose');
+
 mongoose.connect('mongodb://heroku_d41xhhbh:8noui905v24of65nfletr5eu5s@ds129469.mlab.com:29469/heroku_d41xhhbh',function(error){
-  
   if (error){
     console.log('attempting locale connection')
     mongoose.connect('mongodb://localhost/pogo')
@@ -29,6 +29,7 @@ var users = require('./routes/users');
 
 var app = express();
     app.set('port', (process.env.PORT || 5000));
+    console.log(process.env.NODE_ENV);
     app.set('views',path.join(__dirname,'views/layouts'));
     app.engine('handlebars',handlebars({
       defaultLayout:'layout'
@@ -68,9 +69,7 @@ app.use(expValidator({
 
 
 
-app.use('/',function(req,res){
-  res.send('hello woooorld');
-});
+app.use('/',index);
 app.use('/api/sites',sites);
 app.use('/api/users',users);
 app.listen(app.get('port'), function() {

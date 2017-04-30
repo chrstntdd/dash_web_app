@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
    // mongoose.connect('mongodb://localhost/pogo')
 
 var Schema = mongoose.Schema;
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcryptjs');
     const saltrounds = 10;
 
 var userSchema = new Schema({

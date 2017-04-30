@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var router = express.Router();
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcryptjs');
     const saltrounds = 10;
 User = require('../models/user');
 
