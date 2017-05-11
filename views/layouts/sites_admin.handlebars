@@ -1,0 +1,33 @@
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Manager</th>
+            <th>Device</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {{#each sites}}
+        <tr id={{_id}} class="site_row">
+            <td>{{_id}}</td>
+            <td>{{name}}</td>
+            <td>{{location}}  {{location.city}} {{location.state}}</td>
+            <td>{{manager.agent}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+       $(".site_row").click(function(){
+           window.location.assign("/admin/sites/"+this.id)
+       });
+        
+    });
+    
+</script>

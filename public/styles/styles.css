@@ -1,7 +1,5 @@
 #login_div{
     margin-top: -20px;
-    background-size: 1500px;
-    background-repeat: no-repeat;
     height: 1500px;
 }
 
@@ -11,10 +9,28 @@
 }
 #login_label{
     color: white;
-
 }
 #dashboard{
     height: 1000px;
-    margin-top: 20px;
 }
+.futureSite{
+    color:grey;
+}
+ #header{
+        background-image: url("../images/bg7.png");
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-color: blue;
+    }
+#footer{
+    margin-top:-30px;
+    background-image:url("../images/call.png");
+    background-size: 100%;
+    background-repeat:no-repeat;
+    height:600px;
+}
+.footer_info{
+    color:white
+}
+.
 

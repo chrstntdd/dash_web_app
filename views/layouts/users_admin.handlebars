@@ -1,0 +1,88 @@
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each users}}
+        <tr id={{_id}} class="site_row">
+            <td>{{_id}}</td>
+            <td>{{name.first_name}} {{name.last_name}}</td>
+            <td>{{email}}</td>
+            <td></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+       $(".site_row").click(function(){
+           window.location.assign("/admin/sites/"+this.id)
+       });
+        
+    });
+    
+</script>
+<form class="col-sm-offset-2 col-sm-6" action="">
+    <div class="form-group">
+        <label class="control-label" for="first_name">First Name:</label>
+       <input id="user_first_name" class="form-control" type="text">
+    </div>
+     <div class="form-group">
+        <label class="control-label" for="last_name">Last Name:</label>
+       <input id="user_last_name" class="form-control" type="text">
+    </div>
+     <div class="form-group">
+        <label class="control-label" for="email">Email:</label>
+       <input id="user_email" class="form-control" type="email">
+    </div>
+     <div class="form-group">
+        <label class="control-label" for="password">Password:</label>
+       <input id="user_password" class="form-control" type="password">
+    </div>
+    <div>
+        <button id="create_user" class="btn btn-primary">Create User</button>
+    </div>
+</form>
+<script>
+    $(document).ready(function(){
+        $("#create_user").click(function(){
+            var first_name = $("#user_first_name").text();
+            var last_name = $("#user_last_name").text();
+            var email = $("#user_email").text();
+            var password = $("#user_password").text();
+            var has_name = first_name.length > 0 && last_name.length > 0;
+            var has_credentials = email.length > 0 && password.length > 0;
+            var is_complete_user = has_name && has_credentials;
+
+            var user = {
+                name: {
+                    first_name: first_name,
+                    last_name: last_name
+                },
+                password: password,
+                email: email
+            }
+            if (is_complete_user){
+                var xhttp = new XMLHttpRequest();
+                    xhttp.open("POST","../../api/users",true);
+                    xhttp.setRequestHeader("Content-Type","application/json");
+                    xhttp.send(JSON.stringify(user));
+            }else{
+                alert("User Info is Incomplete");
+            }
+            
+        });
+        $(".site_row").click(function(){
+      
+            window.location.assign("/admin/users/"+this.id)
+        })
+
+    })
+</script>

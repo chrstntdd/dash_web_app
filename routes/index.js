@@ -55,6 +55,7 @@ function weekAverageFor(site){
         return "Not Enough Data"
     }
 }
+
 function dayAverageFor(site){
      var todayRates = site.line_rates.filter(function(rate){
         var today = new Date().getDay()
@@ -82,6 +83,7 @@ function dayAverageFor(site){
 function json(object){
     return JSON.stringify(object);
 }
+
 router.get('/',function(req,res){
     if (req.session.user){
         var user = req.session.user
@@ -93,7 +95,6 @@ router.get('/',function(req,res){
                     res.render('sites',{
                         user:user,
                         sites:sites,
-                        layout:false,
                         helpers: {
                            monthAverage: function(options){
                                 return monthAverageFor(this);
@@ -107,7 +108,6 @@ router.get('/',function(req,res){
                             json: function(options){
                                 return json(this);
                             }
-
                         }
                     })
                 }
@@ -121,6 +121,9 @@ router.get('/',function(req,res){
     }
    
 });
+router.get('/home',function(req,res){
+    res.render('index');
+})
 router.get('/login',function(req,res){
     res.render('login')
 });

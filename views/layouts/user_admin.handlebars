@@ -1,0 +1,141 @@
+<div class="jumbotron" style="background-color:white">
+  
+    <h1>{{user.name.first_name}} {{user.name.last_name}}</h1>
+</div>
+<div class="panel panel-info">
+    <div class="panel-heading">User Info</div>
+    <div class="panel-body">
+        <form action="" class="form-horizontal">
+             <div class="form-group">
+                <label class="control-label col-sm-2" for="id">User ID:</label>
+                <div class="col-sm-6">
+                    <input id="user_id" class="form-control" type="text" placeholder="Insert User ID" value={{user._id}}>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="name">First Name:</label>
+                <div class="col-sm-6">
+                    <input id="user_name" class="form-control" type="text" placeholder="Insert First Name" value={{user.name.first_name}}>
+                </div>
+            </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="name">Last Name:</label>
+                <div class="col-sm-6">
+                    <input id="user_name" class="form-control" type="text" placeholder="Insert Last Name" value={{user.name.last_name}}>
+                </div>
+            </div>
+            <p class="col-sm-offset-2">Location: {{user.location.city}} {{user.location.state}} {{user.location.zip}}</p>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="street">City:</label>
+                <div class="col-sm-6">
+                    <input id="user_city" class="form-control" type="text" placeholder="city" value={{user.location.city}}>
+                </div>
+            </div>
+           
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="state">State:</label>
+                <div class="col-sm-6">
+                    <input id="user_state" class="form-control" type="text" placeholder="state" value={{user.location.state}}>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="zip">Zip:</label>
+                <div class="col-sm-6">
+                    <input id="user_zip" class="form-control" type="text" placeholder="Zip Code" value={{user.location.zip}}>
+                </div>
+            </div>
+             <div class="form-group">
+                 <div class="col-sm-offset-2">
+                    <button id="user_info_update" type="submit" class="btn btn-success">Update User Info</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Managed Sites</div>
+    <div class="panel-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Site ID</th>
+                    <th>Site Name</th>
+                    <th>Site Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                <p>{{user}}</p>
+                {{#each user.managed_sites}}
+                <tr>
+                    <td>{{_id}}</td>
+                    <td>{{name}}</td>
+                    <td>{{location.street}} {{location.city}} {{location.state}} {{location.zip}}</td>
+                    <td><button  class="btn btn-danger">Remove</button></td>
+                </tr>
+                {{/each}}
+                <tr>
+                    <td><button id="remove_managed_sites" class="btn btn-danger">Remove Managed Sites</button></td>
+                </tr>
+                <tr>
+                    <td><input id="new_site" type="text" placeholder="Insert Id"></td>
+                    <td><button id="site_manager_add" class="btn btn-primary">Add Site</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+</div>
+<script>
+    $(document).ready(function(){
+        $("#user_info_update").click(function(){
+            var id = $("#user_id").val();
+            var first_name = $("#user_first_name").val();
+            var last_name = $("#user_last_name").val();
+            var email = $("#user_email").val();
+            var city = $("#site_city").val();
+            var state = $("#user_state").val();
+            var zip = $("#user_zip").val();
+            var updates = {
+                "updates":{
+                "name": {first_name: first_name, last_name: last_name },
+                "email": email,
+                "location":{
+                    city: city,
+                    state: state,
+                    zip: zip
+                }
+                }
+            }
+            var xhttp = new XMLHttpRequest();
+                xhttp.open("PUT","../../api/users/"+id,true);
+                xhttp.setRequestHeader("Content-Type","application/json");
+                xhttp.send(JSON.stringify(updates));
+           
+        });
+
+        $("#site_manager_add").click(function(){
+            var site_id = $("#site_id").val();
+            var manager_email = $("#new_manager_email").val();
+            console.log(manager_email);
+            var xhttp = new XMLHttpRequest();
+                xhttp.open("POST","../../api/sites/"+site_id+"/manager/"+manager_email,true);
+                xhttp.setRequestHeader("Content-Type","application/json");
+                xhttp.send()
+                
+
+        });
+
+        $("#site_manager_delete").click(function(){
+
+
+        });
+
+        $("#del_site_managers").click(function(){
+            var site_id = $("#site_id").val();
+               var xhttp = new XMLHttpRequest();
+                xhttp.open("POST","../../api/sites/"+site_id+"/clear_managers/",true);
+                xhttp.send()
+        });
+    });
+</script>

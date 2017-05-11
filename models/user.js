@@ -35,7 +35,11 @@ module.exports.getUser = function(email,password,callback){
     //     console.log(user.hash_Password);
     // });
 }
+module.exports.getUserWithID = function(id,callback){
 
+    User.findById(id,callback);
+
+}
 module.exports.createUser = function(user,callback){
     var password = user.password;
 
@@ -45,7 +49,7 @@ module.exports.createUser = function(user,callback){
         User.create(user,callback);
     })    
 }
-module.exports.getUsers = function(){
+module.exports.getUsers = function(callback){
     User.find(callback);
 }
 

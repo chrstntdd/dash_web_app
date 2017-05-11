@@ -8,16 +8,21 @@ var expValidator = require('express-validator');
 var flash = require('connect-flash');
 var messages = require('express-messages');
 var mongoose = require('mongoose');
-
-mongoose.connect('mongodb://heroku_d41xhhbh:8noui905v24of65nfletr5eu5s@ds129469.mlab.com:29469/heroku_d41xhhbh',function(error){
+if(process.env.NODE_ENV){
+  mongoose.connect('mongodb://heroku_d41xhhbh:8noui905v24of65nfletr5eu5s@ds129469.mlab.com:29469/heroku_d41xhhbh',function(error){
   if (error){
-    console.log('attempting locale connection')
-    mongoose.connect('mongodb://localhost/pogo')
+    console.log('error attempting remote connection')
+   
   }else{
     console.log('connecting to remote server')
+    mongoose.connect('mongodb://localhost/pogo');
   }
-  
+
 });
+}else{
+     mongoose.connect('mongodb://localhost/pogo');
+}
+
 
 
 
@@ -25,7 +30,7 @@ mongoose.connect('mongodb://heroku_d41xhhbh:8noui905v24of65nfletr5eu5s@ds129469.
 var index = require('./routes/index');
 var sites = require('./routes/sites');
 var users = require('./routes/users');
-
+var admin = require('./routes/admin');
 
 var app = express();
     app.set('port', (process.env.PORT || 5000));
@@ -65,13 +70,11 @@ app.use(expValidator({
   }
 }));
 
-
-
-
-
 app.use('/',index);
+app.use('/admin',admin);
 app.use('/api/sites',sites);
 app.use('/api/users',users);
+
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });

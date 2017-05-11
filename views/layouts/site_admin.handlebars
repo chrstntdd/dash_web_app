@@ -1,0 +1,165 @@
+<div class="jumbotron" style="background-color:white">
+  
+    <h1>  <img src={{site.image_url}}> {{site.name}}</h1>
+</div>
+<div class="panel panel-info">
+    <div class="panel-heading">Site Info</div>
+    <div class="panel-body">
+        <form action="" class="form-horizontal">
+             <div class="form-group">
+                <label class="control-label col-sm-2" for="id">Business ID:</label>
+                <div class="col-sm-6">
+                    <input id="site_id" class="form-control" type="text" placeholder="Insert Site ID" value={{site._id}}>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="name">Name:</label>
+                <div class="col-sm-6">
+                    <input id="site_name" class="form-control" type="text" placeholder="Insert Site Name" value={{site.name}}>
+                </div>
+            </div>
+            <p class="col-sm-offset-2">Location: {{site.location.street}} {{site.location.city}} {{site.location.state}}</p>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="street">Street:</label>
+                <div class="col-sm-6">
+                    <input id="site_street" class="form-control" type="text" placeholder="Street" value={{site.location.street}}>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="city">City:</label>
+                <div class="col-sm-6">
+                    <input id="site_city" class="form-control" type="text" placeholder="City" value={{site.location.city}}>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="state">State:</label>
+                <div class="col-sm-6">
+                    <input id="site_state" class="form-control" type="text" placeholder="State" value={{site.location.state}}>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="zip">Zip:</label>
+                <div class="col-sm-6">
+                    <input id="site_zip" class="form-control" type="text" placeholder="Zip Code" value={{site.location.zip}}>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="image">Image:</label>
+                    <div class="col-sm-6">
+                        <input id="site_image" class="form-control" type="text" placeholder="Image URL" value={{site.image_url}}>
+                    </div>
+            </div>
+             <div class="form-group">
+                 <div class="col-sm-offset-2">
+                    <button id="site_info_update" type="submit" class="btn btn-success">Update Site Info</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Managers</div>
+    <div class="panel-body">
+        {{#if site.manager}}
+    <form class="form-horizontal">
+     <div class="form-group">
+        <label class="control-label col-sm-2" for="">Manager:</label>
+        <div class="col-sm-6">
+            <input class="form-control" placeholder="Street" value={{site.manager.agent}}>
+        </div>
+    </div>
+       <div class="form-group">
+        <label class="control-label col-sm-2" for="">Email:</label>
+        <div class="col-sm-6">
+            <input class="form-control" placeholder="Email" value={{site.manager.email}}>
+        </div>
+    </div>
+    </form>
+    {{/if}}
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>ID</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <p>{{site}}</p>
+                {{#each site.managers}}
+                <tr>
+                    <td>{{name.first_name}} {{name.last_name}}</td>
+                    <td>{{_id}}</td>
+                    <td>{{email}}</td>
+                    <td><button  class="btn btn-danger">Remove</button></td>
+                </tr>
+                {{/each}}
+                <tr>
+                    <td><button id="del_site_managers" class="btn btn-danger">Delete All Managers</button></td>
+                </tr>
+                <tr>
+                    <td><input id="manager_name" type="text" placeholder="Insert Name"></td>
+                    <td><input id="new_manager_id" type="text" placeholder="Insert Id"></td>
+                    <td><input id="new_manager_email" type="text" placeholder="Insert Email"></td>
+                    <td><button id="site_manager_add" class="btn btn-primary">Add</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+</div>
+<script>
+    $(document).ready(function(){
+        $("#site_info_update").click(function(){
+            var id = $("#site_id").val();
+            var name = $("#site_name").val();
+            var street = $("#site_street").val();
+            var city = $("#site_city").val();
+            var state = $("#site_state").val();
+            var zip = $("#site_zip").val();
+            var image = $("#site_image").val();
+            var updates = {
+                "updates":{
+                "name": name,
+                "location":{
+                    street: street,
+                    city: city,
+                    state: state,
+                    zip: zip
+                },
+                "image_url": image
+                }
+            }
+            var xhttp = new XMLHttpRequest();
+                xhttp.open("POST","../../api/sites/"+id,true);
+                xhttp.setRequestHeader("Content-Type","application/json");
+                xhttp.send(JSON.stringify(updates));
+           
+        });
+
+        $("#site_manager_add").click(function(){
+            var site_id = $("#site_id").val();
+            var manager_email = $("#new_manager_email").val();
+            console.log(manager_email);
+            var xhttp = new XMLHttpRequest();
+                xhttp.open("POST","../../api/sites/"+site_id+"/manager/"+manager_email,true);
+                xhttp.setRequestHeader("Content-Type","application/json");
+                xhttp.send()
+                
+
+        });
+
+        $("#site_manager_delete").click(function(){
+
+
+        });
+
+        $("#del_site_managers").click(function(){
+            var site_id = $("#site_id").val();
+               var xhttp = new XMLHttpRequest();
+                xhttp.open("POST","../../api/sites/"+site_id+"/clear_managers/",true);
+                xhttp.send()
+        });
+    });
+</script>

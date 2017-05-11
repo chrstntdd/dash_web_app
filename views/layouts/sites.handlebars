@@ -10,39 +10,35 @@
 <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 
-    <div id="dashboard" class="container-fluid" style="background-color:eeeeee">
+    <div id="dashboard" class="container-fluid" style="margin-top:100px;background-color:eeeeee">
         <div class="row">
-        <div class="col-sm-2" style="background-color:ffffff; box-shadow:2px 2px 2px grey;padding:10px;">
+        <div class="col-sm-2" style="background-color:#ffffff; box-shadow:2px 2px 2px grey;padding:10px;">
             <div id="dashboard_top">
-             <img src="./images/profile_male_rounded.png" style="margin-top:20px">
-                <p>{{user.name.first_name}} {{user.name.last_name}}</p>
-                <p>Administrator</p>
+                <img src="images/DashLogoHalf.png">
             </div>
               <div id="siteNav" class="sidenav" height="500" style="margin-top:20px">
                 <ul class="nav nav-stacked">
-                    <li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span> Dashboard</a></li>
-                    {{#each sites}}
                     <li>
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                                {{name}}</button>
-                                <ul class="dropdown-menu">
-                                    <li><a id="site_stats_link" href="#statistics"><span class="glyphicon glyphicon-stats"></span> Stats</a></li>
-                                    <li><a id="site_info_link" href="#info"><span class="glyphicon glyphicon-cog"></span> Info</a> </li>
-                                </ul>
-                        </div>
+                        {{#each sites}}
+                             <a href="#">{{name}}</a>
+                        {{/each}} 
                     </li>
-                    {{/each}}
+                    <li><a class="futureSite" href="#">Parking Office</a></li>
+                    <li><a class="futureSite" href="#">Starbucks</a></li>
+                    <li><a class="futureSite" href="#">Chic Fila</a></li>
+                    <li><a class="futureSite" href="#">Panda Express</a></li>
+                    <li><a class="futureSite" href="#">Salad Express</a></li>
+                    <li><a class="futureSite" href="#">The Den</a></li>
                 </ul>
             </div>
      </div>
        
         
-        <div class="col-sm-10" style="margin-top:20px">
+        <div class="col-sm-10" style="margin-top:0px">
             {{#each sites}}
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="well" style="background-color:ffffff; box-shadow:2px 2px 2px grey;">
+                    <div class="well" style="background-color:#ffffff; box-shadow:2px 2px 2px grey;">
                         <h2 id="dashboard_view">Site Analysis</h2>
                     </div>
                 </div>
@@ -50,22 +46,25 @@
         <div id="site_stats">
         <div class="row">
             <div class="col-sm-4">
-                <div class="well" style="background-color:ffffff; box-shadow:2px 2px 2px grey;">
+                <div class="well" style="background-color:#ffffff; box-shadow:2px 2px 2px grey;">
                     <h2>Month Average</h2>
+                    <canvas id="month_pie_chart"></canvas>
                     <h6>{{monthAverage}}</h6>
                 </div>
             </div>
         
             <div class="col-sm-4">
-                <div class="well" style="background-color:ffffff; box-shadow:2px 2px 2px grey;">
-                 <h2>Today Average</h2>
-                 <h6>{{dayAverage}}</h6>
+                <div class="well" style="background-color:#ffffff; box-shadow:2px 2px 2px grey;">
+                    <h2>Today Average</h2>
+                    <canvas id="today_pie_chart"></canvas>
+                    <h6>{{dayAverage}}</h6>
                 </div>
             </div>
 
             <div class="col-sm-4">
-                <div class="well" style="background-color:ffffff; box-shadow:2px 2px 2px grey;">
+                <div class="well" style="background-color:#ffffff; box-shadow:2px 2px 2px grey;">
                     <h2>Week Average</h2>
+                    <canvas id="week_pie_chart"></canvas>
                     <h6>{{weekAverage}}</h6>
                 </div>
             </div>
@@ -378,7 +377,7 @@ var monthData = monthAverage(site,null);
                 return moment(rate.date).isBetween(firstDayOfWeek,lastDayOfWeek);
             });
             
-            if (weekRateObjs.length > 0){
+     if (weekRateObjs.length > 0){
                 var averages = [];
         
          for (i = 0;i < 6; i++ ){
@@ -411,6 +410,10 @@ var monthData = monthAverage(site,null);
             var week = firstDayOfWeek.format('ddd MMMM Do') + ' to ' + lastDayOfWeek.format('ddd MMMM Do');
             return {week: week, days: weekDays,averages: averages }
             }
+       }else{
+            var weekDays = [firstDayOfWeek.format('MM-DD'),"","","","","",lastDayOfWeek.format('MM-DD')];
+            var week = firstDayOfWeek.format('ddd MMMM Do') + ' to ' + lastDayOfWeek.format('ddd MMMM Do');
+            return {week: week, days: weekDays,averages: averages }
        }
     }
     }

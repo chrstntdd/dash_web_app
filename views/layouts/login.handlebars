@@ -1,8 +1,14 @@
    <link rel="stylesheet" href="./styles/styles.css">
-   <div class="panel panel-default">
-    
-      
-            <div id="login_div" class="container-fluid">
+   <style>
+       body{
+        background:rgba(44,56,139,100);
+        background:linear-gradient(rgba(84,132,202,100),rgba(44,56,139,100));
+        background-repeat:no-repeat;
+       }
+   
+   </style>
+   <div id="login_div">
+            <div class="container-fluid"  style="height:700px">
                 <form id="login_form" action="/api/users/login" method="post" class="form-horizontal">
             <div class="form-group">
                 <label id="login_label" for="email" class="control-label col-sm-4">Email:</label>
@@ -17,13 +23,14 @@
                 </div>
             </div>
                 <div class="form-group">
-                    <div class="col-sm-offset-4 col-sm-2">
-                     <button id="login_button" type="submit" class="btn btn-primary">Sign In</button>
+                    <div class="col-sm-offset-4 col-sm-4">
+                     <button id="login_button" type="submit" class="btn btn-success">Sign In</button>
                     <div>
                 </div>
                 </form>
             </div>
-        </div>
+   </div>
+        
 
   
   

@@ -1,25 +1,35 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>DASH</title>
-         <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <title>Our Name</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./styles/styles.css">
+        <link rel="icon" href="images/favicon.png" type="images/x-icocn">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
-    <body>
-        <nav class="navbar navbar-default hidden-xs">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Dash Analytics</a>
+    <body data-spy="scroll" data-target=".navbar" data-offset="0" style="position:relative">
+        <nav class="navbar navbar-default navbar-fixed-top" sytle="background-color:white">
+                <div class="navbar-header" style="background-color:white">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mynavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/home" style="margin-top:-5px"><img src=""></a>
                 </div>
+                <div class="collapse navbar-collapse"  style="background-color:white" id="mynavbar">
                     <ul class="nav navbar-nav">
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Services</a></li>
-                        <li><a href="#">Case Studies</a></li>
+                        <li><a href="#About">ABOUT</a></li>
+                        <li><a href="#Team">TEAM</a></li>
+                        {{#if user}}
+                        <li><a href="#"></a>User Signed In</li>
+                        {{/if}}
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
               
@@ -27,18 +37,77 @@
                             <li><a href="#">Sites</a></li>
                             <li><a href="#">{{user.name.first_name}}</a></li>
                             {{else}}
-                                <li><a href="/login">Manage</a></li>
-                                
+                                <li style="margin-right:10px"><a href="/login">MANAGEMENT</a></li>
                         {{/if}}
                        
                     </ul>
-            </div>
+                </div>
+                    
         </nav>
-     {{{body}}}
+        <div>
+               {{{body}}}
+        </div>
      </body>
+        <footer>
+        <div id="footer" class="panel">
+                <div class="panel-body">
+                    <div class="footer_info panel-heading" style="text-align:center">
+                        <h2>CONTACT US</h2>
+                        <ul class="list-inline">
+                        <li><a href="#">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-circle fa-stack-2x" style="color:black"></i>
+                                    <i class="fa fa-facebook fa-stack-1x fa-inverse" style=""></i>
+                                </span>
+                            </a>
+                        </li>
+                          <li><a href="#">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-circle fa-stack-2x" style="color:black"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse" style=""></i>
+                                </span>
+                            </a>
+                        </li>
+                          <li><a href="#">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-circle fa-stack-2x" style="color:black"></i>
+                                    <i class="fa fa-instagram fa-stack-1x fa-inverse" style=""></i>
+                                </span>
+                            </a>
+                        </li>
+                     </ul>
+                    </div>
+                    <div class="footer_info col-sm-4" style="text-align:center">
+                            <p>admin@ouremail.com</p>
+                    </div>
+                    <div class="footer_info col-sm-4" style="text-align:center">
+                            <p>Some Street</p>
+                            <p>Some State</p>
+                            <p>Some Zip</p>
+                    </div>
+                    <div class="footer_info col-sm-4" style="text-align:center">
+                            <p>Phone: 9110024</p>
+                            <p>Fax: 9110024</p>
+                    </div>
+                    <div>
+                        <form action="">
+                            <div class="form-group col-sm-8 col-sm-offset-2">
+                                <label class="footer_info control-label" for="">Subscribe:</label>  
+                                <input class="form-control" type="email" placeholder="Email Address">  
+                            </div>
+                            <button type="button" class="btn btn-primary" id="subscribe"></button>
+                        </form>
+                    </div>
+                </div>
+        </div>
+   </footer>
+ 
       <script>
     $(document).ready(function(){
-    
+        $("#subscribe").click(function(){
+
+        })
     });
+    
  </script>
 </html>
