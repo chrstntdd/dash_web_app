@@ -1,9 +1,10 @@
 var express = require('express');
 var app = express();
 var router = express.Router();
-Site = require('../models/site');
+var Site = require('../models/site');
 
 function monthAverageFor(site){
+  
     if (site.line_rates.length > 0){
     var monthRates = site.line_rates.filter(function(rate){
         var thisMonth = new Date().getMonth()
@@ -87,34 +88,39 @@ function json(object){
 router.get('/',function(req,res){
     if (req.session.user){
         var user = req.session.user
-    //console.log(user.name)
-        if (user.monitored_sites){
-            //console.log(user.sites);
-            Site.monitoredSites(user.monitored_sites,function(err,sites){
-                if (sites){
+            Site.managed_sites(user.monitored_sites,function(err,sites){
+                if(err){
+                    throw err
+                }
+                if (sites.length > 0){
+                    console.log(sites);
                     res.render('sites',{
                         user:user,
                         sites:sites,
                         helpers: {
-                           monthAverage: function(options){
-                                return monthAverageFor(this);
-                            },
-                            dayAverage: function(options){
-                                return dayAverageFor(this);
-                            },
-                            weekAverage: function(otions){
-                                return weekAverageFor(this);
-                            },
                             json: function(options){
                                 return json(this);
                             }
                         }
-                    })
+                    });
+                }else{
+                    var example_site = {
+                        "name": "Example Site"
+                    }
+                 console.log("no sites found");
+                    res.render('sites',{
+                        user:user,
+                        sites:[example_site],
+                        helpers: {
+                            json: function(options){
+                                return json(this);
+                            }
+                        }
+                    });
                 }
             });
-        }else{
-         res.render('sites',{user:user})
-        }
+       
+        
         
     }else{
         res.render('index');

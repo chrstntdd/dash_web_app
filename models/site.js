@@ -60,6 +60,11 @@ module.exports.monitoredSites = function(ids,callback){
     Site.find(query,callback);
     
 }
+module.exports.managed_sites = function(ids,callback){
+    var query = {_id:ids};
+    Site.find(query,callback);
+    
+}
 module.exports.createSite = function(site,callback){
         Site.create(site,callback);
 }

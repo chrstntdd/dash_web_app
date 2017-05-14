@@ -25,7 +25,7 @@
 </div>
 <form class="col-sm-offset-3 col-sm-6" action="">
     <div class="form-group">
-        <label class="control-label" for="site_name">First Name:</label>
+        <label class="control-label" for="site_name">Site Name:</label>
        <input id="site_name" class="form-control" type="text">
     </div>
     <div class="form-group">
@@ -61,7 +61,7 @@
             var state = $("#site_state").val();
             var zip = $("#site_zip").val();
             var image = $("#site_image").val();
-            var updates = {
+            var site = {
                 "name": name,
                 "location":{
                     street: street,
@@ -71,11 +71,16 @@
                 },
                 "image_url": image
                 }
-            
-            var xhttp = new XMLHttpRequest();
-                xhttp.open("POST","../../api/sites/new"+id,true);
+            var completed_info = name.length > 0 && street.length > 0 && city.length > 0 && state.length > 0 && zip.length > 0 && image.length > 0;
+            if (completed_info){
+                 var xhttp = new XMLHttpRequest();
+                xhttp.open("POST","../../api/sites/new",true);
                 xhttp.setRequestHeader("Content-Type","application/json");
-                xhttp.send(JSON.stringify(updates));
+                xhttp.send(JSON.stringify(site));
+            }else{
+                alert("Site Info is not complete")
+            }
+           
            
         });
    

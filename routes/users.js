@@ -23,6 +23,8 @@ router.post('/login',function(req,res){
                res.send("Unauthorized Login")
            }
        });
+     }else{
+         res.send("Unauthorized Login");
      }
     });
     }else{
