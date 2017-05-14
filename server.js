@@ -31,7 +31,7 @@ var index = require('./routes/index');
 var sites = require('./routes/sites');
 var users = require('./routes/users');
 var admin = require('./routes/admin');
-
+var site_rates = require('./routes/site_rates');
 var app = express();
     app.set('port', (process.env.PORT || 5000));
     console.log(process.env.NODE_ENV);
@@ -74,7 +74,7 @@ app.use('/',index);
 app.use('/admin',admin);
 app.use('/api/sites',sites);
 app.use('/api/users',users);
-
+app.use('/api/rates',site_rates);
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });

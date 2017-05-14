@@ -9,7 +9,11 @@
   <!-- Include Date Range Picker -->
 <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
-
+<style>
+    body{
+          background:white;
+    }
+</style>
     <div id="dashboard" class="container-fluid" style="margin-top:100px;background-color:eeeeee">
         <div class="row">
         <div class="col-sm-2" style="background-color:#ffffff; box-shadow:2px 2px 2px grey;padding:10px;">
@@ -45,33 +49,16 @@
             </div>
         <div id="site_stats">
         <div class="row">
-            <div class="col-sm-4">
-                <div class="well" style="background-color:#ffffff; box-shadow:2px 2px 2px grey;">
+            <div class="col-sm-6 col-sm-offset-2">
+                <div class="well" style="background-color:#ffffff;border:#ffffff" >
                     <h2>Month Average</h2>
                     <canvas id="month_pie_chart"></canvas>
                     <h6>{{monthAverage}}</h6>
                 </div>
             </div>
-        
-            <div class="col-sm-4">
-                <div class="well" style="background-color:#ffffff; box-shadow:2px 2px 2px grey;">
-                    <h2>Today Average</h2>
-                    <canvas id="today_pie_chart"></canvas>
-                    <h6>{{dayAverage}}</h6>
-                </div>
-            </div>
-
-            <div class="col-sm-4">
-                <div class="well" style="background-color:#ffffff; box-shadow:2px 2px 2px grey;">
-                    <h2>Week Average</h2>
-                    <canvas id="week_pie_chart"></canvas>
-                    <h6>{{weekAverage}}</h6>
-                </div>
-            </div>
         </div>
       
         <div class="row">
-            
             <div class="col-sm-6">
                 <div style="background-color: white; box-shadow:2px 2px 2px grey;">
                  <input id="daterangeYear">
@@ -117,8 +104,6 @@
                 </form>
                 </div>
             </div>
-            
-            
         </div>
  
 <script>
@@ -515,8 +500,8 @@ var weekData = weekAverages(site,null,null);
 
     var dayData = dayAverages(site,null);
     console.log(dayData);
-      var dayctx = $("#dayChart")
-        var dayChart = new Chart(dayctx,{
+    var dayctx = $("#dayChart")
+    var dayChart = new Chart(dayctx,{
         type: 'bar',
     data: {
         labels: dayData.hours,
@@ -551,6 +536,27 @@ var weekData = weekAverages(site,null,null);
                     beginAtZero:true
                 }
             }]
+        }
+    }
+    })
+
+    var week_ctx = $("#month_pie_chart");
+    
+    var week_chart = new Chart(week_ctx,{
+        type: 'polarArea',
+        data: {
+            datasets: [{
+            data: [11,16,7,3,14],
+            backgroundColor: ["#FF6384","#4BC0C0","#FFCE56","#E7E9ED","#36A2EB"],
+            label: 'My dataset' // for legend
+            }],
+            labels: ["Red","Green","Yellow","Grey","Blue"]
+            },
+        options: {
+        elements: {
+            arc: {
+                borderColor: "#000000"
+            }
         }
     }
     })
