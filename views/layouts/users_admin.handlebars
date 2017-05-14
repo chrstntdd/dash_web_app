@@ -53,10 +53,10 @@
 <script>
     $(document).ready(function(){
         $("#create_user").click(function(){
-            var first_name = $("#user_first_name").text();
-            var last_name = $("#user_last_name").text();
-            var email = $("#user_email").text();
-            var password = $("#user_password").text();
+            var first_name = $("#user_first_name").val();
+            var last_name = $("#user_last_name").val();
+            var email = $("#user_email").val();
+            var password = $("#user_password").val();
             var has_name = first_name.length > 0 && last_name.length > 0;
             var has_credentials = email.length > 0 && password.length > 0;
             var is_complete_user = has_name && has_credentials;
