@@ -42,6 +42,7 @@ var app = express();
     app.set('view engine','handlebars');
     app.use('/images',express.static(path.join(__dirname,'/public/images')));
     app.use('/styles',express.static(path.join(__dirname,'/public/styles')));
+    app.use('/js',express.static(path.join(__dirname,'/js/')));
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended:false}));
     app.use(cookieParser('Secret'));

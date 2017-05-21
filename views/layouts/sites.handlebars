@@ -1,30 +1,31 @@
 <link rel="stylesheet" href="./styles/styles.css">
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="../../styles/styles.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
   <!-- Include Date Range Picker -->
 <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 <style>
     body{
-          background:white;
+          background-color: #eeeeee;
     }
 </style>
     <div id="dashboard" class="container-fluid" style="margin-top:100px;background-color:eeeeee">
         <div class="row">
         <div class="col-sm-2" style="background-color:#ffffff; box-shadow:2px 2px 2px grey;padding:10px;">
             <div id="dashboard_top">
-                <img src="images/DashLogoHalf.png">
+                <img src="../images/DashLogoHalf.png">
             </div>
               <div id="siteNav" class="sidenav" height="500" style="margin-top:20px">
                 <ul class="nav nav-stacked">
                     <li>
                         {{#each sites}}
-                             <a href="#">{{name}}</a>
+                             <a href='/sites/{{_id}}'>{{name}}</a>
                         {{/each}} 
                     </li>
                     <li><a class="futureSite" href="#">Parking Office</a></li>
@@ -36,538 +37,37 @@
                 </ul>
             </div>
      </div>
-       
-        
-        <div class="col-sm-10" style="margin-top:0px">
-            {{#each sites}}
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="well" style="background-color:#ffffff; box-shadow:2px 2px 2px grey;">
-                        <h2 id="dashboard_view">Site Analysis</h2>
-                    </div>
-                </div>
-            </div>
-        <div id="site_stats">
-        <div class="row">
-            <div class="col-sm-6 col-sm-offset-2">
-                <div class="well" style="background-color:#ffffff;border:#ffffff" >
-                    <h2>Month Average</h2>
-                    <canvas id="month_pie_chart"></canvas>
-                    {{!--<h6>{{monthAverage}}</h6>--}}
-                </div>
-            </div>
-        </div>
-      
-        <div class="row">
-            <div class="col-sm-6">
-                <div style="background-color: white; box-shadow:2px 2px 2px grey;">
-                 <input id="daterangeYear">
-                <canvas id="yearChart"></canvas>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div style="background-color: white; box-shadow:2px 2px 2px grey;">
-                 <input id="daterangeMonth">
-                <canvas id="monthChart"></canvas>
-                </div>
-            </div>
-        </div>
-       
-         
-         <div class="row">
-            <div class="col-sm-6">
-                <div style="background-color: white; margin-top: 20px; box-shadow:2px 2px 2px grey;">
-                 <input id="daterangeWeek">
-                <canvas id="weekChart"></canvas>
-                </div>
-            </div>
-          <div class="col-sm-6">
-                <div style="background-color: white; margin-top: 20px; box-shadow:2px 2px 2px grey;">
-                 <input id="daterangeDay">
-                <canvas id="dayChart"></canvas>
-                </div>
-            </div>
-        </div>
-        </div>
-        <div id="site_info" class="row">
-            <div class="col-sm-offset-2 col-sm-6">
-                <div style="background-color: white;padding:10px;">
-                <form action="">
-                    <div class="form-group">
-                        <label for="">Site Name:</label>
-                        <input type="text" value={{name}}>
-                    </div>
-                     <div class="form-group">
-                        <label for="">Location:</label>
-                        <input type="text" value={{location}}>
-                    </div>
-                </form>
-                </div>
-            </div>
-        </div>
- 
-<script>
-    $("#site_info").hide();
-    $("#daterangeYear").daterangepicker({
-        locale:{
-            format : 'YYYY'
-        },
-        singleDatePicker: true,
-        ranges: {
-            '2017':moment(),
-            '2018':moment(),
-            '2019':moment(),
-            '2020':moment(),
-            '2021':moment()
-        }
-    });
-
-  $("#daterangeMonth").daterangepicker({
-        locale:{
-            format : 'MMMM'
-        },
-        singleDatePicker: true,
-        ranges: {
-            'January':moment(),
-            'February':moment(),
-            'March':moment(),
-            'April':moment(),
-            'May':moment(),
-            'June':moment(),
-            'July':moment(),
-            'August':moment(),
-            'September':moment(),
-            'October':moment(),
-            'November':moment(),
-            'December':moment()
-        }
-    });
-    function weekRangeCB(start,end){
-
-    }
-      $("#daterangeWeek").daterangepicker({
-        locale:{
-            format : 'YYYY MM DD'
-        },
-        startdate: moment(),
-        enddate: moment().add({hours:1})
-    });
-      $("#daterangeDay").daterangepicker({
-      
-        singleDatePicker: true
-    });
-function monthRates(site,month,forMonth){
-        var monthRates = site.line_rates.filter(function(rate){
-        var date = new Date(rate.date)
-        //console.log('month is ' + month);
-            return date.getMonth() == month;
-            });
-
-    if (monthRates.length > 0){
-         var rates = monthRates.map(function(rate){
-        return rate.rate
-         });
-        
-         var dates = monthRates.map(function(rate){
-             return new Date(rate.date).toDateString();
-         });
-         var totalRates = rates.reduce(function(total,rate){
-            return  total+rate
-         });
-         var average = totalRates/rates.length;
-         
-         var year = moment().year();
    
-         var thisMonth =  moment({year: year, month: month, day: 1});
-         var averages = [];
-         if (forMonth){
-         for (i = 0;i < moment(thisMonth).daysInMonth(); i++ ){
-             var day = moment(thisMonth).add(i,'days');
-             //console.log(day);
-             var daysRates = monthRates.filter(function(rate){
-                var same = moment(day).isSame(rate.date,'day');
-                ///console.log(moment(rate.date,moment.ISO_8601).toDate());
-                //console.log(rate.date);
-                return same;
-             }).map(function(rate){
-                 return rate.rate;
-             });
-             //console.log(daysRates);
-             if(daysRates.length > 0){
-                 //console.log('there are rates')
-                
-                var totalRates = daysRates.reduce(function(total,rate){
-                    return  total+rate
-                 });
-                
-                var average = totalRates/daysRates.length;
-                    averages.push(average);
-
-             }else{
-                    averages.push(0);
-             }
-          
-         }
-      
-         }
-         return {rates: rates, dates: dates, average: average,averages: averages};
-    }else{
-       // console.log('no rates');
-        return {rates:[],dates: [],avearage: 0}
-    }
-    }
-function yearAverages(site,year){
-    var months = [0,1,2,3,4,5,6,7,8,9,10,11];
-    var averages = [];
-    if(year != null){
-        return {year: year, averages: averages}
-    }else{
-        year = moment().year();
-        for (month in months){
-         var monthData = monthRates(site,month,false);
-         var monthAverage = monthData.average;
-         averages.push(monthAverage);
-        }
-    }
-    return {year: year,averages: averages};
-}
-
-var site = {{{json this}}}
-var yearData = yearAverages(site,null);
-
-var yrctx = $("#yearChart")
-    var yearChart = new Chart(yrctx,{
-        type: 'bar',
-    data: {
-        labels: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov","Dec"],
-        datasets: [{
-            type: 'bar',
-            label: yearData.year,
-            data: yearData.averages,
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }
-       ]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    }
-    })
-
-   function monthAverage(site, month){
-       if (month != null){
-           var selectedMonth = "boo"
-           var average = "boo boo"
-            return {month: selectedMonth,average: average}
-       }else{
-            var thisMonthDays = moment().daysInMonth();
-            var firstDay = moment('2017-02-01').startOf('month');
-            var lastDayOfFirstWeek = moment(firstDay).endOf('week');
-            var nextDayOfWeek = moment(lastDayOfFirstWeek).add(1,'day');
-        
-            
-            var lastDay = moment().endOf('month');
-            var firstDayOfLastWeek = moment(lastDay).startOf('week');
-            var lastDayOfPrevWeek = moment(firstDayOfLastWeek).subtract(1,'day');
-            var daysBetween = lastDay.diff(firstDay,'days');
-            var days = [];
-            for (i = 1; i < daysBetween; i++){
-                days.push("")
-            }
-            var thisMonth = new Date().getMonth();
-            var monthData = monthRates(site,thisMonth,true);
-
-            return {month:moment().format('MMMM'),average: monthData.average,days: days,averages: monthData.averages}
-       }
-   }
-
-var monthData = monthAverage(site,null);
-
-    var mctx = $("#monthChart")
-        var monthChart = new Chart(mctx,{
-        type: 'bar',
-    data: {
-        labels: monthData.days,
-        datasets: [{
-            type: 'bar',
-            label: monthData.month,
-            data: monthData.averages,
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }
-       ]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    }
-    })
-
-    function weekAverages(site,weekStart,weekEnd){
-          if (weekStart != null || weekEnd != null){
-           var selectedWeek = "boo"
-           var average = "boo boo"
-            return {week: selectedWeek,average: average}
-       }else{
-            var firstDayOfWeek = moment().startOf('week');
-            var lastDayOfWeek = moment().endOf('week');
-            var thisMonth = new Date().getMonth();
-            var monthData = monthRates(site,thisMonth,true);
-            
-
-            var rates = monthData.rates;
-        
-            var weekRateObjs = rates.filter(function(rate){
-                return moment(rate.date).isBetween(firstDayOfWeek,lastDayOfWeek);
-            });
-            
-     if (weekRateObjs.length > 0){
-                var averages = [];
-        
-         for (i = 0;i < 6; i++ ){
-             var day = firstDayOfWeek.add(i,'days');
-             //console.log(day);
-             var daysRates = weekRateObjs.filter(function(rate){
-                var same = moment(day).isSame(rate.date,'day');
-                ///console.log(moment(rate.date,moment.ISO_8601).toDate());
-                //console.log(rate.date);
-                return same;
-             }).map(function(rate){
-                 return rate.rate;
-             });
-             //console.log(daysRates);
-             if(daysRates.length > 0){
-                 //console.log('there are rates')
-                
-                var totalRates = daysRates.reduce(function(total,rate){
-                    return  total+rate
-                 });
-                
-                var average = totalRates/daysRates.length;
-                    averages.push(average);
-
-             }else{
-                    averages.push(0);
-             }
-
-            var weekDays = [firstDayOfWeek.format('MM-DD'),"","","","","",lastDayOfWeek.format('MM-DD')];
-            var week = firstDayOfWeek.format('ddd MMMM Do') + ' to ' + lastDayOfWeek.format('ddd MMMM Do');
-            return {week: week, days: weekDays,averages: averages }
-            }
-       }else{
-            var weekDays = [firstDayOfWeek.format('MM-DD'),"","","","","",lastDayOfWeek.format('MM-DD')];
-            var week = firstDayOfWeek.format('ddd MMMM Do') + ' to ' + lastDayOfWeek.format('ddd MMMM Do');
-            return {week: week, days: weekDays,averages: averages }
-       }
-    }
-    }
-var weekData = weekAverages(site,null,null);
-  var wkctx = $("#weekChart")
-        var weekChart = new Chart(wkctx,{
-        type: 'bar',
-    data: {
-        labels: weekData.days,
-        datasets: [{
-            type: 'bar',
-            label: weekData.week,
-            data: weekData.averages,
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }
-       ]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    }
-    })
-
-    function dayAverages(site,day){
-        if (day != null){
-
-        }else{
-            var now = moment();
-            var month = now.month();
-            var monthData = monthRates(site,month);
-            var rates = monthData.rates;
-            var todayRateObjs = rates.filter(function(rate){
-                return moment(now).isSame(rate.date);
-            });
-
-            var dayStart = moment().set('hour',6);
-            console.log(dayStart.toDate());
-       
-            var averages = [];
-            var hours = [];
-
-            for(i = 0; i < 18; i++){
-                
-                var hourStart = moment(dayStart).add({hours: i});
-                    console.log(hourStart.toDate());
-                var hourEnd = moment(hourStart).add(1,'hour');
-                var hour = moment(hourStart).format('h a');
-                    hours.push(hour);
-
-                var rateObjsBetweenHour = todayRateObjs.filter(function(rate){
-                    return moment(rate.date).isBetween(hourStart,hourEnd);
-                });
-                
-                if (rateObjsBetweenHour.length > 0){
-                
-                var hoursRates = rateObjsBetweenHour.map(function(rate){
-                    return rate.rate;
-                });
-
-                var totalRates = hoursRates.reduce(function(total,rate){
-                    return total + rate;
-                });
-
-                var hourAverage = totalRates/hoursRates.length;
-                    averages.push(hourAverage);
-             
-                }else{
-                    averages.push(0);
-                 
-                }
-
-               
-            }
-            var today = moment().format('ddd MMMM Do')
-             return {today: today, hours: hours , averages: averages}
-        }
-    }
-
-    var dayData = dayAverages(site,null);
-    console.log(dayData);
-    var dayctx = $("#dayChart")
-    var dayChart = new Chart(dayctx,{
-        type: 'bar',
-    data: {
-        labels: dayData.hours,
-        datasets: [{
-            type: 'bar',
-            label: dayData.today,
-            data: dayData.averages,
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }
-       ]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    }
-    })
-
-    var week_ctx = $("#month_pie_chart");
-    
-    var week_chart = new Chart(week_ctx,{
-        type: 'polarArea',
-        data: {
-            datasets: [{
-            data: [11,16,7,3,14],
-            backgroundColor: ["#FF6384","#4BC0C0","#FFCE56","#E7E9ED","#36A2EB"],
-            label: 'My dataset' // for legend
-            }],
-            labels: ["Red","Green","Yellow","Grey","Blue"]
-            },
-        options: {
-        elements: {
-            arc: {
-                borderColor: "#000000"
-            }
-        }
-    }
-    })
-</script>
- 
-        {{/each}}
+        <div class="col-sm-10" style="margin-top:0px">
+              {{#if site}}
+                    {{>sites_date_pickers}}
+            {{else}}
+                {{#each sites}}
+                    <div class="panel">
+                        <div class="panel-heading" style="text-align:center">
+                             <h2>{{name}}</h2>
+                        </div>
+                        <div class="panel-body">
+                            <div class="thumbnail" style="border-style:none;background-color:transparent">
+                                <a href="/sites/{{_id}}" ><img  class="img-rounded" width="50%" src={{image_url}}></a>
+                                <div class="caption" style="margin:auto; width:100%; text-align:center" >
+                                    <p>{{name}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            {{/each}}
+        {{/if}}
     </div>
    </div>
 </div>
+
+<script type="text/javascript" src="/js/site_functions.js"></script>
+<script type="text/javascript" src="/js/sites_charts.js"></script>
+
  <script>
      $(document).ready(function(){
+ 
         $("#site_info_link").click(function(){
                 $("#site_stats").hide();
                 $("#dashboard_view").text("Settings");
@@ -578,7 +78,7 @@ var weekData = weekAverages(site,null,null);
                 $("#dashboard_view").text("Site Analysis");
                 $("#site_info").hide();
         });
-    
+      
      })
  </script>
 

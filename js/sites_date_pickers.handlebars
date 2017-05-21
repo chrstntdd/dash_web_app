@@ -1,0 +1,141 @@
+<div class="row">
+                <div class="col-sm-12">
+                    <div class="well" style="background-color:#ffffff; box-shadow:2px 2px 2px grey;">
+                        <h2 id="dashboard_view">{{site.name}} Site Analysis</h2>
+                    </div>
+                </div>
+            </div>
+        <div id="site_stats">
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="well" style="background-color:#ffffff;border:#ffffff" >
+                    <h2>Month Average</h2>
+                    <canvas id="quick_polar_chart"></canvas>
+                </div>
+            </div>
+        </div>
+      
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel" style="background-color: white; box-shadow:2px 2px 2px grey;">
+                    <div class="panel-heading">
+                         <input id="date_range_client_total">
+                    </div>
+                    <div class="panel-body">
+                        <canvas id="client_total_chart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                 <div class="panel" style="background-color: white; box-shadow:2px 2px 2px grey;">
+                    <div class="panel-heading">
+                         <input id="date_range_client_purchases">
+                    </div>
+                    <div class="panel-body">
+                        <canvas id="client_purchases_chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+         <div class="row">
+            <div class="col-sm-6">
+                 <div class="panel" style="background-color: white; box-shadow:2px 2px 2px grey;">
+                    <div class="panel-heading">
+                         <input id="date_range_avg_wait">
+                    </div>
+                    <div class="panel-body">
+                        <canvas id="avg_wait_chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+<script type="text/handlebars">
+   function getRange(start,end){
+            
+            var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function(){
+                    if(this.status == 200 && this.readyState == 4){
+                        var rates = JSON.parse(this.responseText);
+                        console.log(rates);
+                    }
+                }
+                
+                xmlhttp.open("POST","/api/rates/{{site._id}}/range",true);
+                xmlhttp.setRequestHeader("Content-Type","application/json");
+                xmlhttp.send({start:start,end:end});
+        }
+    $(document).ready(function(){
+    
+ 
+ 
+ $("#site_info").hide();
+   $("#date_range_client_total").daterangepicker({
+        locale:{
+            format : 'YYYY MM DD'
+        },
+        startdate: moment(),
+        enddate: moment().add({hours:1}),
+        dateLimit:{
+            "months":1
+        },
+        drops: "up",
+        timePicker: true
+    });
+    $("#date_range_client_total").on('apply.daterangepicker',function(event,picker){
+        var start = picker.startdate;
+        var end = picker.enddate;
+          getRange(start,end);
+    })
+     $("#date_range_client_purchases").daterangepicker({
+        locale:{
+            format : 'YYYY MM DD'
+        },
+        startdate: moment(),
+        enddate: moment().add({hours:1}),
+         function(start,end,label){
+             var site = window.sessionStorage.getItem("site")
+                alert(site);
+            var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function(){
+                    if(this.status == 200 && this.readyState == 4){
+                        var rates = JSON.parse(this.responseText);
+                        console.log(rates);
+                    }
+                }
+                xmlhttp.setRequestHeader("Content-Type","application/json");
+                xmlhttp.open("POST","/api/rates/{{site._id}}/range",true);
+                xmlhttp.send({start:start,end:end});
+        }
+    });
+    
+  $("#date_range_avg_wait").daterangepicker({
+        locale:{
+            format : 'YYYY MM DD'
+        },
+        startdate: moment(),
+        enddate: moment().add({hours:1}),
+         function(start,end,label){
+            alert("doing stuff");
+            var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function(){
+                    if(this.status == 200 && this.readyState == 4){
+                        var rates = JSON.parse(this.responseText);
+                        console.log(rates);
+                    }
+                }
+                xmlhttp.setRequestHeader("Content-Type","application/json");
+                xmlhttp.open("POST","/api/rates/{{site._id}}/range",true);
+                xmlhttp.send({start:start,end:end});
+        }
+    });
+    
+    }
+    )
+</script>
+ 
+
+    
+  
