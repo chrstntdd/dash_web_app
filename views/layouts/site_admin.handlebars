@@ -49,6 +49,12 @@
                         <input id="site_image" class="form-control" type="text" placeholder="Image URL" value={{site.image_url}}>
                     </div>
             </div>
+               <div class="form-group">
+                <label class="control-label col-sm-2" for="icon">Image:</label>
+                    <div class="col-sm-6">
+                        <input id="site_icon" class="form-control" type="text" placeholder="Icon URL" value={{site.icon_url}}>
+                    </div>
+            </div>
              <div class="form-group">
                  <div class="col-sm-offset-2">
                     <button id="site_info_update" type="submit" class="btn btn-success">Update Site Info</button>
@@ -119,6 +125,7 @@
             var state = $("#site_state").val();
             var zip = $("#site_zip").val();
             var image = $("#site_image").val();
+            var icon = $("#site_icon").val();
             var updates = {
                 "updates":{
                 "name": name,
@@ -128,7 +135,8 @@
                     state: state,
                     zip: zip
                 },
-                "image_url": image
+                "image_url": image,
+                "icon_url": icon
                 }
             }
             var xhttp = new XMLHttpRequest();

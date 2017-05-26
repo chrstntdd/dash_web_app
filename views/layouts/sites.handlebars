@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="./styles/styles.css">
-<link rel="stylesheet" href="../../styles/styles.css">
+<link rel="stylesheet" href="./styles/styles.css" type="text/css">
+<link rel="stylesheet" href="../../styles/styles.css" type="text/css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
@@ -24,9 +24,13 @@
               <div id="siteNav" class="sidenav" height="500" style="margin-top:20px">
                 <ul class="nav nav-stacked">
                     <li>
-                        {{#each sites}}
+                        {{#if site}}
+                            <a href="#">{{site.name}}</a>
+                        {{else}}
+                            {{#each sites}}
                              <a href='/sites/{{_id}}'>{{name}}</a>
-                        {{/each}} 
+                            {{/each}} 
+                        {{/if}}
                     </li>
                     <li><a class="futureSite" href="#">Parking Office</a></li>
                     <li><a class="futureSite" href="#">Starbucks</a></li>
@@ -39,7 +43,7 @@
      </div>
    
         <div class="col-sm-10" style="margin-top:0px">
-              {{#if site}}
+            {{#if site}}
                     {{>sites_date_pickers}}
             {{else}}
                 {{#each sites}}
@@ -56,31 +60,12 @@
                             </div>
                         </div>
                     </div>
-            {{/each}}
-        {{/if}}
+                {{/each}}
+            {{/if}}
     </div>
    </div>
 </div>
 
-<script type="text/javascript" src="/js/site_functions.js"></script>
-<script type="text/javascript" src="/js/sites_charts.js"></script>
-
- <script>
-     $(document).ready(function(){
- 
-        $("#site_info_link").click(function(){
-                $("#site_stats").hide();
-                $("#dashboard_view").text("Settings");
-                $("#site_info").show();
-        });
-        $("#site_stats_link").click(function(){
-                $("#site_stats").show();
-                $("#dashboard_view").text("Site Analysis");
-                $("#site_info").hide();
-        });
-      
-     })
- </script>
 
 
 

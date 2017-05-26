@@ -1,31 +1,34 @@
 
 
-$(document).ready(function(){
-    
-});
-var site = {
-    "name":"blake"
-    };
+
+    var dayStart = moment().startOf('day');
+    var dayEnd = moment().endOf('day');
+    var monthStart = moment().startOf('month');
+    var monthEnd = moment().endOf('month');
+    getTodayQuickStats()
+    getTotalRatesForRange(monthStart,monthEnd);
+    getAverageRatesForRange(monthStart,monthEnd);
+
   var quick_ctx = $("#quick_polar_chart");
    
     var quick_chart = new Chart(quick_ctx,{
         type: 'polarArea',
         data: {
             datasets: [{
-            data: [11,16,7,3,14],
-            backgroundColor: ["#FF6384","#4BC0C0","#FFCE56","#E7E9ED","#36A2EB"],
+            data: [0,0,0,0],
+            backgroundColor: ["#FF6384","#4BC0C0","#FFCE56","#E7E9ED"],
             label: 'Site Dataset' 
             }],
-            labels: ["Clients In","Client Purchases","Average Wait","Min Outlier","Max Outlier"]
+            labels: ["Clients Served","Average Wait","Min Outlier","Max Outlier"]
             },
         options: {
         elements: {
             arc: {
                 borderColor: "#000000"
+                }
             }
         }
-    }
-    })
+    });
     
 
 
@@ -36,7 +39,7 @@ var total_ctx = $("#client_total_chart")
     data: {
         labels: [""],
         datasets: [{
-            type: 'bar',
+            type: 'line',
             label: "# of Clients Served",
             data: [],
             backgroundColor: [
@@ -62,8 +65,16 @@ var total_ctx = $("#client_total_chart")
     options: {
         scales: {
             yAxes: [{
+                gridLines:{
+                    display: false
+            },
                 ticks: {
                     beginAtZero:true
+                }
+            }],
+            xAxes: [{
+                gridLines:{
+                    display:false
                 }
             }]
         }
@@ -71,13 +82,9 @@ var total_ctx = $("#client_total_chart")
     });
 
 
-
-
-
-    
   var avg_ctx = $("#avg_wait_chart")
         var avgChart = new Chart(avg_ctx,{
-        type: 'bar',
+        type: 'line',
     data: {
         labels: [""],
         datasets: [{
@@ -106,9 +113,17 @@ var total_ctx = $("#client_total_chart")
     },
     options: {
         scales: {
-            yAxes: [{
+             yAxes: [{
+                gridLines:{
+                    display: false
+            },
                 ticks: {
-                    beginAtZero: true
+                    beginAtZero:true
+                }
+            }],
+            xAxes: [{
+                gridLines:{
+                    display:false
                 }
             }]
         }

@@ -31,100 +31,52 @@ function sortDescending(values){
     });
     return values;
 }
+
 module.exports.get_rates_for_range = function(site,start,end){
-    Rate.find({_id:site,date:{$gte:start,$lte:end}},function(err,rates){
+    Rate.find({site:site,date:{$gte:start,$lte:end}},function(err,rates){
         if (err) throw err;
           //get the difference in days between start and end of range.
-        var startDate = moment(start);
-        var endDate = moment(end);
-        var diff = startDate.diff(endDate,'days');
-        var days = [startDate];
-        //create an array for each day listed
-        for(i = 0; i < diff; i++){
-            var day = startDate.add(i,'days');
-            days.push(day);
-        }
-        //create a group of arrays of rates for each specific day
-        var day_rates = [];
-        var min_max = [];
-        for (day in days){
-         //map through each array and reduce the rates to a total or average as needed
-            var rates_in_day = rates.filter(function(rateObject){
-                return rateObject.date == day;
-            }).map(function(rateObject){
-                return rateObject.rate;
-            });
-            day_rates.push(rates_in_day);
-            var sorted_rates = sortAscending(rates_in_day);
-            var min = min(sorted_rates);
-            var max = max(sorted_rates);
-            min_max.push({min:min,max:max,date:day});
-        }
-        return {start: startDate, end: endDate, rates: day_rates,minMax: min_max};
+        if (rates == null || rates.length == 0){ return "No Rates"}
+            var startDate = moment(start);
+            var endDate = moment(end);
+            var diff = startDate.diff(endDate,'days');
+            var days = [startDate];
+            //create an array for each day listed
+            for(i = 0; i < diff; i++){
+                var day = startDate.add(i,'days');
+                days.push(day);
+            }
+            //create a group of arrays of rates for each specific day
+            var day_rates = [];
+            var min_max = [];
+            for (day in days){
+             //map through each array and reduce the rates to a total or average as needed
+                var rates_in_day = rates.filter(function(rateObject){
+                    return rateObject.date == day;
+                }).map(function(rateObject){
+                    return rateObject.rate;
+                });
+                day_rates.push(rates_in_day);
+                var sorted_rates = sortAscending(rates_in_day);
+                var min = min(sorted_rates);
+                var max = max(sorted_rates);
+                min_max.push({min:min,max:max,date:day});
+            }
+            
+            return {start: startDate, end: endDate, rates: day_rates,minMax: min_max};
+            
         });
 };
-
+module.exports.get_today_stats = function(site,start,end,callback){
+    Rate.find({site:site,date:{$gte:start,$lte:end}},callback);
+   
+};
 module.exports.get_avg_rates_for_range = function(site,start,end,callback){
-    Rate.find({_id:site,date:{$gte:start,$lte:end}},function(err,rates){
-         if (err) throw err;
-          //get the difference in days between start and end of range.
-        var startDate = moment(start);
-        var endDate = moment(end);
-        var diff = startDate.diff(endDate,'days');
-        var days = [startDate];
-        //create an array for each day listed
-        for(i = 0; i < diff; i++){
-            var day = startDate.add(i,'days');
-            days.push(day);
-        }
-        //create a group of arrays of rates for each specific day
-        var avg_rates = [];
-      
-        for(day in days){
-         //map through each array and reduce the rates to a total or average as needed
-            var rates_in_day = rates.filter(function(rateObject){
-                return rateObject.date == day;
-            }).map(function(rateObject){
-                return rateObject.rate;
-            }).reduce(function(total,rate){
-                return total + rate;
-            });
-            avg_rates.push(rates_in_day/days.length);
-        }
-        
-        return {start: startDate, end: endDate, avg_rates:avg_rates,days:days}
-        });
+    Rate.find({site:site,date:{$gte:start,$lte:end}},callback);
+   
 };
 
 module.exports.get_total_rates_for_range = function(site,start,end,callback){
- Rate.find({_id:site,date:{$gte:start,$lte:end}},function(err,rates){
-        if (err) throw err;
+ Rate.find({site:site,date:{$gte:start,$lte:end}},callback);
         
-          //get the difference in days between start and end of range.
-        var startDate = moment(start);
-        var endDate = moment(end);
-        var diff = startDate.diff(endDate,'days');
-        var days = [startDate];
-        //create an array for each day listed
-        for(i = 0; i < diff; i++){
-            var day = startDate.add(i,'days');
-            days.push(day);
-        }
-        //create a group of arrays of rates for each specific day
-        var day_rates = [];
-      
-        for (day in days){
-         //map through each array and reduce the rates to a total or average as needed
-            var rates_in_day = rates.filter(function(rateObject){
-                return rateObject.date == day;
-            }).map(function(rateObject){
-                return rateObject.rate;
-            }).reduce(function(total,rate){
-                return total + rate;
-            });
-            day_rates.push(rates_in_day);
-            
-        }
-          return {start: startDate, end: endDate, total_rates:day_rates,days:days}
-        });
 };

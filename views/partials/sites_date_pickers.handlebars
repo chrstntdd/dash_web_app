@@ -1,13 +1,13 @@
 <div class="row">
                 <div class="col-sm-12">
                     <div class="well" style="background-color:#ffffff; box-shadow:2px 2px 2px grey;">
-                        <h2 id="dashboard_view">{{site.name}} Site Analysis</h2>
+                        <h2 id="dashboard_view"><img src={{site.icon_url}} class="img-rounded" width="50%">{{site.name}} Site Analysis</h2>
                     </div>
                 </div>
             </div>
         <div id="site_stats">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                 <div class="well" style="background-color:#ffffff;border:#ffffff" >
                     <h2>Month Average</h2>
                     <canvas id="quick_polar_chart"></canvas>
@@ -16,7 +16,7 @@
         </div>
       
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                 <div class="panel" style="background-color: white; box-shadow:2px 2px 2px grey;">
                     <div class="panel-heading">
                          <input id="date_range_client_total">
@@ -26,7 +26,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6">
+        </div>
+        <div clas="row">
+            <div class="col-sm-8">
                  <div class="panel" style="background-color: white; box-shadow:2px 2px 2px grey;">
                     <div class="panel-heading">
                          <input id="date_range_avg_wait">
@@ -37,9 +39,27 @@
                 </div>
             </div>
         </div>
+
+        </div>
         </div>
 
+
 <script>
+    function getTodayQuickStats(){
+            var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function(){
+                    if(this.status == 200 && this.readyState == 4){
+                        var stats = JSON.parse(this.responseText);
+                        console.log(stats);
+                        if (stats != "No Rates"){
+                            quick_chart.data.datasets[0].data = [stats.total,stats.avg_rate,stats.min,stats.max];
+                            quick_chart.update();
+                        }
+                    }
+                };
+                xmlhttp.open("GET","/api/rates/{{site._id}}/today",true);
+                xmlhttp.send();
+        }
     function getRange(start,end){
             var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function(){
@@ -47,8 +67,7 @@
                         var rates = JSON.parse(this.responseText);
                         console.log(rates);
                     }
-                }
-                
+                };
                 xmlhttp.open("POST","/api/rates/{{site._id}}/range",true);
                 xmlhttp.setRequestHeader("Content-Type","application/json");
                 var range = JSON.stringify({start:start,end:end});
@@ -59,29 +78,39 @@
             var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function(){
                     if(this.status == 200 && this.readyState == 4){
-                        var rates = JSON.parse(this.responseText);
-                        console.log(rates);
+                        var results = JSON.parse(this.responseText);
+                        console.log(results);
+                        if (results == "No Rates"){
+                            console.log("no rates");
+                            alert("Sorry, No Data for specified period");
+                        }else{
+                            totalChart.data.datasets[0].data = results.clientsPerDay;
+                            totalChart.data.labels = results.clientsPerDay;
+                            totalChart.update();
+                        }
                     }
-                }
+                };
                 
                 xmlhttp.open("POST","/api/rates/{{site._id}}/range/total",true);
                 xmlhttp.setRequestHeader("Content-Type","application/json");
                 var range = JSON.stringify({start:start,end:end});
                 xmlhttp.send(range);
         }
+    
     function getAverageRatesForRange(start,end){
-            
             var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function(){
                     if(this.status == 200 && this.readyState == 4){
-                        var rates = JSON.parse(this.responseText);
-                        console.log(rates);
+                        var results = JSON.parse(this.responseText);
+                        console.log(results);
+                        avgChart.data.datasets[0].data = results.avg_rates;
+                        avgChart.data.labels = results.days;
+                        avgChart.update();
                     }
-                }
-                
+                };
                 xmlhttp.open("POST","/api/rates/{{site._id}}/range/averages",true);
                 xmlhttp.setRequestHeader("Content-Type","application/json");
-                var range = JSON.stringify({start:start,end:end});
+            var range = JSON.stringify({start:start,end:end});
                 xmlhttp.send(range);
         }
 $(document).ready(function(){
@@ -97,11 +126,11 @@ $(document).ready(function(){
         drops: "up",
         timePicker: true
     });
-    $("#date_range_client_total").on('apply.daterangepicker',function(event,picker){
-        var start = picker.startdate;
-        var end = picker.enddate;
+$("#date_range_client_total").on('apply.daterangepicker',function(event,picker){
+        var start = moment(picker.startdate);
+        var end = moment(picker.enddate);
           getTotalRatesForRange(start,end);
-    })
+    });
 $("#date_range_avg_wait").daterangepicker({
         locale:{
             format : 'YYYY MM DD'
@@ -117,12 +146,13 @@ $("#date_range_avg_wait").daterangepicker({
     $("#date_range_avg_wait").on('apply.daterangepicker',function(event,picker){
         var start = picker.startdate;
         var end = picker.enddate;
-          getTotalRatesForRange(start,end);
-    })
+          getAverageRatesForRange(start,end);
+    });
     
 });
 </script>
- 
+<script type="text/javascript" src="/js/site_functions.js"></script>
+<script type="text/javascript" src="/js/sites_charts.js"></script>
 
     
   

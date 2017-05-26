@@ -17,6 +17,7 @@ var siteSchema = new Schema({
         }],
         device_id: String,//required to ensure proper device is updating proper site
         image_url: String,
+        icon_url: String,
         manager: {
             id: String,
             agent: String,
