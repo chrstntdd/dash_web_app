@@ -19,7 +19,7 @@
             <div class="col-sm-8">
                 <div class="panel" style="background-color: white; box-shadow:2px 2px 2px grey;">
                     <div class="panel-heading">
-                         <input id="date_range_client_total">
+                         <input id="date_range_client_total" placeholder="Select a Date Range" value="">
                     </div>
                     <div class="panel-body">
                         <canvas id="client_total_chart"></canvas>
@@ -31,7 +31,7 @@
             <div class="col-sm-8">
                  <div class="panel" style="background-color: white; box-shadow:2px 2px 2px grey;">
                     <div class="panel-heading">
-                         <input id="date_range_avg_wait">
+                         <input id="date_range_avg_wait" placeholder="Select a Date Range" value="">
                     </div>
                     <div class="panel-body">
                         <canvas id="avg_wait_chart"></canvas>
@@ -84,6 +84,7 @@
                             console.log("no rates");
                             alert("Sorry, No Data for specified period");
                         }else{
+                            console.log("Some Rates");
                             totalChart.data.datasets[0].data = results.clientsPerDay;
                             totalChart.data.labels = results.clientsPerDay;
                             totalChart.update();
@@ -118,34 +119,39 @@ $(document).ready(function(){
         locale:{
             format : 'YYYY MM DD'
         },
-        startdate: moment(),
-        enddate: moment().add({hours:1}),
+        autoUpdateInput: true,
+        autoApply: true,
         dateLimit:{
             "months":1
         },
         drops: "up",
-        timePicker: true
+        timePicker: false
     });
-$("#date_range_client_total").on('apply.daterangepicker',function(event,picker){
-        var start = moment(picker.startdate);
-        var end = moment(picker.enddate);
+    $("#date_range_client_total").on('apply.daterangepicker',function(event,picker){
+        var start = moment(picker.startDate);
+        console.log(picker.startDate);
+        var end = moment(picker.endDate);
+        console.log(picker.endDate);
           getTotalRatesForRange(start,end);
     });
-$("#date_range_avg_wait").daterangepicker({
+    $("#date_range_avg_wait").daterangepicker({
         locale:{
             format : 'YYYY MM DD'
         },
-        startdate: moment(),
-        enddate: moment().add({hours:1}),
+        autoUpdateInput: true,
+        autoApply: true,
         dateLimit:{
             "months":1
         },
         drops: "up",
-        timePicker: true
+        timePicker: false
     });
     $("#date_range_avg_wait").on('apply.daterangepicker',function(event,picker){
-        var start = picker.startdate;
-        var end = picker.enddate;
+
+        var start = moment(picker.startDate);
+        console.log(picker.startDate);
+        var end = moment(picker.endDate);
+        console.log(picker.endDate);
           getAverageRatesForRange(start,end);
     });
     

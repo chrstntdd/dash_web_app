@@ -1,64 +1,184 @@
-
 <style>
-    body{
-        margin-top:50px
+    .navbar{
+        background-color:#333333;
+        border:0;
     }
+    /*#tech_image{*/
+    /*    margin-top:-30px;*/
+    /*    background-image:url(http://i.imgur.com/saGvBc6.jpg);*/
+    /*    background-repeat:no-repeat;*/
+    /*    background-size:100%;*/
+    /*    background-attachment:fixed;*/
+    /*    height: 600px;*/
+    /*}*/
+    .landing{
+        padding:150px;
+    }
+  
 </style>
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Muli" />
+<nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mynavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/home"><img src=""></a>
+                </div>
+                <div class="collapse navbar-collapse" id="mynavbar">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="menu_list"><a href="#About">ABOUT</a></li>
+                        <li class="menu_list"><a href="#Team">TEAM</a></li>
+                        <li class="menu_list"><a href="#Contact">CONTACT</a></li>
+                        {{#if user}}
+                        <li><a href="#"></a>User Signed In</li>
+                        {{/if}}
+                        {{#if user}}
+                            <li><a href="/">Sites</a></li>
+                            <li><a href="#">{{user.name.first_name}}</a></li>
+                            {{else}}
+                                <li><a href="/login">MANAGEMENT</a></li>
+                        {{/if}}
+                    </ul>
+                </div>
+            </div>
+        </nav>
 <header id="header">
-    <div class="container-fluid"  style="text-align: center">
-        <div class="jumbotron" style="background-color: rgba(0,0,0,0.5); margin-top:10px;height:600px">
-            <h6 style="color:white; margin-top:20px">WELCOME TO DASH ANALYTICS</h6>
-            <h2 style="color:white">Data - Science - Meets - Shopping</h1>
+        <div class="jumbotron text-center landing" style="background-color:#333333; margin-top:10px;height:600px">
+            <h1 style="color:white; margin-top:20px">DASH ANALYTICS</h1>
+            <h4 style="color:white">Discover, Track, And Anticipate Your In-Store Customer Behavior</h4>
+            <form class="form-inline">
+                <div class="input-group">
+                    <input type="email" class="form-control" size="50" placeholder="Email Address">
+                    <div class="input-group-btn">
+                        <button class="btn btn-primary">Subscribe</button>
+                    </div>
+                </div>
+            </form>
         </div>
-    </div>
 </header>
-
-    
-
-   <section id="About" class="container-fluid">
+<section id="tech_image"></section>
+    <section id="About" class="container-fluid">
        <div style="text-align: center">
             <h1>What We're About</h1>
        </div>
-      
         <div class="row">
-            <div class="col-sm-10 col-sm-offset-2">
-                <img class="col-sm-2" src="images/idea.png" width="15%">
-                <div class="panel col-sm-10" style="background-color:rgba(0,0,0,0)"> 
-                    <div class="panel-heading">
-                        <h3>The Idea</h3>
-                    </div>
-                    <div class="panel-body">
-                        <p>This is some information about how the idea came about</p>
-                    </div>
+            <div class="col-sm-4">
+                <img class="col-sm-offset-2" src="images/idea.png" width="50%">
+             </div>
+            <div class="panel col-sm-8" style="background-color:rgba(0,0,0,0)"> 
+                <div class="panel-heading">
+                    <h3>The Idea</h3>
                 </div>
-            </div>
-                <div class="col-sm-10 col-sm-offset-2">
-                <img class="col-sm-2" src="images/vision.png" width="15%">
-                <div class="panel col-sm-10" style="background-color:rgba(0,0,0,0)"> 
-                    <div class="panel-heading">
-                        <h3>The Vision</h3>
-                    </div>
-                    <div class="panel-body">
-                        <p>This is some information about the vision we see for Dash</p>
-                    </div>
-                </div>
-            </div>
-                <div class="col-sm-10 col-sm-offset-2">
-                <img class="col-sm-2" src="images/technology.png" width="15%">
-                <div class="panel col-sm-10" style="background-color:rgba(0,0,0,0)"``> 
-                    <div class="panel-heading">
-                        <h3>The Technology</h3>
-                    </div>
-                    <div class="panel-body">
-                        <p>This is some information about how the technology and how it can change the world</p>
-                    </div>
+                <div class="panel-body">
+                    <p>This is some information about how the idea came about.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ultricies, 
+                    diam a egestas viverra, felis nibh dapibus mauris, non porta dolor ipsum vel massa. 
+                    Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla vitae mauris dictum, 
+                    tincidunt erat id, tincidunt urna. Donec vehicula, risus sed mollis semper, est justo aliquet mauris, eget mollis 
+                    turpis erat non leo. Aliquam erat volutpat. Suspendisse auctor quam vitae enim commodo, 
+                    et volutpat nunc rutrum. Fusce sed justo ante. Ut vulputate orci a velit semper congue
+                    vel at tortor.</p>
                 </div>
             </div>
         </div>
-   </section>
-
-   <section id="Team">
-       <div class="jumbotron" style="text-align: center;margin-top:-30px">
+        <div class="row">
+            <div class="col-sm-4">
+                <img class="col-sm-offset-2" src="images/vision.png" width="50%">
+             </div>
+            <div class="panel col-sm-8" style="background-color:rgba(0,0,0,0)"> 
+                <div class="panel-heading">
+                    <h3>The Vision</h3>
+                </div>
+                <div class="panel-body">
+                    <p>This is some information about the vision we see for Dash</p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ultricies, 
+                    diam a egestas viverra, felis nibh dapibus mauris, non porta dolor ipsum vel 
+                    massa. Orci varius natoque penatibus et magnis dis parturient montes, nascetur 
+                    ridiculus mus. Nulla vitae mauris dictum, tincidunt erat id, tincidunt urna. 
+                    Donec vehicula, risus sed mollis semper, est justo aliquet mauris, eget mollis 
+                    turpis erat non leo. Aliquam erat volutpat. Suspendisse auctor quam vitae enim 
+                    commodo, et volutpat nunc rutrum. Fusce sed justo ante. Ut vulputate orci a velit 
+                    semper congue vel at tortor.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <img class="col-sm-offset-2" src="images/technology.png" width="50%">
+             </div>
+            <div class="panel col-sm-8" style="background-color:rgba(0,0,0,0)"> 
+                <div class="panel-heading">
+                    <h3>The Technology</h3>
+                </div>
+                <div class="panel-body">
+                    <p>This is some information about how the technology works and how it can change someones business insight</p>
+                    <p>This is some information about the vision we see for Dash</p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ultricies, 
+                    diam a egestas viverra, felis nibh dapibus mauris, non porta dolor ipsum vel 
+                    massa. Orci varius natoque penatibus et magnis dis parturient montes, nascetur 
+                    ridiculus mus. Nulla vitae mauris dictum, tincidunt erat id, tincidunt urna. 
+                    Donec vehicula, risus sed mollis semper, est justo aliquet mauris, eget mollis 
+                    turpis erat non leo. Aliquam erat volutpat. Suspendisse auctor quam vitae enim 
+                    commodo, et volutpat nunc rutrum. Fusce sed justo ante. Ut vulputate orci a velit 
+                    semper congue vel at tortor.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section style="text-align:center">
+        <h2>APPLICATIONS</h2>
+        <div id="testimonial_carousel" class="carousel slide text-center" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#testimonial_carousel" data-slide-to="0" class="active"></li>
+                <li data-target="#testimonial_carousel" data-slide-to="1" class="active"></li>
+                <li data-target="#testimonial_carousel" data-slide-to="2" class="active"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3>In store customer tracking</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p>Explanation & Relevant picture</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3>Monitor Customer Interaction With Your Product Placement Scheme</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p>Explanation & relevant picture</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3>Analyze Site Statistics</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p>Explanation & Relevant Picture</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <a class="left carousel-control" href="#testimonial_carousel" style="background-image:none" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            </a>
+            <a class="right carousel-control" href="#testimonial_carousel" style="background-image:none" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            </a>
+        </div>
+    </section>
+    <section id="Team">
+       <div class="jumbotron" style="text-align: center;margin-top:0px">
             <h2>Our Expert Team</h2>
             <p>This is where text goes that talks about how cool our team is</p>
             <div class="row">
@@ -84,7 +204,7 @@
                 </div>
             </div>
             <div class="row">
-                   <div class="col-sm-offset-1 col-sm-3">
+                <div class="col-sm-offset-1 col-sm-3">
                     <div class="thumbnail" style="border-style:none;background-color:transparent">
                         <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAtLAAAAJGJkZWEwMTY5LTY0MTMtNDEyZS1iODAzLWE0ZmUzMjk0ZmE4NA.jpg" class="img-rounded" alt="Kenny Diedrich" width="50%">
                         <div class="caption" style="margin:auto; width:100%; text-align:center" >
@@ -117,59 +237,58 @@
             </div>
        </div>
    </section>
-     <footer>
-        <div id="footer" class="panel">
-                <div class="panel-body">
-                    <div class="footer_info panel-heading" style="text-align:center">
-                        <h2>CONTACT US</h2>
-                        <ul class="list-inline">
-                        <li><a href="#">
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-circle fa-stack-2x" style="color:black"></i>
-                                    <i class="fa fa-facebook fa-stack-1x fa-inverse" style=""></i>
-                                </span>
-                            </a>
-                        </li>
-                          <li><a href="#">
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-circle fa-stack-2x" style="color:black"></i>
-                                    <i class="fa fa-twitter fa-stack-1x fa-inverse" style=""></i>
-                                </span>
-                            </a>
-                        </li>
-                          <li><a href="#">
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-circle fa-stack-2x" style="color:black"></i>
-                                    <i class="fa fa-instagram fa-stack-1x fa-inverse" style=""></i>
-                                </span>
-                            </a>
-                        </li>
-                     </ul>
-                    </div>
-                    <div class="footer_info col-sm-4" style="text-align:center">
-                            <p>admin@ouremail.com</p>
-                    </div>
-                    <div class="footer_info col-sm-4" style="text-align:center">
-                            <p>Some Street</p>
-                            <p>Some State</p>
-                            <p>Some Zip</p>
-                    </div>
-                    <div class="footer_info col-sm-4" style="text-align:center">
-                            <p>Phone: 9110024</p>
-                            <p>Fax: 9110024</p>
-                    </div>
-                    <div>
-                        <form action="">
-                            <div class="form-group col-sm-8 col-sm-offset-2">
-                                <label class="footer_info control-label" for="">Subscribe:</label>  
-                                <input class="form-control" type="email" placeholder="Email Address">  
-                            </div>
-                            <button type="button" class="btn btn-primary" id="subscribe"></button>
-                        </form>
+ <div id="Contact" class="container-fluid text-center footer_info">
+    <div class="row">
+        <h2>Contact Us</h2>
+        <div class="col-sm-5" style="color:white">
+            <p><i class="fa fa-map-marker"></i> Norfolk,VA</p>                    
+            <p><i class="fa fa-envelope"></i>   email@email.com</p>
+            <p><i class="fa fa-phone"></i>  123-123-1234</p>
+            <p><i class="fa fa-fax"></i>    123-123-1234</p>
+            <ul class="list-inline">
+                <li>
+                    <a href="#">
+                        <span class="fa fa-stack">
+                            <i class="fa fa-circle fa-stack-2x" style="color:black"></i>
+                            <i class="fa fa-facebook fa-stack-1x fa-inverse" style=""></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="fa fa-stack">
+                            <i class="fa fa-circle fa-stack-2x" style="color:black"></i>
+                            <i class="fa fa-twitter fa-stack-1x fa-inverse" style=""></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="fa fa-stack">
+                            <i class="fa fa-circle fa-stack-2x" style="color:black"></i>
+                            <i class="fa fa-instagram fa-stack-1x fa-inverse" style=""></i>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>        
+        <div class="col-sm-7">
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <input class="form-control" name="name" placeholder="Name">
+                </div>
+                <div class="col-sm-6 form-group">
+                   <input class="form-control" name="email" placeholder="Email">
+                </div>
+            </div>
+            <textarea rows="5" placeholder="Comment" class="form-control"></textarea><br>
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <div class="button">
+                        <button class="btn btn-default pull-right">Submit</button>
                     </div>
                 </div>
+            </div>
         </div>
-   </footer>
-
-
-
+    </div>    
+ </div>

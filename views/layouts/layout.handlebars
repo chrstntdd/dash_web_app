@@ -14,39 +14,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
     <body data-spy="scroll" data-target=".navbar" data-offset="0" style="position:relative">
-        <nav class="navbar navbar-default navbar-fixed-top" sytle="background-color:white">
-                <div class="navbar-header" style="background-color:white">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mynavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/home" style="margin-top:-5px"><img src=""></a>
-                </div>
-                <div class="collapse navbar-collapse"  style="background-color:white" id="mynavbar">
-                    <ul class="nav navbar-nav">
-                        <li><a href="#About">ABOUT</a></li>
-                        <li><a href="#Team">TEAM</a></li>
-                        {{#if user}}
-                        <li><a href="#"></a>User Signed In</li>
-                        {{/if}}
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-              
-                        {{#if user}}
-                            <li><a href="#">Sites</a></li>
-                            <li><a href="#">{{user.name.first_name}}</a></li>
-                            {{else}}
-                                <li style="margin-right:10px"><a href="/login">MANAGEMENT</a></li>
-                        {{/if}}
-                       
-                    </ul>
-                </div>
-                    
-        </nav>
-        <div>
                {{{body}}}
-        </div>
      </body>
      <script>
     $(document).ready(function(){

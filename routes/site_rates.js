@@ -53,7 +53,8 @@ console.log("getting quick stats for today");
         if (err) throw err;
         if (rates == null || rates.length == 0){ 
             console.log("No Rates"); 
-            res.send("No Rates")
+            res.send("No Rates");
+            return;
         }else{
 
 //get the difference in days between start and end of range.
@@ -66,22 +67,24 @@ console.log("getting quick stats for today");
             var max;
  //map through each array and reduce the rates to a total or average as needed
             var rates_in_day = rates.filter(function(rateObject){
-                var sameDay = startDate.isSame(rateObject.date,'day');
+            var sameDay = startDate.isSame(rateObject.date,'day');
                      return sameDay;
                 }).map(function(rateObject){
                     return rateObject.rate;
                 });
                 rateCount = rates_in_day.length;
                 
-//console.log(rates_in_day);
+console.log(rates_in_day);
             if (rates_in_day.length > 0){
                 var sorted_rates = sortAscending(rates_in_day);
                 min = sorted_rates.shift();
+                sorted_rates.unshift(min);
                 max = sorted_rates.pop();
+                sorted_rates.push(max);
                 var totaledRates = rates_in_day.reduce(function(total,rate){
                     return total + rate;
                     });
-//console.log(totaledRates);
+console.log(totaledRates);
                     avg_rate_today = totaledRates/rates_in_day.length;
                 }
 //console.log(avg_rate_today);
@@ -134,7 +137,7 @@ console.log("getting total rates in a range from " + start +" to " + end);
 //console.log(diff);
         var days = [];
 //create a group of arrays of rates for each specific day
-        var clients_per_day = [];
+        var clients_per_day = [0];
         var total_clients = 0;
 //create an array for each day listed
         for(i = 0; i < diff; i++){
@@ -186,7 +189,7 @@ router.post('/:id/range/averages',function(req,res){
     var end = req.body.end;
     console.log("getting average rates in a range from " + start +" to " + end);
     Rate.get_avg_rates_for_range(site,start,end,function(err,rates){
-             if (err) throw err;
+         if (err) throw err;
          if (rates == null || rates.length == 0){ 
              console.log("No Rates"); 
              res.send("No Rates");
@@ -242,12 +245,12 @@ router.post('/:id/range/averages',function(req,res){
                     return rateObject.rate;
                 });
                 rateCount = rates_in_day.length;
-//console.log(rates_in_day);
+console.log(rates_in_day);
                 if (rates_in_day.length > 0){
                     var totalledRates = rates_in_day.reduce(function(total,rate){
                         return total + rate;
                     });
-//console.log(totaledRates);
+console.log(totaledRates);
                     avg_rates.push(totalledRates/rates_in_day.length);
                 }else{
                     avg_rates.push(0);
