@@ -13,8 +13,39 @@
 <style>
     body{
           background-color: #eeeeee;
+          margin-top:-40px;
+    }
+    .navbar{
+        background-color:#ffffff;
     }
 </style>
+<nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mynavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/home"><img src=""></a>
+                </div>
+                <div class="collapse navbar-collapse" id="mynavbar">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="menu_list"><a href="/home/#About">ABOUT</a></li>
+                        <li class="menu_list"><a href="/home/#Team">TEAM</a></li>
+                        <li class="menu_list"><a href="/home/#Contact">CONTACT</a></li>
+                        {{#if user}}
+                        <li class="menu_list"><a href="/home">LOG OUT</a></li>
+                        {{/if}}
+                        {{#if user}}
+                            <li><a href="/">Sites</a></li>
+                            {{else}}
+                                <li><a href="/login">MANAGEMENT</a></li>
+                        {{/if}}
+                    </ul>
+                </div>
+            </div>
+        </nav>
     <div id="dashboard" class="container-fluid" style="margin-top:100px;background-color:eeeeee">
         <div class="row">
         <div class="col-sm-2" style="background-color:#ffffff; box-shadow:2px 2px 2px grey;padding:10px;">
@@ -53,7 +84,7 @@
                         </div>
                         <div class="panel-body">
                             <div class="thumbnail" style="border-style:none;background-color:transparent">
-                                <a href="/sites/{{_id}}" ><img  class="img-rounded" width="50%" src={{image_url}}></a>
+                                <a href="/sites/{{_id}}" ><img  class="img-rounded" width="40%" src={{image_url}}></a>
                                 <div class="caption" style="margin:auto; width:100%; text-align:center" >
                                     <p>{{name}}</p>
                                 </div>
