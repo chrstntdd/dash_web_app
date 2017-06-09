@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+     <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <style>
+         @font-face{
+           font-family:poiret;
+           src:url(public/font/poiret-one.regular.ttf);
+       }
+        body{
+            background: linear-gradient(rgba(26,188,156,0.8),rgba(52,73,94,1));
+            background: -webkit-linear-gradient(rgba(26,188,156,0.8),rgba(52,73,94,1));
+            background: -moz-linear-gradient(rgba(26,188,156,0.8),rgba(52,73,94,1));
+            background: -o-linear-gradient(rgba(26,188,156,0.8),rgba(52,73,94,1));
+            background-repeat: no-repeat;
+            background-size: 200%;
+        }
+        .logo{
+            display: block;
+            margin: 70px auto;
+        }
+        .login_box{
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin:auto;
+            width:30%;
+            font-family: poiret;
+        }
+        .login_box h4{
+            color: #1abc9c;
+            font-size:30px;
+        }
+        form .input-group, form .form-group{
+            margin-top:30px;
+            background-color: white;
+            color: white;
+        }
+        .sign_in_btn{
+           background: linear-gradient(right,rgba(26,188,156,1),rgba(52,73,94,1));
+            background: -webkit-linear-gradient(right,rgba(26,188,156,1),rgba(52,73,94,1));
+            background: -moz-linear-gradient(right,rgba(26,188,156,1),rgba(52,73,94,1));
+            background: -o-linear-gradient(right,rgba(26,188,156,1),rgba(52,73,94,1));
+            width:100%;
+            height: 50px;
+            border:none;
+            font-family: poiret;
+            font-size: 20px;
+        }
+    </style>
+    <body>
+        <div>
+            <img class="logo" src="http://i.imgur.com/2RUUpaX.png">
+        </div>
+        <div class="login_box text-center">
+            <h4>Log In to Your Account</h4>
+            <form>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input class="form-control" placeholder="User Email" type="email">
+                </div>
+                 <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input class="form-control" placeholder="Password" type="password">
+                </div>
+                <div class="form-group">
+                    <button class="sign_in_btn btn">Sign in</button>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
