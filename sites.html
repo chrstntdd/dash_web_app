@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+    </head>
+    <style>
+       @font-face{
+           font-family:poiret;
+           src:url(public/font/poiret-one.regular.ttf);
+       }
+        .border_top{
+            background-color:#1ABC9C;
+            height:100px;
+        }
+        .dashboard_options{
+            padding-top:30px;
+            background-color:#1ABC9C;
+            height:1000px;
+        }
+        .dashboard_options li{
+            list-style-type:none;
+            margin-top:70px;
+            font-size:20px;
+            text-align:center;
+        }
+        .option{
+            color:white;
+            letter-spacing: 3px;
+            font-family:poiret;
+        }
+        .title{
+            color:#7F8C8D;
+            letter-spacing: 3px;
+            font-family: poiret;
+            margin: auto;
+            margin-top:50px;
+        }
+        .site_icon{
+            margin-top:75px;
+            background-color:#f5f5f5;
+            border-radius:10px;
+            margin-left:20px;
+            padding:10px         
+         }
+         .site_info{
+             margin-top:75px;
+             color: #333333;
+             font-family: poiret;
+             text-align: left;
+         }
+         .site_info h3{
+             font-size: 40px;
+         }
+         .site_info p{
+             font-size:18px;
+             margin-top: 50px;
+         }
+         .button .btn{
+             margin-left:0px;
+             margin-top: 75px;
+             color: white;
+             font-family: poiret;
+             background-color: #1ABC9C;
+             float: left;
+
+         }
+    </style>
+    <body>
+        <div class="row">
+            <div class="dashboard_options col-sm-2">
+                <ul>
+                    <li><a class="option" href="#">Sites</a></li>
+                    <li><a class="option" href="#">Account</a></li>
+                    <li><a class="option" href="#">Logout</a></li>
+                </ul>
+            </div>
+             <div class="col-sm-10">
+                 <div class="row text-center">
+                     <div class="border_top col-sm-12"></div>
+                     <div class="col-sm-12">
+                         <div class="title">
+                            <h2>Your Managed Sites</h2>
+                        </div>
+                    </div>
+                     <div class="col-sm-2">
+                         <div class="site_icon">
+                            <img src="http://i.imgur.com/5W0z5tV.png?1">
+                        </div>
+                    </div>
+                    <div class="site_info col-sm-4">
+                        <h3>ODU Village Bookstore</h3>
+                        <p>8.2 min waiting</p>
+                    </div>
+                    <div class="button col-sm-6">
+                        <button class="btn">See More</button>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </body>
+</html>

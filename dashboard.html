@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+    </head>
+    <style>
+       @font-face{
+           font-family:poiret;
+           src:url(public/font/poiret-one.regular.ttf);
+       }
+        .border_top{
+            background-color:#1ABC9C;
+            height:100px;
+        }
+        .site_icon{
+            background-color:#f5f5f5;
+            border-radius:10px;
+            margin:auto;
+            margin-top:-60px;
+            width:170px;
+            height:100px;
+        }
+        .dashboard_options{
+            padding-top:30px;
+            background-color:#1ABC9C;
+            height:1000px;
+        }
+        .dashboard_options li{
+            list-style-type:none;
+            margin-top:70px;
+            font-size:20px;
+            text-align:center;
+        }
+        .option{
+            color:white;
+            letter-spacing: 3px;
+            font-family:poiret;
+        }
+        #profile_title, .outlier_title{
+            color:#7F8C8D;
+            letter-spacing: 3px;
+            font-family: poiret;
+            margin-top:50px;
+        }
+        .data_number{
+            font-size: 40px;
+            font-weight: lighter;
+            color: #333333;
+        }
+        .data_units{
+            font-size: 18px;
+            font-family: poiret;
+            color: #7F8C8D;
+        }
+        .underline  rect{
+            fill:#333333;
+        }
+        .site_data{
+            margin-top:50px;
+        }
+        .chart{
+            margin:auto;
+            margin-top:-20px;
+            width:150px;
+            height:150px;
+        }
+    </style>
+    <body>
+        <div class="row">
+            <div class="dashboard_options col-sm-2">
+                <ul>
+                    <li><a class="option" href="#">Sites</a></li>
+                    <li><a class="option" href="#">Account</a></li>
+                    <li><a class="option" href="#">Logout</a></li>
+                </ul>
+            </div>
+             <div class="col-sm-10">
+                 <div class="row text-center">
+                     <div class="border_top col-sm-12"></div>
+                     <div class="col-sm-12">
+                         <div class="site_icon">
+                            <img src="http://i.imgur.com/5W0z5tV.png?1">
+                        </div>
+                    </div>
+                     <div class="col-sm-12">
+                        <h2 id="profile_title">Your Customer Profile</h2>
+                    </div>  
+                    <!--Chart for the current wait-->
+                    <div class="col-sm-3 site_data">
+                       <p class="data_units"><strong class="data_number">8.2</strong>  minutes waiting
+                        </br>
+                        <svg  class="underline" width="200" height="2">
+                            <rect x="0" y="0" width="200" height="2">
+                        </svg>
+                       </p>
+                       <div class="chart">
+                            <canvas width="100" height="100" id="current_wait_cntxt"></canvas>
+                        </div>
+                    </div>
+                    <!--Chart for the days current count of purchases-->
+                     <div class="col-sm-3 site_data">
+                       <p class="data_units"><strong class="data_number">17</strong>  purchases today
+                        </br>
+                        <svg  class="underline" width="200" height="2">
+                            <rect x="0" y="0" width="200" height="2">
+                        </svg>
+                       </p>
+                       <div class="chart">
+                            <canvas width="100" height="100" id="purchases_cntxt"></canvas>
+                        </div>
+                    </div>
+                    <!--Chart for the days current count of visitors-->
+                     <div class="col-sm-3 site_data">
+                       <p class="data_units"><strong class="data_number">32</strong>  visits
+                        </br>
+                        <svg  class="underline" width="200" height="2">
+                            <rect x="0" y="0" width="200" height="2">
+                        </svg>
+                       </p>
+                       <div class="chart">
+                            <canvas width="100" height="100" id="visits_cntxt"></canvas>
+                        </div>
+                    </div>
+                    <!--Chart for the days current conversion rate-->
+                     <div class="col-sm-3 site_data">
+                       <p class="data_units"><strong class="data_number">52%</strong>  conversion rate
+                        </br>
+                        <svg  class="underline" width="200" height="2">
+                            <rect x="0" y="0" width="200" height="2">
+                        </svg>
+                       </p>
+                       <div class="chart">
+                            <canvas width="100" height="100" id="conversions_cntxt"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-12">
+                        <h2 class="outlier_title" >Outliers</h2>
+                    </div>
+                    <!--Longest transaction time-->
+                    <div class="col-sm-4 site_data">
+                       <p class="data_units"><strong class="data_number">19.2</strong>  minutes waiting
+                        </br>
+                        <svg  class="underline" width="200" height="2">
+                            <rect x="0" y="0" width="200" height="2">
+                        </svg>
+                       </p>
+                       <div>
+                           <p class="data_number">Longest Transaction</p> 
+                        </div>
+                    </div>
+                    <!--Shortest Duration for a customer in the store-->
+                    <div class="col-sm-4 site_data">
+                       <p class="data_units"><strong class="data_number">2.7</strong>  minutes waiting
+                        </br>
+                        <svg  class="underline" width="200" height="2">
+                            <rect x="0" y="0" width="200" height="2">
+                        </svg>
+                       </p>
+                       <div>
+                           <p class="data_number" >Shortest Transaction</p> 
+                        </div>
+                    </div>
+                    <!--Longest duration for a customer on site-->
+                    <div class="col-sm-4 site_data">
+                       <p class="data_units"><strong class="data_number">25.1</strong>  minutes waiting
+                        </br>
+                        <svg  class="underline" width="200" height="2">
+                            <rect x="0" y="0" width="200" height="2">
+                        </svg>
+                       </p>
+                       <div>
+                           <p class="data_number" >Longest Duration</p> 
+                        </div>
+                    </div>
+
+                    <!--Most visits to a site in a day-->
+                    <div class="col-sm-4 site_data">
+                       <p class="data_units"><strong class="data_number">54</strong>  visits
+                        </br>
+                        <svg  class="underline" width="200" height="2">
+                            <rect x="0" y="0" width="200" height="2">
+                        </svg>
+                       </p>
+                       <div>
+                           <p class="data_number">Most Visits in a Day</p> 
+                        </div>
+                    </div>
+
+                    <!--Least visits to a site in a day-->
+                    <div class="col-sm-4 site_data">
+                       <p class="data_units"><strong class="data_number">10</strong>  visits
+                        </br>
+                        <svg  class="underline" width="200" height="2">
+                            <rect x="0" y="0" width="200" height="2">
+                        </svg>
+                       </p>
+                       <div>
+                           <p class="data_number" >Least Visits in a Day</p> 
+                        </div>
+                    </div>
+
+                    <!--Most purchases at a site in an hour-->
+                    <div class="col-sm-4 site_data">
+                       <p class="data_units"><strong class="data_number">11</strong>  purchases
+                        </br>
+                        <svg  class="underline" width="200" height="2">
+                            <rect x="0" y="0" width="200" height="2">
+                        </svg>
+                       </p>
+                       <div>
+                           <p class="data_number">Most Purchases in a Day</p> 
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </body>
+    <script type="text/javascript" src="./js/main/current_wait_chart.js"></script>
+    <script type="text/javascript" src="./js/main/purchases_chart.js"></script>
+    <script type="text/javascript" src="./js/main/visits_chart.js"></script>
+    <script type="text/javascript" src="./js/main/conversions_chart.js"></script>
+</html>
