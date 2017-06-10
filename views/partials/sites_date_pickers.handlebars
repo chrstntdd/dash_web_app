@@ -159,6 +159,12 @@ $(document).ready(function(){
 </script>
 <script type="text/javascript" src="/js/site_functions.js"></script>
 <script type="text/javascript" src="/js/sites_charts.js"></script>
-
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io();
     
-  
+    socket.on('time',function(data){
+        alert(data);
+    })
+    
+</script>

@@ -63,6 +63,10 @@ var total_ctx = $("#client_total_chart")
        ]
     },
     options: {
+        animation:{
+            easing: 'easeInQuad',
+            duration: 1000
+        },
         scales: {
             yAxes: [{
                 gridLines:{

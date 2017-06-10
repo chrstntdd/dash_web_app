@@ -70,7 +70,7 @@ console.log("getting quick stats for today");
             var sameDay = startDate.isSame(rateObject.date,'day');
                      return sameDay;
                 }).map(function(rateObject){
-                    return rateObject.rate;
+                    return rateObject.duration;
                 });
                 rateCount = rates_in_day.length;
                 
@@ -81,8 +81,8 @@ console.log(rates_in_day);
                 sorted_rates.unshift(min);
                 max = sorted_rates.pop();
                 sorted_rates.push(max);
-                var totaledRates = rates_in_day.reduce(function(total,rate){
-                    return total + rate;
+                var totaledRates = rates_in_day.reduce(function(total,duration){
+                    return total + duration;
                     });
 console.log(totaledRates);
                     avg_rate_today = totaledRates/rates_in_day.length;
@@ -222,11 +222,11 @@ router.post('/:id/range/averages',function(req,res){
                     var sameDay = day.isSame(rateObject.date,'day');
                         return sameDay;
                 }).map(function(rateObject){
-                    return rateObject.rate;
+                    return rateObject.duration;
                 });
                 if (rates_in_day.length > 0){
-                    var totalled_rates = rates_in_day.reduce(function(total,rate){
-                        return total + rate;
+                    var totalled_rates = rates_in_day.reduce(function(total,duration){
+                        return total + duration;
                     });
                     var avg = totalled_rates/rates_in_day.length
                         avg_rates.push(avg);
@@ -242,15 +242,15 @@ router.post('/:id/range/averages',function(req,res){
                      var sameDay = startDate.isSame(rateObject.date,'day');
                      return sameDay;
                 }).map(function(rateObject){
-                    return rateObject.rate;
+                    return rateObject.duration;
                 });
                 rateCount = rates_in_day.length;
 console.log(rates_in_day);
                 if (rates_in_day.length > 0){
-                    var totalledRates = rates_in_day.reduce(function(total,rate){
-                        return total + rate;
+                    var totalledRates = rates_in_day.reduce(function(total,duration){
+                        return total + duration;
                     });
-console.log(totaledRates);
+console.log(totalledRates);
                     avg_rates.push(totalledRates/rates_in_day.length);
                 }else{
                     avg_rates.push(0);

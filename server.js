@@ -8,6 +8,9 @@ var expValidator = require('express-validator');
 var flash = require('connect-flash');
 var messages = require('express-messages');
 var mongoose = require('mongoose');
+var socketIO = require('socket.io');
+
+
 process.env.NODE_ENV = 'production'
 if(process.env.NODE_ENV == 'production'){
   mongoose.connect('mongodb://heroku_d41xhhbh:8noui905v24of65nfletr5eu5s@ds129469.mlab.com:29469/heroku_d41xhhbh',function(error){
@@ -33,6 +36,15 @@ var users = require('./routes/users');
 var admin = require('./routes/admin');
 var site_rates = require('./routes/site_rates');
 var app = express();
+var server = require('http').createServer(app);
+var io = socketIO(server);
+
+  io.on('connect',function(socket){
+    console.log('made a connection');
+  });
+  setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
+  
+  
     app.set('port', (process.env.PORT || 5000));
     console.log(process.env.NODE_ENV);
     app.set('views',path.join(__dirname,'views/layouts'));
@@ -42,7 +54,8 @@ var app = express();
     app.set('view engine','handlebars');
     app.use('/images',express.static(path.join(__dirname,'/public/images')));
     app.use('/styles',express.static(path.join(__dirname,'/public/styles')));
-    app.use('/js',express.static(path.join(__dirname,'/js/')));
+    app.use('/js',express.static(path.join(__dirname,'/js')));
+    app.use('/modules',express.static(path.join(__dirname,'/node_modules')));
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended:false}));
     app.use(cookieParser('Secret'));

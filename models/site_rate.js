@@ -5,7 +5,8 @@ var moment = require('moment');
 
 var rateSchema = new Schema({
         site: String,
-        rate: Number,
+        customer_id: String,
+        duration: Number,
         date: {type: Date, default: Date.now}
 });
 
@@ -16,7 +17,19 @@ module.exports.get_all_rates = function(site,callback){
 };
 
 module.exports.push_rates = function(rates,callback){
-    Rate.create(rates,callback);
+    var new_rates = [];
+    rates.forEach(function(rate,index){
+        Rate.find({customer_id:rate.customer_id}, function(err,rate_to_update){
+            if(err) return;
+            if(rate_to_update == null){
+                new_rates.push(rate);
+            }else{
+                rate_to_update.duration = rate.duration;
+                rate_to_update.save();
+            }
+        });
+    });
+    Rate.insertMany(new_rates,callback);
 };
 
 function sortAscending(values){
@@ -25,6 +38,7 @@ function sortAscending(values){
     });
     return values;
 }
+
 function sortDescending(values){
     values.sort(function(a,b){
         return b-a;
@@ -54,7 +68,7 @@ module.exports.get_rates_for_range = function(site,start,end){
                 var rates_in_day = rates.filter(function(rateObject){
                     return rateObject.date == day;
                 }).map(function(rateObject){
-                    return rateObject.rate;
+                    return rateObject.duration;
                 });
                 day_rates.push(rates_in_day);
                 var sorted_rates = sortAscending(rates_in_day);

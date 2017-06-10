@@ -34,6 +34,7 @@
     "passport": "*",
     "passport-http": "*",
     "passport-local": "*",
-    "requestify": "^0.2.5"
+    "requestify": "^0.2.5",
+    "socket.io": "^2.0.2"
   }
 }

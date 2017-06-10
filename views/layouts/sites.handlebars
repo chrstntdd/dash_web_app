@@ -15,60 +15,37 @@
           background-color: #eeeeee;
           margin-top:-40px;
     }
-    .navbar{
-        background-color:#ffffff;
+    #topborder{
+        background-color:#1ABC9C;
+        height: 100px;
+        border:none;
+    }
+    .site_icon{
+        background-color:#eeeeee;
+        border-radius:10px;
+        margin-top:30px;
+        width:282px;
+        height:284px;
+    }
+    .site_icon img{
+        margin-top:20px;
+        display:block;
+        margin:auto;
     }
 </style>
-<nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mynavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/home"><img src=""></a>
-                </div>
-                <div class="collapse navbar-collapse" id="mynavbar">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="menu_list"><a href="/home/#About">ABOUT</a></li>
-                        <li class="menu_list"><a href="/home/#Team">TEAM</a></li>
-                        <li class="menu_list"><a href="/home/#Contact">CONTACT</a></li>
-                        {{#if user}}
-                        <li class="menu_list"><a href="/home">LOG OUT</a></li>
-                        {{/if}}
-                        {{#if user}}
-                            <li><a href="/">Sites</a></li>
-                            {{else}}
-                                <li><a href="/login">MANAGEMENT</a></li>
-                        {{/if}}
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    <div id="dashboard" class="container-fluid" style="margin-top:100px;background-color:eeeeee">
+    <div id="topborder" class="container-fluid">
+        <div class="site_icon">
+            <img src={{site.icon_url}}>
+        </div>
+    </div>
+    <div id="dashboard" class="container-fluid" style="margin-top:90px;background-color:eeeeee;border:none">
         <div class="row">
-        <div class="col-sm-2" style="background-color:#ffffff; box-shadow:2px 2px 2px grey;padding:10px;">
-            <div id="dashboard_top">
-                <img src="../images/DashLogoHalf.png">
-            </div>
+        <div class="col-sm-2" style="background-color:#1ABC9C">
               <div id="siteNav" class="sidenav" height="500" style="margin-top:20px">
                 <ul class="nav nav-stacked">
-                    <li>
-                        {{#if site}}
-                            <a href="#">{{site.name}}</a>
-                        {{else}}
-                            {{#each sites}}
-                             <a href='/sites/{{_id}}'>{{name}}</a>
-                            {{/each}} 
-                        {{/if}}
-                    </li>
-                    <li><a class="futureSite" href="#">Parking Office</a></li>
-                    <li><a class="futureSite" href="#">Starbucks</a></li>
-                    <li><a class="futureSite" href="#">Chic Fila</a></li>
-                    <li><a class="futureSite" href="#">Panda Express</a></li>
-                    <li><a class="futureSite" href="#">Salad Express</a></li>
-                    <li><a class="futureSite" href="#">The Den</a></li>
+                    <li class="menu_list"><a href="/sites">Sites</a></li>
+                    <li class="menu_list"><a href="/account">Account</a></li>
+                    <li class="menu_list"><a href="/home">Log Out</a></li>
                 </ul>
             </div>
      </div>
@@ -77,25 +54,28 @@
             {{#if site}}
                     {{>sites_date_pickers}}
             {{else}}
+          
                 {{#each sites}}
-                    <div class="panel" style="box-shadow: 2px 2px 2px grey">
-                        <div class="panel-heading" style="text-align:center">
-                             <img src={{icon_url}}><h2>{{name}}</h2>
+                    <div class="row">
+                        <div class="col-sm-2">
+                                <img src={{icon_url}}>
                         </div>
-                        <div class="panel-body">
-                            <div class="thumbnail" style="border-style:none;background-color:transparent">
-                                <a href="/sites/{{_id}}" ><img  class="img-rounded" width="40%" src={{image_url}}></a>
-                                <div class="caption" style="margin:auto; width:100%; text-align:center" >
-                                    <p>{{name}}</p>
-                                </div>
+                        <div class="col-sm-10">
+                            <div class="panel">
+                                <div class="panel-heading"><h3>{{name}}</h3></div>
+                                <div class="panel-body"><h5>site info</h5></div>
                             </div>
                         </div>
                     </div>
-                {{/each}}
+               {{/each}}
+        
+               
             {{/if}}
     </div>
    </div>
 </div>
+
+
 
 
 
