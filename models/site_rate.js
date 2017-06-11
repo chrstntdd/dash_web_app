@@ -26,8 +26,10 @@ module.exports.push_rates = function(rates,callback){
                 return;
             }
             if(rate_to_update == null){
+                console.log("adding new rate");
                 new_rates.push(rate);
             }else{
+                console.log("updating old rate");
                Rate.findOneAndUpdate({_id: rate_to_update._id}, {duration:rate.duration});
             }
         });
