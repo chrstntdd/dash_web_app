@@ -13,7 +13,7 @@ var rateSchema = new Schema({
 var Rate = module.exports = mongoose.model('Rate',rateSchema);
 
 module.exports.get_all_rates = function(site,callback){
-    Rate.findById(site,callback);
+    Rate.find({site:site},callback);
 };
 
 module.exports.push_rates = function(rates,callback){
@@ -25,7 +25,7 @@ module.exports.push_rates = function(rates,callback){
                 console.log(err);
                 return;
             }
-            if(rate_to_update == null){
+            if(rate_to_update == null || rate_to_update.length == 0){
                 console.log("adding new rate");
                 new_rates.push(rate);
             }else{
