@@ -32,11 +32,12 @@ module.exports.push_rates = function(rates,callback){
                
                Rate.findOneAndUpdate({_id: rate_to_update._id}, {duration:rate.duration});
             }
+            if(index == rates.length-1){
+                console.log(new_rates);
+                Rate.insertMany(new_rates,callback)
+                 }
         });
-        if(index == rates.length-1){
-            console.log(new_rates);
-            Rate.insertMany(new_rates,callback)
-        }
+        
     });
    
 };
