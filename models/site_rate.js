@@ -19,6 +19,7 @@ module.exports.get_all_rates = function(site,callback){
 module.exports.push_rates = function(rates,callback){
     var new_rates = [];
     rates.forEach(function(rate,index){
+        console.log(rate);
         Rate.find({site:rate.site,customer_id:rate.customer_id}, function(err,rate_to_update){
             
             if(err){
