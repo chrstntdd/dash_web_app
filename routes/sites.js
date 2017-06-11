@@ -13,7 +13,8 @@ router.get('/',function(req,res){
 });
 
 router.get('/:id',function(req,res){
-    Site.getSite(req.params.id,function(err,site){
+    var id = req.params.id;
+    Site.getSite(id,function(err,site){
         if(err) throw err;
         console.log('got a site');
         Rate.get_all_rates(id,function(err,rates){

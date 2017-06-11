@@ -15,6 +15,10 @@ var siteSchema = new Schema({
             rate: Number,
             date: {type: Date, default: Date.now}
         }],
+        mostVisits: Number,
+        leastVisits: Number,
+        mostPurchases: Number,
+        leastPurchases: Number,
         device_id: String,//required to ensure proper device is updating proper site
         image_url: String,
         icon_url: String,
@@ -51,7 +55,7 @@ var Site = module.exports = mongoose.model('Site',siteSchema);
 
 
 module.exports.getSite = function(id,callback){
-    console.log('gettin a site')
+    console.log('gettin a site at '+id)
     Site.findById(id).populate('managers').exec(callback);
    
    

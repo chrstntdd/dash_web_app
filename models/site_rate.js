@@ -19,13 +19,16 @@ module.exports.get_all_rates = function(site,callback){
 module.exports.push_rates = function(rates,callback){
     var new_rates = [];
     rates.forEach(function(rate,index){
-        Rate.find({customer_id:rate.customer_id}, function(err,rate_to_update){
-            if(err) return;
+        Rate.find({site:rate.site,customer_id:rate.customer_id}, function(err,rate_to_update){
+            
+            if(err){
+                console.log(err);
+                return;
+            }
             if(rate_to_update == null){
                 new_rates.push(rate);
             }else{
-                rate_to_update.duration = rate.duration;
-                rate_to_update.save();
+               Rate.findOneAndUpdate({_id: rate_to_update._id}, {duration:rate.duration});
             }
         });
     });
@@ -76,11 +79,12 @@ module.exports.get_rates_for_range = function(site,start,end){
                 var max = max(sorted_rates);
                 min_max.push({min:min,max:max,date:day});
             }
-            
             return {start: startDate, end: endDate, rates: day_rates,minMax: min_max};
-            
         });
 };
+
+//gets an array of all of the rates for the current day
+
 module.exports.get_today_stats = function(site,start,end,callback){
     Rate.find({site:site,date:{$gte:start,$lte:end}},callback);
    

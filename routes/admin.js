@@ -9,7 +9,7 @@ Users = require('../models/user');
 router.get('/sites',function(req,res){
     var user = req.session.user;
     if (user.email == 'blake.rogers757@gmail.com'){
-             var sites = Sites.getSites(function(error,sites){
+            var sites = Sites.getSites(function(error,sites){
             if(sites){
                 res.render('sites_admin',{sites:sites});
                 }else{

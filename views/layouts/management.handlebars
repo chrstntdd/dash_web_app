@@ -5,13 +5,12 @@
         <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+    
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
     <style>
-       @font-face{
-           font-family:poiret;
-           src:url(public/font/poiret-one.regular.ttf);
-       }
         .border_top{
             background-color:#1ABC9C;
             height:100px;
@@ -44,7 +43,7 @@
             background-color:#f5f5f5;
             border-radius:10px;
             margin-left:20px;
-            padding:10px         
+            padding:20px         
          }
          .site_info{
              margin-top:75px;
@@ -66,10 +65,13 @@
              font-family: poiret;
              background-color: #1ABC9C;
              float: left;
-
          }
+           @font-face{
+           font-family:poiret;
+           src:url(/fonts/poiret-one.regular.ttf);
+       }
     </style>
-    <body>
+   <body>
         <div class="row">
             <div class="dashboard_options col-sm-2">
                 <ul>
@@ -86,20 +88,22 @@
                             <h2>Your Managed Sites</h2>
                         </div>
                     </div>
-                     <div class="col-sm-2">
-                         <div class="site_icon">
-                            <img src="http://i.imgur.com/5W0z5tV.png?1">
+                    {{#each sites}}
+                         <div class="col-sm-4">
+                             <div class="site_icon">
+                                <img src={{icon_url}}>
+                            </div>
                         </div>
-                    </div>
-                    <div class="site_info col-sm-4">
-                        <h3>ODU Village Bookstore</h3>
-                        <p>8.2 min waiting</p>
-                    </div>
-                    <div class="button col-sm-6">
-                        <button class="btn">See More</button>
-                    </div>
+                        <div class="site_info col-sm-7">
+                            <h3>{{name}}</h3>
+                            <p>8.2 min waiting</p>
+                        </div>
+                        <div class="button col-sm-1">
+                            <a href="/sites/{{_id}}"><button class="btn">See More</button></a>
+                        </div>
+                    {{/each}}
                 </div>
              </div>
         </div>
-    </body>
+  </body>
 </html>

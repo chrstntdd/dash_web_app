@@ -17,8 +17,13 @@ router.post('/login',function(req,res){
         if (user){
        bcrypt.compare(password,user.hash_Password,function(err,result){
            if (result == true){
-               req.session.user = user 
-               res.redirect('../../');
+               var signee = {
+                   _id: user._id,
+                   name: user.name,
+                   email: user.email,
+                   managed_sites: user.managed_sites
+               }
+               res.send(signee);
            }else{
                res.send("Unauthorized Login")
            }
@@ -33,7 +38,8 @@ router.post('/login',function(req,res){
    
 });
 
-router.post('/',function(req,res){
+
+router.post('/create',function(req,res){
         var user = req.body;
         User.createUser(user,function(err,user){
             if (err) throw err;

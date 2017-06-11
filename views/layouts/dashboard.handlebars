@@ -6,11 +6,16 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+        <!-- Include Date Range Picker -->
+        <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
     </head>
     <style>
        @font-face{
            font-family:poiret;
-           src:url(public/font/poiret-one.regular.ttf);
+           src:url(/fonts/poiret-one.regular.ttf);
        }
         .border_top{
             background-color:#1ABC9C;
@@ -83,7 +88,7 @@
                      <div class="border_top col-sm-12"></div>
                      <div class="col-sm-12">
                          <div class="site_icon">
-                            <img src="http://i.imgur.com/5W0z5tV.png?1">
+                            <img src={{site.icon_url}}>
                         </div>
                     </div>
                      <div class="col-sm-12">
@@ -91,7 +96,7 @@
                     </div>  
                     <!--Chart for the current wait-->
                     <div class="col-sm-3 site_data">
-                       <p class="data_units"><strong class="data_number">8.2</strong>  minutes waiting
+                       <p class="data_units"><strong id="current_wait" class="data_number">8.2</strong>  minutes waiting
                         </br>
                         <svg  class="underline" width="200" height="2">
                             <rect x="0" y="0" width="200" height="2">
@@ -220,8 +225,19 @@
              </div>
         </div>
     </body>
-    <script type="text/javascript" src="./js/main/current_wait_chart.js"></script>
-    <script type="text/javascript" src="./js/main/purchases_chart.js"></script>
-    <script type="text/javascript" src="./js/main/visits_chart.js"></script>
-    <script type="text/javascript" src="./js/main/conversions_chart.js"></script>
+    <script type="text/javascript" src="/js/main/current_wait_chart.js"></script>
+    <script type="text/javascript" src="/js/main/purchases_chart.js"></script>
+    <script type="text/javascript" src="/js/main/visits_chart.js"></script>
+    <script type="text/javascript" src="/js/main/conversions_chart.js"></script>
+    <script type="text/javascript" src="/js/main/site_data.js"></script>
+    <script>
+       
+    var dayStart = moment().startOf('day');
+    var dayEnd = moment().endOf('day');
+    var monthStart = moment().startOf('month');
+    var monthEnd = moment().endOf('month');
+    getTodayQuickStats()
+    // getTotalRatesForRange(monthStart,monthEnd);
+    // getAverageRatesForRange(monthStart,monthEnd);
+    </script>
 </html>

@@ -6,6 +6,7 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var expValidator = require('express-validator');
 var flash = require('connect-flash');
+var schedule = require('node-schedule');
 var messages = require('express-messages');
 var mongoose = require('mongoose');
 var socketIO = require('socket.io');
@@ -52,14 +53,23 @@ var io = socketIO(server);
       defaultLayout:'layout'
     }));
     app.set('view engine','handlebars');
+    
     app.use('/images',express.static(path.join(__dirname,'/public/images')));
+    
     app.use('/styles',express.static(path.join(__dirname,'/public/styles')));
+    
     app.use('/js',express.static(path.join(__dirname,'/js')));
+    
+    app.use('/fonts',express.static(path.join(__dirname,'/public/fonts')));
+    
     app.use('/modules',express.static(path.join(__dirname,'/node_modules')));
+    
     app.use(bodyParser.json());
+    
     app.use(bodyParser.urlencoded({extended:false}));
+    
     app.use(cookieParser('Secret'));
-    //app.use(methodOverride('_method'));
+    
     app.use(session({
         secret: 'Secret',
         resave: 'false',
@@ -84,11 +94,14 @@ app.use(expValidator({
   }
 }));
 
+
 app.use('/',index);
 app.use('/admin',admin);
 app.use('/api/sites',sites);
 app.use('/api/users',users);
 app.use('/api/rates',site_rates);
+
+
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });

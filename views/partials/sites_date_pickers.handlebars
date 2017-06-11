@@ -42,8 +42,6 @@
 
         </div>
         </div>
-
-
 <script>
     function getTodayQuickStats(){
             var xmlhttp = new XMLHttpRequest();
@@ -60,6 +58,7 @@
                 xmlhttp.open("GET","/api/rates/{{site._id}}/today",true);
                 xmlhttp.send();
         }
+        
     function getRange(start,end){
             var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function(){
@@ -158,13 +157,4 @@ $(document).ready(function(){
 });
 </script>
 <script type="text/javascript" src="/js/site_functions.js"></script>
-<script type="text/javascript" src="/js/sites_charts.js"></script>
-<script type="text/javascript" src="/socket.io/socket.io.js"></script>
-<script>
-    var socket = io();
-    
-    socket.on('time',function(data){
-        alert(data);
-    })
-    
-</script>
+

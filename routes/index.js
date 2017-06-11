@@ -1,99 +1,25 @@
 var express = require('express');
 var app = express();
 var router = express.Router();
-var Site = require('../models/site');
+var bcrypt = require('bcryptjs');
+const saltrounds = 10;
+Site = require('../models/site');
+User = require('../models/user');
 
-function monthAverageFor(site){
-  
-    if (site.line_rates.length > 0){
-    var monthRates = site.line_rates.filter(function(rate){
-        var thisMonth = new Date().getMonth();
-        return rate.date.getMonth() == thisMonth;
-    });
-    var rates = monthRates.map(function(rate){
-        return rate.rate;
-    });
-    if (rates.length > 0){
-         var rateTotal = rates.reduce(function(total,rate){
-        return total + rate});
-     return rateTotal/monthRates.length;
-    }else{
-        return "Not Enough Data";
-    }
-
-    }else{
-        return "Not Enough Data";
-    }
-}
-
-function weekAverageFor(site){
-    if (site.line_rates.length > 0){
-    var today = new Date();
-    var todayWeekday = today.getDay();
-    var todayDate = new Date().getDate();
-    var daysAfterSunday = -todayWeekday;
-    var daysUntilSaturday = 6-todayWeekday;
-    var sunday = new Date();
-        sunday.setDate(todayDate+daysAfterSunday);
-    var saturday = new Date();
-        saturday.setDate(todayDate+daysUntilSaturday);
-    var ratesThisWeek = site.line_rates.filter(function(rate){
-        return rate.date >= sunday && rate.date <= saturday;
-    });
-    var rates = ratesThisWeek.map(function(rate){
-        return rate.rate;
-    });
-   
-    if (rates.length > 0){
-          var rateTotal = rates.reduce(function(total,rate){
-        return total + rate;
-    });
-        return rateTotal/ratesThisWeek.length;
-    }else{
-        return "Not Enough Data";
-    }
-    }else{
-        return "Not Enough Data";
-    }
-}
-
-function dayAverageFor(site){
-     var todayRates = site.line_rates.filter(function(rate){
-        var today = new Date().getDay();
-        return rate.date.getDate() == today;
-    });
-    if (todayRates.length > 0){
-   
-    var rates = todayRates.map(function(rate){
-        return rate.rate;
-    });
-    
-        if (rates.length > 0){
-            var rateTotal = rates.reduce(function(total,rate){
-        return total + rate;
-    });
-             return rateTotal/todayRates.length;
-        }else{
-            return "Not Enough Data";
-        }
-   
-    }else{
-        return "Not Enough Data";
-    }
-}
 function json(object){
     return JSON.stringify(object);
 }
 
-
+// IF a user is currently logged in direct them to the management dashboard. If not render the landing page
 router.get('/',function(req,res){
     if (req.session.user){
-        res.redirect('/sites');
+        res.render('management');
     }else{
         res.render('index');
     }
-   
 });
+
+
 router.get('/sites',function(req,res){
     var user = req.session.user;
             Site.managed_sites(user.managed_sites,function(err,sites){
@@ -102,23 +28,9 @@ router.get('/sites',function(req,res){
                 }
                 if (sites.length > 0){
                     console.log(sites);
-                    res.render('sites',{
+                    res.render('management',{
                         user:user,
                         sites:sites,
-                        helpers: {
-                            json: function(options){
-                                return json(this);
-                            }
-                        }
-                    });
-                }else{
-                    var example_site = {
-                            "name": "Example Site"
-                        };
-                 console.log("no sites found");
-                    res.render('sites',{
-                        user:user,
-                        sites:[example_site],
                         helpers: {
                             json: function(options){
                                 return json(this);
@@ -128,6 +40,7 @@ router.get('/sites',function(req,res){
                 }
             });
 });
+
 router.get('/sites/:id',function(req,res){
         var user = req.session.user;
         var id = req.params.id;
@@ -136,7 +49,7 @@ router.get('/sites/:id',function(req,res){
                 if(err)
                 throw err;
                 if(site != null){
-                    res.render('sites',{
+                    res.render('dashboard',{
                     user:user,
                     site:site,
                     helpers: {
@@ -158,4 +71,30 @@ router.get('/login',function(req,res){
     res.render('login');
 });
 
+router.post('/manage',function(req,res){
+    var email = req.body.email;
+    var password = req.body.password;
+
+    console.log(req.body);
+    if (email && password){
+     User.getUser(email,password,function(err,user){
+        if (err) throw err;
+        if (user){
+       bcrypt.compare(password,user.hash_Password,function(err,result){
+           if (result == true){
+               req.session.user = user;
+               res.redirect('../../sites');
+           }else{
+               res.send("Unauthorized Login")
+           }
+       });
+     }else{
+         res.send("Unauthorized Login");
+     }
+    });
+    }else{
+        res.send("Invalid Info");
+    }
+   
+});
 module.exports = router;

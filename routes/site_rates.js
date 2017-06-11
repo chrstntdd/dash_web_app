@@ -49,11 +49,13 @@ router.get('/:id/today',function(req,res){
     var start = moment.utc().startOf('day');
     var end = moment.utc().endOf('day');
 console.log("getting quick stats for today");
+  
+
     Rate.get_today_stats(site,start,end,function(err,rates){
         if (err) throw err;
         if (rates == null || rates.length == 0){ 
             console.log("No Rates"); 
-            res.send("No Rates");
+            res.send({avg_rate:0,total_visits:0,total_purchases:0,min:0, max:0});
             return;
         }else{
 
@@ -72,9 +74,27 @@ console.log("getting quick stats for today");
                 }).map(function(rateObject){
                     return rateObject.duration;
                 });
+                //total visits in a day
                 rateCount = rates_in_day.length;
-                
+            var purchases = rateCount;    
+            
+//Get the average wait each hour for today
+       var hours = [8,9,10,11,12,13,14,15,16,17,18,19,20];
+       var hourMoments = hours.map(function(hr){
+           return moment().set('hour',hr);
+       });
+       console.log(hourMoments);
+       
+
+
+//Get the number of visits each hour for today
+
+
+
+//Get the number of purchases each for today
+            
 console.log(rates_in_day);
+//Get the minimum and and maximum wait time for today
             if (rates_in_day.length > 0){
                 var sorted_rates = sortAscending(rates_in_day);
                 min = sorted_rates.shift();
@@ -88,8 +108,9 @@ console.log(totaledRates);
                     avg_rate_today = totaledRates/rates_in_day.length;
                 }
 //console.log(avg_rate_today);
+            
 //send results 
-        res.send({avg_rate:avg_rate_today,total:rateCount,min: min, max: max});
+        res.send({today_rates:rates_in_day,avg_rate:avg_rate_today,total_visits:rateCount,total_purchases: purchases, min: min, max: max});
         }
         });
     });
