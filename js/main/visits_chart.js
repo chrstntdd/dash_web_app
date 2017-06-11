@@ -1,5 +1,5 @@
  var current_cntxt = document.getElementById("visits_cntxt").getContext('2d');
-        var current_chart = new Chart(current_cntxt,{
+        var visits_chart = new Chart(current_cntxt,{
             type: 'bar',
             data: {
                 labels: [" "," "," "," "," "],

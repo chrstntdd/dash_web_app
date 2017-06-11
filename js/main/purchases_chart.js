@@ -1,5 +1,5 @@
  var current_cntxt = document.getElementById("purchases_cntxt").getContext('2d');
-        var current_chart = new Chart(current_cntxt,{
+        var purchases_chart = new Chart(current_cntxt,{
             type: 'bar',
             data: {
                 labels: [" "," "," "," "," "],

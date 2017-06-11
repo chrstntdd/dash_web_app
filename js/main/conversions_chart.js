@@ -1,10 +1,10 @@
  var current_cntxt = document.getElementById("conversions_cntxt").getContext('2d');
-        var current_chart = new Chart(current_cntxt,{
+        var conversions_chart = new Chart(current_cntxt,{
             type: 'doughnut',
             data: {
                 labels: ["Visits","Purchases"],
                 datasets:[{
-                    data: [32,17],
+                    data: [],
                     backgroundColor:[
                         'rgba(241,196,15,1)',
                         'rgba(230,126,34,1)'

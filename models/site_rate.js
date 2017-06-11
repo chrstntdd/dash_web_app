@@ -33,7 +33,7 @@ module.exports.push_rates = function(rates,callback){
                Rate.findOneAndUpdate({_id: rate_to_update._id}, {duration:rate.duration});
             }
             if(index == rates.length-1){
-                console.log(new_rates);
+               
                 Rate.insertMany(new_rates,callback)
                  }
         });
@@ -93,6 +93,7 @@ module.exports.get_rates_for_range = function(site,start,end){
 //gets an array of all of the rates for the current day
 
 module.exports.get_today_stats = function(site,start,end,callback){
+    console.log("Getting stats for site " + site + " from " + start + " to " + end)
     Rate.find({site:site,date:{$gte:start,$lte:end}},callback);
    
 };

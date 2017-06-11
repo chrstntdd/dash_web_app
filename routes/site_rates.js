@@ -46,10 +46,9 @@ router.get('/:id/all',function(req,res){
 
 router.get('/:id/today',function(req,res){
     var site = req.params.id;
-    var start = moment.utc().startOf('day');
-    var end = moment.utc().endOf('day');
-console.log("getting quick stats for today");
-  
+    var start = moment().startOf('day');
+    var end = moment().endOf('day');
+console.log("getting quick stats for today from " + start + " to " + end);
 
     Rate.get_today_stats(site,start,end,function(err,rates){
         if (err) throw err;
@@ -62,38 +61,81 @@ console.log("getting quick stats for today");
 //get the difference in days between start and end of range.
             var startDate = moment().startOf('day');
             var endDate = moment().endOf('day');
+            console.log("getting quick stats for today from " + startDate + " to " + endDate);
 //create a group of arrays of rates for each specific day
             var avg_rate_today = 0;
             var rateCount = 0;
             var min; 
             var max;
  //map through each array and reduce the rates to a total or average as needed
-            var rates_in_day = rates.filter(function(rateObject){
+            var rateObjs_in_day = rates.filter(function(rateObject){
             var sameDay = startDate.isSame(rateObject.date,'day');
                      return sameDay;
-                }).map(function(rateObject){
+                }).map(function(rateObj){
+                    console.log(rateObj.date);
+                    rateObj.date = moment(rateObj.date).utcOffset(+4,true);
+                    console.log(rateObj.date);
+                    return rateObj;
+                });
+            var rates_in_day = rateObjs_in_day.map(function(rateObject){
                     return rateObject.duration;
                 });
                 //total visits in a day
                 rateCount = rates_in_day.length;
-            var purchases = rateCount;    
-            
-//Get the average wait each hour for today
+            var purchases = rateCount;
+//multiplying all rates by negative for appropriate display in current_wait_chart...a cheap workaround to get rates to display upside down
+            var all_rates = rates_in_day.map(function(rate){
+                return rate*-1;
+            });
+//Get arry containing each hour for today
        var hours = [8,9,10,11,12,13,14,15,16,17,18,19,20];
-       var hourMoments = hours.map(function(hr){
-           return moment().set('hour',hr);
-       });
-       console.log(hourMoments);
        
-
-
+       var hourMoments = hours.map(function(hr){
+           return moment().hour(hr).minute(0).second(0);
+        });
+        console.log(hourMoments);
+//Get average rate for each hour
+//Map through each time in hourMoments
+        var ratesEachHour = hourMoments.map(function(hr){
+            if(rateObjs_in_day.length > 0){
+                var hoursRates = rateObjs_in_day.map(function(rateObject){
+                    return hr.isSame(rateObject.date,'hour') ? rateObject.duration : null;
+                }).filter(function(duration){
+                    return duration != null;
+                });
+                return hoursRates;
+            }else{
+                return [];
+            }
+        });
+    console.log(ratesEachHour);
+//with each rates duration separated by their respective hours map through each and get average by hour
+        var averageEachHour = ratesEachHour.map(function(rates,index,arr){
+            if(rates.length > 0){
+                var totalledRates = rates.reduce(function(total,rate){
+                        return total + rate;
+                    });
+                return totalledRates/rates.length;
+            }else{
+                return 0
+            }
+        });
+        
+    console.log(averageEachHour);
 //Get the number of visits each hour for today
-
-
-
-//Get the number of purchases each for today
-            
-console.log(rates_in_day);
+        var visitsEachHour = ratesEachHour.map(function(rates){
+            return rates.length;
+            }).map(function(visit){
+                return visit * -1;
+            });
+     console.log(visitsEachHour);   
+//Get the number of purchases hour each for today. Same as visits since we're not yet distinguishing between a purchase and a visit
+        var purchasesEachHour = visitsEachHour;
+        
+//Get conversion rate of purchases to visits
+    var conversion_rate = purchases/rateCount * 100;
+    
+//console.log(rates_in_day);
 //Get the minimum and and maximum wait time for today
             if (rates_in_day.length > 0){
                 var sorted_rates = sortAscending(rates_in_day);
@@ -110,15 +152,24 @@ console.log(totaledRates);
 //console.log(avg_rate_today);
             
 //send results 
-        res.send({today_rates:rates_in_day,avg_rate:avg_rate_today,total_visits:rateCount,total_purchases: purchases, min: min, max: max});
-        }
+        res.send({
+                today_rates:all_rates,
+                avg_rate:avg_rate_today,
+                total_visits:rateCount,
+                total_purchases: purchases, 
+                min: min, 
+                max: max, 
+                conversion:conversion_rate,
+                avgPerHr: averageEachHour,
+                purchPerHr: purchasesEachHour,
+                visitsPerHr: visitsEachHour
+                });
+            }
         });
     });
     
 
 //***********GET A RAW SET OF RATES FOR A SPECIFIC SITE***********************
-
-
 
 router.post('/:id/range',function(req,res){
     var site = req.params.id;
@@ -132,7 +183,6 @@ router.post('/:id/range',function(req,res){
 
 //*************GET THE TOTAL NUMBER OF RATES(COUNT OF CLIENTS THAT HAVE ENTERED SITE) 
 //******************************FOR A SPECIFIC SITE*********************
-
 
 router.post('/:id/range/total',function(req,res){
     var site = req.params.id;
