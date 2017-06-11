@@ -19,7 +19,7 @@ module.exports.get_all_rates = function(site,callback){
 module.exports.push_rates = function(rates,callback){
     var new_rates = [];
     rates.forEach(function(rate,index){
-        console.log(rate);
+        
         Rate.find({site:rate.site,customer_id:rate.customer_id}, function(err,rate_to_update){
             
             if(err){
@@ -27,15 +27,17 @@ module.exports.push_rates = function(rates,callback){
                 return;
             }
             if(rate_to_update == null || rate_to_update.length == 0){
-                console.log("adding new rate");
-                new_rates.push(rate);
+             new_rates.push(rate);
             }else{
-                console.log("updating old rate");
+               
                Rate.findOneAndUpdate({_id: rate_to_update._id}, {duration:rate.duration});
             }
         });
+        if(index == rates.length-1){
+            Rate.insertMany(new_rates,callback)
+        }
     });
-    Rate.insertMany(new_rates,callback);
+   
 };
 
 function sortAscending(values){
