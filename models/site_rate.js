@@ -34,6 +34,7 @@ module.exports.push_rates = function(rates,callback){
             }
         });
         if(index == rates.length-1){
+            console.log(new_rates);
             Rate.insertMany(new_rates,callback)
         }
     });
