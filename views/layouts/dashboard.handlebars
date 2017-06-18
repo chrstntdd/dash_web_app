@@ -18,7 +18,8 @@
            src:url(/fonts/poiret-one.regular.ttf);
        }
         .border_top{
-            background-color:#1ABC9C;
+            /*background-color:#1ABC9C;*/
+            background-color: rgba(52,73,94,1);
             height:100px;
         }
         .site_icon{
@@ -31,8 +32,9 @@
         }
         .dashboard_options{
             padding-top:30px;
-            background-color:#1ABC9C;
-            height:1000px;
+            /*background-color:#1ABC9C;*/
+            background-color: rgba(52,73,94,1);
+            height:1300px;
         }
         .dashboard_options li{
             list-style-type:none;
@@ -237,9 +239,10 @@
                     if(this.status == 200 && this.readyState == 4){
                         var stats = JSON.parse(this.responseText);
                         console.log(stats);
-                        if (stats != "No Rates"){
+                        if (stats.status != "No Rates"){
                          $("#current_wait").text(stats.avg_rate);
-                         //----------------------UPDATE CURRENT WAIT CHART----------------//
+                        
+                        //----------------------UPDATE CURRENT WAIT CHART----------------//
                         //update background colors and labels otherwise the bars won't appear or won't have a color
                            current_wait_chart.data.datasets[0].data = stats.today_rates
                            var current_colors = stats.today_rates.map(function(rate){
@@ -248,9 +251,10 @@
                            var current_labels = stats.today_rates.map(function(rate){
                                return "";
                            });
+                           
                            current_wait_chart.data.datasets[0].backgroundColor = current_colors
                            current_wait_chart.data.datasets[0].labels = current_labels
-                            current_wait_chart.update();
+                           current_wait_chart.update();
                             
                             //-------------------UPDATE VISITS CHART----------------------//
                             //update background colors and labels otherwise the bars won't appear or won't have a color

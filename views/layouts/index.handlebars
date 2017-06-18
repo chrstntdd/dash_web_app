@@ -1,7 +1,11 @@
 <style>
     .navbar{
-        background-color:#333333;
+        background-color: rgba(52,73,94,1);
+        color: white;
         border:0;
+    }
+    #menu_list a{
+        color: white;
     }
     /*#tech_image{*/
     /*    margin-top:-30px;*/
@@ -14,10 +18,13 @@
     .landing{
         padding:150px;
     }
+
   #header .jumbotron{
       /*background-image: url("http://i.imgur.com/lm2gZ6c.jpg?3");*/
-       margin-top:10px;height:600px;
-       background-color: #333333;
+    
+        margin-top:10px;height:600px;
+        background-repeat: no-repeat;
+        background-color: rgba(52,73,94,1);
   }
 </style>
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Muli" />
@@ -44,13 +51,14 @@
                             <li><a href="/">Sites</a></li>
                             <li><a href="#">{{user.name.first_name}}</a></li>
                             {{else}}
-                                <li><a href="/login">MANAGEMENT</a></li>
+                                <li><a href="/login">LOG IN</a></li>
                         {{/if}}
                     </ul>
                 </div>
             </div>
         </nav>
 <header id="header">
+    
         <div class="jumbotron text-center landing">
             <h1 style="color:white; margin-top:20px">DASH ANALYTICS</h1>
             <h4 style="color:white">Discover, Track, And Anticipate Your In-Store Customer Behavior</h4>
@@ -78,14 +86,10 @@
                     <h3>The Idea</h3>
                 </div>
                 <div class="panel-body">
-                    <p>This is some information about how the idea came about.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ultricies, 
-                    diam a egestas viverra, felis nibh dapibus mauris, non porta dolor ipsum vel massa. 
-                    Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla vitae mauris dictum, 
-                    tincidunt erat id, tincidunt urna. Donec vehicula, risus sed mollis semper, est justo aliquet mauris, eget mollis 
-                    turpis erat non leo. Aliquam erat volutpat. Suspendisse auctor quam vitae enim commodo, 
-                    et volutpat nunc rutrum. Fusce sed justo ante. Ut vulputate orci a velit semper congue
-                    vel at tortor.</p>
+                    <p>A lack of understanding can be the biggest barrier to positive change. As technology advances,
+                        so do the opportunities to improve your facility’s management. Finally, through Dash’s
+                        proprietary technology you can understand and manage your wait times, lines, and customer traffic.
+                    </p>
                 </div>
             </div>
         </div>
@@ -98,15 +102,12 @@
                     <h3>The Vision</h3>
                 </div>
                 <div class="panel-body">
-                    <p>This is some information about the vision we see for Dash</p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ultricies, 
-                    diam a egestas viverra, felis nibh dapibus mauris, non porta dolor ipsum vel 
-                    massa. Orci varius natoque penatibus et magnis dis parturient montes, nascetur 
-                    ridiculus mus. Nulla vitae mauris dictum, tincidunt erat id, tincidunt urna. 
-                    Donec vehicula, risus sed mollis semper, est justo aliquet mauris, eget mollis 
-                    turpis erat non leo. Aliquam erat volutpat. Suspendisse auctor quam vitae enim 
-                    commodo, et volutpat nunc rutrum. Fusce sed justo ante. Ut vulputate orci a velit 
-                    semper congue vel at tortor.</p>
+                    <p>Dash Analytics is here to solve a timeless problem. We are the world’s first total wait time
+                        solution —From a management dashboard to a customer application platform; we optimize
+                        your management’s efficiency while providing an innovative convenience to streamline your
+                        customer’s experience. Our solution lends a deeper understanding of each customer who walks
+                        into your business and their behavior within your store.
+                    </p>
                 </div>
             </div>
         </div>
@@ -119,16 +120,7 @@
                     <h3>The Technology</h3>
                 </div>
                 <div class="panel-body">
-                    <p>This is some information about how the technology works and how it can change someones business insight</p>
-                    <p>This is some information about the vision we see for Dash</p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ultricies, 
-                    diam a egestas viverra, felis nibh dapibus mauris, non porta dolor ipsum vel 
-                    massa. Orci varius natoque penatibus et magnis dis parturient montes, nascetur 
-                    ridiculus mus. Nulla vitae mauris dictum, tincidunt erat id, tincidunt urna. 
-                    Donec vehicula, risus sed mollis semper, est justo aliquet mauris, eget mollis 
-                    turpis erat non leo. Aliquam erat volutpat. Suspendisse auctor quam vitae enim 
-                    commodo, et volutpat nunc rutrum. Fusce sed justo ante. Ut vulputate orci a velit 
-                    semper congue vel at tortor.</p>
+                    <p></p>
                 </div>
             </div>
         </div>
@@ -148,7 +140,10 @@
                             <h3>In store customer tracking</h3>
                         </div>
                         <div class="panel-body">
-                            <p>Explanation & Relevant picture</p>
+                            <p>“Research suggests that estimated wait times diffuse 
+                                the stress and anxiety people feel when they are waiting 
+                                in lines.”- The Washington Post
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -158,7 +153,11 @@
                             <h3>Monitor Customer Interaction With Your Product Placement Scheme</h3>
                         </div>
                         <div class="panel-body">
-                            <p>Explanation & relevant picture</p>
+                            <p>“$20 is the amount that US fans, on average, said they would spend additionally 
+                                for food & beverage if wait times were cut in half. 
+                                That represents a 42% increase in typical expenditure 
+                                (per party, per game).”- Oracle Research
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -168,7 +167,11 @@
                             <h3>Analyze Site Statistics</h3>
                         </div>
                         <div class="panel-body">
-                            <p>Explanation & Relevant Picture</p>
+                            <p>
+                                “The way that businesses manage lines results in 
+                                easily billions of dollars of gained and lost 
+                                brand equity and consumer spending.” - Dr. Richard Larson, MIT
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -193,7 +196,11 @@
                         <div class="caption" style="margin:auto; width:100%; text-align:center" >
                             <p style="font-weight:bold">Collin Smith</p>
                             <p>Chief Executive Officer</p>
-                            <p>Some info about Collin</p>
+                            <p>
+                                As co-founder and CEO of Dash Analytics, Collin l
+                                eads the team in a national implementation strategy, 
+                                overseeing growth and scalability. 
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -202,8 +209,11 @@
                         <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAA1uAAAAJDlmZWUwNjMwLWM0YzgtNDg1MS1hOTNjLWYxZDlhNjc0ODBmMg.jpg" class="img-rounded" alt="Chris Jakobowski" width="50%">
                         <div class="caption" style="margin:auto; width:100%; text-align:center" >
                             <p style="font-weight:bold">Chris Jakobowski</p>
-                            <p>Chief Operations Officer</p>
-                            <p>Some info about Chris</p>
+                            <p>Chief Operating Officer</p>
+                            <p>
+                                 Chris has extensive experience in project management, 
+                                 handling the external and peripheral operations of the company.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -215,7 +225,12 @@
                         <div class="caption" style="margin:auto; width:100%; text-align:center" >
                             <p style="font-weight:bold">Kenny Diedrich</p>
                             <p>Chief Technology Officer</p>
-                            <p>Some info about Kenny</p>
+                            <p>
+                                Alongside the team he manages, Kenneth researches 
+                                and develops critical components of the solution 
+                                and is heavily involved in the prototyping and 
+                                installation of this innovative product.
+                            </p>
                         </div>
                     </div>
                 </div> 
@@ -224,7 +239,7 @@
                         <img src="https://scontent-dft4-2.xx.fbcdn.net/v/t1.0-9/182545_10200992460162027_325747672_n.jpg?oh=3d17e0a189d19a95689a00c9f65b98c9&oe=59B87C80" class="img-rounded" alt="Casey Dye" width="50%">
                         <div class="caption" style="margin:auto; width:100%; text-align:center" >
                             <p style="font-weight:bold">Casey Dye</p>
-                            <p>Creative Director</p>
+                            <p>Cheif Information Officer</p>
                             <p>Some info about Casey</p>
                         </div>
                     </div>
@@ -235,7 +250,10 @@
                         <div class="caption" style="margin:auto; width:100%; text-align:center" >
                             <p style="font-weight:bold">Blake Rogers</p>
                             <p>Web & Mobile Developer</p>
-                            <p>Some info about Blake</p>
+                            <p>
+                                Blake is an ex-nuclear technician turned software developer. In his off time he 
+                                is working on pet projects and enjoying the company of friends.
+                            </p>
                         </div>
                     </div>
                 </div>   

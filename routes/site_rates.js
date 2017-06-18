@@ -30,8 +30,6 @@ router.post('/new',function(req,res){
 
 
 //***********GET ALL OF THE RATES FOR A PARTICULAR SITE ****************
-
-
 router.get('/:id/all',function(req,res){
     var id = req.params.id;
     Rate.get_all_rates(id,function(err,rates){
@@ -54,7 +52,7 @@ console.log("getting quick stats for today from " + start + " to " + end);
         if (err) throw err;
         if (rates == null || rates.length == 0){ 
             console.log("No Rates"); 
-            res.send({avg_rate:0,total_visits:0,total_purchases:0,min:0, max:0});
+            res.send({status:"No Rates", avg_rate:0,total_visits:0,total_purchases:0,min:0, max:0});
             return;
         }else{
 
@@ -153,6 +151,7 @@ console.log(totaledRates);
             
 //send results 
         res.send({
+                status: "Success",
                 today_rates:all_rates,
                 avg_rate:avg_rate_today,
                 total_visits:rateCount,
