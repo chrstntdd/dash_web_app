@@ -52,10 +52,97 @@ console.log("getting quick stats for today from " + start + " to " + end);
         if (err) throw err;
         if (rates == null || rates.length == 0){ 
             console.log("No Rates"); 
-            res.send({status:"No Rates", avg_rate:0,total_visits:0,total_purchases:0,min:0, max:0});
+            var halfHrMinutes = []
+                for (i = 0; i < 30; i++){
+                    halfHrMinutes.unshift(moment().subtract(i,'minutes').minutes());
+                }
+            var purchasesEachMinut = halfHrMinutes.map(function(moment){
+                return 0;
+            });
+            res.send({  status:"No Rates", 
+                        avg_rate:0,
+                        total_visits:0,
+                        total_purchases:0,
+                        halfHrRate: 0,
+                        halfHrVisits: 0,
+                        halfHrMaxWait: 0,
+                        halfHrMinWait: 0,
+                        minByMinPurchase:{
+                            time: halfHrMinutes,
+                            wait: purchasesEachMinute
+                        },
+                        min:0, 
+                        max:0
+                
+                    });
             return;
         }else{
-
+            
+//get stats for the last thirty minutes
+            var startHalfHr = moment().subtract(30,'minutes');
+            var endHalfHr = moment()
+            var avgRateInHalfHr = 0;
+            var halfHrRateCount = 0;
+            var halfHrMin;
+            var halfHrMax;
+//map through rates and get total and average in the last half hour
+            var rateObjsInHalfHr = rates.filter(function(rateObj){
+                var inLastHalfHour = moment(rateObj.date).isBefore(endHalfHr) && moment(rateObj.date).isAfter(startHalfHr);
+                    return inLastHalfHour;
+            });
+            var purchasesEachMinute = [];       //the number of new customers in line each minute 
+            var purchaseDurationEachMinute = [] //the amount of time the purchase took to complete
+            var timeForPurchaseEachMinute = [] //the moment in time each purchase occured
+            if (rateObjsInHalfHr.length != 0){
+                //get the average weight of the rates 
+                    halfHrRateCount = rateObjsInHalfHr.length;
+                var durationsInHalfHR = rateObjsInHalfHr.map(function(rateObj){
+                    return rateObj.duration;
+                });
+                var durationTotal = durationsInHalfHR.reduce(function(total,rate){
+                    return total + rate;
+                });
+                avgRateInHalfHr = durationTotal/halfHrRateCount;
+                var halfHrMoments = []
+                for (i = 0; i < 30; i++){
+                    halfHRMoments.unshift(moment().subtract(i));
+                    
+                }
+                
+                var visitsPerMoment = halfHrMoments.map(function(moment){
+                    var ratesForMoment = rateObjsInHalfHr.filter(function(obj){
+                        return moment.isSame(moment(obj.date,'minute'))
+                    });
+                    if (ratesForMoment.length == 0){
+                        purchasesEachMinute.unshift(0)
+                        timeForPurchaseEachMinute.unshift(moment.minute())
+                    }else{
+                        ///This could be further specified by accounting for rates clocked within the same minute
+                        //for those one would record the seconds property and add it as a label
+                        purchasesEachMinute.unshift(ratesForMoment.length)
+                        
+                        for(rate in ratesForMoment){
+                            purchaseDurationEachMinute.unshift(rate.duration)
+                            timeForPurchaseEachMinute.unshift(moment(rate.date).minute())
+                        }
+                    }
+                    
+                });
+                
+                
+                //Get the minimum and and maximum wait time in last half hour
+            
+                var sorted_rates = sortAscending(durationsInHalfHR);
+                halfHrMin = sorted_rates.shift();
+                sorted_rates.unshift(halfHrMin);
+                halfHrMax = sorted_rates.pop();
+                sorted_rates.push(halfHrMax);
+       
+console.log(totaledRates);
+                    avg_rate_today = totaledRates/rates_in_day.length;
+                
+            }
+            
 //get the difference in days between start and end of range.
             var startDate = moment().startOf('day');
             var endDate = moment().endOf('day');
@@ -126,6 +213,7 @@ console.log("getting quick stats for today from " + start + " to " + end);
             }).map(function(visit){
                 return visit * -1;
             });
+            
      console.log(visitsEachHour);   
 //Get the number of purchases hour each for today. Same as visits since we're not yet distinguishing between a purchase and a visit
         var purchasesEachHour = visitsEachHour;
@@ -155,6 +243,14 @@ console.log(totaledRates);
                 today_rates:all_rates,
                 avg_rate:avg_rate_today,
                 total_visits:rateCount,
+                halfHrRate: avgRateInHalfHr,
+                halfHrVisits: halfHrRateCount,
+                halfHrMaxWait: halfHrMax,
+                halfHrMinWait: halfHrMax,
+                minByMinPurchase:{
+                    time: timeForPurchaseEachMinute,
+                    wait: purchasesEachMinute
+                },
                 total_purchases: purchases, 
                 min: min, 
                 max: max, 

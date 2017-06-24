@@ -48,15 +48,19 @@
             background-color: white;
             color: white;
         }
+        .email, .password{
+            border-color: rgba(72,73,94,1);
+        }
         .sign_in_btn{
            /*background: linear-gradient(right,rgba(26,188,156,1),rgba(52,73,94,1));*/
            /* background: -webkit-linear-gradient(right,rgba(26,188,156,1),rgba(52,73,94,1));*/
            /* background: -moz-linear-gradient(right,rgba(26,188,156,1),rgba(52,73,94,1));*/
            /* background: -o-linear-gradient(right,rgba(26,188,156,1),rgba(52,73,94,1));*/
-            background: linear-gradient(right, rgba(52,73,94,1),rgba(230,230,230,0.8));
-            background: -webkit-linear-gradient(right, rgba(52,73,94,1),rgba(230,230,230,0.8));
-            background: -moz-linear-gradient(right, rgba(52,73,94,1),rgba(230,230,230,0.8));
-            background: -o-linear-gradient(right, rgba(52,73,94,1),rgba(230,230,230,0.8));
+            /*background: linear-gradient(right, rgba(52,73,94,1),rgba(230,230,230,0.8));*/
+            /*background: -webkit-linear-gradient(right, rgba(52,73,94,1),rgba(230,230,230,0.8));*/
+            /*background: -moz-linear-gradient(right, rgba(52,73,94,1),rgba(230,230,230,0.8));*/
+            /*background: -o-linear-gradient(right, rgba(52,73,94,1),rgba(230,230,230,0.8));*/
+            background-color: rgba(52,73,94,1);
             color:white;
             width:100%;
             height: 50px;
@@ -73,12 +77,12 @@
             <h4>Log In to Your Account</h4>
             <form action="/manage" method="post">
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    <input class="form-control" name="email" placeholder="User Email" type="email" value="blake.rogers757@gmail.com">
+                    <span class="input-group-addon"><i class="email glyphicon glyphicon-user"></i></span>
+                    <input class="form-control email" name="email" placeholder="User Email" type="email" value="blake.rogers757@gmail.com">
                 </div>
                  <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                    <input class="form-control" name="password" placeholder="Password" type="password" value="123456">
+                    <span class="input-group-addon"><i class="password glyphicon glyphicon-lock"></i></span>
+                    <input class="form-control password" name="password" placeholder="Password" type="password" value="123456">
                 </div>
                 <div class="form-group">
                     <button class="sign_in_btn btn">Sign in</button>

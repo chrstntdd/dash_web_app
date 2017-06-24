@@ -24,8 +24,13 @@
     
         margin-top:10px;height:600px;
         background-repeat: no-repeat;
-        background-color: rgba(52,73,94,1);
+        background-color: white/*rgba(52,73,94,1);*/
   }
+  #logo{
+      display: block;
+      margin: auto;
+  }
+
 </style>
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Muli" />
 <body data-spy="scroll" data-target=".navbar" data-offset="0" style="position:relative">
@@ -41,17 +46,13 @@
                 </div>
                 <div class="collapse navbar-collapse" id="mynavbar">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="menu_list"><a href="#About">ABOUT</a></li>
-                        <li class="menu_list"><a href="#Team">TEAM</a></li>
-                        <li class="menu_list"><a href="#Contact">CONTACT</a></li>
+                        <li class="menu_list"><a style="color:white" href="#About">ABOUT</a></li>
+                        <li class="menu_list"><a style="color:white" href="#Team">TEAM</a></li>
+                        <li class="menu_list"><a style="color:white"  href="#Contact">CONTACT</a></li>
                         {{#if user}}
-                        <li><a href="#"></a>User Signed In</li>
-                        {{/if}}
-                        {{#if user}}
-                            <li><a href="/">Sites</a></li>
-                            <li><a href="#">{{user.name.first_name}}</a></li>
+                            <li class="menu_list"><a href="/manage"></a>SITES</li>
                             {{else}}
-                                <li><a href="/login">LOG IN</a></li>
+                            <li><a style="color:white" href="/login">LOG IN</a></li>
                         {{/if}}
                     </ul>
                 </div>
@@ -60,8 +61,9 @@
 <header id="header">
     
         <div class="jumbotron text-center landing">
-            <h1 style="color:white; margin-top:20px">DASH ANALYTICS</h1>
-            <h4 style="color:white">Discover, Track, And Anticipate Your In-Store Customer Behavior</h4>
+            <img id="logo" src="http://i.imgur.com/2RUUpaX.png" >
+            <h1 style="margin-top:20px;color:rgba(52,73,94,1)">Enterprise Commercial Analytics</h1>
+            <h4 >Discover, Track, And Anticipate Your In-Store Customer Behavior</h4>
             <form class="form-inline">
                 <div class="input-group">
                     <input type="email" class="form-control" size="50" placeholder="Email Address">
@@ -137,7 +139,7 @@
                 <div class="item active">
                     <div class="panel">
                         <div class="panel-heading">
-                            <h3>In store customer tracking</h3>
+                            <h3>In Store Customer Tracking</h3>
                         </div>
                         <div class="panel-body">
                             <p>“Research suggests that estimated wait times diffuse 
@@ -164,7 +166,7 @@
                 <div class="item">
                     <div class="panel">
                         <div class="panel-heading">
-                            <h3>Analyze Site Statistics</h3>
+                            <h3>Analyze Live Statistics</h3>
                         </div>
                         <div class="panel-body">
                             <p>
@@ -187,8 +189,7 @@
     </section>
     <section id="Team">
        <div class="jumbotron" style="text-align: center;margin-top:0px">
-            <h2>Our Expert Team</h2>
-            <p>This is where text goes that talks about how cool our team is</p>
+            <h2>Meet Our Expert Team</h2></br>
             <div class="row">
                   <div class="col-sm-offset-1 col-sm-4">
                     <div class="thumbnail" style="border-style:none;background-color:transparent">
@@ -263,11 +264,11 @@
  <div id="Contact" class="container-fluid text-center footer_info">
     <div class="row">
         <h2>Contact Us</h2>
-        <div class="col-sm-5" style="color:white">
-            <p><i class="fa fa-map-marker"></i> Norfolk,VA</p>                    
-            <p><i class="fa fa-envelope"></i>   email@email.com</p>
-            <p><i class="fa fa-phone"></i>  123-123-1234</p>
-            <p><i class="fa fa-fax"></i>    123-123-1234</p>
+        <div class="col-sm-5" style="color:#333333">
+            <p><i class="fa fa-map-marker"></i>Norfolk,VA</p>                    
+            <p><i class="fa fa-envelope"></i>email@email.com</p>
+            <p><i class="fa fa-phone"></i>123-123-1234</p>
+            <p><i class="fa fa-fax"></i>123-123-1234</p>
             <ul class="list-inline">
                 <li>
                     <a href="#">

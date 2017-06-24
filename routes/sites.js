@@ -63,6 +63,10 @@ router.post('/:id/clear_managers',function(req,res){
         res.send(site);
     });
 });
+router.get('/logout',function(req,res){
+    req.session.user = null;
+    res.redirect('../../');
+});
 
 
 module.exports = router;

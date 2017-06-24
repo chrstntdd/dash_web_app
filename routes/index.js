@@ -13,7 +13,7 @@ function json(object){
 // IF a user is currently logged in direct them to the management dashboard. If not render the landing page
 router.get('/',function(req,res){
     if (req.session.user){
-        res.render('management');
+        res.render('index',{user:req.session.user});
     }else{
         res.render('index');
     }
@@ -62,13 +62,28 @@ router.get('/sites/:id',function(req,res){
             });
         }
 });
-
+router.get('/sites/:id/avg_wait_today',function(req,res){
+    res.render('client_wait')
+});
+router.get('/sites/:id/business_today',function(req,res){
+    res.render('purchases')
+});
+router.get('/sites/:id/visits_today',function(req,res){
+    res.render('visits')
+});
+router.get('/sites/:id/conversions_today',function(req,res){
+    res.render('client_wait')
+});
 router.get('/home',function(req,res){
     res.render('index');
 });
 
 router.get('/login',function(req,res){
     res.render('login');
+});
+router.get('/logout',function(req,res){
+    req.session.user == null;
+    res.render('index')
 });
 
 router.post('/manage',function(req,res){
