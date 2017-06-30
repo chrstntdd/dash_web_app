@@ -6,12 +6,12 @@
  var gradientHover =  cntxt.createLinearGradient(0,0,0,400);
     gradientHover.addColorStop(0,'rgba(130,196,178,0.8');
     gradientHover.addColorStop(1,'rgba(68,149,229,0.8');      
-var current_chart = new Chart(cntxt,{
+var client_visits_chart = new Chart(cntxt,{
             type: 'bar',
             data: {
                 labels: ['8 am','9 am','10 am','11 am','12 pm','1 pm','2 pm','3 pm'],
                 datasets:[{
-                    data: [1,3,6,5,2],
+                    data: [],
                     backgroundColor:gradient,
                     hoverBackgroundColor: gradientHover,
                     borderWidth: 1

@@ -22,6 +22,7 @@ router.get('/',function(req,res){
 
 router.get('/sites',function(req,res){
     var user = req.session.user;
+    if (user != null){
             Site.managed_sites(user.managed_sites,function(err,sites){
                 if(err){
                     throw err;
@@ -39,6 +40,9 @@ router.get('/sites',function(req,res){
                     });
                 }
             });
+    }else{
+        res.render('index')
+    }
 });
 
 router.get('/sites/:id',function(req,res){
@@ -60,19 +64,25 @@ router.get('/sites/:id',function(req,res){
                     });
                 }
             });
+        }else{
+            res.render('index')
         }
 });
-router.get('/sites/:id/avg_wait_today',function(req,res){
-    res.render('client_wait')
+router.get('/sites/:id/avg_wait',function(req,res){
+    var site = req.params.id;
+    res.render('client_wait',{site:site})
 });
-router.get('/sites/:id/business_today',function(req,res){
-    res.render('purchases')
+router.get('/sites/:id/business',function(req,res){
+    var site = req.params.id
+    res.render('purchases',{site:site})
 });
-router.get('/sites/:id/visits_today',function(req,res){
-    res.render('visits')
+router.get('/sites/:id/visits',function(req,res){
+        var site = req.params.id
+    res.render('visits',{site:site})
 });
-router.get('/sites/:id/conversions_today',function(req,res){
-    res.render('client_wait')
+router.get('/sites/:id/conversions',function(req,res){
+        var site = req.params.id
+    res.render('conversions',{site:site})
 });
 router.get('/home',function(req,res){
     res.render('index');
@@ -110,6 +120,6 @@ router.post('/manage',function(req,res){
     }else{
         res.send("Invalid Info");
     }
-   
+
 });
 module.exports = router;

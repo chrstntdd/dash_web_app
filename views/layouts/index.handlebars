@@ -1,6 +1,7 @@
 <style>
     .navbar{
-        background-color: rgba(52,73,94,1);
+        /*background-color: rgba(52,73,94,1);*/
+        background-color: #5484ca;
         color: white;
         border:0;
     }
@@ -21,10 +22,10 @@
 
   #header .jumbotron{
       /*background-image: url("http://i.imgur.com/lm2gZ6c.jpg?3");*/
-    
+        font-family: "Helvetica Neue";
         margin-top:10px;height:600px;
         background-repeat: no-repeat;
-        background-color: white/*rgba(52,73,94,1);*/
+        background-color: #5484ca;/*white/*rgba(52,73,94,1);*/
   }
   #logo{
       display: block;
@@ -50,7 +51,7 @@
                         <li class="menu_list"><a style="color:white" href="#Team">TEAM</a></li>
                         <li class="menu_list"><a style="color:white"  href="#Contact">CONTACT</a></li>
                         {{#if user}}
-                            <li class="menu_list"><a href="/manage"></a>SITES</li>
+                            <li class="menu_list"><a href="/sites">SITES</a></li>
                             {{else}}
                             <li><a style="color:white" href="/login">LOG IN</a></li>
                         {{/if}}
@@ -61,7 +62,7 @@
 <header id="header">
     
         <div class="jumbotron text-center landing">
-            <img id="logo" src="http://i.imgur.com/2RUUpaX.png" >
+            <img id="logo" src="http://i.imgur.com/HO70qIi.png" >
             <h1 style="margin-top:20px;color:rgba(52,73,94,1)">Enterprise Commercial Analytics</h1>
             <h4 >Discover, Track, And Anticipate Your In-Store Customer Behavior</h4>
             <form class="form-inline">
@@ -116,7 +117,7 @@
         <div class="row">
             <div class="col-sm-4">
                 <img class="col-sm-offset-2" src="images/technology.png" width="50%">
-             </div>
+            </div>
             <div class="panel col-sm-8" style="background-color:rgba(0,0,0,0)"> 
                 <div class="panel-heading">
                     <h3>The Technology</h3>

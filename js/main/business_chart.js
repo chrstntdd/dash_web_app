@@ -70,8 +70,8 @@ var business_chart = new Chart(business_cntxt, {
                         }],
                     xAxes: [{
                         scaleLabel:{ 
-                            display: false,
-                            labelString: "Business Last Half Hour",
+                            display: true,
+                            labelString: "Time",
                             fontFamily: "poiret",
                             fontSize: 40,
                             fontColor: '#34495e'

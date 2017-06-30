@@ -6,11 +6,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
-        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-        <!-- Include Date Range Picker -->
-        <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
-        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+
     </head>
     <style>
        @font-face{
@@ -31,16 +28,23 @@
             height:100px;
         }
         .dashboard_options{
-            padding-top:30px;
             /*background-color:#1ABC9C;*/
             background-color: rgba(52,73,94,1);
-            height:1300px;
+            height:1000px;
         }
         .dashboard_options li{
             list-style-type:none;
-            margin-top:70px;
             font-size:20px;
-            text-align:center;
+        }
+        .site_nav{
+          background-color:rgba(255,255,255,0.2);
+          border-radius:5px;
+          margin-top:100px;
+        }
+        .site_nav ul li a{
+          color:white;
+          font-family:poiret;
+          text-align:left;
         }
         .option{
             color:white;
@@ -72,10 +76,12 @@
             fill:#333333;
         }
         .site_data{
-            margin-top:100px;
+            margin-top:10px;
+        }
+        .site_history{
+            margin-top:75px;
         }
         .chart{
-            margin:auto;
             margin-top:-20px;
             width:150px;
             height:150px;
@@ -98,17 +104,29 @@
         .chart_info, .data_report{
             color: black;
         }
-
-        
+        .data_report{
+            font-size: 20px;
+        }
+        .nav_icon{
+            margin-right:20px;
+            font-size:20px;
+        }
     </style>
     <body>
         <div class="row">
             <div class="dashboard_options col-sm-2">
-                <ul>
-                    <li><a class="option" href="#">Sites</a></li>
-                    {{!--<li><a class="option" href="#">Account</a></li>--}}
-                    <li><a class="option" href="/logout">Logout</a></li>
-                </ul>
+                <div class="site_nav">
+                    <ul>
+                        <li><a class="option" href="/sites"><i class="nav_icon fa fa-sitemap"></i>Sites</a></li>
+                        <li><a href="/sites/{{site}}"><i class="nav_icon fa fa-dashboard"></i>Dasboard</a></li>
+                        <li><a href="/sites/{{site}}/avg_wait"><i class="nav_icon fa fa-hourglass-2"></i>Transactions</a></li>
+                        <li><a href="/sites/{{site}}/business"><i class="nav_icon fa fa-money"></i>Purchases</a></li>
+                        <li><a href="/sites/{{site}}/visits"><i class="nav_icon fa fa-users"></i>Visits</a></li>
+                        <li><a href="/sites/{{site}}/conversions"><i class="nav_icon fa fa-balance-scale"></i>Conversions</a></li>
+                        {{!--<li><a href="#">Behavior</a></li>--}}
+                        <li><a class="option" href="/logout"><i class="nav_icon fa fa-sign-out"></i>Logout</a></li>
+                    </ul>
+                </div>
             </div>
              <div class="col-sm-10">
                  <div class="row text-center">
@@ -121,16 +139,15 @@
 
                     <!-- Business chart of the past 30 minutes -->
                     
-                     <div class="business_chart row col-sm-6">
+                     <div class="business_chart row col-sm-7">
                         <div class="col-sm-12">
                             <h2 id="profile_title">Business Profile</h2>
                         </div> 
                         <div class="col-sm-12">
                             <canvas width="300" height="200" id="business_cntxt"></canvas>
                         </div>
-                        
                     </div>
-                    <div class="row col-sm-6">
+                    <div class="row col-sm-5">
                         <div class=" col-sm-12 text-center">
                             <h2 class="outlier_title" >Insights</h2>
                         </div>
@@ -143,7 +160,7 @@
                                 <svg  class="underline" width="200" height="2">
                                     <rect x="0" y="0" width="200" height="2">
                                 </svg>
-                                  <a class="chart_info" href="#" title="Wait time" data-toggle="popover" data-trigger="hover" data-content="Longest time a customer waited to make a purchase in the last half hour"><i class="fa fa-info" aria-hidden="true"></i></a>
+                                  <a class="chart_info" href="#" title="Transaction Time" data-toggle="popover" data-trigger="hover" data-content="Longest time a customer waited to make a purchase in the last half hour"><i class="fa fa-info" aria-hidden="true"></i></a>
                                </p>
                                <div>
                                    <p class="data_insight">Longest Transaction</p> 
@@ -157,7 +174,7 @@
                                 <svg  class="underline" width="200" height="2">
                                     <rect x="0" y="0" width="200" height="2">
                                 </svg>
-                                  <a class="chart_info" href="#" title="Wait time" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="Minimum time that a customer was on site without making a purchase"><i class="fa fa-info" aria-hidden="true"></i></a>
+                                  <a class="chart_info" href="#" title="Transaction Time" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="Minimum time that a customer was on site without making a purchase"><i class="fa fa-info" aria-hidden="true"></i></a>
                                </p>
                                <div>
                                    <p class="data_insight" >Shortest Transaction</p> 
@@ -170,7 +187,7 @@
                                 <svg  class="underline" width="200" height="2">
                                     <rect x="0" y="0" width="200" height="2">
                                 </svg>
-                                  <a class="chart_info" href="#" title="Wait time" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="Longest time that a customer was on site without making a purchase"><i class="fa fa-info" aria-hidden="true"></i></a>
+                                  <a class="chart_info" href="#" title="Impression" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="Longest time that a customer was on site without making a purchase"><i class="fa fa-info" aria-hidden="true"></i></a>
                                </p>
                                <div>
                                    <p class="data_insight" >Longest Duration</p> 
@@ -178,67 +195,66 @@
                             </div>
                         </div>
                     </div>
-                    
                     <!------------------Site info for Today-------------------------------->
                                     <!--Chart for the current wait-->
-                    <div class="col-sm-3 site_data">
+                    <div class="col-sm-3 site_history">
                        <p class="data_units"><strong id="current_wait" class="data_number">0</strong>  minutes waiting
                         </br>
                         <svg  class="underline" width="200" height="2">
                             <rect x="0" y="0" width="200" height="2">
                         </svg>
-                        <a class="chart_info" href="#" title="Wait time" data-toggle="popover" data-trigger="hover" data-content="Amount of time the average customer has waited today"><i class="fa fa-info" aria-hidden="true"></i></a>
+                        <a class="chart_info" href="#" title="General Performance" data-toggle="popover" data-trigger="hover" data-content="Amount of time the average customer has waited today"><i class="fa fa-info" aria-hidden="true"></i></a>
                        </p>
                        <div class="chart">
                             <canvas width="100" height="100" id="current_wait_cntxt"></canvas>
                         </div>
-                          <a href="/sites/{{site._id}}/avg_wait_today"><i class="data_report fa fa-bar-chart">Full Report</i></a>
+                          <a href="/sites/{{site._id}}/avg_wait"><i class="data_report fa fa-bar-chart">Full Report</i></a>
                     </div>
                     
                                       <!--Chart for the days current count of purchases-->
-                     <div class="col-sm-3 site_data">
+                     <div class="col-sm-3 site_history">
                        <p class="data_units"><strong id="purchases" class="data_number">0</strong>  purchases today
                         </br>
                         <svg  class="underline" width="200" height="2">
                             <rect x="0" y="0" width="200" height="2">
                         </svg>
-                          <a class="chart_info" href="#" title="Wait time" data-toggle="popover" data-trigger="hover" data-content="Current total of purchases made today"><i class="fa fa-info" aria-hidden="true"></i></a>
+                          <a class="chart_info" href="#" title="Aggregate Business" data-toggle="popover" data-trigger="hover" data-content="Current total of purchases made today"><i class="fa fa-info" aria-hidden="true"></i></a>
                        </p>
                        <div class="chart">
                             <canvas width="100" height="100" id="purchases_cntxt"></canvas>
                         </div>
-                          <a href="/sites/{{site._id}}/business_today"><i class="data_report fa fa-bar-chart">Full Report</i></a>
+                          <a href="/sites/{{site._id}}/business"><i class="data_report fa fa-bar-chart">Full Report</i></a>
                     </div>
                     
                                         <!--Chart for the days current count of visitors-->
-                     <div class="col-sm-3 site_data">
+                     <div class="col-sm-3 site_history">
                        <p class="data_units"><strong id="visits" class="data_number">0</strong>  visits
                         </br>
                         <svg  class="underline" width="200" height="2">
                             <rect x="0" y="0" width="200" height="2">
                         </svg>
-                          <a class="chart_info" href="#" title="Wait time" data-toggle="popover" data-trigger="hover" data-content="The current total of customers today"><i class="fa fa-info" aria-hidden="true"></i></a>
+                          <a class="chart_info" href="#" title="Total Impressions" data-toggle="popover" data-trigger="hover" data-content="The current total of customers today"><i class="fa fa-info" aria-hidden="true"></i></a>
                        </p>
                        <div class="chart">
                             <canvas width="100" height="100" id="visits_cntxt"></canvas>
                         </div>
-                          <a href="/sites/{{site._id}}/visits_today"><i class="data_report fa fa-bar-chart">Full Report</i></a>
+                          <a href="/sites/{{site._id}}/visits"><i class="data_report fa fa-bar-chart">Full Report</i></a>
                     </div>
                     
                     
                                         <!--Chart for the days current conversion rate-->
-                     <div class="col-sm-3 site_data">
+                     <div class="col-sm-3 site_history">
                        <p class="data_units"><strong id="conversion_rate" class="data_number">0%</strong>  conversion rate
                         </br>
                         <svg  class="underline" width="200" height="2">
                             <rect x="0" y="0" width="200" height="2">
                         </svg>
-                          <a class="chart_info" href="#" title="Wait time" data-placement="left" data-toggle="popover" data-trigger="hover" data-content="Percent of customers that made a purchase"><i class="fa fa-info" aria-hidden="true"></i></a>
+                          <a class="chart_info" href="#" title="Customer Conversion" data-placement="left" data-toggle="popover" data-trigger="hover" data-content="Percent of customers that made a purchase"><i class="fa fa-info" aria-hidden="true"></i></a>
                        </p>
                        <div class="chart">
                             <canvas width="100" height="100" id="conversions_cntxt"></canvas>
                         </div>
-                        <a href="/sites/{{site._id}}/conversions_today"><i class="data_report fa fa-bar-chart">Full Report</i></a>
+                        <a href="/sites/{{site._id}}/conversions"><i class="data_report fa fa-bar-chart">Full Report</i></a>
                     </div>
                     
                 </div>
@@ -251,7 +267,6 @@
     <script type="text/javascript" src="/js/main/conversions_chart.js"></script>
     <script type="text/javascript" src="/js/main/business_chart.js"></script>
     <script>
-    
        function getTodayQuickStats(){
             var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function(){
@@ -340,47 +355,7 @@
                 var range = JSON.stringify({start:start,end:end});
                 xmlhttp.send(range);
         }
-    function getTotalRatesForRange(start,end){
-            
-            var xmlhttp = new XMLHttpRequest();
-                xmlhttp.onreadystatechange = function(){
-                    if(this.status == 200 && this.readyState == 4){
-                        var results = JSON.parse(this.responseText);
-                        console.log(results);
-                        if (results == "No Rates"){
-                            console.log("no rates");
-                            alert("Sorry, No Data for specified period");
-                        }else{
-                            console.log("Some Rates");
-                            totalChart.data.datasets[0].data = results.clientsPerDay;
-                            totalChart.data.labels = results.clientsPerDay;
-                            totalChart.update();
-                        }
-                    }
-                };
-                
-                xmlhttp.open("POST","/api/rates/{{site._id}}/range/total",true);
-                xmlhttp.setRequestHeader("Content-Type","application/json");
-                var range = JSON.stringify({start:start,end:end});
-                xmlhttp.send(range);
-        }
     
-    function getAverageRatesForRange(start,end){
-            var xmlhttp = new XMLHttpRequest();
-                xmlhttp.onreadystatechange = function(){
-                    if(this.status == 200 && this.readyState == 4){
-                        var results = JSON.parse(this.responseText);
-                        console.log(results);
-                        avgChart.data.datasets[0].data = results.avg_rates;
-                        avgChart.data.labels = results.days;
-                        avgChart.update();
-                    }
-                };
-                xmlhttp.open("POST","/api/rates/{{site._id}}/range/averages",true);
-                xmlhttp.setRequestHeader("Content-Type","application/json");
-            var range = JSON.stringify({start:start,end:end});
-                xmlhttp.send(range);
-        }
     </script>
     <script type="text/javascript" src="/js/main/site_data.js"></script>
 </html>

@@ -15,7 +15,7 @@ var compGradient = cntxt.createLinearGradient(0,0,0,400);
     compGradientHover.addColorStop(0,'rgba(241,196,15,1)');
     compGradientHover.addColorStop(1,'rgba(230,126,34,1)');
                               
-var conversion_bar_chart = new Chart(cntxt,{
+var conversion_comp_chart = new Chart(cntxt,{
             type: 'bar',
             data: {
                 labels: ['8 am','9 am','10 am','11 am','12 pm','1 pm','2 pm','3 pm'],

@@ -6,14 +6,16 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     </head>
     <style>
        @font-face{
            font-family:poiret;
-           src:url(public/font/poiret-one.regular.ttf);
+           src:url(/fonts/poiret-one.regular.ttf);
        }
         .border_top{
-            background-color:#1ABC9C;
+            /*background-color:#1ABC9C;*/
+            background-color: rgba(52,73,94,1);
             height:100px;
         }
         .site_icon{
@@ -25,23 +27,26 @@
             height:100px;
         }
         .dashboard_options{
-            padding-top:30px;
-            background-color:#1ABC9C;
+            background-color: rgba(52,73,94,1);
             height:1000px;
         }
         .dashboard_options li{
             list-style-type:none;
-            margin-top:70px;
             font-size:20px;
-            text-align:center;
         }
-        .option{
-            color:white;
-            letter-spacing: 3px;
-            font-family:poiret;
+        
+      .site_nav{
+          background-color:rgba(255,255,255,0.2);
+          border-radius:5px;
+          margin-top:100px;
+        }
+      .site_nav ul li a{
+          color:white;
+          font-family:poiret;
+          text-align:left;
         }
         #profile_title, .outlier_title{
-            color:#7F8C8D;
+            color:#34495e;
             letter-spacing: 3px;
             font-family: poiret;
             margin-top:50px;
@@ -54,28 +59,30 @@
         .data_units{
             font-size: 18px;
             font-family: poiret;
-            color: #7F8C8D;
+            color: #344953
         }
         .underline  rect{
             fill:#333333;
         }
         .site_data{
             margin: 50px 20px 20px 20px;
-            background-color:#eeeeee;
+            background-color:#f5f5f5;
 
         }
+
         .chart{
             margin:auto;
+            margin-top:50px;
             margin-bottom:20px;
-            width: 65%;
-            background-color: #eeeeee;
+            width: 75%;
+            background-color: #f5f5f5;
         }
         .day_input{
-            background-color: #1ABC9C;
+            background-color: #34495e;
             border-radius: 15px;
             color: white;
             font-family:poiret;
-            font-size: 50px;
+            font-size: 30px;
             text-align: center;
             margin:auto;
             height:100px;
@@ -84,54 +91,345 @@
           float:left;
           font-family: poiret
       }
+    .time_period_text{
+        font-family:poiret;
+        font-size:20px;
+        text-align: center;
+        display:inline-block;
+        }
+        .time_button{
+            display:inline-block;
+        }
       .from_text,.to_text{
-          font-size: 20px;
+          font-size: 15px;
           margin: 0px 40px 0px 40px;
           color:#333333
       }
       .time_unit{
-          font-size:30px;
-          color:#1ABC9C;
+          font-size:20px;
+          color:#34495e;
       }
+            .data_period{
+          margin-top:-10px;
+          position: relative;
+          display: inline-block;
+        }
+      .data_period .btn{
+        background-color:#34495e;
+        color:white;
+        }
+        .data_insight{
+            font-size: 20px;
+            font-weight: lighter;
+            color: #333333;
+        }
+
+          .underline  rect{
+            fill:#333333;
+        }
+        .nav_icon{
+            margin-right:20px;
+            font-size:20px;
+        }
+        .alert{
+            display:none;
+            margin: auto;
+            font-size: 15px;
+        }
     </style>
     <body>
         <div class="row">
             <div class="dashboard_options col-sm-2">
-                <ul>
-                    <li><a class="option" href="#">Sites</a></li>
-                    <li><a class="option" href="#">Account</a></li>
-                    <li><a class="option" href="#">Logout</a></li>
-                </ul>
+                <div class="site_nav">
+                    <ul>
+                        <li><a class="option" href="/sites"><i class="nav_icon fa fa-sitemap"></i>Sites</a></li>
+                        <li><a href="/sites/{{site}}"><i class="nav_icon fa fa-dashboard"></i>Dasboard</a></li>
+                        <li><a href="/sites/{{site}}/avg_wait"><i class="nav_icon fa fa-hourglass-2"></i>Transactions</a></li>
+                        <li><a href="/sites/{{site}}/visits"><i class="nav_icon fa fa-users"></i>Visits</a></li>
+                        <li><a href="/sites/{{site}}/conversions"><i class="nav_icon fa fa-balance-scale"></i>Conversions</a></li>
+                        {{!--<li><a href="#">Behavior</a></li>--}}
+                        <li><a class="option" href="#"><i class="nav_icon fa fa-sign-out"></i>Logout</a></li>
+                    </ul>
+                </div>
             </div>
-             <div class="col-sm-10">
+            <div class="col-sm-10">
                  <div class="row text-center">
                      <div class="border_top col-sm-12"></div>
                      <div class="col-sm-12">
                          <div class="site_icon">
-                            <img src="http://i.imgur.com/5W0z5tV.png?1">
+                            <img src="https://i.imgur.com/5W0z5tV.png?1">
                         </div>
                     </div>
                      <div class="col-sm-12">
-                        <h2 id="profile_title">Client Purchasing Analysis</h2>
+                        <h2 id="profile_title">Client Purchases Analysis</h2>
                     </div>  
+
+                    <div class="alert alert-warning alert-dismissible">
+                        <a href="#" class="close" aria-label="close">x</a>
+                        <strong>Oops!</strong> There is no data for specified period
+                    </div>
                     <!--Chart for the current wait-->
-                    <div class="col-sm-12 site_data">
-                       <div class="chart">
-                            <canvas id="client_purchases_cntxt"></canvas>
+                    <div class="row col-sm-12 site_data">
+                        <div class="col-sm-offset-3 col-sm-6 data_period">
+                            <div class="btn-group">
+                                <button id="day_button" type="button" class="btn btn-lg" data-toggle="collapse" data-target="#date_collapse">Day</button>
+                                <button id="week_button" type="button" class="btn btn-lg" data-toggle="collapse" data-target="#date_collapse">Week</button>
+                                <button id="month_button" type="button" class="btn btn-lg" data-toggle="collapse" data-target="#date_collapse">Month</button>
+                            </div>
+                        </div>
+    
+                        <div class="col-sm-5 row">
+                            <div class="col-sm-12">
+                                <button name="day" id="dec_time_back" type="button" class="time_button btn btn-default"><i class="fa fa-chevron-left"></i></button>
+                                <p class="time_period_text">Jun 27th 2017</p>
+                                <button name="day" id="inc_time_fwd" type="button" class="time_button btn btn-default"><i class="fa fa-chevron-right"></i></button></br>
+                                <p class="time_text"><span class="from_text">from</span><span id="from_time" class="time_unit">8:00 AM</span><span class="to_text">to</span><span id="to_time" class="time_unit">3:00 PM</span></p>
+                            </div> 
+                            <div class="col-sm-12">
+                                <p class="data_units"><strong id="max_purchases" class="data_number">0</strong>  purchases made
+                                </br>
+                                <svg  class="underline" width="200" height="2">
+                                    <rect x="0" y="0" width="200" height="2">
+                                </svg>
+                                 <p class="data_insight">Most Purchases</p> 
+                            </div>
+                            <div class="col-sm-12">
+                                <p class="data_units"><strong id="min_purchases" class="data_number">0</strong>  purchases made
+                                </br>
+                                <svg  class="underline" width="200" height="2">
+                                    <rect x="0" y="0" width="200" height="2">
+                                </svg>
+                                 <p class="data_insight">Least Purchases</p> 
+                            </div> 
+                            <div class="col-sm-12">
+                                <p class="data_units"><strong id="total_purchases" class="data_number">0</strong>  purchases
+                                </br>
+                                <svg  class="underline" width="200" height="2">
+                                    <rect x="0" y="0" width="200" height="2">
+                                </svg>
+                                 <p class="data_insight">Total Purchases</p> 
+                            </div>
+                        </div>
+                         <div class="col-sm-7 chart">
+                            <canvas width="300" height="200" id="client_purchases_cntxt"></canvas>
                         </div>
                     </div>
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <input  class="form-control day_input" value="June 1st, 2017">
-                        </div>
-                    </div>
-                    <div class="col-sm-8">
-                        <p class="time_text"><span class="from_text">from</span><span class="time_unit">8:00 AM</span><span class="to_text">to</span><span class="time_unit">3:00 PM</span></p>
-                    </div>
-                    
                 </div>
-             </div>
+            </div>
         </div>
+    </div>
     </body>
-    <script type="text/javascript" src="./js/detail_charts/client_purchases_chart.js"></script>
+    <script type="text/javascript" src="/js/detail_charts/client_purchases_chart.js"></script>
+    <script>
+        function getPurchasesForRange(start,end,range){
+            
+            var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function(){
+                    if(this.status == 200 && this.readyState == 4){
+                        var stats = JSON.parse(this.responseText);
+                        console.log(stats);
+                        if (stats == "No Rates"){
+                            $(".alert").show();
+                            $(".alert").alert();
+                            $(".alert").attr({"display":"block"})
+                        }else{
+                            console.log("Some Rates");
+                            purchases_chart.data.datasets[0].data = stats.clients;
+                            purchases_chart.update();
+                            $("#min_purchases").text(stats.max);
+                            $("#max_purchases").text(stats.min);
+                            $("#total_purchases").text(stats.total)
+                        switch (range){
+                                case "day":
+                                    $(".time_period_text").text(stats.date);
+                                    break
+                                case "week":
+                                    $(".time_period_text").text("Week Stats");
+                                    $("#from_time").text(stats.from_date);
+                                    $("#to_time").text(stats.to_date);
+                                     purchases_chart.data.labels = stats.units
+                                    break
+                                case "month":
+                                    $(".time_period_text").text(stats.month);
+                                    $("#from_time").text(stats.from_date);
+                                    $("#to_time").text(stats.to_date);
+                                     purchases_chart.data.labels = stats.units
+                                    break
+                                default:
+                                    break;
+                              }
+                              purchases_chart.update();
+                        }
+                    }
+                };
+                
+                xmlhttp.open("POST","/api/rates/{{site}}/"+range+"/total",true);
+                xmlhttp.setRequestHeader("Content-Type","application/json");
+                var range = JSON.stringify({start:start,end:end});
+                xmlhttp.send(range);
+        }
+        function getAverageRatesForRange(start,end,range){
+                var xmlhttp = new XMLHttpRequest();
+                    xmlhttp.onreadystatechange = function(){
+                        if(this.status == 200 && this.readyState == 4){
+                            var stats = JSON.parse(this.responseText);
+                            console.log(stats);
+                            if (stats.status != "No Rates"){
+                                purchases_chart.data.datasets[1].data = stats.avg_rates;
+                                purchases_chart.update();
+                            }
+                        }
+                    };
+                    xmlhttp.open("POST","/api/rates/{{site}}/"+range+"/averages",true);
+                    xmlhttp.setRequestHeader("Content-Type","application/json");
+                  
+                var range = JSON.stringify({start:start,end:end});
+                    xmlhttp.send(range);
+            }
+</script>
+ <script>
+        $(document).ready(function(){
+            var today = moment().format('MMM Do YYYY')
+            $(".time_period_text").text(today)
+            
+            $(".close").click(function(){
+                  $(".alert").hide();
+              })
+             $("#day_button").click(function(){
+                $("#inc_time_fwd").attr("name","day");
+                $("#dec_time_back").attr("name","day");
+                var today = moment().format('MMM Do YYYY')
+                var start = moment().hour(8)
+                var end  = moment().hour(15)
+                $(".time_period_text").text(today)
+                $("#from_time").text("8:00 AM");
+                $("#to_time").text("3:00 PM");
+                 getPurchasesForRange(start,end,"month")
+            });
+            $("#week_button").click(function(){
+                $("#inc_time_fwd").attr("name","week");
+                $("#dec_time_back").attr("name","week");
+                $(".time_period_text").text("Week Stats")
+                var weekStart = moment().startOf('week')
+                var weekEnd = moment().endOf('week')
+                $("#from_time").text(weekStart.format('MMM Do YYYY'))
+                $("#to_time").text(weekEnd.format('MMM Do YYYY'))
+                 getPurchasesForRange(weekStart.hour(8),weekEnd.hour(15),"week")
+            });
+            $("#month_button").click(function(){
+                $("#inc_time_fwd").attr("name","month");
+                $("#dec_time_back").attr("name","month");
+                var month = moment().month();
+                var months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
+                var currentMonth = months[month];
+                var monthStart = moment().startOf('month')
+                var monthEnd = moment().endOf('month')
+                $(".time_period_text").text(currentMonth)
+                $("#from_time").text(monthStart.format('MMM Do YYYY'))
+                $("#to_time").text(monthEnd.format('MMM Do YYYY'))
+                getPurchasesForRange(monthStart.hour(8),monthEnd.hour(15),"month")
+            })
+            $("#inc_time_fwd").click(function(){
+                purchases_chart.data.datasets[0].data = []
+                purchases_chart.update()
+                switch ( $(this).attr("name")){
+                    case "day":
+                        var dayText = $(".time_period_text").text();
+                        var dayMoment = moment(dayText,'MMM Do YYYY').utcOffset(+4,true);
+                        console.log(dayMoment)
+                        var start = dayMoment.add(1,'days');
+                        console.log(start)
+                        var end = start.add(12,'hours');
+                         $(".time_period_text").text(start.format('MMM Do YYYY'))
+                        getPurchasesForRange(start,end,"day")
+                        break
+                    case "week":
+                        var dayText = $("#from_time").text();
+                        var toText = $("#to_time").text();
+                        console.log(dayText)
+                        var dayMoment = moment(dayText,'MMM Do YYYY');
+                        var endMoment = moment(toText,'MMM Do YYYY');
+                        console.log(dayMoment)
+                        var start = dayMoment.add(7,'days');
+                        console.log(start)
+                        var endDay = endMoment.add(7,'days');
+                        console.log(endDay)
+                        var end = endDay.add(12,'hours');
+                        $("#from_time").text(start.format('MMM Do YYYY'))
+                        $("#to_time").text(end.format('MMM Do YYYY'))
+                        getPurchasesForRange(start,end,"week");
+                        break
+                    case "month":
+                        var month = $(".time_period_text").text();
+                        var monthMoment = moment().month(month).date(1).hour(8)
+                        var nextMonth = monthMoment.add(1,'months').startOf('month')
+                        var start = nextMonth.hour(8);
+                   
+                         var months = ["January","February","March",
+                                        "April","May","June","July","August","September",
+                                        "October","November","December"]
+                        var nextMonth = months[nextMonth.month()];
+                        var end = moment().month(nextMonth).endOf('month')
+                        $(".time_period_text").text(nextMonth);
+                        $("#from_time").text(start.format('MMM Do YYYY'))
+                        $("#to_time").text(end.format('MMM Do YYYY'))
+                        getPurchasesForRange(start,end,"month")
+                        break
+                    default:
+                        break
+                }
+            });
+            $("#dec_time_back").click(function(){
+                purchases_chart.data.datasets[0].data = []
+                purchases_chart.update()
+                switch ( $(this).attr("name")){
+                    case "day":
+                        var dayText = $(".time_period_text").text();
+                        var dayMoment = moment(dayText,'MMM Do YYYY').utcOffset(+4,true);
+                        console.log(dayMoment)
+                        var start = dayMoment.subtract(1,'days');
+                        var end = start.add(12,'hours');
+                        $(".time_period_text").text(start.format('MMM Do YYYY'))
+                        
+                        getPurchasesForRange(start,end,"day");
+                        break
+                    case "week":
+                        var fromText = $("#from_time").text();
+                        var toText = $("#to_time").text();
+                        var dayMoment = moment(fromText,'MMM Do YYYY')
+                        var endMoment = moment(toText,'MMM Do YYYY')
+                        var start = dayMoment.subtract(7,'days');
+                        var endDay = endMoment.subtract(7,'days');
+                        var end = endDay.add(12,'hours');
+                        $("#from_time").text(start.format('MMM Do YYYY'));
+                        $("#to_time").text(end.format('MMM Do YYYY'));
+                        getPurchasesForRange(start,end,"week");
+                        break
+                    case "month":
+                        var month = $(".time_period_text").text();
+                        var monthMoment = moment().month(month).date(1).hour(8)
+                        var start = monthMoment.subtract(1,'months').startOf('month')
+                        var months = ["January","February","March",
+                                        "April","May","June","July","August","September",
+                                        "October","November","December"]
+                        var prevMonth = months[start.month()];
+                        var end = moment().month(prevMonth).endOf('month')
+                        $(".time_period_text").text(prevMonth)
+                        $("#from_time").text(start.format('MMM Do YYYY'));
+                        $("#to_time").text(end.format('MMM Do YYYY'));
+                        getPurchasesForRange(start,end,"month");
+                        break
+                    default:
+                        break
+                }
+            });            
+        })
+    </script>
+    
+
+<script>
+    //   var dayStart = moment().startOf('day').hour(8);
+    //   var dayEnd = dayStart.add(12,'hours');
+    //   getTotalForRange(dayStart,dayEnd,"day")
+</script>
 </html>

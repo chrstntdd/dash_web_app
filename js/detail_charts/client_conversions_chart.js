@@ -1,5 +1,5 @@
  var current_cntxt = document.getElementById("client_conversions_cntxt").getContext('2d');
-        var conversion_doughut_chart = new Chart(current_cntxt,{
+        var client_conversions_chart = new Chart(current_cntxt,{
             type: 'doughnut',
             data: {
                 labels: ["Visits","Purchases"],

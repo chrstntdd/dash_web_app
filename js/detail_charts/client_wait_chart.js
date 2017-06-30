@@ -6,9 +6,9 @@ var gradient = cntxt.createLinearGradient(0,0,0,600);
 var wait_chart = new Chart(cntxt,{
     type: 'line',
     data:{
-        labels: ['8am','9am','10am','11am','12am','1pm', '2pm','3pm','4pm','5pm','6pm'],
+        labels: ['8am','9am','10am','11am','12am','1pm', '2pm','3pm'],
         datasets:[{
-            data:[2,8,2,14,9,5,7,10,12,4,5],
+            data:[1,3,1,3,4,5,4,3],
             pointRadius: 0,
             backgroundColor: gradient
         }]
