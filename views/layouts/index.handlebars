@@ -1,41 +1,67 @@
 <style>
     .navbar{
         /*background-color: rgba(52,73,94,1);*/
-        background-color: #5484ca;
         color: white;
         border:0;
+        height:80px;
+    }
+    .navbar-brand img{
+        width: 50px;
+        height:50px;
+    }
+    .clear{
+      background-color: transparent;
+    }
+    .blueBG{
+        background-color: rgba(52,73,94,0.6) ;
     }
     #menu_list a{
         color: white;
     }
-    /*#tech_image{*/
-    /*    margin-top:-30px;*/
-    /*    background-image:url(http://i.imgur.com/saGvBc6.jpg);*/
-    /*    background-repeat:no-repeat;*/
-    /*    background-size:100%;*/
-    /*    background-attachment:fixed;*/
-    /*    height: 600px;*/
-    /*}*/
+    #About{
+        margin-top:-30px;
+        color:white;
+        background-image:url(http://i.imgur.com/BveSb48.jpg);
+        background-repeat:no-repeat;
+        background-size:100%;
+        background-attachment:fixed;
+        padding:40px;
+    }
     .landing{
         padding:150px;
     }
+    .landing h1, .landing h4{
+        margin-top:20px;
+        color:white;
+    }
 
   #header .jumbotron{
-      /*background-image: url("http://i.imgur.com/lm2gZ6c.jpg?3");*/
-        font-family: "Helvetica Neue";
+        background-image: url("http://i.imgur.com/9RGAeu8.jpg");
+        background-size: cover;
+        font-family: "Arial";
         margin-top:10px;height:600px;
         background-repeat: no-repeat;
-        background-color: #5484ca;/*white/*rgba(52,73,94,1);*/
-  }
-  #logo{
-      display: block;
-      margin: auto;
-  }
-
+        /*background-color: #5484ca;white/*rgba(52,73,94,1);*/
+    }
+    .content{
+        color:white;
+        font-size:20px;
+        font-family:"Arial";
+        background-color: rgba(0,0,0,0.6);
+        border-radius:10px;
+    }
+    .content-container h2{
+        color: white;
+        font-family: "Arial";
+    }
+    .contact-icon{
+        margin-right:20px;
+    }
 </style>
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Muli" />
+
 <body data-spy="scroll" data-target=".navbar" data-offset="0" style="position:relative">
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top clear">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mynavbar">
@@ -43,7 +69,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/home"><img src=""></a>
+                    <a class="navbar-brand" href="/home"><img src="http://i.imgur.com/KW2Liea.png"></a>
                 </div>
                 <div class="collapse navbar-collapse" id="mynavbar">
                     <ul class="nav navbar-nav navbar-right">
@@ -60,11 +86,9 @@
             </div>
         </nav>
 <header id="header">
-    
         <div class="jumbotron text-center landing">
-            <img id="logo" src="http://i.imgur.com/HO70qIi.png" >
-            <h1 style="margin-top:20px;color:rgba(52,73,94,1)">Enterprise Commercial Analytics</h1>
-            <h4 >Discover, Track, And Anticipate Your In-Store Customer Behavior</h4>
+            <h1>Enterprise Commercial Analytics</h1>
+            <h4>Discover, Track, And Anticipate Your In-Store Customer Behavior</h4>
             <form class="form-inline">
                 <div class="input-group">
                     <input type="email" class="form-control" size="50" placeholder="Email Address">
@@ -75,55 +99,71 @@
             </form>
         </div>
 </header>
-<section id="tech_image"></section>
-    <section id="About" class="container-fluid">
+
+    <section id="About" class="content-container container-fluid">
        <div style="text-align: center">
             <h1>What We're About</h1>
        </div>
         <div class="row">
             <div class="col-sm-4">
-                <img class="col-sm-offset-2" src="images/idea.png" width="50%">
+                <img class="col-sm-offset-2" src="http://i.imgur.com/Wh1oNYX.png" width="50%">
              </div>
             <div class="panel col-sm-8" style="background-color:rgba(0,0,0,0)"> 
                 <div class="panel-heading">
-                    <h3>The Idea</h3>
+                    <h2>The Idea</h2>
                 </div>
-                <div class="panel-body">
-                    <p>A lack of understanding can be the biggest barrier to positive change. As technology advances,
-                        so do the opportunities to improve your facility’s management. Finally, through Dash’s
-                        proprietary technology you can understand and manage your wait times, lines, and customer traffic.
+                <div class="content panel-body">
+                    <p>A lack of understanding can be the biggest barrier to positive change. 
+                    Even as technology evolves, a deep understanding of consumer needs and habits is what 
+                    drives any business into the future. With Dash’s technology, 
+                    customer habits and experiences can be collected and visualized in a fully automated process.
                     </p>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-4">
-                <img class="col-sm-offset-2" src="images/vision.png" width="50%">
+                <img class="col-sm-offset-2" src="http://i.imgur.com/KaJhcRa.png" width="50%">
              </div>
             <div class="panel col-sm-8" style="background-color:rgba(0,0,0,0)"> 
                 <div class="panel-heading">
-                    <h3>The Vision</h3>
+                    <h2>The Vision</h2>
                 </div>
-                <div class="panel-body">
-                    <p>Dash Analytics is here to solve a timeless problem. We are the world’s first total wait time
-                        solution —From a management dashboard to a customer application platform; we optimize
-                        your management’s efficiency while providing an innovative convenience to streamline your
-                        customer’s experience. Our solution lends a deeper understanding of each customer who walks
-                        into your business and their behavior within your store.
+                <div class="content panel-body">
+                    <p>Dash Analytics exists to merge advancing technology with classic 
+                    customer intimacy. Not only can Dash collect, store, and process 
+                    precious data about consumers, but it can also display this information 
+                    and how it affects a storefront using a real time management dashboard. 
+                    Dash optimizes management’s efficiency by making sense of patterns that 
+                    may not be seen without real time data analysis. This solution lends a deeper 
+                    understanding of each customer who walks into a business while providing staff with the knowledge to adapt.
                     </p>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-4">
-                <img class="col-sm-offset-2" src="images/technology.png" width="50%">
+                <img class="col-sm-offset-2" src="http://i.imgur.com/JXWQ0Wj.png" width="50%">
             </div>
             <div class="panel col-sm-8" style="background-color:rgba(0,0,0,0)"> 
                 <div class="panel-heading">
-                    <h3>The Technology</h3>
+                    <h2>The Technology</h2>
                 </div>
-                <div class="panel-body">
-                    <p></p>
+                <div class="content panel-body">
+                    <p>Dash’s technology makes use of a hub that is able to passively 
+                    monitor the presence of smart phones. In an age where more than three 
+                    quarters of Americans now carry a smart phone with them, this is one of 
+                    the most innovative way to automatically monitor and understand consumers as 
+                    they enter a storefront. The beauty of this solution comes in two characteristics. 
+                    First, it is entirely automated, and constantly running. This means that data collection 
+                    does not have to stop, and as soon as new information is gathered, a management team is 
+                    made aware. Second, this solution is entirely not intrusive, and involves the collection 
+                    of NO personal data. 
+                    </p></br>
+                    <p>As Dash develops, more means of Data collection are being researched. 
+                    On the horizon for Dash includes Geospatial Analysis, to further pinpoint and monitor customer 
+                    traffic in the physical world, and a wider variety of recognized signals, in order to collect 
+                    data on customers with cell phones, but not a smart device.</p>
                 </div>
             </div>
         </div>
@@ -266,10 +306,11 @@
     <div class="row">
         <h2>Contact Us</h2>
         <div class="col-sm-5" style="color:#333333">
-            <p><i class="fa fa-map-marker"></i>Norfolk,VA</p>                    
-            <p><i class="fa fa-envelope"></i>email@email.com</p>
-            <p><i class="fa fa-phone"></i>123-123-1234</p>
-            <p><i class="fa fa-fax"></i>123-123-1234</p>
+            <ul style="list-style:none">
+                <li><i class="contact-icon fa fa-map-marker"></i>Norfolk, VA</li>
+                <li><i class="contact-icon fa fa-envelope"></i>email@email.com</li>
+                <li><i class="contact-icon fa fa-phone"></i>757 409 1091</li>
+            </ul>
             <ul class="list-inline">
                 <li>
                     <a href="#">
@@ -318,3 +359,17 @@
     </div>    
  </div>
 </body>
+<script>
+    $(document).scroll(function(){
+        
+        if ($(".navbar").offset().top > 100){
+            $(".navbar").removeClass("clear")
+            $(".navbar").addClass("blueBG")
+        }else{
+             $(".navbar").removeClass("blueBG")
+            $(".navbar").addClass("clear")
+        }
+        
+        
+    })
+</script>
