@@ -1,27 +1,37 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-    
-         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      
     </head>
     <style>
         .border_top{
             /*background-color:#1ABC9C;*/
-            background-color: rgba(52,73,94,1);
+            background-color: #5484ca;
             height:100px;
+                
+        }
+        .dashboard_options img{
+            display:block;
+            margin: auto;
+            margin-top:-75px;
+            height:100px;
+            width:100px;
+        
         }
         .dashboard_options{
+            position:relative;
+            left:-5px;
             padding-top:30px;
             /*background-color:#1ABC9C;*/
-            background-color: rgba(52,73,94,1);
-            height:1300px;
+            background-color: #5484ca;
         }
+
         .dashboard_options li{
             list-style-type:none;
             margin-top:70px;
@@ -39,13 +49,17 @@
             font-family: poiret;
             margin: auto;
             margin-top:50px;
+            text-align:center;
         }
         .site_icon{
             margin-top:75px;
             background-color:#f5f5f5;
             border-radius:10px;
-            margin-left:20px;
             padding:20px         
+         }
+         .site_icon img{
+             display:block;
+             margin:auto;
          }
          .site_info{
              margin-top:75px;
@@ -59,32 +73,39 @@
          .site_info p{
              font-size:18px;
              margin-top: 50px;
+             display:inline-block;
+         }
+         .site_info .button{
+             display:inline-block;
+             margin-left: 30px;
          }
          .button .btn{
-             margin-left:0px;
-             margin-top: 75px;
              color: white;
              font-family: poiret;
              /*background-color: #1ABC9C;*/
-             background-color: rgba(52,73,94,1);
-             float: left;
+             background-color: #5484ca;
+             font-size:20px;
          }
+         
            @font-face{
            font-family:poiret;
            src:url(/fonts/poiret-one.regular.ttf);
        }
     </style>
    <body>
-        <div class="row">
+     <div class="row container-fluid">
+        <div class="border_top col-sm-12"></div>
+        <div class="row col-sm-12">
             <div class="dashboard_options col-sm-2">
+                <img src="http://i.imgur.com/KW2Liea.png">
                 <ul>
                     <li><a class="option" href="#">Sites</a></li>
                     {{!--<li><a class="option" href="#">Account</a></li>--}}
                     <li><a class="option" href="/logout">Logout</a></li>
                 </ul>
             </div>
-             <div class="col-sm-10">
-                     <div class="border_top col-sm-12"></div>
+             <div class="row col-sm-10 container-fluid">
+                    
                      <div class="col-sm-12">
                          <div class="title">
                             <h2>Your Managed Sites</h2>
@@ -99,13 +120,17 @@
                         <div class="site_info col-sm-7">
                             <h3>{{name}}</h3>
                             <p>Current Wait: 0 minutes</p>
+                            
+                            <div class="button">
+                                <a href="/sites/{{_id}}"><button class="btn">See More</button></a>
+                            </div>
                         </div>
-                        <div class="button col-sm-1">
-                            <a href="/sites/{{_id}}"><button class="btn">See More</button></a>
-                        </div>
+                       
                     {{/each}}
                
              </div>
+            
         </div>
+    </div>
   </body>
 </html>

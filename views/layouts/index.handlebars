@@ -21,7 +21,7 @@
     #About{
         margin-top:-30px;
         color:white;
-        background-image:url(http://i.imgur.com/BveSb48.jpg);
+        background-color: #5484ca;
         background-repeat:no-repeat;
         background-size:100%;
         background-attachment:fixed;
@@ -34,7 +34,6 @@
         margin-top:20px;
         color:white;
     }
-
   #header .jumbotron{
         background-image: url("http://i.imgur.com/9RGAeu8.jpg");
         background-size: cover;
@@ -47,15 +46,28 @@
         color:white;
         font-size:20px;
         font-family:"Arial";
-        background-color: rgba(0,0,0,0.6);
+        /*background-color: rgba(0,0,0,0.6);*/
         border-radius:10px;
     }
     .content-container h2{
         color: white;
         font-family: "Arial";
     }
-    .contact-icon{
+    .contact-info li i{
         margin-right:20px;
+        position:relative;
+        float:left;
+    }
+    .contact-info li{
+        margin-top:10px;
+        text-align:left;
+    }
+    .item .panel-footer{
+        width:50%;
+        margin:auto;
+    }
+    .carousel-indicators{
+        margin-top:50px;
     }
 </style>
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Muli" />
@@ -85,7 +97,7 @@
                 </div>
             </div>
         </nav>
-<header id="header">
+<section id="header">
         <div class="jumbotron text-center landing">
             <h1>Enterprise Commercial Analytics</h1>
             <h4>Discover, Track, And Anticipate Your In-Store Customer Behavior</h4>
@@ -98,7 +110,7 @@
                 </div>
             </form>
         </div>
-</header>
+</section>
 
     <section id="About" class="content-container container-fluid">
        <div style="text-align: center">
@@ -183,6 +195,9 @@
                             <h3>In Store Customer Tracking</h3>
                         </div>
                         <div class="panel-body">
+                            <img src="http://i.imgur.com/ImmPAZm.png">
+                        </div>
+                        <div class="panel-footer clear">
                             <p>“Research suggests that estimated wait times diffuse 
                                 the stress and anxiety people feel when they are waiting 
                                 in lines.”- The Washington Post
@@ -196,10 +211,11 @@
                             <h3>Monitor Customer Interaction With Your Product Placement Scheme</h3>
                         </div>
                         <div class="panel-body">
+                            <img src="http://i.imgur.com/eXzfKeC.png">
+                        </div>
+                        <div class="panel-footer clear">
                             <p>“$20 is the amount that US fans, on average, said they would spend additionally 
-                                for food & beverage if wait times were cut in half. 
-                                That represents a 42% increase in typical expenditure 
-                                (per party, per game).”- Oracle Research
+                                for food & beverage if wait times were cut in half, representing a 42% increase in typical expenditure.”- Oracle Research
                             </p>
                         </div>
                     </div>
@@ -210,6 +226,9 @@
                             <h3>Analyze Live Statistics</h3>
                         </div>
                         <div class="panel-body">
+                            <img src="http://i.imgur.com/xbEJ9yu.png">
+                        </div>
+                        <div class="panel-footer clear">
                             <p>
                                 “The way that businesses manage lines results in 
                                 easily billions of dollars of gained and lost 
@@ -282,7 +301,10 @@
                         <div class="caption" style="margin:auto; width:100%; text-align:center" >
                             <p style="font-weight:bold">Casey Dye</p>
                             <p>Cheif Information Officer</p>
-                            <p>Some info about Casey</p>
+                            <p>As the Chief Information Officer, Casey Dye aids Dash Analytics by 
+                            identifying opportunities for development in the areas of Data Analysis 
+                            and Business Management. Casey works on both ends of this solution, optimizing 
+                            the collection and visualization of all data.</p>
                         </div>
                     </div>
                 </div> 
@@ -306,10 +328,10 @@
     <div class="row">
         <h2>Contact Us</h2>
         <div class="col-sm-5" style="color:#333333">
-            <ul style="list-style:none">
-                <li><i class="contact-icon fa fa-map-marker"></i>Norfolk, VA</li>
-                <li><i class="contact-icon fa fa-envelope"></i>email@email.com</li>
-                <li><i class="contact-icon fa fa-phone"></i>757 409 1091</li>
+            <ul class="contact-info" style="list-style:none">
+                <li><i class="fa fa-map-marker"></i>Norfolk, VA</li>
+                <li><i class="fa fa-envelope"></i>itsdashanalytics@gmail.com</li>
+                <li><i class="fa fa-phone"></i>757 409 1091</li>
             </ul>
             <ul class="list-inline">
                 <li>
