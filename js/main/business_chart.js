@@ -65,7 +65,8 @@ var business_chart = new Chart(business_cntxt, {
                         },
                         ticks: {
                             display: true,
-                            beginAtZero:true
+                            beginAtZero:true,
+                            stepSize:1
                             }
                         }],
                     xAxes: [{

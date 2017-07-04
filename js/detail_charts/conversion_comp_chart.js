@@ -20,19 +20,26 @@ var conversion_comp_chart = new Chart(cntxt,{
             data: {
                 labels: ['8 am','9 am','10 am','11 am','12 pm','1 pm','2 pm','3 pm'],
                 datasets:[{
-                    data: [1,3,6,5,2],
+                    data: [],
                     backgroundColor:gradient,
                     hoverBackgroundColor: gradientHover,
                     borderWidth: 1
                 },
                 {
-                  data: [0.5,1.5,3,2.5,3],
+                  data: [],
                     backgroundColor:compGradient,
                     hoverBackgroundColor: compGradientHover,
                     borderWidth: 1  
                 }]
             },
             options: {
+                title:{
+                    display:false,
+                    fontFamily:'poiret',
+                    fontSize: 20,
+                    fontColor: '#34495e',
+                    text: 'Sales vs Visits'
+                },
                  tooltips:{
                     enabled: false
                 },
@@ -41,13 +48,15 @@ var conversion_comp_chart = new Chart(cntxt,{
                 },
                 scales: {
                     yAxes: [{
+                        
                         gridLines:{
                             display: false
                         },
                         ticks: {
                             beginAtZero:true,
                             fontSize: 18,
-                            fontFamily: 'poiret'
+                            fontFamily: 'poiret',
+                            stepSize:1
                             }
                         }],
                     xAxes: [{

@@ -30,6 +30,7 @@
         .dashboard_options{
             /*background-color:#1ABC9C;*/
             background-color: #5484ca;
+            
         }
         .dashboard_options li{
             list-style-type:none;
@@ -40,14 +41,15 @@
             display:block;
             margin: auto;
             margin-top:-75px;
-            height:100px;
-            width:100px;
+            height:50px;
+            width:50px;
         
         }
         .site_nav{
           background-color:rgba(255,255,255,0.2);
           border-radius:5px;
           margin-top:20px;
+          position: fixed;
         }
         .site_nav ul li a{
           color:white;
@@ -119,6 +121,7 @@
             margin-right:20px;
             font-size:20px;
         }
+        
     </style>
     <body>
         
@@ -129,7 +132,7 @@
                 <div class="site_nav">
                     <ul>
                         <li><a class="option" href="/sites"><i class="nav_icon fa fa-sitemap"></i>Sites</a></li>
-                        <li><a href="/sites/{{site._id}}"><i class="nav_icon fa fa-dashboard"></i>Dasboard</a></li>
+                        <li><a href="/sites/{{site._id}}"><i class="nav_icon fa fa-dashboard"></i>Dashboard</a></li>
                         <li><a href="/sites/{{site._id}}/avg_wait"><i class="nav_icon fa fa-hourglass-2"></i>Transactions</a></li>
                         <li><a href="/sites/{{site._id}}/business"><i class="nav_icon fa fa-money"></i>Purchases</a></li>
                         <li><a href="/sites/{{site._id}}/visits"><i class="nav_icon fa fa-users"></i>Visits</a></li>
@@ -141,7 +144,6 @@
             </div>
              <div class="row col-sm-10">
                  <div class="text-center">
-                     
                      <div class="col-sm-12">
                          <div class="site_icon">
                             <img src={{site.icon_url}}>
