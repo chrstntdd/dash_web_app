@@ -1,4 +1,8 @@
 <style>
+ @font-face{
+           font-family:poiret;
+           src:url(/fonts/poiret-one.regular.ttf);
+       }
     .navbar{
         /*background-color: rgba(52,73,94,1);*/
         color: white;
@@ -6,17 +10,31 @@
         height:80px;
     }
     .navbar-brand img{
-        width: 50px;
-        height:50px;
+        width: 30px;
+        height:30px;
     }
     .clear{
       background-color: transparent;
     }
     .blueBG{
-        background-color: rgba(52,73,94,0.6) ;
+        background-color: rgba(52,73,94,0.8) ;
     }
-    #menu_list a{
+      #mynavbar{
+          height:80px;
+          margin-top:10px;
+       
+      }
+      .menu_list{
+          margin-right:5px;
+      }
+    .menu_list a{
         color: white;
+        border: 1px solid white;
+        border-radius:10px;
+    }
+    
+    .menu_list a:visited{
+        color:rgba(52,73,94,1);
     }
     #About{
         margin-top:-30px;
@@ -34,24 +52,38 @@
         margin-top:20px;
         color:white;
     }
-  #header .jumbotron{
-        background-image: url("http://i.imgur.com/9RGAeu8.jpg");
+    #header{
         background-size: cover;
-        font-family: "Arial";
-        margin-top:10px;height:600px;
-        background-repeat: no-repeat;
-        /*background-color: #5484ca;white/*rgba(52,73,94,1);*/
+        background-image: url("http://i.imgur.com/9RGAeu8.jpg");
+        height:600px;
+        background-repeat:no-repeat;
+    }
+    #header img{
+        display:block;
+        margin:auto;
+        padding: 100px 0px;
+    }
+  #header2 .jumbotron{
+        font-family: poiret;
+        background-color: #5484ca;/*white/*rgba(52,73,94,1);*/
+    }
+    #Team h2{
+        text-align:center;
+    }
+    #Team{
+        color:white;
+        background-color:rgba(52,73,94,0.8);
     }
     .content{
         color:white;
         font-size:20px;
-        font-family:"Arial";
+        font-family:poiret;
         /*background-color: rgba(0,0,0,0.6);*/
         border-radius:10px;
     }
     .content-container h2{
         color: white;
-        font-family: "Arial";
+        font-family: poiret;
     }
     .contact-info li i{
         margin-right:20px;
@@ -69,9 +101,36 @@
     .carousel-indicators{
         margin-top:50px;
     }
+    .team_member{
+        display:inline-block;
+        border-style:none;
+        background-color:transparent;
+        width:40%;
+        color:white;
+    }
+    .caption{
+        color:white;
+        width:100%; 
+        text-align:center
+    }
+    .caption p{
+        color:white;
+    }
+    
+    .bio{
+        font-size:20px;
+        display:inline-block;
+        font-family:poiret;
+        width:600px;
+        height:100px;
+        color:white;
+    }
+    .bio p{
+        padding: 50px 0px;
+        color:white;
+    }
 </style>
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Muli" />
-
 <body data-spy="scroll" data-target=".navbar" data-offset="0" style="position:relative">
 <nav class="navbar navbar-default navbar-fixed-top clear">
             <div class="container">
@@ -97,10 +156,16 @@
                 </div>
             </div>
         </nav>
+
 <section id="header">
-        <div class="jumbotron text-center landing">
-            <h1>Enterprise Commercial Analytics</h1>
-            <h4>Discover, Track, And Anticipate Your In-Store Customer Behavior</h4>
+    <img src="http://i.imgur.com/n4CUoxY.png">
+</section>
+<section id="header2">
+      <div class="jumbotron text-center landing">
+            
+            <h1>DASH ANALYTICS</h1>
+            <h4>Now you can Discover, Track, And Anticipate Your In-Store Customer Behavior</h4>
+            <h4 style="font-weight:bold">Like You've Always Wanted</h4>
             <form class="form-inline">
                 <div class="input-group">
                     <input type="email" class="form-control" size="50" placeholder="Email Address">
@@ -111,7 +176,6 @@
             </form>
         </div>
 </section>
-
     <section id="About" class="content-container container-fluid">
        <div style="text-align: center">
             <h1>What We're About</h1>
@@ -248,80 +312,98 @@
         </div>
     </section>
     <section id="Team">
-       <div class="jumbotron" style="text-align: center;margin-top:0px">
             <h2>Meet Our Expert Team</h2></br>
             <div class="row">
-                  <div class="col-sm-offset-1 col-sm-4">
-                    <div class="thumbnail" style="border-style:none;background-color:transparent">
+                <div class="col-sm-12">
+                    <div class="thumbnail team_member pull-left">
                         <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAl6AAAAJDEwMmQ4ODMxLTIxNDQtNGYyZC1hM2FiLTc0NTI2OTIzYjcxOA.jpg" class="img-rounded" alt="Collin Smith" width="50%">
-                        <div class="caption" style="margin:auto; width:100%; text-align:center" >
+                        <div class="caption">
                             <p style="font-weight:bold">Collin Smith</p>
                             <p>Chief Executive Officer</p>
-                            <p>
-                                As co-founder and CEO of Dash Analytics, Collin l
-                                eads the team in a national implementation strategy, 
-                                overseeing growth and scalability. 
-                            </p>
                         </div>
                     </div>
+                    <div class="bio">
+                         <p>
+                               As co-founder and CEO of Dash Analytics, Collin leads the team in a national implementation strategy, 
+                               overseeing partnerships and daily operations. From Strategy to installation he personally ensures 
+                               that the efficiency and seamless design of Dash Analytics is utilized at the highest level within 
+                               each organization leveraging the technology. Collin incepted Dash Analytics during his senior year 
+                               at Old Dominion University where he earned a Bachelor’s of Science.
+                        </p>
+                    </div>
                 </div>
-                  <div class="col-sm-offset-1 col-sm-4">
-                    <div class="thumbnail" style="border-style:none;background-color:transparent">
+                <div class="col-sm-12">
+                    <div class="thumbnail team_member pull-left">
                         <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAA1uAAAAJDlmZWUwNjMwLWM0YzgtNDg1MS1hOTNjLWYxZDlhNjc0ODBmMg.jpg" class="img-rounded" alt="Chris Jakobowski" width="50%">
-                        <div class="caption" style="margin:auto; width:100%; text-align:center" >
+                        <div class="caption">
                             <p style="font-weight:bold">Chris Jakobowski</p>
                             <p>Chief Operating Officer</p>
-                            <p>
-                                 Chris has extensive experience in project management, 
-                                 handling the external and peripheral operations of the company.
-                            </p>
                         </div>
+                    </div>
+                    <div class="bio">
+                         <p>
+                                Chris Jakobowski serves as the Chief Operating Officer of Dash Analytics. --}}
+                                Chris has extensive experience in project management and design. 
+                                In this role, Chris is responsible for external partnerships and handling the peripheral 
+                                operations of the company. Chris is committed to driving strong results while transforming 
+                                the way Dash Analytics serves its partners and customers- providing managers and clients with 
+                                convenience. He joined Dash Analytics during his senior year at Old Dominion University where 
+                                he earned his B.S. in Business Administration.
+                        </p>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-offset-1 col-sm-3">
-                    <div class="thumbnail" style="border-style:none;background-color:transparent">
+                <div class="col-sm-12">
+                    <div class="thumbnail team_member pull-left">
                         <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAtLAAAAJGJkZWEwMTY5LTY0MTMtNDEyZS1iODAzLWE0ZmUzMjk0ZmE4NA.jpg" class="img-rounded" alt="Kenny Diedrich" width="50%">
-                        <div class="caption" style="margin:auto; width:100%; text-align:center" >
-                            <p style="font-weight:bold">Kenny Diedrich</p>
+                        <div class="caption">
+                            <p style="font-weight:bold">Kenneth Diedrich</p>
                             <p>Chief Technology Officer</p>
-                            <p>
-                                Alongside the team he manages, Kenneth researches 
-                                and develops critical components of the solution 
-                                and is heavily involved in the prototyping and 
-                                installation of this innovative product.
-                            </p>
                         </div>
                     </div>
-                </div> 
-                   <div class="col-sm-3">
-                    <div class="thumbnail" style="border-style:none;background-color:transparent">
+                    <div class="bio">
+                         <p>
+                            Kenneth, as CTO of Dash Analytics, guides the technical direction of the company. 
+                            Alongside the team he manages, Kenneth researches and develops critical components of the 
+                            solution and is heavily involved in the prototyping and installation of this innovative product. 
+                            A sophomore at Old Dominion University and a true nerd at heart, his years of programming experience 
+                            and keen interest in the tech industry fundamentally shape the course of Dash Analytics.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="thumbnail team_member pull-left">
                         <img src="https://scontent-dft4-2.xx.fbcdn.net/v/t1.0-9/182545_10200992460162027_325747672_n.jpg?oh=3d17e0a189d19a95689a00c9f65b98c9&oe=59B87C80" class="img-rounded" alt="Casey Dye" width="50%">
-                        <div class="caption" style="margin:auto; width:100%; text-align:center" >
+                        <div class="caption">
                             <p style="font-weight:bold">Casey Dye</p>
-                            <p>Cheif Information Officer</p>
-                            <p>As the Chief Information Officer, Casey Dye aids Dash Analytics by 
+                            <p>Chief Information Officer</p>
+                        </div>
+                    </div>
+                    <div class="bio">
+                         <p>
+                            As the Chief Information Officer, Casey Dye aids Dash Analytics by 
                             identifying opportunities for development in the areas of Data Analysis 
                             and Business Management. Casey works on both ends of this solution, optimizing 
-                            the collection and visualization of all data.</p>
+                            the collection and visualization of all data.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="thumbnail team_member pull-left">
+                        <img src="https://scontent-iad3-1.xx.fbcdn.net/v/t34.0-12/1462115_756788777670624_1922385372_n.jpg?oh=d5ac3993644e3261c79fe89da88f0747&oe=595FF2EC" class="img-rounded" alt="Blake Rogers" width="50%">
+                        <div class="caption">
+                            <p style="font-weight:bold">Collin Smith</p>
+                            <p>We Developer</p>
                         </div>
                     </div>
-                </div> 
-                   <div class="col-sm-3">
-                    <div class="thumbnail" style="border-style:none;background-color:transparent">
-                        <img src="https://scontent-dft4-2.xx.fbcdn.net/v/t31.0-8/12339215_1208427382506759_5538751028405840229_o.jpg?oh=f06d9b9869d1687674af58be9d206313&oe=59BF5893" class="img-rounded" alt="Blake Rogers" width="50%">
-                        <div class="caption" style="margin:auto; width:100%; text-align:center" >
-                            <p style="font-weight:bold">Blake Rogers</p>
-                            <p>Web & Mobile Developer</p>
-                            <p>
-                                Blake is an ex-nuclear technician turned software developer. In his off time he 
-                                is working on pet projects and enjoying the company of friends.
-                            </p>
-                        </div>
+                    <div class="bio">
+                        <p>
+                            Blake is a Navy veteran with a background in electrical engineering and 
+                            automation logistics. With a passion for technology and development he has moved into the software industry. 
+                            He has developed multiple mobile and web applications and fulfills the role of backend and frontend developer
+                            for the Dash platform and collaborates with multiple business to create innovative products like the Dash Analytics platform.
+                        </p>
                     </div>
-                </div>   
-            </div>
+                </div>
        </div>
    </section>
  <div id="Contact" class="container-fluid text-center footer_info">

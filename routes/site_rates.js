@@ -55,8 +55,8 @@ router.get('/:id/all',function(req,res){
 
 router.get('/:id/today',function(req,res){
     var site = req.params.id;
-    var start = moment().startOf('day');
-    var end = moment().endOf('day');
+    var start = moment().startOf('day').utcOffset(+4,true);
+    var end = moment().endOf('day').utcOffset(+4,true);
 console.log("getting quick stats for today from " + start + " to " + end);
 
     Rate.get_stats(site,start,end,function(err,rates){
