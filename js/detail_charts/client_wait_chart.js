@@ -8,7 +8,7 @@ var wait_chart = new Chart(cntxt,{
     data:{
         labels: ['8am','9am','10am','11am','12am','1pm', '2pm','3pm'],
         datasets:[{
-            data:[],
+            data:[1,5,3,5,6,4,3,6],
             pointRadius: 0,
             backgroundColor: gradient
         }]

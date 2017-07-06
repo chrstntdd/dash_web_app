@@ -4,7 +4,7 @@
             data: {
                 labels: ["Visits","Purchases"],
                 datasets:[{
-                    data: [],
+                    data: [12,18],
                     backgroundColor:[
                         'rgba(241,196,15,1)',
                         'rgba(230,126,34,1)'

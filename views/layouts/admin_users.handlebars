@@ -10,23 +10,25 @@
     </thead>
     <tbody>
         {{#each users}}
-        <tr id={{_id}} class="site_row">
+        
+            <tr>
             <td>{{_id}}</td>
             <td>{{name.first_name}} {{name.last_name}}</td>
             <td>{{email}}</td>
-            <td></td>
+            <td><a href="/admin/users/{{_id}}">Edit</a></td>
         </tr>
+        
         {{/each}}
     </tbody>
 </table>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
-    $(document).ready(function(){
-       $(".site_row").click(function(){
-           window.location.assign("/admin/sites/"+this.id)
-       });
+    // $(document).ready(function(){
+    //   $(".site_row").click(function(){
+    //       window.location.assign("/admin/sites/"+this.id)
+    //   });
         
-    });
+    // });
     
 </script>
 <form class="col-sm-offset-2 col-sm-6" action="">
@@ -71,7 +73,7 @@
             }
             if (is_complete_user){
                 var xhttp = new XMLHttpRequest();
-                    xhttp.open("POST","../../api/users",true);
+                    xhttp.open("POST","../../api/users/create",true);
                     xhttp.setRequestHeader("Content-Type","application/json");
                     xhttp.send(JSON.stringify(user));
             }else{
@@ -79,10 +81,7 @@
             }
             
         });
-        $(".site_row").click(function(){
-      
-            window.location.assign("/admin/users/"+this.id)
-        })
+
 
     })
 </script>

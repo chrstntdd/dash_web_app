@@ -11,7 +11,7 @@ router.get('/sites',function(req,res){
     if (user.email == 'blake.rogers757@gmail.com'){
             var sites = Sites.getSites(function(error,sites){
             if(sites){
-                res.render('sites_admin',{sites:sites});
+                res.render('admin_sites',{sites:sites});
                 }else{
                     res.send(error);
                 }
@@ -29,7 +29,7 @@ router.get('/sites/:id',function(req,res){
         var id = req.params.id
         Sites.getSite(id,function(error,site){
             if(site){
-                res.render('site_admin',{site:site})
+                res.render('admin_site',{site:site})
             }
         });
     }else{
@@ -44,7 +44,7 @@ router.get('/users',function(req,res){
             if(error){
                 throw error
             }else{
-                res.render('users_admin',{users:users})
+                res.render('admin_users',{users:users})
             }
         });
     }else{
@@ -54,13 +54,16 @@ router.get('/users',function(req,res){
 
 router.get('/users/:id',function(req,res){
       var user = req.session.user;
+      console.log("fetching a user at"+ req.params.id)
+      
     if (user.email == 'blake.rogers757@gmail.com'){
         var id = req.params.id
         Users.getUserWithID(id,function(err,user){
             if(err){
                 throw err
             }else{
-                res.render('user_admin',user)
+                console.log("show show page with"+ user)
+                res.render('admin_user',{user:user})
             }
         });
     }else{

@@ -16,32 +16,37 @@
             height:100px;
                 
         }
-        .dashboard_options img{
-            display:block;
-            margin: auto;
-            margin-top:-75px;
-            height:100px;
-            width:100px;
-        
-        }
         .dashboard_options{
-            position:relative;
-            left:-5px;
-            padding-top:30px;
+            padding:5px;
             /*background-color:#1ABC9C;*/
             background-color: #5484ca;
         }
-
         .dashboard_options li{
             list-style-type:none;
-            margin-top:70px;
+            margin:10px;
             font-size:20px;
-            text-align:center;
         }
-        .option{
-            color:white;
-            letter-spacing: 3px;
-            font-family:poiret;
+        .dashboard_options a img{
+            display:block;
+            margin: auto;
+            margin-top:-75px;
+            height:50px;
+            width:50px;
+        }
+        .site_nav{
+          background-color:rgba(255,255,255,0.2);
+          border-radius:5px;
+          margin:20px;
+          position: fixed;
+        }
+        .site_nav ul li a{
+          color:white;
+          font-family:poiret;
+          text-align:left;
+        }
+        .nav_icon{
+            margin-right:20px;
+            font-size:20px;
         }
         .title{
             color:#7F8C8D;
@@ -86,26 +91,25 @@
              background-color: #5484ca;
              font-size:20px;
          }
-         
-           @font-face{
+         @font-face{
            font-family:poiret;
            src:url(/fonts/poiret-one.regular.ttf);
        }
     </style>
    <body>
-     <div class="row container-fluid">
+     <div class="row">
         <div class="border_top col-sm-12"></div>
-        <div class="row col-sm-12">
             <div class="dashboard_options col-sm-2">
-                <img src="http://i.imgur.com/KW2Liea.png">
-                <ul>
-                    <li><a class="option" href="#">Sites</a></li>
-                    {{!--<li><a class="option" href="#">Account</a></li>--}}
-                    <li><a class="option" href="/logout">Logout</a></li>
-                </ul>
+                <a href="/home"><img src="http://i.imgur.com/KW2Liea.png"></a>
+                <div class="site_nav">
+                    <ul>
+                        <li><a href="#"><i class="nav_icon fa fa-sitemap"></i>Sites</a></li>
+                        {{!--<li><a class="option" href="#">Account</a></li>--}}
+                        <li><a href="/logout"><i class="nav_icon fa fa-sign-out"></i>Logout</a></li>
+                    </ul>
+                </div>
             </div>
-             <div class="row col-sm-10 container-fluid">
-                    
+             <div class="row col-sm-10">
                      <div class="col-sm-12">
                          <div class="title">
                             <h2>Your Managed Sites</h2>
@@ -119,18 +123,13 @@
                         </div>
                         <div class="site_info col-sm-7">
                             <h3>{{name}}</h3>
-                            <p>Current Wait: 0 minutes</p>
-                            
+                            {{!--<p>Current Wait: 0 minutes</p>--}}
                             <div class="button">
                                 <a href="/sites/{{_id}}"><button class="btn">See More</button></a>
                             </div>
                         </div>
-                       
                     {{/each}}
-               
              </div>
-            
         </div>
-    </div>
   </body>
 </html>

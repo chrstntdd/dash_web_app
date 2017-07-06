@@ -37,11 +37,18 @@
             list-style-type:none;
             font-size:20px;
         }
+        .dashboard_options a img{
+            display:block;
+            margin: auto;
+            margin-top:-75px;
+            height:50px;
+            width:50px;
+        }
         .site_nav{
           position: fixed;
           background-color:rgba(255,255,255,0.2);
           border-radius:5px;
-          margin-top:100px;
+          margin-top:20px;
         }
         .site_nav ul li a{
           color:white;
@@ -134,12 +141,14 @@
             display:none;
             margin: auto;
             font-size: 15px;
+            
         }
     </style>
     <body>
         <div class="row">
             <div class="border_top col-sm-12"></div>
             <div class="dashboard_options col-sm-2">
+                <a href="/home"><img src="http://i.imgur.com/KW2Liea.png"></a>
                 <div class="site_nav">
                     <ul>
                         <li><a class="option" href="/sites"><i class="nav_icon fa fa-sitemap"></i>Sites</a></li>
@@ -163,7 +172,7 @@
                         <h2 id="profile_title">Transaction Analysis</h2>
                     </div>  
 
-                    <div class="alert alert-warning alert-dismissible">
+                    <div class="col-sm-12 alert alert-warning alert-dismissible">
                         <a href="#" class="close" aria-label="close">x</a>
                         <strong>Oops!</strong> There is no data for specified period
                     </div>

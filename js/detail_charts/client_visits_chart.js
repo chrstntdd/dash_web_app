@@ -11,7 +11,7 @@ var client_visits_chart = new Chart(cntxt,{
             data: {
                 labels: ['8 am','9 am','10 am','11 am','12 pm','1 pm','2 pm','3 pm'],
                 datasets:[{
-                    data: [],
+                    data: [7,4,3,5,2,3,4,6],
                     backgroundColor:gradient,
                     hoverBackgroundColor: gradientHover,
                     borderWidth: 1

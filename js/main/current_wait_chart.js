@@ -4,7 +4,7 @@
             data: {
                 labels: [" "," "," "," "," "],
                 datasets:[{
-                    data: [],
+                    data: [-1,-6,-3,-4,-7],
                     backgroundColor:[
                         'rgba(141,179,241,1)',
                         'rgba(141,179,241,1)',

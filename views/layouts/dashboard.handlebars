@@ -37,13 +37,12 @@
             margin:10px;
             font-size:20px;
         }
-        .dashboard_options a{
+        .dashboard_options a img{
             display:block;
             margin: auto;
             margin-top:-75px;
             height:50px;
             width:50px;
-        
         }
         .site_nav{
           background-color:rgba(255,255,255,0.2);
@@ -56,11 +55,7 @@
           font-family:poiret;
           text-align:left;
         }
-        .option{
-            color:white;
-            letter-spacing: 3px;
-            font-family:poiret;
-        }
+
         #profile_title, .outlier_title{
             color:#34495e;
             letter-spacing: 3px;
@@ -91,7 +86,8 @@
             margin-top:10px;
         }
         .site_history{
-            margin-top:200px;
+            margin-top:50px;
+            padding-bottom:100px;
         }
         .chart{
             margin-top:-20px;
@@ -123,28 +119,31 @@
             margin-right:20px;
             font-size:20px;
         }
-        
+        .data_report{
+            margin-top:50px;
+            
+        }
     </style>
     <body>
         
         <div class="row">
             <div class="border_top col-sm-12"></div>
-            <div class="dashboard_options col-sm-2">
-                 <a href="/home"><img src="http://i.imgur.com/KW2Liea.png"></a>
-                {{!--<img src="http://i.imgur.com/KW2Liea.png">--}}
-                <div class="site_nav">
-                    <ul>
-                        <li><a class="option" href="/sites"><i class="nav_icon fa fa-sitemap"></i>Sites</a></li>
-                        <li><a href="/sites/{{site._id}}"><i class="nav_icon fa fa-dashboard"></i>Dashboard</a></li>
-                        <li><a href="/sites/{{site._id}}/avg_wait"><i class="nav_icon fa fa-hourglass-2"></i>Transactions</a></li>
-                        <li><a href="/sites/{{site._id}}/business"><i class="nav_icon fa fa-money"></i>Purchases</a></li>
-                        <li><a href="/sites/{{site._id}}/visits"><i class="nav_icon fa fa-users"></i>Visits</a></li>
-                        <li><a href="/sites/{{site._id}}/conversions"><i class="nav_icon fa fa-balance-scale"></i>Conversions</a></li>
-                        {{!--<li><a href="#">Behavior</a></li>--}}
-                        <li><a class="option" href="/logout"><i class="nav_icon fa fa-sign-out"></i>Logout</a></li>
-                    </ul>
+                <div class="dashboard_options col-sm-2">
+                    <a href="/home"><img src="http://i.imgur.com/KW2Liea.png"></a>
+                    {{!--<img src="http://i.imgur.com/KW2Liea.png">--}}
+                    <div class="site_nav">
+                        <ul>
+                            <li><a class="option" href="/sites"><i class="nav_icon fa fa-sitemap"></i>Sites</a></li>
+                            <li><a href="/sites/{{site._id}}"><i class="nav_icon fa fa-dashboard"></i>Dashboard</a></li>
+                            <li><a href="/sites/{{site._id}}/avg_wait"><i class="nav_icon fa fa-hourglass-2"></i>Transactions</a></li>
+                            <li><a href="/sites/{{site._id}}/business"><i class="nav_icon fa fa-money"></i>Purchases</a></li>
+                            <li><a href="/sites/{{site._id}}/visits"><i class="nav_icon fa fa-users"></i>Visits</a></li>
+                            <li><a href="/sites/{{site._id}}/conversions"><i class="nav_icon fa fa-balance-scale"></i>Conversions</a></li>
+                            {{!--<li><a href="#">Behavior</a></li>--}}
+                            <li><a class="option" href="/logout"><i class="nav_icon fa fa-sign-out"></i>Logout</a></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
              <div class="row col-sm-10">
                  <div class="text-center">
                      <div class="col-sm-12">
@@ -224,7 +223,7 @@
                        <div class="chart">
                             <canvas width="100" height="100" id="current_wait_cntxt"></canvas>
                         </div>
-                          <a href="/sites/{{site._id}}/avg_wait"><i class="data_report fa fa-bar-chart">Full Report</i></a>
+                          <a class="report_link" href="/sites/{{site._id}}/avg_wait"><i class="data_report fa fa-bar-chart">Full Report</i></a>
                     </div>
                     
                                       <!--Chart for the days current count of purchases-->
@@ -239,7 +238,7 @@
                        <div class="chart">
                             <canvas width="100" height="100" id="purchases_cntxt"></canvas>
                         </div>
-                          <a href="/sites/{{site._id}}/business"><i class="data_report fa fa-bar-chart">Full Report</i></a>
+                          <a class="report_link" href="/sites/{{site._id}}/business"><i class="data_report fa fa-bar-chart">Full Report</i></a>
                     </div>
                     
                                         <!--Chart for the days current count of visitors-->
@@ -254,7 +253,7 @@
                        <div class="chart">
                             <canvas width="100" height="100" id="visits_cntxt"></canvas>
                         </div>
-                          <a href="/sites/{{site._id}}/visits"><i class="data_report fa fa-bar-chart">Full Report</i></a>
+                          <a class="report_link" href="/sites/{{site._id}}/visits"><i class="data_report fa fa-bar-chart">Full Report</i></a>
                     </div>
                     
                     
@@ -270,7 +269,7 @@
                        <div class="chart">
                             <canvas width="100" height="100" id="conversions_cntxt"></canvas>
                         </div>
-                        <a href="/sites/{{site._id}}/conversions"><i class="data_report fa fa-bar-chart">Full Report</i></a>
+                        <a class="report_link" href="/sites/{{site._id}}/conversions"><i class="data_report fa fa-bar-chart">Full Report</i></a>
                     </div>
                     
                 </div>
