@@ -20,6 +20,7 @@ var userSchema = new Schema({
         state: String,
         zip: String
     },
+    admin: {type: Boolean, default: false},
     managed_sites: [String],
     monitored_sites: [String]
 })
