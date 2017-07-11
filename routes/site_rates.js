@@ -67,7 +67,7 @@ console.log("getting quick stats for today from " + start + " to " + end);
                 for (i = 0; i < 30; i++){
                     halfHrMinutes.unshift(moment().subtract(i,'minutes').minutes());
                 }
-            var purchasesEachMinut = halfHrMinutes.map(function(moment){
+            var purchasesEachMinute = halfHrMinutes.map(function(moment){
                 return 0;
             });
             res.send({  status:"No Rates", 
@@ -257,7 +257,7 @@ console.log(totaledRates);
                 halfHrRate: avgRateInHalfHr,
                 halfHrVisits: halfHrRateCount,
                 halfHrMaxWait: halfHrMax,
-                halfHrMinWait: halfHrMax,
+                halfHrMinWait: halfHrMin,
                 minByMinPurchase:{
                     time: timeForPurchaseEachMinute,
                     wait: purchasesEachMinute

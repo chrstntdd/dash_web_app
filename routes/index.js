@@ -97,7 +97,7 @@ router.get('/logout',function(req,res){
 });
 
 router.post('/manage',function(req,res){
-    var email = req.body.email;
+    var email = req.body.email.toLowerCase();
     var password = req.body.password;
 
     console.log(req.body);

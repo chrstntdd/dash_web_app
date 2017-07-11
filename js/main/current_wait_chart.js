@@ -24,6 +24,14 @@
                 },
                 scales: {
                     yAxes: [{
+                        // scaleLabel:{
+                        //     display:true,
+                        //     labelString:"Wait/Person",
+                        //     // fontFamily: "poiret",
+                        //     fontSize: 20,
+                        //     fontColor: '#34495e'
+                        // },
+                        
                         gridLines:{
                             display: false
                         },

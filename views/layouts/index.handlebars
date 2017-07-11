@@ -29,21 +29,26 @@
       }
     .menu_list a{
         color: white;
-        border: 1px solid white;
-        border-radius:10px;
+        font-weight:lighter;
     }
-    
+    #login, #sites{
+        border-radius:10px;
+        background-color:#5484ca;
+        width:100px;
+    }
     .menu_list a:visited{
         color:rgba(52,73,94,1);
     }
     #About{
         margin-top:-30px;
         color:white;
+        letter-spacing:2px;
         background-color: #5484ca;
         background-repeat:no-repeat;
         background-size:100%;
         background-attachment:fixed;
         padding:40px;
+        font-weight:lighter;
     }
     .landing{
         padding:150px;
@@ -51,12 +56,16 @@
     .landing h1, .landing h4{
         margin-top:20px;
         color:white;
+        font-weight:lighter;
     }
     #header{
         background-size: cover;
         background-image: url("http://i.imgur.com/9RGAeu8.jpg");
-        height:600px;
+        height:800px;
         background-repeat:no-repeat;
+    }
+    .subscribe{
+        margin: auto;
     }
     #header img{
         display:block;
@@ -64,7 +73,9 @@
         padding: 100px 0px;
     }
   #header2 .jumbotron{
-        font-family: poiret;
+        /*font-family: poiret;*/
+        font-weight:lighter;
+        letter-spacing:3px;
         background-color: #5484ca;/*white/*rgba(52,73,94,1);*/
     }
     #Team h2{
@@ -73,19 +84,23 @@
     }
     #Team{
         padding:50px;
-        color:white;
-        background-color:rgba(52,73,94,0.8);
+        /*color:white;*/
+        /*background-color:rgba(52,73,94,0.8);*/
+        color: #333333;
+        background-color: rgba(240,240,240,1.0);
     }
     .content{
         color:white;
         font-size:20px;
-        font-family:poiret;
+        /*font-family:poiret;*/
         /*background-color: rgba(0,0,0,0.6);*/
         border-radius:10px;
+        font-weight:lighter;
     }
     .content-container h2{
         color: white;
-        font-family: poiret;
+        /*font-family: poiret;*/
+        font-weight:lighter;
     }
     .contact-info li i{
         margin-right:20px;
@@ -108,29 +123,37 @@
         border-style:none;
         background-color:transparent;
         width:40%;
-        color:white;
+        /*color:white;*/
+        color:#333333;
     }
     .caption{
-        color:white;
+        /*color:white;*/
+        color:#333333;
         width:100%; 
         text-align:center
     }
     .caption p{
-        color:white;
+        /*color:white;*/
+        color:#333333;
         font-size:15px;
     }
     
     .bio{
         font-size:20px;
         display:inline-block;
-        font-family:poiret;
+        /*font-family:poiret;*/
+        font-weight:lighter;
+        letter-spacing:2px;
         width:600px;
         height:100px;
-        color:white;
+        /*color:white;*/
+        color:#333333;
     }
     .bio p{
         padding: 50px 0px;
-        color:white;
+        /*color:white;*/
+        color:#333333;
+        
     }
 </style>
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Muli" />
@@ -151,9 +174,9 @@
                         <li class="menu_list"><a style="color:white" href="#Team">TEAM</a></li>
                         <li class="menu_list"><a style="color:white"  href="#Contact">CONTACT</a></li>
                         {{#if user}}
-                            <li class="menu_list"><a href="/sites">SITES</a></li>
+                            <li id="sites" style:"text-align:center" class="menu_list"><a href="/sites">SITES</a></li>
                             {{else}}
-                            <li><a style="color:white" href="/login">LOG IN</a></li>
+                            <li><a id="login" style="color:white;text-align:center" href="/login">LOG IN</a></li>
                         {{/if}}
                     </ul>
                 </div>
@@ -161,22 +184,22 @@
         </nav>
 
 <section id="header">
-    <img src="http://i.imgur.com/n4CUoxY.png">
+    <img src="http://i.imgur.com/pE6Gdey.png">
+    <form class="col-sm-offset-4 form-inline">
+        <div class="subscribe input-group">
+            <input type="email" class="form-control" size="50" placeholder="Email Address">
+            <div class="input-group-btn">
+                <button class="btn btn-primary">Subscribe</button>
+            </div>
+        </div>
+    </form>
 </section>
 <section id="header2">
       <div class="jumbotron text-center landing">
             
             <h1>DASH ANALYTICS</h1>
             <h4>Now you can Discover, Track, And Anticipate Your In-Store Customer Behavior</h4>
-            <h4 style="font-weight:bold">Like You've Always Wanted</h4>
-            <form class="form-inline">
-                <div class="input-group">
-                    <input type="email" class="form-control" size="50" placeholder="Email Address">
-                    <div class="input-group-btn">
-                        <button class="btn btn-primary">Subscribe</button>
-                    </div>
-                </div>
-            </form>
+            
         </div>
 </section>
     <section id="About" class="content-container container-fluid">
@@ -323,7 +346,7 @@
         </div>
     </section>
     <section id="Team">
-            <h2>Meet Our Expert Team</h2></br>
+            <h2>Meet Our Team</h2></br>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="thumbnail team_member pull-left">
@@ -401,7 +424,7 @@
                 </div>
                 <div class="col-sm-12">
                     <div class="thumbnail team_member pull-left">
-                        <img src="https://scontent-iad3-1.xx.fbcdn.net/v/t34.0-12/1462115_756788777670624_1922385372_n.jpg?oh=d5ac3993644e3261c79fe89da88f0747&oe=595FF2EC" class="img-rounded" alt="Blake Rogers" width="50%">
+                        <img src="http://i.imgur.com/eEmPOhK.jpg" class="img-rounded" alt="Blake Rogers" width="50%">
                         <div class="caption">
                             <p style="font-weight:bold">Blake Rogers</p>
                             <p>Web Developer</p>
@@ -417,6 +440,7 @@
                 </div>
        </div>
    </section>
+
  <div id="Contact" class="container-fluid text-center footer_info">
     <div class="row">
         <h2>Contact Us</h2>

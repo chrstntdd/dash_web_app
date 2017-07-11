@@ -52,14 +52,16 @@
         }
         .site_nav ul li a{
           color:white;
-          font-family:poiret;
+          /*font-family:poiret;*/
+          font-weight: lighter;
           text-align:left;
         }
 
         #profile_title, .outlier_title{
             color:#34495e;
             letter-spacing: 3px;
-            font-family: poiret;
+            /*font-family: poiret;*/
+            font-weight: lighter;
             margin-top:50px;
         }
         .data_number{
@@ -74,7 +76,8 @@
         }
         .data_units{
             font-size: 18px;
-            font-family: poiret;
+            /*font-family: poiret;*/
+            font-weight: lighter;
             color: #344953;
         }
      
@@ -106,7 +109,8 @@
         }
         .popover-title, .popover-content{
             font-size: 20px;
-            font-family: poiret;
+            /*font-family: poiret;*/
+            font-weight: lighter;
             color: #34495e;
         }
         .chart_info, .data_report{
@@ -184,15 +188,15 @@
             
                     <!--Shortest Duration for a customer in the store-->
                             <div class="col-sm-12 site_data">
-                               <p class="data_units"><strong id="min_transaction" class="data_number">0</strong>  minutes waiting
+                               <p class="data_units"><strong id="min_duration" class="data_number">0</strong>  minutes
                                 </br>
                                 <svg  class="underline" width="200" height="2">
                                     <rect x="0" y="0" width="200" height="2">
                                 </svg>
-                                  <a class="chart_info" href="#" title="Transaction Time" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="Minimum time that a customer was on site without making a purchase"><i class="fa fa-info" aria-hidden="true"></i></a>
+                                  <a class="chart_info" href="#" title="Impression" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="Minimum time that a customer was on site without making a purchase"><i class="fa fa-info" aria-hidden="true"></i></a>
                                </p>
                                <div>
-                                   <p class="data_insight" >Shortest Transaction</p> 
+                                   <p class="data_insight" >Shortest Impression</p> 
                                 </div>
                             </div>
                     <!--Longest duration for a customer on site-->
@@ -211,6 +215,7 @@
                         </div>
                     </div>
                     <!------------------Site info for Today-------------------------------->
+                    <h2>Averages Per Hour</h2>
                                     <!--Chart for the current wait-->
                     <div class="col-sm-3 site_history">
                        <p class="data_units"><strong id="current_wait" class="data_number">0</strong>  minutes waiting
@@ -289,10 +294,19 @@
                         var stats = JSON.parse(this.responseText);
                         console.log(stats);
                         if (stats.status != "No Rates"){
-                         $("#current_wait").text(stats.avg_rate);
+                            
+                            //-------------Update Half hour business chart---------------//
+                        var times = stats.minByMinPurchase.time
+                        var visits = stats.minByMinPurchase.wait
+                            business_chart.data.datasets[0].data = visits
+                            business_chart.data.datasets[0].labels = times
+                            business_chart.update();
+                        
+                         
                         
                         //----------------------UPDATE CURRENT WAIT CHART----------------//
                         //update background colors and labels otherwise the bars won't appear or won't have a color
+                        
                            current_wait_chart.data.datasets[0].data = stats.today_rates
                            var current_colors = stats.today_rates.map(function(rate){
                                return 'rgba(141,179,241,1)';
@@ -320,43 +334,37 @@
                             
                             //-------------------UPDATE PURCHASES CHART----------------------//
                             //update background colors and labels otherwise the bars won't appear or won't have a color 
-                           purchases_chart.data.datasets[0].data = stats.purchPerHr
-                             var purchase_colors = stats.purchPerHr.map(function(rate){
+                            purchases_chart.data.datasets[0].data = stats.purchPerHr
+                            var purchase_colors = stats.purchPerHr.map(function(rate){
                                return 'rgba(141,179,241,1)';
-                           });
-                           var purchase_labels = stats.purchPerHr.map(function(rate){
+                            });
+                            var purchase_labels = stats.purchPerHr.map(function(rate){
                                return "";
-                           });
+                            });
                            purchases_chart.data.datasets[0].backgroundColor = purchase_colors
                            purchases_chart.data.datasets[0].labels = purchase_labels
                            purchases_chart.update();
                           
-                           
-                          $("#visits").text(stats.total_visits);
-                          $("#purchases").text(stats.total_purchases);
-                          $("#conversion_rate").text(stats.conversion + "%");
-                          $("#max_transaction").text(stats.max);
-                          $("#min_transaction").text(stats.min);
-                          $("#longest_duration").text(stats.max);
+                            $("#current_wait").text(stats.avg_rate);
+                            $("#visits").text(stats.total_visits);
+                            $("#purchases").text(stats.total_purchases);
+                            $("#conversion_rate").text(stats.conversion + "%");
+                            $("#max_transaction").text(stats.max);
+                            $("#min_duration").text(stats.min);
+                            $("#longest_duration").text(stats.max);
                           
-                          //---------------------UPDATE CONVERSIONS CHART---------------//
+                        //---------------------UPDATE CONVERSIONS CHART---------------//
                         //update background colors and labels otherwise the bars won't appear or won't have a color
                            conversions_chart.data.datasets[0].data = [stats.total_visits,stats.total_purchases]
                            conversions_chart.update();
                            
-                        //-------------Update Half hour business chart---------------//
-                        var times = stats.minByMinPurchase.time
-                        var visits = stats.minByMinPurchase.wait
-                        business_chart.data.datasets[0].data = visits
-                        business_chart.data.datasets[0].labels = times
-                        business_chart.update();
-                        }
+                        
                     }
                 };
                 xmlhttp.open("GET","/api/rates/{{site._id}}/today",true);
                 xmlhttp.send();
         }
-  
+       }
     function getRange(start,end){
             var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function(){
