@@ -38,10 +38,11 @@ module.exports.push_rates = function(rates,callback){
                 });
                 console.log("updating rates \n"+ratesThisDay);
                 ratesThisDay.forEach(function(rateObj,index){
-                Rate.findOneAndUpdate({_id: rateObj._id}, {duration:rateObj.duration,transaction:true});  
+                Rate.findOneAndUpdate({_id: rateObj._id}, {duration:rateObj.duration},callback);  
                 });
             }
-            if(index == rates.length-1){
+            
+            if(index == new_rates.length-1){//if this is the last new rate pushed to new_rates insert the array of objects.
                 console.log("inserted "+rates.length+" rates")
                 Rate.insertMany(new_rates,callback);
                  }
