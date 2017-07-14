@@ -34,7 +34,9 @@ function sortDescending(values){
 router.post('/new',function(req,res){
     var rates = req.body.rates;
     Rate.push_rates(rates, function(err,rates){
-        if(err) throw err;
+        if(err){
+            res.send("Error");
+        }
         res.send(rates);
     });
 });
