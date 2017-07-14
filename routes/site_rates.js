@@ -31,7 +31,7 @@ function sortDescending(values){
 
 //***************POST A SET OF RATES FOR A SITE**********************
 
-router.post('/new',function(req,res){
+router.post('/new',function(req,res,next){
     var rates = req.body.rates;
     console.log("posting an object");
     Rate.push_rates(rates, function(err,rates){
@@ -41,7 +41,7 @@ router.post('/new',function(req,res){
         }
         console.log("success");
         res.send(rates);
-    });
+    }).catch(next);
 });
 
 

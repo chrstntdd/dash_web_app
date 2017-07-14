@@ -20,12 +20,13 @@ module.exports.get_all_rates = function(site,callback){
 
 module.exports.push_rates = function(rates,callback){
     var new_rates = [];
+    var error = null;
     console.log(rates);
     rates.forEach(function(rate,index){
         Rate.find({site:rate.site,customer_id:rate.customer_id}, function(err,rate_to_update){
             if(err){
-                console.log(err);
-                return callback;
+                error = err
+                return ;
             }
             if(rate_to_update == null || rate_to_update.length == 0){
                 new_rates.push(rate);
@@ -38,18 +39,23 @@ module.exports.push_rates = function(rates,callback){
                 
                 ratesThisDay.forEach(function(rateObj,index){
                     console.log("updating rate: \n"+rates[index]);
-                Rate.findOneAndUpdate({_id:rateObj._id},{duration:rates[index].duration})
+                Rate.findOneAndUpdate({_id:rateObj._id},{duration:rates[index].duration},function(err){
+                    error = err;
+                })
                 
                 });
             }
             
             if(index == new_rates.length-1){//if this is the last new rate pushed to new_rates insert the array of objects.
                 console.log("inserted "+rates.length+" rates");
-                Rate.insertMany(new_rates,callback);
-                 }
+                Rate.insertMany(new_rates,function(err){
+                    error = err;
+                });
+                }
         });
     });
-    callback(null,"succeeded");
+    
+    callback(error,error == null ? "Succeed": "Failed to insert rates");
 };
 
 function sortAscending(values){
