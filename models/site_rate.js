@@ -38,7 +38,7 @@ module.exports.push_rates = function(rates,callback){
                 
                 ratesThisDay.forEach(function(rateObj,index){
                     console.log("updating rate: \n"+rates[index]);
-                Rate.findOneAndUpdate({_id:rateObj._id},{duration:rates[index].duration},callback)
+                Rate.findOneAndUpdate({_id:rateObj._id},{duration:rates[index].duration})
                 
                 });
             }
@@ -49,6 +49,7 @@ module.exports.push_rates = function(rates,callback){
                  }
         });
     });
+    callback(null,"succeeded");
 };
 
 function sortAscending(values){
