@@ -33,6 +33,7 @@ function sortDescending(values){
 
 router.post('/new',function(req,res){
     var rates = req.body.rates;
+    console.log("posting an object");
     Rate.push_rates(rates, function(err,rates){
         if(err){
             res.send("Error");
