@@ -38,6 +38,7 @@ router.post('/new',function(req,res){
             res.send("Error");
             console.log(err);
         }
+        console.log("success");
         res.send(rates);
     });
 });

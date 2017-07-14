@@ -36,9 +36,16 @@ module.exports.push_rates = function(rates,callback){
                     var sameDay = moment().isSame(rate.date,'day');
                     return sameDay;
                 });
-                console.log("updating rates \n"+ratesThisDay);
+                console.log("updating rate: \n"+ratesThisDay);
                 ratesThisDay.forEach(function(rateObj,index){
-                Rate.findOneAndUpdate({_id: rateObj._id}, {duration:rateObj.duration},callback);  
+                Rate.findById(rateObj._id,function(err,obj){
+                    if(err){
+                        console.log(err);
+                    }
+                    obj.duration = rateObj.duration;
+                    obj.save();
+                });
+                
                 });
             }
             
