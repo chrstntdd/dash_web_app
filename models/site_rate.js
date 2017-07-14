@@ -46,8 +46,8 @@ module.exports.push_rates = function(rates,callback){
                 });
             }
             
-            if(index == new_rates.length-1){//if this is the last new rate pushed to new_rates insert the array of objects.
-                console.log("inserted "+rates.length+" rates");
+            if(index == new_rates.length){//if this is the last new rate pushed to new_rates insert the array of objects.
+                console.log("inserted "+new_rates.length+" rates");
                 Rate.insertMany(new_rates,function(err){
                     error = err;
                 });
