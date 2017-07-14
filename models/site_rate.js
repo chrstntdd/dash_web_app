@@ -25,7 +25,7 @@ module.exports.push_rates = function(rates,callback){
         Rate.find({site:rate.site,customer_id:rate.customer_id}, function(err,rate_to_update){
             if(err){
                 console.log(err);
-                return;
+                return callback;
             }
             if(rate_to_update == null || rate_to_update.length == 0){
                 new_rates.push(rate);

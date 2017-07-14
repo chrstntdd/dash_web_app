@@ -76,7 +76,10 @@ var io = socketIO(server);
         saveUninitialized: 'false'
     }));
 
-
+app.use(function(err,req,res,next){
+  console.log(err);
+  res.status(422).send({error:"Sum Ting Wong"});
+});
 app.use(expValidator({
   errorFormatter: function(param, msg, value) {
       var namespace = param.split('.')
