@@ -7,10 +7,9 @@ var rateSchema = new Schema({
         customer_id: String,
         duration: Number,
         transaction: Boolean,
-        date: {type: Date, default: Date.now,
+        date: {type: Date, default: Date.now},
         location: Number,
-            
-        }
+        
 });
 
 var Rate = module.exports = mongoose.model('Rate',rateSchema);
@@ -38,20 +37,14 @@ module.exports.push_rates = function(rates,callback){
                 });
                 
                 ratesThisDay.forEach(function(rateObj,index){
-                Rate.findById(rateObj._id,function(err,obj){
-                    if(err){
-                        console.log(err);
-                    }
-                    console.log("updating rate: \n"+obj);
-                    obj.duration = rateObj.duration;
-                    obj.save(callback);
-                });
+                    console.log("updating rate: \n"+rateObj);
+                Rate.findOneAndUpdate({_id:rateObj._id},{duration:rateObj.duration},callback)
                 
                 });
             }
             
             if(index == new_rates.length-1){//if this is the last new rate pushed to new_rates insert the array of objects.
-                console.log("inserted "+rates.length+" rates")
+                console.log("inserted "+rates.length+" rates");
                 Rate.insertMany(new_rates,callback);
                  }
         });
