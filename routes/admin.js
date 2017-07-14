@@ -8,7 +8,7 @@ Users = require('../models/user');
 
 router.get('/sites',function(req,res){
     var user = req.session.user;
-    if (user.email == 'blake.rogers757@gmail.com'){
+    if (user.email == 'blake.rogers757@gmail.com'|| user.email == 'kdiedrich@gmail.com'){
             var sites = Sites.getSites(function(error,sites){
             if(sites){
                 res.render('admin_sites',{sites:sites});
@@ -25,7 +25,7 @@ router.get('/sites',function(req,res){
 
 router.get('/sites/:id',function(req,res){
       var user = req.session.user;
-    if (user.email == 'blake.rogers757@gmail.com'){
+    if (user.email == 'blake.rogers757@gmail.com'|| user.email == 'kdiedrich@gmail.com'){
         var id = req.params.id
         Sites.getSite(id,function(error,site){
             if(site){
@@ -39,7 +39,7 @@ router.get('/sites/:id',function(req,res){
 
 router.get('/users',function(req,res){
       var user = req.session.user;
-    if (user.email == 'blake.rogers757@gmail.com'){
+    if (user.email == 'blake.rogers757@gmail.com'|| user.email == 'kdiedrich@gmail.com'){
       Users.getUsers(function(error,users){
             if(error){
                 throw error
@@ -56,7 +56,7 @@ router.get('/users/:id',function(req,res){
       var user = req.session.user;
       console.log("fetching a user at"+ req.params.id)
       
-    if (user.email == 'blake.rogers757@gmail.com'){
+    if (user.email == 'blake.rogers757@gmail.com' || user.email == 'kdiedrich@gmail.com'){
         var id = req.params.id
         Users.getUserWithID(id,function(err,user){
             if(err){
