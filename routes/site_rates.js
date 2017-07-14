@@ -213,7 +213,7 @@ console.log(totaledRates);
                     });
                 return totalledRates/rates.length;
             }else{
-                return 0
+                return 0;
             }
         });
         
@@ -289,7 +289,6 @@ router.post('/:id/range',function(req,res){
 
 //*************GET THE TOTAL NUMBER OF RATES(COUNT OF CLIENTS THAT HAVE ENTERED SITE AND MADE A PURCHASE) 
 //******************************FOR A SPECIFIC SITE*********************
-
 router.post('/:id/:range/total',function(req,res){
     var site = req.params.id;
     var start = req.body.start;

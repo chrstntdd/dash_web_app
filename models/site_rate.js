@@ -2,13 +2,15 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var moment = require('moment');
 
-
 var rateSchema = new Schema({
         site: String,
         customer_id: String,
         duration: Number,
         transaction: Boolean,
-        date: {type: Date, default: Date.now}
+        date: {type: Date, default: Date.now,
+        location: Number,
+            
+        }
 });
 
 var Rate = module.exports = mongoose.model('Rate',rateSchema);
@@ -20,9 +22,7 @@ module.exports.get_all_rates = function(site,callback){
 module.exports.push_rates = function(rates,callback){
     var new_rates = [];
     rates.forEach(function(rate,index){
-        
         Rate.find({site:rate.site,customer_id:rate.customer_id}, function(err,rate_to_update){
-            
             if(err){
                 console.log(err);
                 return;
@@ -36,9 +36,7 @@ module.exports.push_rates = function(rates,callback){
                 Rate.insertMany(new_rates,callback);
                  }
         });
-        
     });
-   
 };
 
 function sortAscending(values){
