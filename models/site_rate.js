@@ -28,9 +28,15 @@ module.exports.push_rates = function(rates,callback){
                 return;
             }
             if(rate_to_update == null || rate_to_update.length == 0){
-             new_rates.push(rate);
+                new_rates.push(rate);
             }else{
-               Rate.findOneAndUpdate({_id: rate_to_update._id}, {duration:rate.duration,transaction:true});
+                var ratesThisDay = rate_to_update.filter(function(rate){
+                    var sameDay = moment().isSame(rate.date,'day');
+                    return sameDay;
+                });
+                ratesThisDay.forEach(function(rateObj,index){
+                Rate.findOneAndUpdate({_id: rateObj._id}, {duration:rateObj.duration,transaction:true});  
+                });
             }
             if(index == rates.length-1){
                 Rate.insertMany(new_rates,callback);

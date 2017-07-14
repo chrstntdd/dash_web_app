@@ -30,7 +30,7 @@ var User = module.exports = mongoose.model('user',userSchema);
 module.exports.getUser = function(email,password,callback){
     var query = {email: email};
     console.log('searching for user with email: '+email+' and password: '+password)
-    User.findOne(query,callback);
+    User.find(query,callback);
     // User.findOne(query,function(err,user){
     //     if(err) throw err;
     //     console.log(user.hash_Password);

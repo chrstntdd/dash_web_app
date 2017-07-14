@@ -36,6 +36,7 @@ router.post('/new',function(req,res){
     Rate.push_rates(rates, function(err,rates){
         if(err){
             res.send("Error");
+            console.log(err);
         }
         res.send(rates);
     });

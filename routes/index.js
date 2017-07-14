@@ -103,9 +103,17 @@ router.post('/manage',function(req,res){
     console.log(req.body);
     if (email && password){
      User.getUser(email,password,function(err,user){
-        if (err) throw err;
-        if (user){
+         console.log("login called back");
+        if (err){
+            console.log("Error logging in");
+            res.redirect('../');
+        };
+        if (user != null){
        bcrypt.compare(password,user.hash_Password,function(err,result){
+           if (err){
+               console.log(err);
+               res.send("Error logging in ")
+           }
            if (result == true){
                req.session.user = user;
                res.redirect('../../sites');
