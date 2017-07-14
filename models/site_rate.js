@@ -37,8 +37,8 @@ module.exports.push_rates = function(rates,callback){
                 });
                 
                 ratesThisDay.forEach(function(rateObj,index){
-                    console.log("updating rate: \n"+rateObj);
-                Rate.findOneAndUpdate({_id:rateObj._id},{duration:rateObj.duration},callback)
+                    console.log("updating rate: \n"+rates[index]);
+                Rate.findOneAndUpdate({_id:rateObj._id},{duration:rates[index].duration},callback)
                 
                 });
             }
