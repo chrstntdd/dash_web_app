@@ -30,16 +30,19 @@ module.exports.push_rates = function(rates,callback){
             }
             if(rate_to_update == null || rate_to_update.length == 0){
                 new_rates.push(rate);
+                console.log("new rate staged for add");
             }else{
                 var ratesThisDay = rate_to_update.filter(function(rate){
                     var sameDay = moment().isSame(rate.date,'day');
                     return sameDay;
                 });
+                console.log("updating rates \n"+ratesThisDay);
                 ratesThisDay.forEach(function(rateObj,index){
                 Rate.findOneAndUpdate({_id: rateObj._id}, {duration:rateObj.duration,transaction:true});  
                 });
             }
             if(index == rates.length-1){
+                console.log("inserted "+rates.length+" rates")
                 Rate.insertMany(new_rates,callback);
                  }
         });
