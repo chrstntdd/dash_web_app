@@ -5,7 +5,7 @@ var router = express.Router();
 Sites = require('../models/site');
 Users = require('../models/user');
 
-
+//do it now
 router.get('/sites',function(req,res){
     var user = req.session.user;
     if (user.email == 'blake.rogers757@gmail.com'|| user.email == 'kdiedrich@gmail.com'){
@@ -13,6 +13,7 @@ router.get('/sites',function(req,res){
             if(sites){
                 res.render('admin_sites',{sites:sites});
                 }else{
+                    
                     res.send(error);
                 }
             }
