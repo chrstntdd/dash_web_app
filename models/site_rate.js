@@ -29,8 +29,9 @@ module.exports.push_rates = function(rates,callback){
                 return ;
             }
             if(rate_to_update == null || rate_to_update.length == 0){
-                new_rates.push(rate);
-                console.log("new rate staged for add");
+                Rate.create(rate,function(err){
+                    error = err;
+                });
             }else{
                 var ratesThisDay = rate_to_update.filter(function(rate){
                     var sameDay = moment().isSame(rate.date,'day');
@@ -46,12 +47,6 @@ module.exports.push_rates = function(rates,callback){
                 });
             }
             
-            if(index == new_rates.length){//if this is the last new rate pushed to new_rates insert the array of objects.
-                console.log("inserted "+new_rates.length+" rates");
-                Rate.insertMany(new_rates,function(err){
-                    error = err;
-                });
-                }
         });
     });
     
