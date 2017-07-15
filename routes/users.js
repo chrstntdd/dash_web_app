@@ -12,7 +12,7 @@ router.post('/login',function(req,res){
 
     console.log(req.body);
     if (email && password){
-     User.getUser(email,password,function(err,user){
+     User.getUser(email,function(err,user){
         if (err) throw err;
         if (user){
        bcrypt.compare(password,user.hash_Password,function(err,result){

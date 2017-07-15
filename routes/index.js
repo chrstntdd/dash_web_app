@@ -102,17 +102,18 @@ router.post('/manage',function(req,res){
 
     console.log(req.body);
     if (email && password){
-     User.getUser(email,password,function(err,user){
+     User.getUser(email,function(err,user){
          console.log("login called back");
         if (err){
-            console.log("Error logging in");
-            res.redirect('../');
+            console.log("Error logging in"+err);
+            res.send("Error Logging in"+err)
+            
         };
         if (user != null){
        bcrypt.compare(password,user.hash_Password,function(err,result){
            if (err){
                console.log(err);
-               res.send("Error logging in ")
+               res.send("Invalid password")
            }
            if (result == true){
                req.session.user = user;
