@@ -8,7 +8,7 @@ var rateSchema = new Schema({
         duration: Number,
         transaction: Boolean,
         date: {type: Date, default: Date.now},
-        location: Number,
+        position: Number,
         
 });
 
@@ -21,9 +21,10 @@ module.exports.get_all_rates = function(site,callback){
 module.exports.push_rates = function(rates,callback){
     var new_rates = [];
     var error = null;
-    console.log(rates);
+   // console.log(rates);
     rates.forEach(function(rate,index){
-        Rate.find({site:rate.site,customer_id:rate.customer_id}, function(err,rate_to_update){
+        
+        Rate.find({site:rate.site,customer_id:rate.customer_id,location:rate.position}, function(err,rate_to_update){
             if(err){
                 error = err
                 return ;
@@ -38,11 +39,11 @@ module.exports.push_rates = function(rates,callback){
                     return sameDay;
                 });
                 
-                ratesThisDay.forEach(function(rateObj,index){
+                ratesThisDay.forEach(function(rateObj,place){
                     console.log("updating rate: \n"+rates[index]);
                 Rate.findOneAndUpdate({_id:rateObj._id},{duration:rates[index].duration},function(err){
                     error = err;
-                })
+                });
                 
                 });
             }
