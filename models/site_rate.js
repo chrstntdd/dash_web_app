@@ -44,10 +44,9 @@ module.exports.push_rates = function(rates,callback){
                 Rate.findOneAndUpdate({_id:rateObj._id},{duration:rates[index].duration},function(err){
                     error = err;
                 });
-                
+
                 });
             }
-            
         });
     });
     
