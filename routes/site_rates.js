@@ -156,7 +156,6 @@ console.log("getting quick stats for today from " + start + " to " + end);
        
 console.log(totaledRates);
                     avg_rate_today = totaledRates/rates_in_day.length;
-                
             }
             
 //get the difference in days between start and end of range.

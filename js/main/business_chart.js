@@ -30,7 +30,7 @@ var business_chart = new Chart(business_cntxt, {
         data:{
             labels: times,
             datasets:[{
-                data: data,
+                data: [],
                 backgroundColor: gradient
                 
             }]

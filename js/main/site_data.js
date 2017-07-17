@@ -5,6 +5,7 @@
     getTodayQuickStats();
     // getTotalRatesForRange(monthStart,monthEnd);
     // getAverageRatesForRange(monthStart,monthEnd);
+   
    $(document).ready(function(){
            $('[data-toggle="popover"]').popover();
        });

@@ -11,7 +11,7 @@ var purchases_chart = new Chart(cntxt,{
             data: {
                 labels: ['8 am','9 am','10 am','11 am','12 pm','1 pm','2 pm','3 pm'],
                 datasets:[{
-                    data: [4,1,5,6,4,4,3,2],
+                    data: [],
                     backgroundColor:gradient,
                     hoverBackgroundColor: gradientHover,
                     borderWidth: 1

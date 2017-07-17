@@ -20,7 +20,7 @@ var conversion_comp_chart = new Chart(cntxt,{
             data: {
                 labels: ['8 am','9 am','10 am','11 am','12 pm','1 pm','2 pm','3 pm'],
                 datasets:[{
-                    data: [6,4,6,7,4,5,3,2],
+                    data: [],
                     backgroundColor:gradient,
                     hoverBackgroundColor: gradientHover,
                     borderWidth: 1
