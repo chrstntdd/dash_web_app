@@ -32,11 +32,9 @@ module.exports.push_rates = function(rates,callback){
             }
             //if rates not found create 
             console.log(rate_to_update);
+            console.log(rate_to_update.length+" rates to update");
             if(rate_to_update == null || rate_to_update.length == 0){
-                //rate.date = moment().utcOffset(-4);
-                Rate.create(rate,function(err){
-                    error = err;
-                });
+                Rate.create(rate,function(err){error = err;});
             }else{
                 var ratesThisDay = rate_to_update.filter(function(rate){
                     var sameDay = moment().isSame(rate.date,'day');
@@ -45,9 +43,7 @@ module.exports.push_rates = function(rates,callback){
 console.log(ratesThisDay);
                 ratesThisDay.forEach(function(rateObj,place){
 console.log("updating rate: \n"+rates[index]);
-                Rate.findOneAndUpdate({_id:rateObj._id},{duration:rates[index].duration},function(err){
-                    error = err;
-                });
+                Rate.findOneAndUpdate({_id:rateObj._id},{duration:rates[index].duration},function(err){error = err;});
 
                 });
             }
