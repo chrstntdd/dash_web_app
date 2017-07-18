@@ -33,7 +33,7 @@ module.exports.push_rates = function(rates,callback){
             //if rates not found create 
             console.log(rate_to_update);
             console.log(rate_to_update.length+" rates to update");
-            if(rate_to_update == null || rate_to_update.length == 0){
+            if(rate_to_update.length == 0){
                 Rate.create(rate,function(err){error = err;});
             }else{
                 var ratesThisDay = rate_to_update.filter(function(rate){
