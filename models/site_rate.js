@@ -37,10 +37,10 @@ module.exports.push_rates = function(rates,callback){
                 Rate.create(rate,function(err){error = err;});
             }else{
                 var ratesThisDay = rate_to_update.filter(function(rate){
-                    var sameDay = moment().isSame(rate.date,'day');
+                    var sameDay = moment().isSame(moment(rate.date),'day');
                     return sameDay;
                 });
-console.log(ratesThisDay);
+console.log('rates this day are '+ ratesThisDay);
                 ratesThisDay.forEach(function(rateObj,place){
 console.log("updating rate: \n"+rates[index]);
                 Rate.findOneAndUpdate({_id:rateObj._id},{duration:rates[index].duration},function(err){error = err;});
