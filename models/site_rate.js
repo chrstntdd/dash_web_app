@@ -24,7 +24,7 @@ module.exports.push_rates = function(rates,callback){
    // console.log(rates);
     rates.forEach(function(rate,index){
         //search for rates in same store, same customer id and position
-        Rate.find({site:rate.site,customer_id:rate.customer_id,position:rate.position}, function(err,rate_to_update){
+        Rate.find({site:rate.site,customer_id:rate.customer_id}, function(err,rate_to_update){
             if(err){
                 error = err
                 return ;
