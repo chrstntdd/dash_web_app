@@ -25,7 +25,10 @@ module.exports.push_rates = function(rates,callback){
     rates.forEach(function(rate,index){
         //search for rates in same store, same customer id and position
         console.log(rate);
-        Rate.find({site:rate.site,customer_id:rate.customer_id}, function(err,rate_to_update){
+        //could probably update this query to include the date
+        var dayStart = moment().utcOffset(-4).startOf('day');
+        var dayEnd = moment().utcOffset(4).endOf('day');
+        Rate.find({site:rate.site,customer_id:rate.customer_id,position:rate.position,date:{$gte:dayStart,$lte:dayEnd}}, function(err,rate_to_update){
             if(err){
                 error = err
                 return ;
@@ -36,14 +39,16 @@ module.exports.push_rates = function(rates,callback){
             if(rate_to_update.length == 0){
                 Rate.create(rate,function(err){error = err;});
             }else{
-                var ratesThisDay = rate_to_update.filter(function(rate){
-                    var sameDay = moment().isSame(rate.date,'day');
-                    return sameDay;
-                });
-console.log('rates this day are '+ ratesThisDay);
-                ratesThisDay.forEach(function(rateObj,place){
+                // var ratesThisDay = rate_to_update.filter(function(rate){
+                //     var sameDay = moment().isSame(rate.date,'day');
+                //     return sameDay;
+                // });
+//console.log('rates this day are '+ ratesThisDay);
+                rate_to_update.forEach(function(rateObj,place){
 console.log("updating rate: \n"+rates[index]);
-                Rate.findOneAndUpdate({_id:rateObj._id},{duration:rates[index].duration},function(err){error = err;});
+                //if the rate being posted is also being updated as purchase update the rate stored as well
+                var transaction = rates[index].transaction == true ? true : rateObj.transaction;
+                Rate.findOneAndUpdate({_id:rateObj._id},{duration:rates[index].duration,transaction:transaction},function(err){error = err;});
 
                 });
             }

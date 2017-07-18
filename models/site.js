@@ -66,8 +66,26 @@ module.exports.monitoredSites = function(ids,callback){
     
 }
 module.exports.managed_sites = function(ids,callback){
-    var query = {_id:ids};
-    Site.find(query,callback);
+    var managed_sites = [];
+    var error;
+    console.log('user manages '+ ids.length + ' sites')
+    ids.forEach(function(site,index){
+        var query = {_id:site};
+        Site.find(query,function(err,site){
+            if (err){
+                error = err;
+                callback(err,[]);
+            }
+            if (site.length > 0){
+                console.log('found site '+site)
+                managed_sites.push(site[0])
+            }
+            if(index == ids.length-1){
+                callback(null,managed_sites);
+            }
+        }); 
+    });
+   
     
 }
 module.exports.managed_site = function(ids,callback){

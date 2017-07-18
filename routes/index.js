@@ -107,7 +107,6 @@ router.post('/manage',function(req,res){
         if (err){
             console.log("Error logging in"+err);
             res.send("Error Logging in"+err)
-            
         };
         if (user != null){
        bcrypt.compare(password,user.hash_Password,function(err,result){

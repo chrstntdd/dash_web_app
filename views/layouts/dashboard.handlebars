@@ -209,74 +209,73 @@
                                   <a class="chart_info" href="#" title="Impression" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="Longest time that a customer was on site without making a purchase"><i class="fa fa-info" aria-hidden="true"></i></a>
                                </p>
                                <div>
-                                   <p class="data_insight" >Longest Duration</p> 
+                                   <p class="data_insight" >Longest Impression</p> 
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!------------------Site info for Today-------------------------------->
-                    <h2>Averages Per Hour</h2>
-                                    <!--Chart for the current wait-->
-                    <div class="col-sm-3 site_history">
-                       <p class="data_units"><strong id="current_wait" class="data_number">0</strong>  minutes waiting
-                        </br>
-                        <svg  class="underline" width="200" height="2">
-                            <rect x="0" y="0" width="200" height="2">
-                        </svg>
-                        <a class="chart_info" href="#" title="General Performance" data-toggle="popover" data-trigger="hover" data-content="Amount of time the average customer has waited today"><i class="fa fa-info" aria-hidden="true"></i></a>
-                       </p>
-                       <div class="chart">
-                            <canvas width="100" height="100" id="current_wait_cntxt"></canvas>
-                        </div>
-                          <a class="report_link" href="/sites/{{site._id}}/avg_wait"><i class="data_report fa fa-bar-chart">Full Report</i></a>
-                    </div>
+                    {{!--<h2>Averages Per Hour</h2>--}}
+                    {{!--                <!--Chart for the current wait-->--}}
+                    {{!--<div class="col-sm-3 site_history">--}}
+                    {{!--   <p class="data_units"><strong id="current_wait" class="data_number">0</strong>  minutes waiting--}}
+                    {{!--    </br>--}}
+                    {{!--    <svg  class="underline" width="200" height="2">--}}
+                    {{!--        <rect x="0" y="0" width="200" height="2">--}}
+                    {{!--    </svg>--}}
+                    {{!--    <a class="chart_info" href="#" title="General Performance" data-toggle="popover" data-trigger="hover" data-content="Amount of time the average customer has waited today"><i class="fa fa-info" aria-hidden="true"></i></a>--}}
+                    {{!--   </p>--}}
+                    {{!--   <div class="chart">--}}
+                    {{!--        <canvas width="100" height="100" id="current_wait_cntxt"></canvas>--}}
+                    {{!--    </div>--}}
+                    {{!--      <a class="report_link" href="/sites/{{site._id}}/avg_wait"><i class="data_report fa fa-bar-chart">Full Report</i></a>--}}
+                    {{!--</div>--}}
                     
-                                      <!--Chart for the days current count of purchases-->
-                     <div class="col-sm-3 site_history">
-                       <p class="data_units"><strong id="purchases" class="data_number">0</strong>  purchases today
-                        </br>
-                        <svg  class="underline" width="200" height="2">
-                            <rect x="0" y="0" width="200" height="2">
-                        </svg>
-                          <a class="chart_info" href="#" title="Aggregate Business" data-toggle="popover" data-trigger="hover" data-content="Current total of purchases made today"><i class="fa fa-info" aria-hidden="true"></i></a>
-                       </p>
-                       <div class="chart">
-                            <canvas width="100" height="100" id="purchases_cntxt"></canvas>
-                        </div>
-                          <a class="report_link" href="/sites/{{site._id}}/business"><i class="data_report fa fa-bar-chart">Full Report</i></a>
-                    </div>
+                    {{!--                  <!--Chart for the days current count of purchases-->--}}
+                    {{!-- <div class="col-sm-3 site_history">--}}
+                    {{!--   <p class="data_units"><strong id="purchases" class="data_number">0</strong>  purchases today--}}
+                    {{!--    </br>--}}
+                    {{!--    <svg  class="underline" width="200" height="2">--}}
+                    {{!--        <rect x="0" y="0" width="200" height="2">--}}
+                    {{!--    </svg>--}}
+                    {{!--      <a class="chart_info" href="#" title="Aggregate Business" data-toggle="popover" data-trigger="hover" data-content="Current total of purchases made today"><i class="fa fa-info" aria-hidden="true"></i></a>--}}
+                    {{!--   </p>--}}
+                    {{!--   <div class="chart">--}}
+                    {{!--        <canvas width="100" height="100" id="purchases_cntxt"></canvas>--}}
+                    {{!--    </div>--}}
+                    {{!--      <a class="report_link" href="/sites/{{site._id}}/business"><i class="data_report fa fa-bar-chart">Full Report</i></a>--}}
+                    {{!--</div>--}}
                     
-                                        <!--Chart for the days current count of visitors-->
-                     <div class="col-sm-3 site_history">
-                       <p class="data_units"><strong id="visits" class="data_number">0</strong>  visits
-                        </br>
-                        <svg  class="underline" width="200" height="2">
-                            <rect x="0" y="0" width="200" height="2">
-                        </svg>
-                          <a class="chart_info" href="#" title="Total Impressions" data-toggle="popover" data-trigger="hover" data-content="The current total of customers today"><i class="fa fa-info" aria-hidden="true"></i></a>
-                       </p>
-                       <div class="chart">
-                            <canvas width="100" height="100" id="visits_cntxt"></canvas>
-                        </div>
-                          <a class="report_link" href="/sites/{{site._id}}/visits"><i class="data_report fa fa-bar-chart">Full Report</i></a>
-                    </div>
+                    {{!--                    <!--Chart for the days current count of visitors-->--}}
+                    {{!-- <div class="col-sm-3 site_history">--}}
+                    {{!--   <p class="data_units"><strong id="visits" class="data_number">0</strong>  visits--}}
+                    {{!--    </br>--}}
+                    {{!--    <svg  class="underline" width="200" height="2">--}}
+                    {{!--        <rect x="0" y="0" width="200" height="2">--}}
+                    {{!--    </svg>--}}
+                    {{!--      <a class="chart_info" href="#" title="Total Impressions" data-toggle="popover" data-trigger="hover" data-content="The current total of customers today"><i class="fa fa-info" aria-hidden="true"></i></a>--}}
+                    {{!--   </p>--}}
+                    {{!--   <div class="chart">--}}
+                    {{!--        <canvas width="100" height="100" id="visits_cntxt"></canvas>--}}
+                    {{!--    </div>--}}
+                    {{!--      <a class="report_link" href="/sites/{{site._id}}/visits"><i class="data_report fa fa-bar-chart">Full Report</i></a>--}}
+                    {{!--</div>--}}
                     
                     
-                                        <!--Chart for the days current conversion rate-->
-                     <div class="col-sm-3 site_history">
-                       <p class="data_units"><strong id="conversion_rate" class="data_number">0%</strong>  conversion rate
-                        </br>
-                        <svg  class="underline" width="200" height="2">
-                            <rect x="0" y="0" width="200" height="2">
-                        </svg>
-                          <a class="chart_info" href="#" title="Customer Conversion" data-placement="left" data-toggle="popover" data-trigger="hover" data-content="Percent of customers that made a purchase"><i class="fa fa-info" aria-hidden="true"></i></a>
-                       </p>
-                       <div class="chart">
-                            <canvas width="100" height="100" id="conversions_cntxt"></canvas>
-                        </div>
-                        <a class="report_link" href="/sites/{{site._id}}/conversions"><i class="data_report fa fa-bar-chart">Full Report</i></a>
-                    </div>
-                    
+                    {{!--                    <!--Chart for the days current conversion rate-->--}}
+                    {{!-- <div class="col-sm-3 site_history">--}}
+                    {{!--   <p class="data_units"><strong id="conversion_rate" class="data_number">0%</strong>  conversion rate--}}
+                    {{!--    </br>--}}
+                    {{!--    <svg  class="underline" width="200" height="2">--}}
+                    {{!--        <rect x="0" y="0" width="200" height="2">--}}
+                    {{!--    </svg>--}}
+                    {{!--      <a class="chart_info" href="#" title="Customer Conversion" data-placement="left" data-toggle="popover" data-trigger="hover" data-content="Percent of customers that made a purchase"><i class="fa fa-info" aria-hidden="true"></i></a>--}}
+                    {{!--   </p>--}}
+                    {{!--   <div class="chart">--}}
+                    {{!--        <canvas width="100" height="100" id="conversions_cntxt"></canvas>--}}
+                    {{!--    </div>--}}
+                    {{!--    <a class="report_link" href="/sites/{{site._id}}/conversions"><i class="data_report fa fa-bar-chart">Full Report</i></a>--}}
+                    {{!--</div>--}}
                 </div>
              </div>
         </div>
@@ -302,67 +301,76 @@
                         if (stats.status != "No Rates"){
                             
                             //-------------Update Half hour business chart---------------//
-                        var times = stats.minByMinPurchase.time
-                        var visits = stats.minByMinPurchase.wait
-                            business_chart.data.datasets[0].data = visits
-                            business_chart.data.datasets[0].labels = times
+                //     allCustomers:allCustomersLastHalfHr,
+                // visits:noVisitsLastHalfHr,
+                // purchases:noPurchasesLastHalfHr, 
+                // averageVisit: averageVisitLastHalfHr,
+                // averageWait:averageQueueLastHalfHr,
+                // minWait:halfHrMinWait,
+                // maxWait:halfHrMaxWait,
+                // minVisit:halfHrMinVisit, 
+                // maxVisit:halfHrMaxVisit,
+                // business:businessLastHalfHr
+                    
+                            business_chart.data.datasets[0].data = stats.timePeriod
+                            business_chart.data.datasets[0].labels = stats.business
                             business_chart.update();
                         
                          
                         
-                        //----------------------UPDATE CURRENT WAIT CHART----------------//
-                        //update background colors and labels otherwise the bars won't appear or won't have a color
+                        // //----------------------UPDATE CURRENT WAIT CHART----------------//
+                        // //update background colors and labels otherwise the bars won't appear or won't have a color
                         
-                           current_wait_chart.data.datasets[0].data = stats.today_rates
-                           var current_colors = stats.today_rates.map(function(rate){
-                               return 'rgba(141,179,241,1)';
-                           });
-                           var current_labels = stats.today_rates.map(function(rate){
-                               return "";
-                           });
+                        //   current_wait_chart.data.datasets[0].data = stats.today_rates
+                        //   var current_colors = stats.today_rates.map(function(rate){
+                        //       return 'rgba(141,179,241,1)';
+                        //   });
+                        //   var current_labels = stats.today_rates.map(function(rate){
+                        //       return "";
+                        //   });
                            
-                           current_wait_chart.data.datasets[0].backgroundColor = current_colors
-                           current_wait_chart.data.datasets[0].labels = current_labels
-                           current_wait_chart.update();
+                        //   current_wait_chart.data.datasets[0].backgroundColor = current_colors
+                        //   current_wait_chart.data.datasets[0].labels = current_labels
+                        //   current_wait_chart.update();
                             
-                            //-------------------UPDATE VISITS CHART----------------------//
-                            //update background colors and labels otherwise the bars won't appear or won't have a color
-                           visits_chart.data.datasets[0].data = stats.visitsPerHr
-                             var visit_colors = stats.visitsPerHr.map(function(rate){
-                               return 'rgba(141,179,241,1)';
-                           });
-                           var visit_labels = stats.visitsPerHr.map(function(rate){
-                               return "";
-                           });
-                            visits_chart.data.datasets[0].backgroundColor = visit_colors
-                            visits_chart.data.datasets[0].labels = visit_labels
-                            visits_chart.update();
+                        //     //-------------------UPDATE VISITS CHART----------------------//
+                        //     //update background colors and labels otherwise the bars won't appear or won't have a color
+                        //   visits_chart.data.datasets[0].data = stats.visitsPerHr
+                        //      var visit_colors = stats.visitsPerHr.map(function(rate){
+                        //       return 'rgba(141,179,241,1)';
+                        //   });
+                        //   var visit_labels = stats.visitsPerHr.map(function(rate){
+                        //       return "";
+                        //   });
+                        //     visits_chart.data.datasets[0].backgroundColor = visit_colors
+                        //     visits_chart.data.datasets[0].labels = visit_labels
+                        //     visits_chart.update();
                             
-                            //-------------------UPDATE PURCHASES CHART----------------------//
-                            //update background colors and labels otherwise the bars won't appear or won't have a color 
-                            purchases_chart.data.datasets[0].data = stats.purchPerHr
-                            var purchase_colors = stats.purchPerHr.map(function(rate){
-                               return 'rgba(141,179,241,1)';
-                            });
-                            var purchase_labels = stats.purchPerHr.map(function(rate){
-                               return "";
-                            });
-                           purchases_chart.data.datasets[0].backgroundColor = purchase_colors
-                           purchases_chart.data.datasets[0].labels = purchase_labels
-                           purchases_chart.update();
+                        //     //-------------------UPDATE PURCHASES CHART----------------------//
+                        //     //update background colors and labels otherwise the bars won't appear or won't have a color 
+                        //     purchases_chart.data.datasets[0].data = stats.purchPerHr
+                        //     var purchase_colors = stats.purchPerHr.map(function(rate){
+                        //       return 'rgba(141,179,241,1)';
+                        //     });
+                        //     var purchase_labels = stats.purchPerHr.map(function(rate){
+                        //       return "";
+                        //     });
+                        //   purchases_chart.data.datasets[0].backgroundColor = purchase_colors
+                        //   purchases_chart.data.datasets[0].labels = purchase_labels
+                        //   purchases_chart.update();
                           
-                            $("#current_wait").text(stats.avg_rate);
-                            $("#visits").text(stats.total_visits);
-                            $("#purchases").text(stats.total_purchases);
-                            $("#conversion_rate").text(stats.conversion + "%");
-                            $("#max_transaction").text(stats.max);
-                            $("#min_duration").text(stats.min);
-                            $("#longest_duration").text(stats.max);
+                            // $("#current_wait").text(stats.halfHrRate);
+                            // $("#visits").text(stats.halfHrVisits);
+                            // $("#purchases").text(stats.total_purchases);
+                            // $("#conversion_rate").text(stats.conversion + "%");
+                            $("#max_transaction").text(stats.maxWait);
+                            $("#min_duration").text(stats.minVisit);
+                            $("#longest_duration").text(stats.maxVisit);
                           
-                        //---------------------UPDATE CONVERSIONS CHART---------------//
-                        //update background colors and labels otherwise the bars won't appear or won't have a color
-                           conversions_chart.data.datasets[0].data = [stats.total_visits,stats.total_purchases]
-                           conversions_chart.update();
+                        // //---------------------UPDATE CONVERSIONS CHART---------------//
+                        // //update background colors and labels otherwise the bars won't appear or won't have a color
+                        //   conversions_chart.data.datasets[0].data = [stats.total_visits,stats.total_purchases]
+                        //   conversions_chart.update();
                            
                         
                     }
