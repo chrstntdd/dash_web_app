@@ -24,7 +24,7 @@ module.exports.push_rates = function(rates,callback){
    // console.log(rates);
     rates.forEach(function(rate,index){
         
-        Rate.find({site:rate.site,customer_id:rate.customer_id,location:rate.position}, function(err,rate_to_update){
+        Rate.find({site:rate.site,customer_id:rate.customer_id,position:rate.position}, function(err,rate_to_update){
             if(err){
                 error = err
                 return ;
@@ -105,8 +105,8 @@ function sortDescending(values){
 //gets an array of all of the rates for the current day
 
 module.exports.get_stats = function(site,start,end,callback){
-    console.log("Getting stats for site " + site + " from " + start.format() + " to " + end.format())
-    Rate.find({site:site,date:{$gte:start,$lte:end}},callback);
+    console.log("Getting stats for site " + site + " from " + start.unix() + " to " + end.unix());
+    Rate.find({site:site,date:{$gte:start.unix(),$lte:end.unix()}},callback);
    
 };
 module.exports.get_avg_rates_for_range = function(site,start,end,callback){

@@ -93,7 +93,7 @@ console.log("getting quick stats for today from " + start.format() + " to " + en
                     });
             return;
         }else{
-            
+//console.log(rates);
 //get stats for the last thirty minutes
             var startHalfHr = moment().subtract(30,'minutes');
             var endHalfHr = moment()
@@ -106,6 +106,8 @@ console.log("getting quick stats for today from " + start.format() + " to " + en
                 var inLastHalfHour = moment(rateObj.date).isBefore(endHalfHr) && moment(rateObj.date).isAfter(startHalfHr);
                     return inLastHalfHour;
             });
+console.log('rates in half hour');
+console.log(rateObjsInHalfHr);
             var purchasesEachMinute = [];       //the number of new customers in line each minute 
             var purchaseDurationEachMinute = [] //the amount of time the purchase took to complete
             var timeForPurchaseEachMinute = [] //the moment in time each purchase occured
@@ -154,14 +156,14 @@ console.log("getting quick stats for today from " + start.format() + " to " + en
                 halfHrMax = sorted_rates.pop();
                 sorted_rates.push(halfHrMax);
        
-console.log(totaledRates);
+//console.log(totaledRates);
                     avg_rate_today = totaledRates/rates_in_day.length;
             }
             
 //get the difference in days between start and end of range.
             var startDate = moment().startOf('day');
             var endDate = moment().endOf('day');
-            console.log("getting quick stats for today from " + startDate + " to " + endDate);
+//console.log("getting quick stats for today from " + startDate + " to " + endDate);
 //create a group of arrays of rates for each specific day
             var avg_rate_today = 0;
             var rateCount = 0;
@@ -193,7 +195,7 @@ console.log(totaledRates);
        var hourMoments = hours.map(function(hr){
            return moment().hour(hr).minute(0).second(0);
         });
-        console.log(hourMoments);
+//console.log(hourMoments);
 //Get average rate for each hour
 //Map through each time in hourMoments
         var ratesEachHour = hourMoments.map(function(hr){
@@ -208,7 +210,7 @@ console.log(totaledRates);
                 return [];
             }
         });
-    console.log(ratesEachHour);
+//console.log(ratesEachHour);
 //with each rates duration separated by their respective hours map through each and get average by hour
         var averageEachHour = ratesEachHour.map(function(rates,index,arr){
             if(rates.length > 0){
@@ -221,7 +223,7 @@ console.log(totaledRates);
             }
         });
         
-    console.log(averageEachHour);
+//console.log(averageEachHour);
 //Get the number of visits each hour for today
         var visitsEachHour = ratesEachHour.map(function(rates){
             return rates.length;
@@ -229,7 +231,7 @@ console.log(totaledRates);
                 return visit * -1;
             });
             
-     console.log(visitsEachHour);   
+//console.log(visitsEachHour);   
 //Get the number of purchases hour each for today. Same as visits since we're not yet distinguishing between a purchase and a visit
         var purchasesEachHour = visitsEachHour;
         
@@ -247,7 +249,7 @@ console.log(totaledRates);
                 var totaledRates = rates_in_day.reduce(function(total,duration){
                     return total + duration;
                     });
-console.log(totaledRates);
+//console.log(totaledRates);
                     avg_rate_today = totaledRates/rates_in_day.length;
                 }
 //console.log(avg_rate_today);
