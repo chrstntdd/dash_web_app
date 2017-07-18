@@ -7,7 +7,7 @@ var rateSchema = new Schema({
         customer_id: String,
         duration: Number,
         transaction: Boolean,
-        date: {type: Number, default: moment().unix()},
+        date: {type: Date, default: Date.now},
         position: Number,
         
 });
@@ -37,7 +37,7 @@ module.exports.push_rates = function(rates,callback){
                 Rate.create(rate,function(err){error = err;});
             }else{
                 var ratesThisDay = rate_to_update.filter(function(rate){
-                    var sameDay = moment().isSame(moment(rate.date),'day');
+                    var sameDay = moment().isSame(rate.date,'day');
                     return sameDay;
                 });
 console.log('rates this day are '+ ratesThisDay);
