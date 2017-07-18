@@ -105,7 +105,7 @@ function sortDescending(values){
 
 module.exports.get_stats = function(site,start,end,callback){
     console.log("Getting stats for site " + site + " from " + start.unix() + " to " + end.unix());
-    Rate.find({site:site,date:{$gte:start.unix(),$lte:end.unix()}},callback);
+    Rate.find({site:site,date:{$gte:start,$lte:end}},callback);
    
 };
 module.exports.get_avg_rates_for_range = function(site,start,end,callback){
