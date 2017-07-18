@@ -24,6 +24,7 @@ module.exports.push_rates = function(rates,callback){
    // console.log(rates);
     rates.forEach(function(rate,index){
         //search for rates in same store, same customer id and position
+        console.log(rate);
         Rate.find({site:rate.site,customer_id:rate.customer_id}, function(err,rate_to_update){
             if(err){
                 error = err
@@ -43,7 +44,7 @@ module.exports.push_rates = function(rates,callback){
                 });
 console.log(ratesThisDay);
                 ratesThisDay.forEach(function(rateObj,place){
-                    console.log("updating rate: \n"+rates[index]);
+console.log("updating rate: \n"+rates[index]);
                 Rate.findOneAndUpdate({_id:rateObj._id},{duration:rates[index].duration},function(err){
                     error = err;
                 });
