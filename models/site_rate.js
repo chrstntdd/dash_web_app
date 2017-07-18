@@ -7,7 +7,7 @@ var rateSchema = new Schema({
         customer_id: String,
         duration: Number,
         transaction: Boolean,
-        date: {type: Date, default: Date.now},
+        date: {type: Date, default: new Date()},
         position: Number,
         
 });
@@ -30,6 +30,7 @@ module.exports.push_rates = function(rates,callback){
                 return ;
             }
             if(rate_to_update == null || rate_to_update.length == 0){
+                //rate.date = moment().utcOffset(-4);
                 Rate.create(rate,function(err){
                     error = err;
                 });
@@ -104,7 +105,7 @@ function sortDescending(values){
 //gets an array of all of the rates for the current day
 
 module.exports.get_stats = function(site,start,end,callback){
-    console.log("Getting stats for site " + site + " from " + start + " to " + end)
+    console.log("Getting stats for site " + site + " from " + start.format() + " to " + end.format())
     Rate.find({site:site,date:{$gte:start,$lte:end}},callback);
    
 };

@@ -289,10 +289,16 @@
     <script>
        function getTodayQuickStats(){
             var xmlhttp = new XMLHttpRequest();
+              console.log("getting quick stats");
+                xmlhttp.open("GET","/api/rates/{{site._id}}/today",true);
+                xmlhttp.send();
                 xmlhttp.onreadystatechange = function(){
                     if(this.status == 200 && this.readyState == 4){
                         var stats = JSON.parse(this.responseText);
                         console.log(stats);
+                        if(stats.status == "No Rates"){
+                            console.log("No Rates");
+                        }
                         if (stats.status != "No Rates"){
                             
                             //-------------Update Half hour business chart---------------//
@@ -360,10 +366,8 @@
                            
                         
                     }
-                };
-                xmlhttp.open("GET","/api/rates/{{site._id}}/today",true);
-                xmlhttp.send();
-        }
+                }
+            }
        }
     function getRange(start,end){
             var xmlhttp = new XMLHttpRequest();
@@ -378,7 +382,6 @@
                 var range = JSON.stringify({start:start,end:end});
                 xmlhttp.send(range);
         }
-    
     </script>
     <script type="text/javascript" src="/js/main/site_data.js"></script>
 </html>
