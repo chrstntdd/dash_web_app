@@ -7,7 +7,7 @@ var rateSchema = new Schema({
         customer_id: String,
         duration: Number,
         transaction: Boolean,
-        date: {type: Number, default: moment()},
+        date: {type: Number, default: moment().unix()},
         position: Number,
         
 });
