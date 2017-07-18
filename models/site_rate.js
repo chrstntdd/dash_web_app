@@ -23,12 +23,14 @@ module.exports.push_rates = function(rates,callback){
     var error = null;
    // console.log(rates);
     rates.forEach(function(rate,index){
-        
+        //search for rates in same store, same customer id and position
         Rate.find({site:rate.site,customer_id:rate.customer_id,position:rate.position}, function(err,rate_to_update){
             if(err){
                 error = err
                 return ;
             }
+            //if rates not found create 
+            console.log(rate_to_update);
             if(rate_to_update == null || rate_to_update.length == 0){
                 //rate.date = moment().utcOffset(-4);
                 Rate.create(rate,function(err){
