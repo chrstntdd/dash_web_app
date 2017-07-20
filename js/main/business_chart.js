@@ -31,7 +31,8 @@ var business_chart = new Chart(business_cntxt, {
             labels: times,
             datasets:[{
                 data: [],
-                backgroundColor: gradient
+                backgroundColor: gradient,
+                pointRadius:0
                 
             }]
             
@@ -54,7 +55,7 @@ var business_chart = new Chart(business_cntxt, {
                     yAxes: [{
                         scaleLabel:{
                             display:true,
-                            labelString:"Sales Made",
+                            labelString:"Customers",
                             //fontFamily: "poiret",
                             fontSize: 40,
                             fontColor: '#34495e'

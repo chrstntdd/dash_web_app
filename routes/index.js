@@ -95,6 +95,11 @@ router.get('/logout',function(req,res){
     req.session.user == null;
     res.render('index')
 });
+router.post('/private/api/watchdog',function(req,res){
+    var site = req.body.site;
+    var unit = req.body.unit;
+    console.log('Unit: '+unit+'alive at site: '+site);
+});
 
 router.post('/manage',function(req,res){
     var email = req.body.email.toLowerCase();

@@ -28,7 +28,45 @@ function sortDescending(values){
     return values;
 }
 
-
+function min(collection){
+    if(collection.length > 0){
+    var sorted = sortDescending(collection);
+    //console.log(sorted)
+    return sorted.pop()
+    }else{
+        return 0
+    }
+}
+function max(collection){
+    if(collection.length > 0){
+    var sorted = sortAscending(collection)
+     //console.log(sorted)
+    return sorted.pop()
+    }else{
+        return 0
+    }
+}
+function avg(collection){
+    if (collection.length > 0){
+        var totalled = collection.reduce(function(total,value){
+            return total + value;
+         })
+        
+    return totalled/collection.length;
+    }else{
+        return 0;
+    }
+}
+function total(collection){
+    if (collection.length > 0){
+        var totalled = collection.reduce(function(total,value){
+        return total + value;
+    })
+    return totalled/collection.length;
+    }else{
+        return 0
+    }
+}
 //***************POST A SET OF RATES FOR A SITE**********************
 
 router.post('/new',function(req,res){
@@ -54,34 +92,7 @@ router.get('/:id/all',function(req,res){
     });
 });
 
-function min(collection){
-    var sorted = sortDescending(collection)
-    return sorted.pop()
-}
-function max(collection){
-    var sorted = sortAscending(collection)
-    return sorted.pop()
-}
-function avg(collection){
-    if (collection.length > 0){
-    var totalled = collection.reduce(function(total,value){
-        return total + value;
-    })
-    return totalled/collection.length;
-    }else{
-        return 0;
-    }
-}
-function total(collection){
-    if (collection.length > 0){
-        var totalled = collection.reduce(function(total,value){
-        return total + value;
-    })
-    return totalled/collection.length;
-    }else{
-        return 0
-    }
-}
+
 //*********GET QUICK STATS FOR TODAY****************
 
 
@@ -95,21 +106,21 @@ console.log("getting quick stats for today from " + start.format() + " to " + en
         if (err || rates.length == 0){ 
             res.send({status:"No Rates",error:err});
         }else{
-console.log(rates);
+//console.log(rates);
 //get stats for the last thirty minutes
             var startHalfHr = moment().utcOffset(-4).subtract(30,'minutes');
             var endHalfHr = moment().utcOffset(-4);
-console.log(startHalfHr.format());
-console.log(endHalfHr.format())
+//console.log(startHalfHr.format());
+//console.log(endHalfHr.format());
             var allCustomersLastHalfHr = 0;//the number of people observed in last half hour
             var noVisitsLastHalfHr = 0;// the number of people observed but did not purchase in last half hour
             var noPurchasesLastHalfHr = 0; // the number of people that made a purchase in the last half hour
             var averageVisitLastHalfHr = 0;// the average duration of persons visit in last half hour 
             var averageQueueLastHalfHr = 0;// the average wait time of a customer in last half hour
-            var halfHrMinWait;//the minimum time recorded that a person waited in line in last half hour
-            var halfHrMaxWait;//the maximum time recorded that a person waited in line in last half hour
-            var halfHrMinVisit;//the minimum time that a person visited in last half hour 
-            var halfHrMaxVisit;//the maximum time that a person visited in last half hour
+            var halfHrMinWait = 0;//the minimum time recorded that a person waited in line in last half hour
+            var halfHrMaxWait = 0;//the maximum time recorded that a person waited in line in last half hour
+            var halfHrMinVisit = 0;//the minimum time that a person visited in last half hour 
+            var halfHrMaxVisit = 0;//the maximum time that a person visited in last half hour
             var businessLastHalfHr = [];//a record of number of people in line at each minute in last half hr
             ///Get all observed customers in last half hour
             var rateObjsInHalfHr = rates.filter(function(rateObj){
@@ -117,11 +128,11 @@ console.log(endHalfHr.format())
                 return time.isBetween(startHalfHr,endHalfHr);
             });
 
-console.log('rates in half hour');
-console.log(rateObjsInHalfHr);
+//console.log('rates in half hour');
+//console.log(rateObjsInHalfHr);
                 var halfHrMoments = []//creates an array containing each minute in last half hour. 
-                for (i = 0; i < 30; i++){
-                    halfHrMoments.unshift(moment().subtract(i));
+                for (i = 0; i < 30; ++i){
+                    halfHrMoments.unshift(moment().utcOffset(-4).subtract(i,'minutes'));
                     }
             if (rateObjsInHalfHr.length != 0){
                 allCustomersLastHalfHr = rateObjsInHalfHr.length;
@@ -135,13 +146,24 @@ console.log(rateObjsInHalfHr);
                 });
                 noPurchasesLastHalfHr = purchasesLastHalfHr.length
                 //Get average, min, and max visit times
-                var allVisitDurationsLastHalfHr = visitsLastHalfHr.map(function(visit){ return  visit.duration;});
+                var allVisitDurationsLastHalfHr = visitsLastHalfHr.map(function(visit){ 
+                    var rounded = Math.floor(visit.duration*100)/100
+                    var perMinute = rounded/60
+                    return perMinute.toFixed(2);
+                });
                 var totalTimeOfVisitsLastHalfHr = total(allVisitDurationsLastHalfHr);
                 halfHrMaxVisit = max(allVisitDurationsLastHalfHr);
+//console.log('max visits are '+ halfHrMaxVisit);
+                
                 halfHrMinVisit = min(allVisitDurationsLastHalfHr);
                 averageVisitLastHalfHr = avg(allVisitDurationsLastHalfHr);
                 //get average min and max queue times
-                var allPurchaseDurationsLastHalfHr = purchasesLastHalfHr.map(function(purchase){ return  purchase.duration;})
+                var allPurchaseDurationsLastHalfHr = purchasesLastHalfHr.map(function(purchase){ 
+                    var rounded = Math.floor(purchase.duration*100)/100
+                    var perMinute = rounded/60;
+                    return perMinute.toFixed(2);
+                    
+                })
                 var totalTimeOfAllPurhcasesLastHalfHr = total(allPurchaseDurationsLastHalfHr);
                 halfHrMaxWait = max(allPurchaseDurationsLastHalfHr);
                 halfHrMinWait = min(allPurchaseDurationsLastHalfHr);
@@ -149,23 +171,25 @@ console.log(rateObjsInHalfHr);
                 
                 halfHrMoments.forEach(function(time,index){
                     var minuteEnd = time.minute() + 1;
-                    var minuteTimeEnd = time.minute(minuteEnd);
+                    var minuteTimeEnd = moment(time).add(1,'minutes');
+                    console.log('searching from time '+time.format()+' to time '+minuteTimeEnd.format());
                     //mapping through each minute in the last half hour
                     ///mapping through all of the purchases in the last half hour/
                     //if that purchase was created from the start of the minute and the beginning of the  next then 
                     //it is counted towards the business activity for that minute
                     var purchasesOccuring = purchasesLastHalfHr.filter(function(purchase){
-                        console.log('searching from time '+time.format()+' to time '+minuteTimeEnd.format());
-                        var purchaseEnd = moment(purchase).add(purchase.duration,'seconds');
-                        var createdBetweenMinute = moment(purchase).isBetween(time,minuteTimeEnd);
+                        var purchaseEnd = moment(purchase.date).add(purchase.duration,'seconds');
+                        
+                        var createdBetweenMinute = moment(purchase.date).isBetween(time,minuteTimeEnd);
                         var endedBetween = purchaseEnd.isBetween(time,minuteTimeEnd);
-                        return createdBetweenMinute || endedBetween
+                        var endedAfter = minuteTimeEnd.isBetween(purchase.date,purchaseEnd);
+                        return createdBetweenMinute || endedBetween || endedAfter;
                     });
                     var noPurchasesOccuring = purchasesOccuring.length;
+//console.log(noPurchasesOccuring+' purchases occured');
                     businessLastHalfHr.push(noPurchasesOccuring);
                 })
             }
- 
             var timeLastHalfHr = halfHrMoments.map(function(momentTime){
                 return momentTime.minute;
             })
@@ -176,14 +200,14 @@ console.log(rateObjsInHalfHr);
                 allCustomers:allCustomersLastHalfHr,
                 visits:noVisitsLastHalfHr,
                 purchases:noPurchasesLastHalfHr, 
-                averageVisit: averageVisitLastHalfHr,
+                averageVisit:averageVisitLastHalfHr,
                 averageWait:averageQueueLastHalfHr,
+                business:businessLastHalfHr,
+                timePeriod:timeLastHalfHr,
                 minWait:halfHrMinWait,
                 maxWait:halfHrMaxWait,
                 minVisit:halfHrMinVisit, 
                 maxVisit:halfHrMaxVisit,
-                business:businessLastHalfHr,
-                timePeriod: timeLastHalfHr
                 });
             }
         });
@@ -290,17 +314,16 @@ console.log("getting total rates in a range from " + start +" to " + end);
 
 //****************GET THE AVERAGE OF ALL RATES FOR EACH DAY WITHIN A RANGE FOR A SPECIFIC SITE********************8
 
-
-
 router.post('/:id/:range/averages',function(req,res){
     var site = req.params.id;
     var start = req.body.start;
     var end = req.body.end;
-    var range = req.params.id
-    console.log("getting average rates in a range from " + start +" to " + end);
+    var range = req.params.range
+    console.log("getting average rates for site:" + site + " in a range from " + start +" to " + end);
     Rate.get_avg_rates_for_range(site,start,end,function(err,rates){
+    
          if (err){
-             res.send({status:err})
+             throw err
          };
          if (rates == null || rates.length == 0){ 
              console.log("No Rates"); 
@@ -310,87 +333,113 @@ router.post('/:id/:range/averages',function(req,res){
           //get the difference in days between start and end of range.
         var startDate = moment(start);
 //console.log(startDate);
-        
         var endDate = moment(end);
 //console.log(endDate);
         var diff = endDate.diff(startDate,'days');
 //console.log(diff);
-        var days = [startDate];
-        var labels = [];
-        //create an array for each day listed
-        for(i = 0; i < diff; i++){
-            var day = moment(start).add(i,'days');
-            days.push(day);
-            labels.push(day.day());
-        }
-//console.log(days);
+        var days = [];
+        var units = [];
+       
+
         //create a group of arrays of rates for each specific day
-        var avg_rates = [];
-        var rateCount = 0;
-        var max = 0;
-        var min = 0;
+        var avgTimeWaitingPerUnit = [];//per min or per hour or per day averaged durations
+        var avgTimeWaitingOverall = 0;//the average of all durations within time period
+        var noOfPurchases = rates.length;//the amount of purchases made in the time period
+        var durationsPerUnit = [];//per min or per hour or per day the amount of purchases made
+        var maxWait = 0;//the maximum duration for a purchase in the entire time period
+        var minWait = 0;//the shortest duration for a purchase in the entire time period
+       
         if (diff > 0){
         //distinguishes whether searching for time period over multiple days or a single day
         //user is searching for info within one day. so sort for hours within 12 hour window: window length subject to change
-                days.forEach(function(day,index){
-    //map through each array and reduce the rates to a total or average as needed
-                var rates_in_day = rates.filter(function(rateObject){
-                    var sameDay = day.isSame(rateObject.date,'day');
-                        return sameDay;
-                }).map(function(rateObject){
-                    return rateObject.duration;
+         //create an array for each day listed
+        for(i = 0; i < diff; i++){
+            var day = moment(start).add(i,'days');
+            days.push(day);
+            units.push(day.format('Do'));
+        }
+                var durations = rates.map(function(rateObj){
+                    return rateObj.duration
                 });
-                if (rates_in_day.length > 0){
-                    var totalled_rates = rates_in_day.reduce(function(total,duration){
-                        return total + duration;
-                    });
-                    var avg = totalled_rates/rates_in_day.length
-                        avg_rates.push(avg);
-                    }else{
-                        avg_rates.push(0);
-                    }
-                });
-        }else{
-            //map through each array and reduce the rates to a total or average as needed
-                var rateObjs = rates.filter(function(rateObject){
-                     var sameDay = startDate.isSame(rateObject.date,'day');
-                     return sameDay;
-                });
-                var rates_in_day = rateObjs.map(function(rateObject){
-                    return rateObject.duration;
-                });
+                var totalledRates = total(durations);
+                var rawMax = max(durations)
+                    rawMax = Math.floor(rawMax*100)/100
+                    maxWait = (rawMax/60).toFixed(2)
+                var rawMin = min(durations)
+                    rawMin = Math.floor(rawMin*100)/100
+                    minWait = (rawMin/60).toFixed(2)
+                var rawAvg = avg(durations);
+                    rawAvg = Math.floor(rawAvg*100)/100
+                avgTimeWaitingOverall = (rawAvg/60).toFixed(2);
                 
-                rateCount = rates_in_day.length;
-//console.log(rates_in_day);
-                if (rates_in_day.length > 0){
-                    var totalledRates = rates_in_day.reduce(function(total,duration){
-                        return total + duration;
+                days.forEach(function(day,index){
+                    var thisDayPurchases = rates.filter(function(rateObj){
+                        return day.isSame(rateObj.date,'date')
+                    }).map(function(purchase){
+                        return purchase.duration
+                    })
+                    durationsPerUnit.push(thisDayPurchases.length)
+                    var thisDayAvg = avg(thisDayPurchases);
+                    avgTimeWaitingPerUnit.push(thisDayAvg);
+                }); 
+                    
+                    
+        }else{
+        //else searching within a range less than a day. analyze by the hour
+         var hrsInDay = []//creates an array containing each hour in day 
+                for (i = 0; i < 12; ++i){
+                    var dayHour = moment(startDate).hour(8).utcOffset(-4).add(i,'hours');
+                    hrsInDay.push(dayHour);
+                    units.push(dayHour.format('Ha'));
+                    }
+                
+                var momentsOfPurchases = rates.map(function(purchase){
+                    return purchase.date
+                });
+                //console.log(momentsOfPurchases)
+                var durations= rates.map(function(rateObject){return rateObject.duration;});
+                var totalledRates = total(durations);
+                var rawMax = max(durations)
+                    rawMax = Math.floor(rawMax*100)/100
+                    maxWait = (rawMax/60).toFixed(2)
+                var rawMin = min(durations)
+                    rawMin = Math.floor(rawMin*100)/100
+                    minWait = (rawMin/60).toFixed(2)
+                var rawAvg = avg(durations);
+                    rawAvg = Math.floor(rawAvg*100)/100
+                avgTimeWaitingOverall = (rawAvg/60).toFixed(2);
+                hrsInDay.forEach(function(hourMoment){
+                    console.log(hourMoment)
+                    var purchaseDurationsThisHour = rates.filter(function(purchase){
+                            var purchaseEnd = moment(purchase.date).add(purchase.duration,'seconds');
+                            var createdInHour = hourMoment.isSame(purchase.date,'hour');
+                            var endedInHour = hourMoment.isSame(purchaseEnd,'hour');
+                            return createdInHour || endedInHour;
+                    }).map(function(purchases){
+                        var rounded = Math.floor(100*purchases.duration)/100
+                        var perMinute = rounded/60
+                        return perMinute
                     });
-                    //get rate with longest and shortest duration
-                    sortRatesObjectsAscending(rateObjs)
-                    max = rateObjs.pop();
-                    rateObjs.push(max);
-                    min = rateObjs.shift();
-                    rateObjs.unshift(min);
-//console.log(totalledRates);
-                    avg_rates.push(totalledRates/rates_in_day.length);
-                }else{
-                    avg_rates.push(0);
-                }
+                    console.log(purchaseDurationsThisHour)
+                    var totalDurations = total(purchaseDurationsThisHour)
+                    var avgDurations = avg(purchaseDurationsThisHour)
+                    avgTimeWaitingPerUnit.push(avgDurations)
+                });
+
         }
 //console.log(avg_rates);
-//send results 
-        switch (range){
-            case "day":
-                res.send({date:startDate,avg_rates:avg_rates,max:max,min:min})
-                break
-            case "week":
-                res.send({from_date: startDate, to_date: endDate, avg_rates:avg_rates,total:rateCount, units:labels});
-                break
-            case "month":
-                res.send({from_date: startDate, to_date: endDate, avg_rates:avg_rates,total:rateCount, units:labels});
-            default:break
-        }
+//send results
+     
+                res.send({  date:startDate,
+                            avgWaitPerUnit: avgTimeWaitingPerUnit,
+                            avgWaitOverall:avgTimeWaitingOverall,
+                            purchases:noOfPurchases,
+                            purchasesPerUnit:durationsPerUnit,
+                            maxWait:maxWait,
+                            minWait:minWait,
+                            units:units
+                })
+                            
         
         });
     
@@ -403,7 +452,7 @@ router.post('/:id/:range/impressions',function(req,res){
     var start = req.body.start;
     var end = req.body.end;
     var range = req.params.range;
-console.log("getting total rates in a range from " + start +" to " + end);
+console.log("getting total impressions in a range from " + start +" to " + end);
     Rate.get_total_impressions_for_range(site,start,end,function(err,rates){
 
         if (err) throw err;
@@ -508,7 +557,6 @@ router.get('/:id/:range/conversions',function(req,res){
             return rateObj.transaction == false;
         });
         if (range == "day"){
-            
             var transactionsEachHour = []
             var visitsEachHour = []
             var transactionTotalPerHour = [];
@@ -521,7 +569,7 @@ router.get('/:id/:range/conversions',function(req,res){
             var diff = endDate.diff(startDate,'hours');
             var days = [startDate];
             var units = [];
-            var hours = ['8 am','9 am','10 am','11 am','12 am','13 am','14 am','15 am']
+            var hours = ['8 am','9 am','10 am','11 am','12 am','13 am','14 am','15 am'];
             
                 if(transactions.length > 0){
                     hours.forEach(function(hour,index){

@@ -24,7 +24,7 @@ module.exports.push_rates = function(rates,callback){
    // console.log(rates);
     rates.forEach(function(rate,index){
         //search for rates in same store, same customer id and position
-        console.log(rate);
+        //console.log(rate);
         //could probably update this query to include the date
         var dayStart = moment().utcOffset(-4).startOf('day');
         var dayEnd = moment().utcOffset(4).endOf('day');
@@ -34,8 +34,8 @@ module.exports.push_rates = function(rates,callback){
                 return ;
             }
             //if rates not found create 
-            console.log(rate_to_update);
-            console.log(rate_to_update.length+" rates to update");
+            // console.log(rate_to_update);
+            // console.log(rate_to_update.length+" rates to update");
             if(rate_to_update.length == 0){
                 Rate.create(rate,function(err){error = err;});
             }else{
@@ -114,12 +114,7 @@ module.exports.get_stats = function(site,start,end,callback){
    
 };
 module.exports.get_avg_rates_for_range = function(site,start,end,callback){
-    console.log("fetching...")
-    console.log(site)
-    console.log(start)
-    console.log(end)
     Rate.find({transaction:true,site:site,date:{$gte:start,$lte:end}},callback);
-   
 };
 
 module.exports.get_total_rates_for_range = function(site,start,end,callback){

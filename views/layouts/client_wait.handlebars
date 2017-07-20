@@ -83,7 +83,7 @@
             margin:auto;
             margin-bottom:0px;
             background-color: #f5f5f5;
-            width:75%;
+
         }
         .day_input{
             background-color: #34495e;
@@ -165,13 +165,12 @@
                  <div class="text-center">
                      <div class="col-sm-12">
                          <div class="site_icon">
-                            <img src="https://i.imgur.com/5W0z5tV.png?1">
+                            <img src={{site.icon_url}}>
                         </div>
                     </div>
                      <div class="col-sm-12">
                         <h2 id="profile_title">Transaction Analysis</h2>
                     </div>  
-
                     <div class="col-sm-12 alert alert-warning alert-dismissible">
                         <a href="#" class="close" aria-label="close">x</a>
                         <strong>Oops!</strong> There is no data for specified period
@@ -190,7 +189,7 @@
                                 <button name="day" id="dec_time_back" type="button" class="time_button btn btn-default"><i class="fa fa-chevron-left"></i></button>
                                 <p class="time_period_text"></p>
                                 <button name="day" id="inc_time_fwd" type="button" class="time_button btn btn-default"><i class="fa fa-chevron-right"></i></button></br>
-                                <p class="time_text"><span class="from_text">from</span><span id="from_time" class="time_unit">8:00 AM</span><span class="to_text">to</span><span id="to_time" class="time_unit">3:00 PM</span></p>
+                                <p class="time_text"><span class="from_text">from</span><span id="from_time" class="time_unit">8:00 AM</span><span class="to_text">to</span><span id="to_time" class="time_unit">5:00 PM</span></p>
                             </div> 
                             <div class="col-sm-12">
                                 <p class="data_units"><strong id="max_transaction" class="data_number">0</strong>  minutes waiting
@@ -207,10 +206,26 @@
                                     <rect x="0" y="0" width="200" height="2">
                                 </svg>
                                  <p class="data_insight">Shortest Transaction</p> 
-                            </div>                            
+                            </div> 
+                            <div class="col-sm-12">
+                                <p class="data_units"><strong id="total_transaction" class="data_number">0</strong>  transactions
+                                </br>
+                                <svg  class="underline" width="200" height="2">
+                                    <rect x="0" y="0" width="200" height="2">
+                                </svg>
+                                 <p class="data_insight">Total Transactions</p> 
+                            </div>
+                            <div class="col-sm-12">
+                                <p class="data_units"><strong id="avg_wait" class="data_number">0</strong> minutes 
+                                </br>
+                                <svg  class="underline" width="200" height="2">
+                                    <rect x="0" y="0" width="200" height="2">
+                                </svg>
+                                 <p class="data_insight">Aggregate Average</p> 
+                            </div>
                         </div>
                          <div class="col-sm-7 chart">
-                            <canvas width="300" height="300" id="client_wait_cntxt"></canvas>
+                            <canvas width="400" height="400" id="client_wait_cntxt"></canvas>
                         </div>
                     </div>
                 </div>
@@ -227,38 +242,26 @@
                             var stats = JSON.parse(this.responseText);
                             console.log(stats);
                             if (stats.status != "No Rates"){
-                                wait_Chart.data.datasets[0].data = stats.avg_rates;
-                                $("#min_transaction").text(stats.max);
-                                $("#max_transaction").text(stats.min);
-                              switch (range){
-                                case "day":
-                                    $(".time_period_text").text(stats.date);
-                                    break
-                                case "week":
-                                    $(".time_period_text").text("Week Stats");
-                                    $("#from_time").text(stats.from_date);
-                                    $("#to_time").text(stats.to_date);
-                                     wait_Chart.data.labels = stats.units
-                                    break
-                                case "month":
-                                    $(".time_period_text").text(stats.month);
-                                    $("#from_time").text(stats.from_date);
-                                    $("#to_time").text(stats.to_date);
-                                     wait_Chart.data.labels = stats.units
-                                    break
-                                default:
-                                    break;
-                              }
-                                    wait_Chart.update();
-                                
+                                wait_Chart.data.datasets[0].data = stats.avgWaitPerUnit;
+                                wait_Chart.data.labels = stats.units
+                                $("#min_transaction").text(stats.minWait);
+                                $("#max_transaction").text(stats.maxWait);
+                                $("#avg_wait").text(stats.avgWaitOverall);
+                                $("#total_transaction").text(stats.purchases);
+                                wait_Chart.update();
                             }else{
-                                 $(".alert").show();
-                                 $(".alert").alert();
-                                 $(".alert").attr({"display":"block"})
+                                $(".alert").show();
+                                $(".alert").alert();
+                                $(".alert").attr({"display":"block"})
+                                wait_Chart.data.datasets[0].data = [];
+                                $("#min_transaction").text(0);
+                                $("#max_transaction").text(0);
+                                 $("#avg_wait").text(0);
+                                $("#total_transaction").text(0);
                             }
                         }
                     };
-                    xmlhttp.open("POST","/api/rates/{{site}}/"+range+"/impressions",true);
+                    xmlhttp.open("POST","/api/rates/{{site}}/"+range+"/averages",true);
                     xmlhttp.setRequestHeader("Content-Type","application/json");
                 var range = JSON.stringify({start:start,end:end});
                     xmlhttp.send(range);
@@ -276,12 +279,12 @@
                 $("#inc_time_fwd").attr("name","day");
                 $("#dec_time_back").attr("name","day");
                 var today = moment().format('MMM Do YYYY')
-                var start = moment().hour(8)
-                var end  = moment().hour(15)
+                var start = moment().hour(8).minutes(0)
+                var end  = moment().hour(17).minutes(0)
                 $(".time_period_text").text(today)
                 $("#from_time").text("8:00 AM");
-                $("#to_time").text("3:00 PM");
-                 getAverageRatesForRange(start,end,"month")
+                $("#to_time").text("5:00 PM");
+                 getAverageRatesForRange(start,end,"day")
             });
             $("#week_button").click(function(){
                 $("#inc_time_fwd").attr("name","week");
@@ -291,7 +294,7 @@
                 var weekEnd = moment().endOf('week')
                 $("#from_time").text(weekStart.format('MMM Do YYYY'))
                 $("#to_time").text(weekEnd.format('MMM Do YYYY'))
-                 getAverageRatesForRange(weekStart.hour(8),weekEnd.hour(15),"week")
+                 getAverageRatesForRange(weekStart.hour(8),weekEnd.hour(17),"week")
             });
             $("#month_button").click(function(){
                 $("#inc_time_fwd").attr("name","month");
@@ -307,18 +310,19 @@
                 getAverageRatesForRange(monthStart.hour(8),monthEnd.hour(15),"month")
             })
             $("#inc_time_fwd").click(function(){
-                wait_chart.data.datasets[0].data = []
-                wait_chart.update()
+                wait_Chart.data.datasets[0].data = []
+                wait_Chart.update()
                 switch ( $(this).attr("name")){
                     case "day":
                         var dayText = $(".time_period_text").text();
-                        var dayMoment = moment(dayText,'MMM Do YYYY').utcOffset(+4,true);
-                        console.log(dayMoment)
-                        var start = dayMoment.add(1,'days');
-                        console.log(start)
-                        var end = start.add(12,'hours');
-                         $(".time_period_text").text(start.format('MMM Do YYYY'))
-                        getAverageRatesForRange(start,end,"day")
+                         var dayMoment = moment(dayText,'MMM Do YYYY').utcOffset(-4);
+                        //console.log(dayMoment.format())
+                        var start = dayMoment.add(1,'days').startOf('day');
+                        //console.log(start.format());
+                        var end = moment(dayText,'MMM Do YYYY').add(1,'days').endOf('day');
+                        //console.log(end);
+                        $(".time_period_text").text(start.format('MMM Do YYYY'))
+                        getAverageRatesForRange(start,end,"day");
                         break
                     case "week":
                         var dayText = $("#from_time").text();
@@ -357,17 +361,22 @@
                 }
             });
             $("#dec_time_back").click(function(){
-                wait_chart.data.datasets[0].data = []
-                wait_chart.update()
+                wait_Chart.data.datasets[0].data = []
+                wait_Chart.update()
                 switch ( $(this).attr("name")){
                     case "day":
                         var dayText = $(".time_period_text").text();
-                        var dayMoment = moment(dayText,'MMM Do YYYY').utcOffset(+4,true);
-                        console.log(dayMoment)
-                        var start = dayMoment.subtract(1,'days');
-                        var end = start.add(12,'hours');
+                        console.log(dayText)
+                        var dayMoment = moment(dayText,"MMM Do YYYY");
+                        //console.log(dayMoment.format())
+                        var start = dayMoment.clone().subtract(1,'days').startOf('day');
+                        console.log(start.format());
+                        var end = start.clone().endOf('day');
+                        console.log(end.format());
+                        console.log(start.format());
+                          getAverageRatesForRange(start,end,"day");
                         $(".time_period_text").text(start.format('MMM Do YYYY'))
-                        getAverageRatesForRange(start,end,"day");
+                      
                         break
                     case "week":
                         var fromText = $("#from_time").text();
@@ -402,8 +411,8 @@
         })
     </script>
     <script>
-      var dayStart = moment().startOf('day').hour(8);
-      var dayEnd = dayStart.add(12,'hours');
+      var dayStart = moment().hour(8).minutes(0);
+      var dayEnd = moment().hour(17).minutes(0);
       getAverageRatesForRange(dayStart,dayEnd,"day")
     </script>
 </html>

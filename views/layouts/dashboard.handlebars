@@ -280,10 +280,10 @@
              </div>
         </div>
     </body>
-     <script type="text/javascript" src="/js/main/current_wait_chart.js"></script>
-    <script type="text/javascript" src="/js/main/purchases_chart.js"></script>
-    <script type="text/javascript" src="/js/main/visits_chart.js"></script>
-    <script type="text/javascript" src="/js/main/conversions_chart.js"></script>
+    {{!-- <script type="text/javascript" src="/js/main/current_wait_chart.js"></script>--}}
+    {{!--<script type="text/javascript" src="/js/main/purchases_chart.js"></script>--}}
+    {{!--<script type="text/javascript" src="/js/main/visits_chart.js"></script>--}}
+    {{!--<script type="text/javascript" src="/js/main/conversions_chart.js"></script>--}}
     <script type="text/javascript" src="/js/main/business_chart.js"></script>
     <script>
        function getTodayQuickStats(){
@@ -312,8 +312,8 @@
                 // maxVisit:halfHrMaxVisit,
                 // business:businessLastHalfHr
                     
-                            business_chart.data.datasets[0].data = stats.timePeriod
-                            business_chart.data.datasets[0].labels = stats.business
+                            business_chart.data.datasets[0].data = stats.business
+                            business_chart.data.datasets[0].labels = stats.timePeriod
                             business_chart.update();
                         
                          
