@@ -210,7 +210,7 @@
                                  <p class="data_insight">Minimum Conversion Differential</p> 
                             </div> 
                              <div class="col-sm-12">
-                                <p class="data_units"><strong id="total_conversion_diff" class="data_number">0</strong> %
+                                <p class="data_units"><strong id="max_conversion_diff" class="data_number">0</strong> %
                                 </br>
                                 <svg  class="underline" width="200" height="2">
                                     <rect x="0" y="0" width="200" height="2">
@@ -224,7 +224,7 @@
                         </div>
                         <div class="col-sm-12 site_data">
                             <div class="comp_chart">
-                                <canvas width="300" height ="200" id="conversion_comp_cntxt"></canvas>
+                                <canvas width="350" height ="600" id="conversion_comp_cntxt"></canvas>
                             </div>
                         </div>   
                         </div>
@@ -237,7 +237,34 @@
 <script type="text/javascript" src="/js/detail_charts/conversion_comp_chart.js"></script>
 <script type="text/javascript" src="/js/detail_charts/client_conversions_chart.js"></script>
 <script>
-        function getImpressionsForRange(start,end,range){
+    function max(collection){
+        if(collection.length > 0){
+        var toSort = [];
+            toSort = toSort.concat(collection)
+        var sorted = sortAscending(toSort)
+         //console.log(sorted)
+        return sorted.pop()
+        }else{
+            return 0
+        }
+    }
+    function sortAscending(values){
+        var sorted = values.sort(function(a,b){
+            return a-b;
+        });
+        return sorted;
+    }
+    function setStepSize(topUnit){
+        var steps = [1,2,3,4,5,6,10,20,100]
+        var step = 0;
+        steps.forEach(function(i){
+            if(topUnit > 5*i){
+                step = i
+            }
+        })
+        return step
+    }
+        function getConversionsForRange(start,end,range){
             var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function(){
                     if(this.status == 200 && this.readyState == 4){
@@ -250,45 +277,29 @@
                             $("#conversion_rate").text("0")
                             $("#min_conversion_diff").text("0")
                             $("#max_conversion_diff").text("0")
-                            
-                            client_conversions_chart.data.datasets[0].data = []
-                            client_conversions_chart.update()
-                            
                             conversion_comp_chart.data.datasets[0].data = []
                             conversion_comp_chart.data.datasets[1].data = []
                             conversion_comp_chart.update()
                         }else{
-                            client_conversions_chart.data.datasets[0].data = [stats.purchases,stats.visits]
+                            var step = setStepSize(max(stats.visitsPerUnit));
+                            console.log(step)
+                            conversion_comp_chart.options.scales.yAxes[0].ticks.stepSize = step
                             $(".alert").hide();
                             $("#conversion_rate").text(stats.conv_rate);
                             $("#min_conversion_diff").text(stats.min);
                             $("#max_conversion_diff").text(stats.max)
-                        switch (range){
-                                case "day":
-                          
-                                   conversion_comp_chart.data.labes = stats.unit
-                                   conversion_comp_chart.update();
-                                    break
-                                case "week":
-                              
-                                     conversion_comp_chart.data.labes = stats.unit
-                                     conversion_comp_chart.update();
-                                    break
-                                case "month":
-                                   console.log('rates for this month')
-                                    
-                                     conversion_comp_chart.data.labes = stats.unit
-                                     conversion_comp_chart.update();
-                                    break
-                                default:
-                                    break;
-                              }
-                              
+                            client_conversions_chart.data.datasets[0].data = [stats.purchases,stats.visits]
+                            conversion_comp_chart.data.labels = stats.units
+                            conversion_comp_chart.data.datasets[0].data = stats.purchasesPerUnit;
+                            conversion_comp_chart.data.datasets[1].data = stats.visitsPerUnit;
+                            conversion_comp_chart.update();
+                            client_conversions_chart.update();
+                            
                         }
                     }
                 };
                 
-                xmlhttp.open("POST","/api/rates/{{site}}/"+range+"/impressions",true);
+                xmlhttp.open("POST","/api/rates/{{site}}/"+range+"/conversions",true);
                 xmlhttp.setRequestHeader("Content-Type","application/json");
                 var startEnd = JSON.stringify({start:start,end:end});
                 xmlhttp.send(startEnd);
@@ -321,27 +332,25 @@
                   $(".alert").hide();
               })
              $("#day_button").click(function(){
-                $("#inc_time_fwd").attr("name","day");
+               $("#inc_time_fwd").attr("name","day");
                 $("#dec_time_back").attr("name","day");
                 var today = moment().format('MMM Do YYYY')
-                var start = moment().hour(8)
-                var end  = moment().hour(15)
+                var start = moment().hour(8).minutes(0)
+                var end  = moment().hour(17).minutes(0)
                 $(".time_period_text").text(today)
                 $("#from_time").text("8:00 AM");
-                $("#to_time").text("3:00 PM");
-                conversion_comp_chart.data.labels = ['8 am','9 am','10 am','11 am','12 pm','1 pm','2 pm','3 pm']
-                conversion_comp_chart.update();
-                 getImpressionsForRange(start,end,"month")
+                $("#to_time").text("5:00 PM");
+                 getConversionsForRange(start,end,"day")
             });
             $("#week_button").click(function(){
-                $("#inc_time_fwd").attr("name","week");
+                 $("#inc_time_fwd").attr("name","week");
                 $("#dec_time_back").attr("name","week");
                 $(".time_period_text").text("Week Stats")
                 var weekStart = moment().startOf('week')
                 var weekEnd = moment().endOf('week')
                 $("#from_time").text(weekStart.format('MMM Do YYYY'))
                 $("#to_time").text(weekEnd.format('MMM Do YYYY'))
-                 getImpressionsForRange(weekStart.hour(8),weekEnd.hour(15),"week")
+                getConversionsForRange(weekStart.hour(8),weekEnd.hour(17),"week")
             });
             $("#month_button").click(function(){
                 $("#inc_time_fwd").attr("name","month");
@@ -354,37 +363,35 @@
                 $(".time_period_text").text(currentMonth)
                 $("#from_time").text(monthStart.format('MMM Do YYYY'))
                 $("#to_time").text(monthEnd.format('MMM Do YYYY'))
-                getImpressionsForRange(monthStart.hour(8),monthEnd.hour(15),"month")
+                getConversionsForRange(monthStart.hour(8),monthEnd.hour(17),"month")
             })
             $("#inc_time_fwd").click(function(){
                 client_conversions_chart.data.datasets[0].data = []
                 client_conversions_chart.update()
                 switch ( $(this).attr("name")){
                     case "day":
-                        var dayText = $(".time_period_text").text();
-                        var dayMoment = moment(dayText,'MMM Do YYYY').utcOffset(+4,true);
-                        console.log(dayMoment)
-                        var start = dayMoment.add(1,'days');
-                        console.log(start)
-                        var end = start.add(12,'hours');
+                       var dayText = $(".time_period_text").text();
+                        var dayMoment = moment(dayText,'MMM Do YYYY').utcOffset(-4);
+                        //console.log(dayMoment)
+                        var start = dayMoment.add(1,'days').startOf('day');
+                        //console.log(start)
+                        var end = moment(dayText,'MMM Do YYYY').add(1,'days').endOf('day');
                          $(".time_period_text").text(start.format('MMM Do YYYY'))
-                        getImpressionsForRange(start,end,"day")
+                        getConversionsForRange(start,end,"day")
                         break
                     case "week":
                         var dayText = $("#from_time").text();
                         var toText = $("#to_time").text();
-                        console.log(dayText)
+                        //console.log(dayText)
                         var dayMoment = moment(dayText,'MMM Do YYYY');
                         var endMoment = moment(toText,'MMM Do YYYY');
-                        console.log(dayMoment)
-                        var start = dayMoment.add(7,'days');
-                        console.log(start)
-                        var endDay = endMoment.add(7,'days');
-                        console.log(endDay)
-                        var end = endDay.add(12,'hours');
+                        //console.log(dayMoment)
+                        var start = dayMoment.add(7,'days').hours(8);
+                        //console.log(start)
+                        var end = endMoment.add(7,'days').hours(17);
                         $("#from_time").text(start.format('MMM Do YYYY'))
                         $("#to_time").text(end.format('MMM Do YYYY'))
-                        getImpressionsForRange(start,end,"week");
+                        getConversionsForRange(start,end,"week");
                         break
                     case "month":
                         var month = $(".time_period_text").text();
@@ -400,7 +407,7 @@
                         $(".time_period_text").text(nextMonth);
                         $("#from_time").text(start.format('MMM Do YYYY'))
                         $("#to_time").text(end.format('MMM Do YYYY'))
-                        getImpressionsForRange(start,end,"month")
+                        getConversionsForRange(start,end,"month")
                         break
                     default:
                         break
@@ -411,14 +418,17 @@
                 client_conversions_chart.update()
                 switch ( $(this).attr("name")){
                     case "day":
-                        var dayText = $(".time_period_text").text();
-                        var dayMoment = moment(dayText,'MMM Do YYYY').utcOffset(+4,true);
-                        console.log(dayMoment)
-                        var start = dayMoment.subtract(1,'days');
-                        var end = start.add(12,'hours');
-                        $(".time_period_text").text(start.format('MMM Do YYYY'))
-                        
-                        getImpressionsForRange(start,end,"day");
+                         var dayText = $(".time_period_text").text();
+                        console.log(dayText)
+                        var dayMoment = moment(dayText,"MMM Do YYYY");
+                        //console.log(dayMoment.format())
+                        var start = dayMoment.clone().subtract(1,'days').startOf('day');
+                        console.log(start.format());
+                        var end = start.clone().endOf('day');
+                        console.log(end.format());
+                        console.log(start.format());
+                        $(".time_period_text").text(start.format('MMM Do YYYY'));
+                        getConversionsForRange(start,end,"day");
                         break
                     case "week":
                         var fromText = $("#from_time").text();
@@ -430,7 +440,7 @@
                         var end = endDay.add(12,'hours');
                         $("#from_time").text(start.format('MMM Do YYYY'));
                         $("#to_time").text(end.format('MMM Do YYYY'));
-                        getImpressionsForRange(start,end,"week");
+                        getConversionsForRange(start,end,"week");
                         break
                     case "month":
                         var month = $(".time_period_text").text();
@@ -444,7 +454,7 @@
                         $(".time_period_text").text(prevMonth)
                         $("#from_time").text(start.format('MMM Do YYYY'));
                         $("#to_time").text(end.format('MMM Do YYYY'));
-                        getImpressionsForRange(start,end,"month");
+                        getConversionsForRange(start,end,"month");
                         break
                     default:
                         break
@@ -452,5 +462,10 @@
             });            
         })
     </script>    
+    <script>
+      var dayStart = moment().startOf('day');
+      var dayEnd =   moment().endOf('day');
+      getConversionsForRange(dayStart,dayEnd,"day")
+</script>
 </html>
   

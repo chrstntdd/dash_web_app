@@ -18,15 +18,17 @@ var compGradient = cntxt.createLinearGradient(0,0,0,400);
 var conversion_comp_chart = new Chart(cntxt,{
             type: 'bar',
             data: {
-                labels: ['8 am','9 am','10 am','11 am','12 pm','1 pm','2 pm','3 pm'],
+                labels: ['8 am','9 am','10 am','11 am','12 pm','1 pm','2 pm','3 pm','4 pm,5 pm'],
                 datasets:[{
+                    label:'Sales',
                     data: [],
                     backgroundColor:gradient,
                     hoverBackgroundColor: gradientHover,
                     borderWidth: 1
                 },
                 {
-                  data: [],
+                    data: [],
+                    label: 'Visits',
                     backgroundColor:compGradient,
                     hoverBackgroundColor: compGradientHover,
                     borderWidth: 1  
@@ -34,7 +36,7 @@ var conversion_comp_chart = new Chart(cntxt,{
             },
             options: {
                 title:{
-                    display:false,
+                    display:true,
                     fontFamily:'poiret',
                     fontSize: 20,
                     fontColor: '#34495e',
@@ -44,7 +46,10 @@ var conversion_comp_chart = new Chart(cntxt,{
                     enabled: false
                 },
                 legend:{
-                    display: false
+                    display: true,
+                    label:{
+                
+                    }
                 },
                 scales: {
                     yAxes: [{

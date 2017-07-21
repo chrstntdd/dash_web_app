@@ -109,7 +109,7 @@ function sortDescending(values){
 //gets an array of all of the rates for the current day
 
 module.exports.get_stats = function(site,start,end,callback){
-    console.log("Getting stats for site " + site + " from " + start.unix() + " to " + end.unix());
+    //console.log("Getting stats for site " + site + " from " + start + " to " + end);
     Rate.find({site:site,date:{$gte:start,$lte:end}},callback);
    
 };

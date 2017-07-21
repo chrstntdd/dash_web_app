@@ -307,7 +307,7 @@
                 $(".time_period_text").text(currentMonth)
                 $("#from_time").text(monthStart.format('MMM Do YYYY'))
                 $("#to_time").text(monthEnd.format('MMM Do YYYY'))
-                getAverageRatesForRange(monthStart.hour(8),monthEnd.hour(15),"month")
+                getAverageRatesForRange(monthStart.hour(8),monthEnd.hour(17),"month")
             })
             $("#inc_time_fwd").click(function(){
                 wait_Chart.data.datasets[0].data = []
@@ -315,7 +315,7 @@
                 switch ( $(this).attr("name")){
                     case "day":
                         var dayText = $(".time_period_text").text();
-                         var dayMoment = moment(dayText,'MMM Do YYYY').utcOffset(-4);
+                        var dayMoment = moment(dayText,'MMM Do YYYY').utcOffset(-4);
                         //console.log(dayMoment.format())
                         var start = dayMoment.add(1,'days').startOf('day');
                         //console.log(start.format());

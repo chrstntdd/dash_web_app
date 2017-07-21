@@ -22,7 +22,7 @@ router.get('/',function(req,res){
 router.post('/private/api/watchdog',function(req,res){
     var site = req.body.site;
     var unit = req.body.unit;
-    console.log('Unit: '+unit+'alive at site: '+site)
+    console.log('Unit: '+unit+' alive at site: '+site)
     res.send("Ok")
 });
 router.get('/sites',function(req,res){

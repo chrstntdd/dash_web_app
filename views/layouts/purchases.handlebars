@@ -236,37 +236,23 @@
                     if(this.status == 200 && this.readyState == 4){
                         var stats = JSON.parse(this.responseText);
                         console.log(stats);
-                        if (stats == "No Rates"){
+                        if (stats.status == "No Rates"){
                             $(".alert").show();
                             $(".alert").alert();
                             $(".alert").attr({"display":"block"})
-                        }else{
-                            console.log("Some Rates");
-                            purchases_chart.data.datasets[0].data = stats.clients;
+                             purchases_chart.data.datasets[0].data = []
+                            $("#min_purchases").text(0);
+                            $("#max_purchases").text(0);
+                            $("#total_purchases").text(0)
                             purchases_chart.update();
-                            $("#min_purchases").text(stats.max);
-                            $("#max_purchases").text(stats.min);
-                            $("#total_purchases").text(stats.total)
-                        switch (range){
-                                case "day":
-                                    $(".time_period_text").text(stats.date);
-                                    break
-                                case "week":
-                                    $(".time_period_text").text("Week Stats");
-                                    $("#from_time").text(stats.from_date);
-                                    $("#to_time").text(stats.to_date);
-                                     purchases_chart.data.labels = stats.units
-                                    break
-                                case "month":
-                                    $(".time_period_text").text(stats.month);
-                                    $("#from_time").text(stats.from_date);
-                                    $("#to_time").text(stats.to_date);
-                                     purchases_chart.data.labels = stats.units
-                                    break
-                                default:
-                                    break;
-                              }
-                              purchases_chart.update();
+                        }else{
+                            console.log(stats);
+                            purchases_chart.data.datasets[0].data = stats.purchasesEachUnit;
+                            $("#min_purchases").text(stats.minPurchases);
+                            $("#max_purchases").text(stats.maxPurchases);
+                            $("#total_purchases").text(stats.purchases)
+                            purchases_chart.data.labels = stats.units
+                            purchases_chart.update();
                         }
                     }
                 };
@@ -307,12 +293,12 @@
                 $("#inc_time_fwd").attr("name","day");
                 $("#dec_time_back").attr("name","day");
                 var today = moment().format('MMM Do YYYY')
-                var start = moment().hour(8)
-                var end  = moment().hour(15)
+                var start = moment().hour(8).minutes(0)
+                var end  = moment().hour(17).minutes(0)
                 $(".time_period_text").text(today)
                 $("#from_time").text("8:00 AM");
-                $("#to_time").text("3:00 PM");
-                 getPurchasesForRange(start,end,"month")
+                $("#to_time").text("5:00 PM");
+                 getPurchasesForRange(start,end,"day")
             });
             $("#week_button").click(function(){
                 $("#inc_time_fwd").attr("name","week");
@@ -322,7 +308,7 @@
                 var weekEnd = moment().endOf('week')
                 $("#from_time").text(weekStart.format('MMM Do YYYY'))
                 $("#to_time").text(weekEnd.format('MMM Do YYYY'))
-                 getPurchasesForRange(weekStart.hour(8),weekEnd.hour(15),"week")
+                 getPurchasesForRange(weekStart.hour(8),weekEnd.hour(17),"week")
             });
             $("#month_button").click(function(){
                 $("#inc_time_fwd").attr("name","month");
@@ -335,7 +321,7 @@
                 $(".time_period_text").text(currentMonth)
                 $("#from_time").text(monthStart.format('MMM Do YYYY'))
                 $("#to_time").text(monthEnd.format('MMM Do YYYY'))
-                getPurchasesForRange(monthStart.hour(8),monthEnd.hour(15),"month")
+                getPurchasesForRange(monthStart.hour(8),monthEnd.hour(17),"month")
             })
             $("#inc_time_fwd").click(function(){
                 purchases_chart.data.datasets[0].data = []
@@ -343,26 +329,24 @@
                 switch ( $(this).attr("name")){
                     case "day":
                         var dayText = $(".time_period_text").text();
-                        var dayMoment = moment(dayText,'MMM Do YYYY').utcOffset(+4,true);
-                        console.log(dayMoment)
-                        var start = dayMoment.add(1,'days');
-                        console.log(start)
-                        var end = start.add(12,'hours');
+                        var dayMoment = moment(dayText,'MMM Do YYYY').utcOffset(-4);
+                        //console.log(dayMoment)
+                        var start = dayMoment.add(1,'days').startOf('day');
+                        //console.log(start)
+                        var end = moment(dayText,'MMM Do YYYY').add(1,'days').endOf('day');
                          $(".time_period_text").text(start.format('MMM Do YYYY'))
                         getPurchasesForRange(start,end,"day")
                         break
                     case "week":
                         var dayText = $("#from_time").text();
                         var toText = $("#to_time").text();
-                        console.log(dayText)
+                        //console.log(dayText)
                         var dayMoment = moment(dayText,'MMM Do YYYY');
                         var endMoment = moment(toText,'MMM Do YYYY');
-                        console.log(dayMoment)
-                        var start = dayMoment.add(7,'days');
-                        console.log(start)
-                        var endDay = endMoment.add(7,'days');
-                        console.log(endDay)
-                        var end = endDay.add(12,'hours');
+                        //console.log(dayMoment)
+                        var start = dayMoment.add(7,'days').hours(8);
+                        //console.log(start)
+                        var end = endMoment.add(7,'days').hours(17);
                         $("#from_time").text(start.format('MMM Do YYYY'))
                         $("#to_time").text(end.format('MMM Do YYYY'))
                         getPurchasesForRange(start,end,"week");
@@ -392,14 +376,17 @@
                 purchases_chart.update()
                 switch ( $(this).attr("name")){
                     case "day":
-                        var dayText = $(".time_period_text").text();
-                        var dayMoment = moment(dayText,'MMM Do YYYY').utcOffset(+4,true);
-                        console.log(dayMoment)
-                        var start = dayMoment.subtract(1,'days');
-                        var end = start.add(12,'hours');
+                      var dayText = $(".time_period_text").text();
+                        console.log(dayText)
+                        var dayMoment = moment(dayText,"MMM Do YYYY");
+                        //console.log(dayMoment.format())
+                        var start = dayMoment.clone().subtract(1,'days').startOf('day');
+                        console.log(start.format());
+                        var end = start.clone().endOf('day');
+                        console.log(end.format());
+                        console.log(start.format());
+                          getPurchasesForRange(start,end,"day");
                         $(".time_period_text").text(start.format('MMM Do YYYY'))
-                        
-                        getPurchasesForRange(start,end,"day");
                         break
                     case "week":
                         var fromText = $("#from_time").text();
@@ -434,8 +421,8 @@
         })
     </script>
 <script>
-    //   var dayStart = moment().startOf('day').hour(8);
-    //   var dayEnd = dayStart.add(12,'hours');
-    //   getTotalForRange(dayStart,dayEnd,"day")
+      var dayStart = moment().startOf('day');
+      var dayEnd =   moment().endOf('day');
+      getPurchasesForRange(dayStart,dayEnd,"day")
 </script>
 </html>
