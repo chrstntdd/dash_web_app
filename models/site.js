@@ -28,7 +28,44 @@ var siteSchema = new Schema({
             business: String,
             email: String
         },
-        managers:[{type: Schema.Types.ObjectId, ref: 'user'}]
+        managers:[{type: Schema.Types.ObjectId, ref: 'user'}],
+        schedule:{
+            monday:{
+                operating:{type:Boolean,default:true},
+                open:{type:Number,default:8},
+                close:{type:Number,default:17}
+            },
+            tuesday:{
+                operating:{type: Boolean, default: true},
+                open:{type:Number,default:8},
+                close:{type:Number,default:17}
+            },
+            wednesday:{
+                operating:{type: Boolean, default: true},
+                open:{type:Number,default:8},
+                close:{type:Number,default:17}
+            },
+            thursday:{
+                operating:{type: Boolean, default: true},
+                open:{type:Number,default:8},
+                close:{type:Number,default:17}
+            },
+            friday:{
+                operating:{type: Boolean, default: true},
+                open:{type:Number,default:8},
+                close:{type:Number,default:17}
+            },
+            saturday:{
+                operating:{type: Boolean, default: true},
+                open:{type:Number,default:8},
+                close:{type:Number,default:17}
+            },
+            sunday:{
+                operating:{type: Boolean, default: true},
+                open:{type:Number,default:8},
+                close:{type:Number,default:17}
+            }
+        }
 });
 
 
@@ -150,6 +187,8 @@ module.exports.updateSite = function(id,update,callback){
     var query = {_id: id};
  
     Site.findOneAndUpdate(query,update,{overwrite:true},callback);
+    
 }
+
 
 

@@ -8,7 +8,7 @@ var rateSchema = new Schema({
         duration: Number,
         transaction: Boolean,
         date: {type: Date, default: Date.now},
-        position: Number,
+        position: Number
         
 });
 

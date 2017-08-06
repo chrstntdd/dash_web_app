@@ -56,7 +56,7 @@ var io = socketIO(server);
     
     app.use('/images',express.static(path.join(__dirname,'/public/images')));
     
-    app.use('/styles',express.static(path.join(__dirname,'/public/styles')));
+    app.use('/css',express.static(path.join(__dirname,'/public/css')));
     
     app.use('/js',express.static(path.join(__dirname,'/js')));
     

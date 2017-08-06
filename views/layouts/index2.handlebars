@@ -1,0 +1,514 @@
+<style>
+ @font-face{
+           font-family:poiret;
+           src:url(/fonts/poiret-one.regular.ttf);
+       }
+    .navbar{
+        /*background-color: rgba(52,73,94,1);*/
+        color: white;
+        border:0;
+        height:80px;
+    }
+    .navbar-brand img{
+        width: 30px;
+        height:30px;
+    }
+    .clear{
+      background-color: transparent;
+    }
+    .blueBG{
+        background-color: rgba(52,73,94,0.8) ;
+    }
+      #mynavbar{
+          height:80px;
+          margin-top:10px;
+       
+      }
+      .menu_list{
+          margin-right:5px;
+      }
+    .menu_list a{
+        color: white;
+        font-weight:lighter;
+    }
+    #login, #sites{
+        border-radius:10px;
+        background-color:#5484ca;
+        width:100px;
+    }
+    .menu_list a:visited{
+        color:rgba(52,73,94,1);
+    }
+    #About{
+        margin-top:-30px;
+        color:white;
+        letter-spacing:2px;
+        background-color: #5484ca;
+        background-repeat:no-repeat;
+        background-size:100%;
+        background-attachment:fixed;
+        padding:40px;
+        font-weight:lighter;
+    }
+    .landing{
+        padding:150px;
+    }
+    .landing h1, .landing h4{
+        margin-top:20px;
+        color:white;
+        font-weight:lighter;
+    }
+    #header{
+        background-size: cover;
+        background-image: url("http://i.imgur.com/9RGAeu8.jpg");
+        height:800px;
+        background-repeat:no-repeat;
+    }
+    .subscribe{
+        margin: auto;
+    }
+    #header img{
+        display:block;
+        margin:auto;
+        padding: 100px 0px;
+    }
+  #header2 .jumbotron{
+        /*font-family: poiret;*/
+        font-weight:lighter;
+        letter-spacing:3px;
+        background-color: #5484ca;/*white/*rgba(52,73,94,1);*/
+    }
+    #Team h2{
+        margin-top:50px;
+        text-align:center;
+    }
+    #Team{
+        padding:50px;
+        /*color:white;*/
+        /*background-color:rgba(52,73,94,0.8);*/
+        color: #333333;
+        background-color: rgba(240,240,240,1.0);
+    }
+    .content{
+        color:white;
+        font-size:20px;
+        /*font-family:poiret;*/
+        /*background-color: rgba(0,0,0,0.6);*/
+        border-radius:10px;
+        font-weight:lighter;
+    }
+    .content-container h2{
+        color: white;
+        /*font-family: poiret;*/
+        font-weight:lighter;
+    }
+    .contact-info li i{
+        margin-right:20px;
+        position:relative;
+        float:left;
+    }
+    .contact-info li{
+        margin-top:10px;
+        text-align:left;
+    }
+    .item .panel-footer{
+        width:50%;
+        margin:auto;
+    }
+    .carousel-indicators{
+        margin-top:50px;
+    }
+    .team_member{
+        display:inline-block;
+        border-style:none;
+        background-color:transparent;
+        width:40%;
+        /*color:white;*/
+        color:#333333;
+    }
+    .caption{
+        /*color:white;*/
+        color:#333333;
+        width:100%; 
+        text-align:center
+    }
+    .caption p{
+        /*color:white;*/
+        color:#333333;
+        font-size:15px;
+    }
+    
+    .bio{
+        font-size:20px;
+        display:inline-block;
+        /*font-family:poiret;*/
+        font-weight:lighter;
+        letter-spacing:2px;
+        width:600px;
+        height:100px;
+        /*color:white;*/
+        color:#333333;
+    }
+    .bio p{
+        padding: 50px 0px;
+        /*color:white;*/
+        color:#333333;
+        
+    }
+</style>
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Muli" />
+<body data-spy="scroll" data-target=".navbar" data-offset="0" style="position:relative">
+<nav class="navbar navbar-default navbar-fixed-top clear">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mynavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/home"><img src="http://i.imgur.com/KW2Liea.png"></a>
+                </div>
+                <div class="collapse navbar-collapse" id="mynavbar">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="menu_list"><a style="color:white" href="#About">ABOUT</a></li>
+                        <li class="menu_list"><a style="color:white" href="#Team">TEAM</a></li>
+                        <li class="menu_list"><a style="color:white"  href="#Contact">CONTACT</a></li>
+                        {{#if user}}
+                            <li id="sites" style:"text-align:center" class="menu_list"><a href="/sites">SITES</a></li>
+                            {{else}}
+                            <li><a id="login" style="color:white;text-align:center" href="/login">LOG IN</a></li>
+                        {{/if}}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+<section id="header">
+    <img src="http://i.imgur.com/pE6Gdey.png">
+    <form class="col-sm-offset-4 form-inline">
+        <div class="subscribe input-group">
+            <input type="email" class="form-control" size="50" placeholder="Email Address">
+            <div class="input-group-btn">
+                <button class="btn btn-primary">Subscribe</button>
+            </div>
+        </div>
+    </form>
+</section>
+<section id="header2">
+      <div class="jumbotron text-center landing">
+            
+            <h1>DASH ANALYTICS</h1>
+            <h4>Now you can Discover, Track, And Anticipate Your In-Store Customer Behavior</h4>
+            
+        </div>
+</section>
+    <section id="About" class="content-container container-fluid">
+       <div style="text-align: center">
+            <h1>What We're About</h1>
+       </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <img class="col-sm-offset-2" src="http://i.imgur.com/Wh1oNYX.png" width="50%">
+            </div>
+            <div class="panel col-sm-8" style="background-color:rgba(0,0,0,0)"> 
+                <div class="panel-heading">
+                    <h2>The Problem</h2>
+                </div>
+                <div class="content panel-body">
+                    <p>A lack of insight is the biggest barrier to positive change. 
+                    A deep understanding of consumer needs and habits is critical to gaining 
+                    market superiority and maintaining the upper hand. Various technological improvements 
+                    have the potential to provide a wealth of valuable information to businesses, but as of yet, 
+                    few companies are able to take full advantage of the vast amounts of data that exists about 
+                    the physical world. Purchase frequency, line efficiency, foot traffic density – all examples 
+                    of the kinds of precious data that’s hiding right under your nose. We’re here to change that.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <img class="col-sm-offset-2" src="http://i.imgur.com/KaJhcRa.png" width="50%">
+             </div>
+            <div class="panel col-sm-8" style="background-color:rgba(0,0,0,0)"> 
+                <div class="panel-heading">
+                    <h2>The Solution</h2>
+                </div>
+                <div class="content panel-body">
+                    <p>Dash Analytics is the key to unlocking the hidden 
+                    potential in the data you didn’t even know could be collected. 
+                    Dash can track, store, and process a variety of information about consumers, 
+                    documenting it on a real-time management dashboard detailing exactly how these 
+                    trends are affecting your storefront. Dash optimizes management efficiency by making 
+                    sense of the patterns that cannot be seen without real time data analysis. By sifting 
+                    through the dense fog of information collected, we can provide you with the custom knowledge 
+                    necessary to adapt and augment your business strategy.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <img class="col-sm-offset-2" src="http://i.imgur.com/JXWQ0Wj.png" width="50%">
+            </div>
+            <div class="panel col-sm-8" style="background-color:rgba(0,0,0,0)"> 
+                <div class="panel-heading">
+                    <h2>The Technology</h2>
+                </div>
+                <div class="content panel-body">
+                    <p>Dash’s technology incorporates a small hub that passively 
+                    scans for the presence of smart phones from which we can extrapolate trends 
+                    about people and their movements. In an age where more than three quarters 
+                    of Americans now carry a smart phone with them, this is an elegant and innovative 
+                    method of efficiently observing consumers as they enter a storefront. 
+                    The attractiveness of this technique is twofold. First, as the process is entirely 
+                    automated and continuously running, a management team of designated users are constantly
+                    made aware of new information as it is gathered. Second, this solution is entirely non-intrusive 
+                    and maintains the integrity of the customer and their privacy. Absolutely no personally 
+                    identifiable data is gathered or stored – we maintain the utmost respect for your company 
+                    and clientele.
+                    </p></br>
+                    <p>
+                    We wish to remain at the forefront of physical data collection and management; as such, we 
+                    are in a perpetual process of research and development to ensure that Dash Analytics can serve 
+                    you to the greatest of our ability. Accuracy improvements, spatial analysis, and a wider variety 
+                    of recognized signals will all be accessible in the near future. Rest assured that we pursue every 
+                    avenue of development to improve our product and, in turn, provide you with our very best. </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section style="text-align:center">
+        <h2>APPLICATIONS</h2>
+        <div id="testimonial_carousel" class="carousel slide text-center" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#testimonial_carousel" data-slide-to="0" class="active"></li>
+                <li data-target="#testimonial_carousel" data-slide-to="1" class="active"></li>
+                <li data-target="#testimonial_carousel" data-slide-to="2" class="active"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3>In Store Customer Tracking</h3>
+                        </div>
+                        <div class="panel-body">
+                            <img src="http://i.imgur.com/ImmPAZm.png">
+                        </div>
+                        <div class="panel-footer clear">
+                            <p>“Research suggests that estimated wait times diffuse 
+                                the stress and anxiety people feel when they are waiting 
+                                in lines.”- The Washington Post
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3>Monitor Customer Interaction With Your Product Placement Scheme</h3>
+                        </div>
+                        <div class="panel-body">
+                            <img src="http://i.imgur.com/eXzfKeC.png">
+                        </div>
+                        <div class="panel-footer clear">
+                            <p>“$20 is the amount that US fans, on average, said they would spend additionally 
+                                for food & beverage if wait times were cut in half, representing a 42% increase in typical expenditure.”- Oracle Research
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3>Analyze Live Statistics</h3>
+                        </div>
+                        <div class="panel-body">
+                            <img src="http://i.imgur.com/xbEJ9yu.png">
+                        </div>
+                        <div class="panel-footer clear">
+                            <p>
+                                “The way that businesses manage lines results in 
+                                easily billions of dollars of gained and lost 
+                                brand equity and consumer spending.” - Dr. Richard Larson, MIT
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <a class="left carousel-control" href="#testimonial_carousel" style="background-image:none" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            </a>
+            <a class="right carousel-control" href="#testimonial_carousel" style="background-image:none" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            </a>
+        </div>
+    </section>
+    <section id="Team">
+            <h2>Meet Our Team</h2></br>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="thumbnail team_member pull-left">
+                        <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAl6AAAAJDEwMmQ4ODMxLTIxNDQtNGYyZC1hM2FiLTc0NTI2OTIzYjcxOA.jpg" class="img-rounded" alt="Collin Smith" width="50%">
+                        <div class="caption">
+                            <p style="font-weight:bold">Collin Smith</p>
+                            <p>Chief Executive Officer</p>
+                        </div>
+                    </div>
+                    <div class="bio">
+                         <p>
+                               As co-founder and CEO of Dash Analytics, Collin leads the team in a national implementation strategy, 
+                               overseeing partnerships and daily operations. From strategy to installation, he personally ensures 
+                               that the efficiency and seamless design of Dash Analytics is utilized at the highest level within 
+                               each organization leveraging the technology. Collin and his team launched Dash Analytics during his senior year 
+                               at Old Dominion University where he earned a Bachelor’s of Science.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="thumbnail team_member pull-left">
+                        <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAA1uAAAAJDlmZWUwNjMwLWM0YzgtNDg1MS1hOTNjLWYxZDlhNjc0ODBmMg.jpg" class="img-rounded" alt="Chris Jakobowski" width="50%">
+                        <div class="caption">
+                            <p style="font-weight:bold">Chris Jakobowski</p>
+                            <p>Chief Operating Officer</p>
+                        </div>
+                    </div>
+                    <div class="bio">
+                         <p>
+                            Chris Jakobowski serves as the Chief Operating Officer of Dash Analytics.
+                            Chris has extensive experience in project management and design. 
+                            In this role, Chris is responsible for external partnerships and handling the peripheral 
+                            operations of the company. Chris is committed to driving strong results while transforming 
+                            the way Dash Analytics serves its partners and customers providing managers and clients with 
+                            convenience. He joined Dash Analytics during his senior year at Old Dominion University where 
+                            he earned his B.S. in Business Administration.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="thumbnail team_member pull-left">
+                        <img src="http://i.imgur.com/pkZ5Mz4.jpg" class="img-rounded" alt="Kenny Diedrich" width="50%">
+                        <div class="caption">
+                            <p style="font-weight:bold">Kenneth Diedrich</p>
+                            <p>Chief Technology Officer</p>
+                        </div>
+                    </div>
+                    <div class="bio">
+                         <p>
+                            Kenneth, as CTO of Dash Analytics, guides the technical direction of the company. 
+                            Alongside the team he manages, Kenneth researches and develops critical components of the 
+                            solution and is heavily involved in the prototyping and installation of this innovative product. 
+                            A sophomore at Old Dominion University and a true nerd at heart, his years of programming experience 
+                            and keen interest in the tech industry fundamentally shape the course of Dash Analytics.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="thumbnail team_member pull-left">
+                        <img src="http://i.imgur.com/AiDIeXk.jpg" class="img-rounded" alt="Casey Dye" width="50%">
+                        <div class="caption">
+                            <p style="font-weight:bold">Casey Dye</p>
+                            <p>Chief Information Officer</p>
+                        </div>
+                    </div>
+                    <div class="bio">
+                         <p>
+                            As the Chief Information Officer, Casey Dye aids Dash Analytics by 
+                            identifying opportunities for development in the areas of Data Analysis 
+                            and Business Management. He works on both ends of this solution, optimizing 
+                            the collection and visualization of all data. Casey is currently
+                            studying Cyber Security with a minor in Computer Science from Old Dominion University.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="thumbnail team_member pull-left">
+                        <img src="http://i.imgur.com/eEmPOhK.jpg" class="img-rounded" alt="Blake Rogers" width="50%">
+                        <div class="caption">
+                            <p style="font-weight:bold">Blake Rogers</p>
+                            <p>Web Developer</p>
+                        </div>
+                    </div>
+                    <div class="bio">
+                        <p>Blake is a Navy veteran with a background in electrical engineering and 
+                            automation logistics. With a passion for technology and development he has moved into the software industry. 
+                            He has developed multiple mobile and web applications and fulfills the role of backend and frontend developer
+                            for the Dash platform and collaborates with multiple business to create innovative products like the Dash Analytics platform.
+                        </p>
+                    </div>
+                </div>
+       </div>
+   </section>
+
+ <div id="Contact" class="container-fluid text-center footer_info">
+    <div class="row">
+        <h2>Contact Us</h2>
+        <div class="col-sm-5" style="color:#333333">
+            <ul class="contact-info" style="list-style:none">
+                <li><i class="fa fa-map-marker"></i>Norfolk, VA</li>
+                <li><i class="fa fa-envelope"></i>contactus.dash@gmail.com</li>
+                <li><i class="fa fa-phone"></i>757 409 1091</li>
+            </ul>
+            <ul class="list-inline">
+                <li>
+                    <a href="#">
+                        <span class="fa fa-stack">
+                            <i class="fa fa-circle fa-stack-2x" style="color:black"></i>
+                            <i class="fa fa-facebook fa-stack-1x fa-inverse" style=""></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="fa fa-stack">
+                            <i class="fa fa-circle fa-stack-2x" style="color:black"></i>
+                            <i class="fa fa-twitter fa-stack-1x fa-inverse" style=""></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="fa fa-stack">
+                            <i class="fa fa-circle fa-stack-2x" style="color:black"></i>
+                            <i class="fa fa-instagram fa-stack-1x fa-inverse" style=""></i>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>        
+        <div class="col-sm-7">
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <input class="form-control" name="name" placeholder="Name">
+                </div>
+                <div class="col-sm-6 form-group">
+                   <input class="form-control" name="email" placeholder="Email">
+                </div>
+            </div>
+            <textarea rows="5" placeholder="Comment" class="form-control"></textarea><br>
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <div class="button">
+                        <button class="btn btn-default pull-right">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+ </div>
+</body>
+<script>
+    $(document).scroll(function(){
+        
+        if ($(".navbar").offset().top > 100){
+            $(".navbar").removeClass("clear")
+            $(".navbar").addClass("blueBG")
+        }else{
+             $(".navbar").removeClass("blueBG")
+            $(".navbar").addClass("clear")
+        }
+        
+        
+    })
+</script>
