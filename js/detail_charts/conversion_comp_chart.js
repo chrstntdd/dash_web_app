@@ -20,17 +20,17 @@ var conversion_comp_chart = new Chart(cntxt,{
             data: {
                 labels: ['8 am','9 am','10 am','11 am','12 pm','1 pm','2 pm','3 pm','4 pm,5 pm'],
                 datasets:[{
-                    label:'Sales',
+                    label:'Purchases',
                     data: [],
-                    backgroundColor:gradient,
-                    hoverBackgroundColor: gradientHover,
+                    backgroundColor:'rgba(230,126,34,1)',
+                    hoverBackgroundColor: 'rgba(230,126,34,0.7)',
                     borderWidth: 1
                 },
                 {
                     data: [],
                     label: 'Visits',
-                    backgroundColor:compGradient,
-                    hoverBackgroundColor: compGradientHover,
+                    backgroundColor:'rgba(241,196,15,1)',
+                    hoverBackgroundColor: 'rgba(241,196,15,0.7)',
                     borderWidth: 1  
                 }]
             },

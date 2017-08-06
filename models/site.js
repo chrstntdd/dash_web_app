@@ -32,25 +32,6 @@ var siteSchema = new Schema({
 });
 
 
-
-siteSchema.statics.rateToday = function(){
-    function thisMonthRates(rate){
-        thisMonth = Date.getMonth();
-        return rate.getMonth() == thisMonth
-    }
-    monthRates =  this.line_rates.filter(thisMonthRates);
-    function rateValue(rate){
-        return rate.rate;
-    }
-    function sumRates(total,rate){
-            return total + rate;
-    }
-    totalOfRates = monthRates.map(rateValue).reduce(sumRates);
-    numberOfRates = monthRates.count;
-
-   return 2
-}
-
 var Site = module.exports = mongoose.model('Site',siteSchema);
 
 

@@ -29,13 +29,19 @@
             width:170px;
             height:100px;
         }
+        .site_icon img{
+            display:block;
+            margin:auto;
+        }
         .dashboard_options{
             background-color: #5484ca;
             height:1000px;
+            padding:5px;
         }
         .dashboard_options li{
             list-style-type:none;
             font-size:20px;
+            margin:10px;
         }
         .dashboard_options a img{
             display:block;
@@ -50,6 +56,7 @@
           background-color:rgba(255,255,255,0.2);
           border-radius:5px;
           margin-top:20px;
+          position: fixed;
         }
       .site_nav ul li a{
           color:white;
@@ -151,22 +158,20 @@
                 <div class="site_nav">
                     <ul>
                         <li><a class="option" href="/sites"><i class="nav_icon fa fa-sitemap"></i>Sites</a></li>
-                        <li><a href="/sites/{{site}}"><i class="nav_icon fa fa-dashboard"></i>Dashboard</a></li>
-                        <li><a href="/sites/{{site}}/avg_wait"><i class="nav_icon fa fa-hourglass-2"></i>Transactions</a></li>
-                        <li><a href="/sites/{{site}}/business"><i class="nav_icon fa fa-money"></i>Purchases</a></li>
-                        <li><a href="/sites/{{site}}/conversions"><i class="nav_icon fa fa-balance-scale"></i>Conversions</a></li>
+                        <li><a href="/sites/{{site._id}}"><i class="nav_icon fa fa-dashboard"></i>Dashboard</a></li>
+                        <li><a href="/sites/{{site._id}}/avg_wait"><i class="nav_icon fa fa-hourglass-2"></i>Transactions</a></li>
+                        <li><a href="/sites/{{site._id}}/business"><i class="nav_icon fa fa-money"></i>Purchases</a></li>
+                        <li><a href="/sites/{{site._id}}/conversions"><i class="nav_icon fa fa-balance-scale"></i>Conversions</a></li>
                         {{!--<li><a href="#">Behavior</a></li>--}}
                         <li><a class="option" href="/logout"><i class="nav_icon fa fa-sign-out"></i>Logout</a></li>
                     </ul>
                 </div>
             </div>
             <div class="row col-sm-10">
+                <div class="site_icon">
+                    <img src={{site.icon_url}}>
+                </div>
                  <div class="text-center">
-                     <div class="col-sm-12">
-                         <div class="site_icon">
-                            <img src="https://i.imgur.com/5W0z5tV.png?1">
-                        </div>
-                    </div>
                      <div class="col-sm-12">
                         <h2 id="profile_title">Site Impression Analysis</h2>
                     </div>  
@@ -255,7 +260,7 @@
                     }
                 };
                 
-                xmlhttp.open("POST","/api/rates/{{site}}/"+range+"/impressions",true);
+                xmlhttp.open("POST","/api/rates/{{site._id}}/"+range+"/impressions",true);
                 xmlhttp.setRequestHeader("Content-Type","application/json");
                 var startEnd = JSON.stringify({start:start,end:end});
                 xmlhttp.send(startEnd);
@@ -272,7 +277,7 @@
                             }
                         }
                     };
-                    xmlhttp.open("POST","/api/rates/{{site}}/"+range+"/averages",true);
+                    xmlhttp.open("POST","/api/rates/{{site._id}}/"+range+"/averages",true);
                     xmlhttp.setRequestHeader("Content-Type","application/json");
                   
                 var range = JSON.stringify({start:start,end:end});

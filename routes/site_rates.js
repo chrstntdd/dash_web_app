@@ -344,10 +344,7 @@ router.post('/:id/:range/total',function(req,res){
                             minPurchases:minPurchases,
                             units:units
                 });
-                            
-        
         });
-    
     });
    
 
@@ -601,6 +598,7 @@ router.post('/:id/:range/impressions',function(req,res){
         });
     
     });
+    
 router.post('/:id/:range/conversions',function(req,res){
     var site = req.params.id
     var start = req.body.start

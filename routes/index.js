@@ -58,6 +58,7 @@ router.get('/sites/:id',function(req,res){
                 if(err)
                 throw err;
                 if(site != null){
+                    req.session.site = site
                     res.render('dashboard',{
                     user:user,
                     site:site,
@@ -74,19 +75,19 @@ router.get('/sites/:id',function(req,res){
         }
 });
 router.get('/sites/:id/avg_wait',function(req,res){
-    var site = req.params.id;
+    var site = req.session.site
     res.render('client_wait',{site:site})
 });
 router.get('/sites/:id/business',function(req,res){
-    var site = req.params.id
+    var site = req.session.site
     res.render('purchases',{site:site})
 });
 router.get('/sites/:id/visits',function(req,res){
-        var site = req.params.id
+        var site = req.session.site
     res.render('visits',{site:site})
 });
 router.get('/sites/:id/conversions',function(req,res){
-        var site = req.params.id
+        var site = req.session.site
     res.render('conversions',{site:site})
 });
 router.get('/home',function(req,res){
@@ -98,6 +99,7 @@ router.get('/login',function(req,res){
 });
 router.get('/logout',function(req,res){
     req.session.user == null;
+    req.session.site = null;
     res.render('index')
 });
 
