@@ -484,7 +484,7 @@ router.post('/:id/:range/averages',function(req,res){
 //*************GET THE TOTAL NUMBER OF RATES(COUNT OF CLIENTS THAT HAVE ENTERED SITE AND DID NOT MAKE A PURCHASE
 //******************************FOR A SPECIFIC SITE*********************
 
-router.post('/:id/:range/impressions',function(req,res){
+router.post('/:id/:range/visits',function(req,res){
    var site = req.params.id;
     var start = req.body.start;
     var end = req.body.end;
@@ -630,11 +630,11 @@ router.post('/:id/:range/conversions',function(req,res){
         var purchases = rates.filter(function(rateObj){
             return rateObj.transaction == true;
         });
-        ////console.log("There are "+purchases.length+" purchases")
+        // console.log("There are "+purchases.length+" purchases")
         var visits = rates.filter(function(rateObj){
             return rateObj.transaction == false;
         });
-        ////console.log("There are "+visits.length+" visits")
+        // console.log("There are "+visits.length+" visits")
         
         noOfPurchases = purchases.length;
         noOfVisits = visits.length
@@ -649,18 +649,24 @@ router.post('/:id/:range/conversions',function(req,res){
                         hrsInDay.push(dayHour);
                         units.push(dayHour.format('ha'));
                     }
-   
+                var purchasesTime = [];
+                
                 hrsInDay.forEach(function(hour,index){//array of transactions each hour
                     var hourTrans = purchases.filter(function(transObj){
-                        return hour.isSame(transObj.date,'hour')
+                        var transTime = moment(transObj.date).subtract(4,'hours');
+                        return hour.isSame(transTime,'hour')
                     });
+                    
                     var hourVisits = visits.filter(function(visitObj){
-                        return hour.isSame(visitObj.date,'hour')
+                         var visitTime = moment(visitObj.date).subtract(4,'hours');
+                        return hour.isSame(visitTime,'hour')
                     });
+                    // purchasesTime.push(hourTrans.map(function(obj){return obj.date;}))
                     purchasesPerUnit.push(hourTrans.length)
                     visitsPerUnit.push(hourVisits.length)
                 });
-            
+            //  console.log(purchasesPerUnit);
+            //  console.log(purchasesTime);
         }else{
             //create an array for each day listed
             for(i = 0; i < diff; ++i){
@@ -676,6 +682,7 @@ router.post('/:id/:range/conversions',function(req,res){
                     var dayVisits = visits.filter(function(visitObj){
                         return day.isSame(visitObj.date,'date');
                     });
+                    
                     purchasesPerUnit.push(dayTrans.length)
                     visitsPerUnit.push(dayVisits.length);
                 });

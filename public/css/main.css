@@ -734,7 +734,7 @@ background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#8ec6
 
 #call-to-action {
     padding: 70px 0px;
-    background: url(../images/call-to-action.jpg);
+    /*background: url(../images/call-to-action.jpg);*/
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;

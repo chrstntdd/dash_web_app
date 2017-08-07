@@ -143,8 +143,8 @@
                         <ul>
                             <li><a class="option" href="/sites"><i class="nav_icon fa fa-sitemap"></i>Sites</a></li>
                             <li><a href="/sites/{{site._id}}"><i class="nav_icon fa fa-dashboard"></i>Dashboard</a></li>
-                            <li><a href="/sites/{{site._id}}/avg_wait"><i class="nav_icon fa fa-hourglass-2"></i>Transactions</a></li>
-                            <li><a href="/sites/{{site._id}}/business"><i class="nav_icon fa fa-money"></i>Purchases</a></li>
+                            <li><a href="/sites/{{site._id}}/transactions"><i class="nav_icon fa fa-hourglass-2"></i>Transactions</a></li>
+                            <li><a href="/sites/{{site._id}}/purchases"><i class="nav_icon fa fa-money"></i>Purchases</a></li>
                             <li><a href="/sites/{{site._id}}/visits"><i class="nav_icon fa fa-users"></i>Visits</a></li>
                             <li><a href="/sites/{{site._id}}/conversions"><i class="nav_icon fa fa-balance-scale"></i>Conversions</a></li>
                             {{!--<li><a href="#">Behavior</a></li>--}}
@@ -290,11 +290,6 @@
     <script>
      function sec_mins(id,time){
         var min_sec = time < 1 ? "seconds" : "minutes"
-        var time_for_seconds = time*60;
-            time_for_seconds = Math.floor(time_for_seconds);
-        time = time < 1 ? time_for_seconds : time;
-
-        
         switch (id){
             case "#max_transaction":
                 $("#transaction").text(min_sec);
@@ -304,7 +299,9 @@
                 $("#duration_long").text(min_sec);
             default:break;
         }    
-        
+        var time_for_seconds = time*60;
+            time_for_seconds = Math.floor(time_for_seconds);
+        time = time < 1 ? time_for_seconds : time;
         $(id).text(time)
         console.log(id);
      }

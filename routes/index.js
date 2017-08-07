@@ -74,11 +74,11 @@ router.get('/sites/:id',function(req,res){
             res.render('index')
         }
 });
-router.get('/sites/:id/avg_wait',function(req,res){
+router.get('/sites/:id/transactions',function(req,res){
     var site = req.session.site
-    res.render('client_wait',{site:site})
+    res.render('transactions',{site:site})
 });
-router.get('/sites/:id/business',function(req,res){
+router.get('/sites/:id/purchases',function(req,res){
     var site = req.session.site
     res.render('purchases',{site:site})
 });
