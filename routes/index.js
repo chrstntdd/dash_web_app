@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var router = express.Router();
 var bcrypt = require('bcryptjs');
-var emailjs = require('emailjs');
+var nodemailer = require('nodemailer');
 const saltrounds = 10;
 
 Site = require('../models/site');
@@ -109,19 +109,27 @@ router.post('/mail',function(req,res){
     var email = req.body.email;
     var name = req.body.name;
     var message = req.body.message;
+    var content = "Name: "+name+"\nEmail: "+email+"\nMessage: "+message
     console.log("sending email from "+email+" to blake.rogers757@gmail.com with the message "+message);
-    message = new Email({
-        to:'blake.rogers757@gmail.com',
-        from : email,
-        subject:"Message from Dash Web Visitor",
-        body:message
-    })
-    message.send(function(err){
-        if (err){
-            console.log(err);
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth:{
+            user:'itsdashanalytics@gmail.com',
+            pass:'cckcb757'
+        }
+    });
+    var mailOptions = {
+        from: email,
+        to:'admin.dash@gmail.com',
+        subject:'Message from Dash website visitor',
+        text:content
+    }
+    transporter.sendMail(mailOptions,function(error,info){
+        if(error){
+            console.log(error);
             res.redirect('/');
         }else{
-            console.log('message from '+name+' sent sucessfully');
+            console.log("Email sent successfully");
             res.redirect('/');
         }
     })
