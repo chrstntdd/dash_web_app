@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var router = express.Router();
 var bcrypt = require('bcryptjs');
-
+var emailjs = require('emailjs');
 const saltrounds = 10;
 
 Site = require('../models/site');
@@ -109,6 +109,22 @@ router.post('/mail',function(req,res){
     var email = req.body.email;
     var name = req.body.name;
     var message = req.body.message;
+    console.log("sending email from "+email+" to blake.rogers757@gmail.com with the message "+message);
+    message = new Email({
+        to:'blake.rogers757@gmail.com',
+        from : email,
+        subject:"Message from Dash Web Visitor",
+        body:message
+    })
+    message.send(function(err){
+        if (err){
+            console.log(err);
+            res.redirect('/');
+        }else{
+            console.log('message from '+name+' sent sucessfully');
+            res.redirect('/');
+        }
+    })
     
 });
 

@@ -1,4 +1,7 @@
 <?php
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        echo "connection";
+    }
     $to = "blake.rogers757@gmail.com";
     $from = $_POST['name'];
     $headers = "Content-type: text/html;From: $from";

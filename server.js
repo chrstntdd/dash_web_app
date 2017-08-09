@@ -20,7 +20,6 @@ var socketIO = require('socket.io');
       // console.log('connecting to local server')
       mongoose.connect('mongodb://localhost/pogo');
     }
-  
   });
   }else{
         console.log('env is '+ process.env.NODE_ENV + ' connecting locally')

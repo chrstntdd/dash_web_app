@@ -276,10 +276,13 @@
                         <div class="block">
                             <h2>Want to hear more about what Dash is Doing?</h2>
                             <p>Join our subscriber list and be the first to learn about the value that Dash is providing to businesses and events near you</p>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Enter Your Email Address">
-                                <button class="btn btn-default btn-submit" type="submit">Get Notified</button>
-                            </div>
+                            <!-- Begin MailChimp Signup Form -->
+                            <form action="//timetodash.us16.list-manage.com/subscribe/post?u=7f80cb373bd4bb0b8ef601233&amp;id=544dc5ed70" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                                <div class="form-group">
+                                    <input type="text" name="email" class="form-control" placeholder="Enter Your Email Address">
+                                    <button class="btn btn-default btn-submit" type="submit">Get Notified</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -318,7 +321,7 @@
 
                     <div class="col-xs-12 col-sm-12 col-md-5 col-md-offset-1 wow fadeInUp" data-wow-delay="0.3s">
                     	<div class="form-group">
-                    	    <form action="/mail" method="post"id="contact-form">
+                    	    <form action="/mail" method="post" id="contact-form">
                     	        <div class="input-field">
                     	            <input id="name" type="text" class="form-control" placeholder="Your Name" name="name">
                     	        </div>
@@ -341,9 +344,12 @@
                 </div>
             </div>
         </section>
+
         <section clas="wow fadeInUp">
-        	<div class="map-wrapper"></div>
+        	<div class="map-wrapper">
+        	</div>
         </section>
+
         <footer>
             <div class="container">
                 <div class="row">
@@ -355,6 +361,7 @@
                 </div>
             </div>
         </footer>
+
 
         <!-- Js -->
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
@@ -370,5 +377,6 @@
         <script src="js/plugins.js"></script>
         <script src="js/wow.min.js"></script>
         <script src="js/main.js"></script>
+        
     </body>
 </html>
