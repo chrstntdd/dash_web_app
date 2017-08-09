@@ -2,7 +2,9 @@ var express = require('express');
 var app = express();
 var router = express.Router();
 var bcrypt = require('bcryptjs');
+
 const saltrounds = 10;
+
 Site = require('../models/site');
 User = require('../models/user');
 
@@ -103,6 +105,12 @@ router.get('/logout',function(req,res){
     res.render('index')
 });
 
+router.post('/mail',function(req,res){
+    var email = req.body.email;
+    var name = req.body.name;
+    var message = req.body.message;
+    
+});
 
 router.post('/manage',function(req,res){
     var email = req.body.email.toLowerCase();
