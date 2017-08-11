@@ -110,7 +110,7 @@ router.post('/mail',function(req,res){
     var name = req.body.name;
     var message = req.body.message;
     var content = "Name: "+name+"\nEmail: "+email+"\nMessage: "+message
-    console.log("sending email from "+email+" to blake.rogers757@gmail.com with the message "+message);
+    //console.log("sending email from "+email+" to blake.rogers757@gmail.com with the message "+message);
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth:{
