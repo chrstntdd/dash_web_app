@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "An app to utilize Dash Analytics technology",
   "engines":{
-    "node": "8.2.1"
+    "node": "8.2.1",
+    "npm":"5.2.0"
   },
   "main": "app.js",
   "scripts": {
