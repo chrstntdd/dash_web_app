@@ -120,7 +120,7 @@ router.post('/mail',function(req,res){
     });
     var mailOptions = {
         from: email,
-        to:'admin.dash@gmail.com',
+        to:'itsdashanalytics@gmail.com',
         subject:'Message from Dash website visitor',
         text:content
     }
