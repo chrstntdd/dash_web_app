@@ -7,6 +7,9 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+        <!-- Include Date Range Picker -->
+        <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
     </head>
     <style>
        @font-face{
@@ -62,7 +65,6 @@
             color:#34495e;
             letter-spacing: 3px;
             font-family: poiret;
-            margin-top:50px;
         }
         .data_number{
             font-size: 40px;
@@ -171,7 +173,7 @@
                 <div class="site_icon">
                     <img src={{site.icon_url}}>
                 </div>
-                 <div class="text-center">
+                 <div style="margin-top:-50px" class="text-center">
                      <div class="col-sm-12">
                         <h2 id="profile_title">Client Purchases Analysis</h2>
                     </div>  
@@ -184,21 +186,22 @@
                     <div class="row col-sm-12 site_data">
                         <div class="col-sm-offset-3 col-sm-6 data_period">
                             <div class="btn-group">
-                                <button id="day_button" type="button" class="btn btn-lg" data-toggle="collapse" data-target="#date_collapse">Day</button>
-                                <button id="week_button" type="button" class="btn btn-lg" data-toggle="collapse" data-target="#date_collapse">Week</button>
-                                <button id="month_button" type="button" class="btn btn-lg" data-toggle="collapse" data-target="#date_collapse">Month</button>
+                                <button id="day_button" type="button" class="btn btn-lg" >Day</button>
+                                <button id="week_button" type="button" class="btn btn-lg" >Week</button>
+                                <button id="month_button" type="button" class="btn btn-lg" >Month</button>
                             </div>
                         </div>
     
                         <div class="col-sm-5 row">
                             <div class="col-sm-12">
+                                <span id="time_period_sel" style="margin-right:20px"><i class="fa fa-calendar-o fa-2x" aria-hidden="true"></i></span>
                                 <button name="day" id="dec_time_back" type="button" class="time_button btn btn-default"><i class="fa fa-chevron-left"></i></button>
                                 <p class="time_period_text">Jun 27th 2017</p>
                                 <button name="day" id="inc_time_fwd" type="button" class="time_button btn btn-default"><i class="fa fa-chevron-right"></i></button></br>
                                 <p class="time_text"><span class="from_text">from</span><span id="from_time" class="time_unit">8:00 AM</span><span class="to_text">to</span><span id="to_time" class="time_unit">3:00 PM</span></p>
                             </div> 
                             <div class="col-sm-12">
-                                 <p class="data_insight">Most Purchases</p> 
+                                <p class="data_insight">Most Purchases</p> 
                                 <p class="data_units"><strong id="max_purchases" class="data_number">0</strong>  purchases made
                                 </br>
                                 <svg  class="underline" width="200" height="2">
@@ -236,6 +239,17 @@
     </body>
     <script type="text/javascript" src="/js/detail_charts/client_purchases_chart.js"></script>
     <script>
+        $("#time_period_sel").daterangepicker({
+        singleDatePicker: true,
+        startDate: moment()
+        },
+        function(start,end,label){
+            start = start.hour(8).minute(0);
+            end = moment(start).hour(17);
+            $(".time_period_text").text(start.format('MMM Do YYYY'));
+            getPurchasesForRange(start,end,"day")
+        }
+    );
         function getPurchasesForRange(start,end,range){
             
             var xmlhttp = new XMLHttpRequest();
@@ -253,6 +267,7 @@
                             $("#total_purchases").text(0)
                             purchases_chart.update();
                         }else{
+                            $(".alert").hide();
                             console.log(stats);
                             purchases_chart.data.datasets[0].data = stats.purchasesEachUnit;
                             $("#min_purchases").text(stats.minPurchases);
@@ -331,8 +346,7 @@
                 getPurchasesForRange(monthStart.hour(8),monthEnd.hour(17),"month")
             })
             $("#inc_time_fwd").click(function(){
-                purchases_chart.data.datasets[0].data = []
-                purchases_chart.update()
+     
                 switch ( $(this).attr("name")){
                     case "day":
                         var dayText = $(".time_period_text").text();
@@ -379,8 +393,7 @@
                 }
             });
             $("#dec_time_back").click(function(){
-                purchases_chart.data.datasets[0].data = []
-                purchases_chart.update()
+
                 switch ( $(this).attr("name")){
                     case "day":
                       var dayText = $(".time_period_text").text();

@@ -7,6 +7,9 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+         <!-- Include Date Range Picker -->
+        <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
     </head>
     <style>
        @font-face{
@@ -62,7 +65,6 @@
             color:#34495e;
             letter-spacing: 3px;
             font-family: poiret;
-            margin-top:50px;
         }
         .data_number{
             font-size: 40px;
@@ -171,7 +173,7 @@
                 <div class="site_icon">
                     <img src={{site.icon_url}}>
                 </div>
-                <div class="text-center">
+                <div style="margin-top:20px" class="text-center">
                     <div class="col-sm-12">
                         <h2 id="profile_title">Conversion Analysis</h2>
                     </div>  
@@ -191,6 +193,7 @@
                         </div>
                         <div class="col-sm-5 row">
                             <div class="col-sm-12">
+                                <span id="time_period_sel" style="margin-right:20px"><i class="fa fa-calendar-o fa-2x" aria-hidden="true"></i></span>
                                 <button name="day" id="dec_time_back" type="button" class="time_button btn btn-default"><i class="fa fa-chevron-left"></i></button>
                                 <p class="time_period_text"></p>
                                 <button name="day" id="inc_time_fwd" type="button" class="time_button btn btn-default"><i class="fa fa-chevron-right"></i></button></br>
@@ -243,6 +246,52 @@
 <script type="text/javascript" src="/js/detail_charts/conversion_comp_chart.js"></script>
 <script type="text/javascript" src="/js/detail_charts/client_conversions_chart.js"></script>
 <script>
+   function setRange(range){
+        switch (range){
+            case "day":
+              $("#time_period_sel").daterangepicker({
+                    singleDatePicker: true,
+                    startDate: moment()
+                    },
+                    function(start,end,label){
+                        start = start.hour(8).minute(0);
+                        end = moment(start).hour(17);
+                        $(".time_period_text").text(start.format('MMM Do YYYY'));
+                        getConversionsForRange(start,end,"day")
+                    }
+                ); 
+                break
+            case "week":
+                $("#time_period_sel").daterangepicker({
+                    singleDatePicker: false,
+                    startDate: moment(),
+                    endDate: moment().add(1,'weeks')
+                    },
+                    function(start,end,label){
+                        start = start.hour(8).minute(0);
+                        end = moment(start).hour(17);
+                        $(".time_period_text").text(start.format('MMM Do YYYY'));
+                        getConversionsForRange(start,end,"week")
+                    }
+                );
+                break;
+            case "month":
+                $("#time_period_sel").daterangepicker({
+                    singleDatePicker: false,
+                    startDate: moment(),
+                    endDate: moment().add(1,'months')
+                    },
+                    function(start,end,label){
+                        start = start.hour(8).minute(0);
+                        end = moment(start).add
+                        $(".time_period_text").text(start.format('MMM Do YYYY'));
+                        getConversionsForRange(start,end,"month");
+                    }
+                );
+                break
+            default: break
+        }
+    }
     function max(collection){
         if(collection.length > 0){
         var toSort = [];
@@ -329,6 +378,7 @@
             }
 </script>
 <script>
+    
         $(document).ready(function(){
             var today = moment().format('MMM Do YYYY')
             $(".time_period_text").text(today)
@@ -346,9 +396,10 @@
                 $("#from_time").text("8:00 AM");
                 $("#to_time").text("5:00 PM");
                  getConversionsForRange(start,end,"day")
+                 setRange("day")
             });
             $("#week_button").click(function(){
-                 $("#inc_time_fwd").attr("name","week");
+                $("#inc_time_fwd").attr("name","week");
                 $("#dec_time_back").attr("name","week");
                 $(".time_period_text").text("Week Stats")
                 var weekStart = moment().startOf('week')
@@ -356,6 +407,7 @@
                 $("#from_time").text(weekStart.format('MMM Do YYYY'))
                 $("#to_time").text(weekEnd.format('MMM Do YYYY'))
                 getConversionsForRange(weekStart.hour(8),weekEnd.hour(17),"week")
+                setRange("week")
             });
             $("#month_button").click(function(){
                 $("#inc_time_fwd").attr("name","month");
@@ -369,10 +421,9 @@
                 $("#from_time").text(monthStart.format('MMM Do YYYY'))
                 $("#to_time").text(monthEnd.format('MMM Do YYYY'))
                 getConversionsForRange(monthStart.hour(8),monthEnd.hour(17),"month")
+                setRange("month")
             })
             $("#inc_time_fwd").click(function(){
-                client_conversions_chart.data.datasets[0].data = []
-                client_conversions_chart.update()
                 switch ( $(this).attr("name")){
                     case "day":
                        var dayText = $(".time_period_text").text();
@@ -419,8 +470,7 @@
                 }
             });
             $("#dec_time_back").click(function(){
-                client_conversions_chart.data.datasets[0].data = []
-                client_conversions_chart.update()
+                
                 switch ( $(this).attr("name")){
                     case "day":
                          var dayText = $(".time_period_text").text();
@@ -468,6 +518,7 @@
         })
     </script>    
     <script>
+    setRange("day");
     var dayStart = moment().hour(8).minutes(0);
     var dayEnd = moment().hour(17).minutes(0);
       getConversionsForRange(dayStart,dayEnd,"day")

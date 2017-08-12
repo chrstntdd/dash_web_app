@@ -79,14 +79,19 @@ function weedNaN(number){
 router.post('/new',function(req,res){
     var rates = req.body.rates;
     //console.log("posting an object");
-    Rate.push_rates(rates, function(err,rates){
-        if(err){
-            res.send("Error");
-            //console.log(err);
-        }
-        //console.log("success");
-        res.send(rates);
-    })
+    if (moment().hour > 17 || moment().hour < 8){
+        res.send("New Rates not allowed for today")
+        console.log("new rates prevented for hour"+moment().hour)
+    }else{
+        Rate.push_rates(rates, function(err,rates){
+            if(err){
+                res.send("Error");
+                //console.log(err);
+            }
+            //console.log("success");
+            res.send(rates);
+        })
+    }
 });
 
 

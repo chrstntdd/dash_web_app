@@ -67,7 +67,6 @@
             color:#34495e;
             letter-spacing: 3px;
             font-family: poiret;
-            margin-top:50px;
         }
         .data_number{
             font-size: 40px;
@@ -171,7 +170,7 @@
                 <div class="site_icon">
                     <img src={{site.icon_url}}>
                 </div>
-                 <div class="text-center">
+                 <div style="margin-top:-50px" class="text-center">
                      <div class="col-sm-12">
                         <h2 id="profile_title">Visitation Analysis</h2>
                     </div>  
@@ -191,6 +190,7 @@
                         </div>
                         <div class="col-sm-5 row">
                             <div class="col-sm-12">
+                                <span id="time_period_sel" style="margin-right:20px"><i class="fa fa-calendar-o fa-2x" aria-hidden="true"></i></span>
                                 <button name="day" id="dec_time_back" type="button" class="time_button btn btn-default"><i class="fa fa-chevron-left"></i></button>
                                 <p class="time_period_text"></p>
                                 <button name="day" id="inc_time_fwd" type="button" class="time_button btn btn-default"><i class="fa fa-chevron-right"></i></button></br>
@@ -233,6 +233,17 @@
     </body>
     <script type="text/javascript" src="/js/detail_charts/client_visits_chart.js"></script>
     <script>
+        $("#time_period_sel").daterangepicker({
+        singleDatePicker: true,
+        startDate: moment()
+        },
+        function(start,end,label){
+            start = start.hour(8).minute(0);
+            end = moment(start).hour(17);
+            $(".time_period_text").text(start.format('MMM Do YYYY'));
+            getVisitsForRange(start,end,"day")
+        }
+    );
         function getVisitsForRange(start,end,range){
             var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function(){
@@ -250,6 +261,7 @@
                             client_visits_chart.data.labels = []
                             client_visits_chart.update()
                         }else{
+                            
                             console.log("Some Rates in"+range);
                             client_visits_chart.data.datasets[0].data = stats.visitsEachUnit;
                             $(".alert").hide();
@@ -329,8 +341,7 @@
                 getVisitsForRange(monthStart.hour(8),monthEnd.hour(17),"month")
             })
             $("#inc_time_fwd").click(function(){
-                client_visits_chart.data.datasets[0].data = []
-                client_visits_chart.update()
+            
                 switch ( $(this).attr("name")){
                     case "day":
                        var dayText = $(".time_period_text").text();
@@ -377,8 +388,7 @@
                 }
             });
             $("#dec_time_back").click(function(){
-                client_visits_chart.data.datasets[0].data = []
-                client_visits_chart.update()
+              
                 switch ( $(this).attr("name")){
                     case "day":
                         var dayText = $(".time_period_text").text();
