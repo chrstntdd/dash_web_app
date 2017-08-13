@@ -552,9 +552,9 @@ router.post('/:id/:range/visits',function(req,res){
          var hrsInDay = []//creates an array containing each hour in day 
                 for (i = 0; i < 10; ++i){
                     var dayHour = moment(startDate).hours(8).minutes(0).seconds(0).add(i,'hours');
-                        hrsInDay.push(dayHour);
-                        units.push(dayHour.format('ha'));
-                    }
+                            hrsInDay.push(dayHour);
+                            units.push(dayHour.format('ha'));
+                }
                 ////console.log(hrsInDay);
                 var hoursOfVisits = visits.map(function(purchase){
                     return moment(purchase.date).utcOffset(-4);
@@ -562,18 +562,15 @@ router.post('/:id/:range/visits',function(req,res){
                 //console.log(hoursOfVisits);
                 //console.log(hrsInDay);
                 hrsInDay.forEach(function(hourMoment){
+                    var isLater = hourMoment.isAfter(moment().subtract(4,'hours'));
+                    if(!isLater){
+                        var VisitsThisHour = hoursOfVisits.filter(function(visitMoment){
+                            return hourMoment.hour() == moment(visitMoment).hour();
+                        });
+                    var count = VisitsThisHour.length;
                     
-                    var VisitsThisHour = hoursOfVisits.filter(function(visitMoment){
-                        return hourMoment.hour() == moment(visitMoment).hour();
-                    });
-                
-             
-                var count = VisitsThisHour.length;
-                
-                visitsPerUnit.push(count);
-              
-        
-                
+                    visitsPerUnit.push(count);
+                    }
                 });
 
         }
@@ -582,7 +579,7 @@ router.post('/:id/:range/visits',function(req,res){
         //console.log(visitsPerUnit);
         var newVisits = visitsPerUnit
         maxVisits = max(newVisits);
-       // minVisits = min(newVisits);
+        minVisits = min(newVisits);
         //avgVisits = avg(newVisits);
         //console.log(visitsPerUnit);
 ////console.log(avg_rates);

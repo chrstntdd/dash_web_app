@@ -74,7 +74,7 @@
         .data_units{
             font-size: 18px;
             font-family: poiret;
-            color: #344953
+            color: #34495e
         }
         .underline  rect{
             fill:#333333;
@@ -343,7 +343,7 @@
                             $("#conversion_rate").text(stats.conv_rate);
                             $("#min_conversion_diff").text(stats.min);
                             $("#max_conversion_diff").text(stats.max)
-                            client_conversions_chart.data.datasets[0].data = [stats.purchases,stats.visits]
+                            client_conversions_chart.data.datasets[0].data = [stats.visits,stats.purchases]
                             conversion_comp_chart.data.labels = stats.units
                             conversion_comp_chart.data.datasets[0].data = stats.purchasesPerUnit;
                             conversion_comp_chart.data.datasets[1].data = stats.visitsPerUnit;
