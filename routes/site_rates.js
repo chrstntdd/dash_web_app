@@ -117,6 +117,7 @@ router.post('/new',function(req,res){
             
             console.log(schedule)
             var thisHour = moment().hour();
+                thisHour -= 4;
             if(schedule.operating && thisHour > schedule.open && thisHour < schedule.close){
                 Rate.push_rates(rates, function(err,rates){
                     if(err){
