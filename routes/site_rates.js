@@ -90,7 +90,7 @@ router.post('/new',function(req,res){
             
             var today = days[weekdayInt];
             console.log("today is "+today);
-            var schedule = location.schedule.today
+            var schedule = location.schedule
             console.log(schedule)
             var thisHour = moment().hour();
             if(schedule.operating && thisHour > schedule.open && thisHour < schedule.close){
