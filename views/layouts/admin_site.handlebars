@@ -121,19 +121,31 @@
                     <td>Friday</td>
                     <td>{{site.schedule.friday.open}}</td>
                     <td>{{site.schedule.friday.close}}</td>
-                    <td>{{site.schedule.friday.operating}}</td>
+                    <td>
+                        <div class="checkbox">
+                            <label><input type="checkbox" value="true" selected>Open</label>
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>Saturday</td>
                     <td>{{site.schedule.saturday.open}}</td>
                     <td>{{site.schedule.saturday.close}}</td>
-                    <td>{{site.schedule.saturday.operating}}</td>
+                    <td>
+                        <div class="checkbox">
+                            <label><input type="checkbox" value={{site.schedule.saturday.operating}}>Open</label>
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>Sunday</td>
                     <td>{{site.schedule.sunday.open}}</td>
                     <td>{{site.schedule.sunday.close}}</td>
-                    <td>{{site.schedule.sunday.operating}}</td>
+                    <td>
+                        <div class="checkbox">
+                            <label><input type="checkbox" value={{site.schedule.sunday.operating}}>Open</label>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -190,7 +202,44 @@
                     zip: zip
                 },
                 "image_url": image,
-                "icon_url": icon
+                "icon_url": icon,
+                "schedule":{
+                    "monday":{
+                        "operating":true,
+                        "open":8,
+                        "close":17
+                    },
+                    "tuesday":{
+                        "operating":true,
+                        "open":8,
+                        "close":17
+                    },
+                    "wednesday":{
+                        "operating":true,
+                        "open":8,
+                        "close":17
+                    },
+                    "thursday":{
+                        "operating":true,
+                        "open":8,
+                        "close":17
+                    },
+                    "friday":{
+                        "operating":true,
+                        "open":8,
+                        "close":17
+                    },
+                    "saturday":{
+                        "operating":true,
+                        "open":8,
+                        "close":17
+                    },
+                    "sunday":{
+                        "operating":true,
+                        "open":8,
+                        "close":17
+                    }
+                }
                 }
             }
             var xhttp = new XMLHttpRequest();

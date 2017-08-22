@@ -81,14 +81,17 @@ router.post('/new',function(req,res){
     //console.log("posting an object");
     console.log(moment().hour);
     var site = req.body.rates[0].site;
-    Site.getSite(site,function(err,site){
+    Site.getSite(site,function(err,location){
         if(err){
             res.send("error getting site");
         }else{
             var days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
             var weekdayInt = moment().day();
+            
             var today = days[weekdayInt];
-            var schedule = site.schedule.today
+            console.log("today is "+today);
+            var schedule = location.schedule.today
+            console.log(schedule)
             var thisHour = moment().hour();
             if(schedule.operating && thisHour > schedule.open && thisHour < schedule.close){
                 Rate.push_rates(rates, function(err,rates){
@@ -704,7 +707,7 @@ router.post('/:id/:range/conversions',function(req,res){
                          var visitTime = moment(visitObj.date).subtract(4,'hours');
                         return hour.isSame(visitTime,'hour')
                     });
-                    // purchasesTime.push(hourTrans.map(function(obj){return obj.date;}))
+                    //purchasesTime.push(hourTrans.map(function(obj){return obj.date;}))
                     purchasesPerUnit.push(hourTrans.length)
                     visitsPerUnit.push(hourVisits.length)
                 });
