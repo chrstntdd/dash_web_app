@@ -2,9 +2,9 @@
   "name": "dash_app",
   "version": "0.0.1",
   "description": "An app to utilize Dash Analytics technology",
-  "engines":{
+  "engines": {
     "node": "8.2.1",
-    "npm":"5.2.0"
+    "npm": "5.2.0"
   },
   "main": "app.js",
   "scripts": {
@@ -35,6 +35,7 @@
     "moment": "^2.18.1",
     "mongodb": "*",
     "mongoose": "*",
+    "node-cron": "^1.2.1",
     "node-gyp": "^3.6.0",
     "node-schedule": "^1.2.3",
     "nodemailer": "^4.0.1",
