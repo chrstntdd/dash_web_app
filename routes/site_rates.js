@@ -79,19 +79,33 @@ function weedNaN(number){
 router.post('/new',function(req,res){
     var rates = req.body.rates;
     //console.log("posting an object");
-    if (moment().hour > 17 || moment().hour < 8){
-        res.send("New Rates not allowed for today")
-        console.log("new rates prevented for hour"+moment().hour)
-    }else{
-        Rate.push_rates(rates, function(err,rates){
-            if(err){
-                res.send("Error");
-                //console.log(err);
+    console.log(moment().hour);
+    var site = req.body.rates[0].site;
+    Site.getSite(site,function(err,site){
+        if(err){
+            res.send("error getting site");
+        }else{
+            var days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
+            var weekdayInt = moment().day();
+            var today = days[weekdayInt];
+            var schedule = site.schedule.today
+            var thisHour = moment().hour();
+            if(schedule.operating && thisHour > schedule.open && thisHour < schedule.close){
+                Rate.push_rates(rates, function(err,rates){
+                    if(err){
+                        res.send("Error");
+                        //console.log(err);
+                    }
+                    //console.log("success");
+                    res.send(rates);
+                })
+            }else{
+                res.send("New Rates no longer allowed for today")
+                console.log("new rates prevented for hour "+thisHour)
             }
-            //console.log("success");
-            res.send(rates);
-        })
-    }
+        }
+    })
+
 });
 
 
@@ -515,18 +529,25 @@ router.post('/:id/:range/visits',function(req,res){
         var days = [];
         var units = [];
         //create a group of arrays of rates for each specific day
-        var avgVisits = 0;//the average fo Visits made over period
+        var avgVisits = 0;//the average of Visits made over period
         var visitsPerUnit = [];//per min or per hour or per day averaged purchase
         var noOfVisits = 0;//the amount of Visits made in the time period
-        var maxVisits = 0;//the maximum duration for a purchase in the entire time period
-        var minVisits = 0;//the shortest duration for a purchase in the entire time period
+        var maxVisits = 0;//the maximum number of visits in the entire time period
+        var minVisits = 0;//the shortest number of visits in the entire time period
+        
+        var avgBounce = 0;//portion of visits that are missed conversions or non-sales
+        var bouncesPerUnit = [];//bounces that occur per unit time measured
+        var noOfBounces = 0;//number of Bounces total
+        var maxBounces = 0;//max amount of bounces that occur in a unit
+        var minBounces = 0;// minimum amount of bounces that have occured in a unit
         ////console.log("rates are "+ rates)
-        var visits = rates.filter(function(rateObj){
+        var bounces = rates.filter(function(rateObj){
                     return rateObj.transaction == false;
             });
+        var visits = rates;
         ////console.log("Visits are "+Visits)
             noOfVisits = visits.length;
-            
+            noOfBounces = bounces.length;
         if (diff > 0){
         //distinguishes whether searching for time period over multiple days or a single day
         //user is searching for info within one day. so sort for hours within 12 hour window: window length subject to change
@@ -536,15 +557,21 @@ router.post('/:id/:range/visits',function(req,res){
                 days.push(day);
                 units.push(day.format('Do'));
             }
+            var daysOfBounces = bounces.map(function(bounce){
+                    return moment(bounce.date).utcOffset(-4);
+                });
             var daysOfVisits = visits.map(function(visit){
                     return moment(visit.date).utcOffset(-4);
                 });
                 //console.log(daysOfVisits);
             days.forEach(function(day,index){
-                var thisDayVisits = daysOfVisits.filter(function(purchaseDay){
-                    return day.date() == moment(purchaseDay).date()
+                var thisDayBounces = daysOfBounces.filter(function(bounceDay){
+                    return day.date() == moment(bounceDay).date()
                 });
-               
+                var thisDayVisits = daysOfVisits.filter(function(visitDay){
+                    return day.date() == moment(visitDay).date()
+                });
+                bouncesPerUnit.push(thisDayBounces.length);
                 visitsPerUnit.push(thisDayVisits.length);
             }); 
         }else{
@@ -556,20 +583,27 @@ router.post('/:id/:range/visits',function(req,res){
                             units.push(dayHour.format('ha'));
                 }
                 ////console.log(hrsInDay);
-                var hoursOfVisits = visits.map(function(purchase){
-                    return moment(purchase.date).utcOffset(-4);
+                var hoursOfBounces = bounces.map(function(bounce){
+                    return moment(bounce.date).utcOffset(-4);
+                });
+                var hoursOfVisits = visits.map(function(visit){
+                    return moment(visit.date).utcOffset(-4);
                 });
                 //console.log(hoursOfVisits);
                 //console.log(hrsInDay);
                 hrsInDay.forEach(function(hourMoment){
                     var isLater = hourMoment.isAfter(moment().subtract(4,'hours'));
                     if(!isLater){
-                        var VisitsThisHour = hoursOfVisits.filter(function(visitMoment){
+                        var bouncesThisHour = hoursOfBounces.filter(function(bounceMoment){
+                            return hourMoment.hour() == moment(bounceMoment).hour();
+                        });
+                        var visitsThisHour = hoursOfVisits.filter(function(visitMoment){
                             return hourMoment.hour() == moment(visitMoment).hour();
                         });
-                    var count = VisitsThisHour.length;
-                    
-                    visitsPerUnit.push(count);
+                    var bounceCount = bouncesThisHour.length;
+                    var visitCount = visitsThisHour.length;
+                        bouncesPerUnit.push(bounceCount);   
+                        visitsPerUnit.push(visitCount);
                     }
                 });
 
@@ -577,9 +611,13 @@ router.post('/:id/:range/visits',function(req,res){
         
        
         //console.log(visitsPerUnit);
-        var newVisits = visitsPerUnit
-        maxVisits = max(newVisits);
-        minVisits = min(newVisits);
+        var tempBounces = bouncesPerUnit//created to hold data just for calculating max and min values 
+        maxBounces = max(tempBounces);
+        minBounces = min(tempBounces);
+        
+        var tempVisits = visitsPerUnit//created to hold data just for calculating max and min values 
+        maxVisits = max(tempVisits);
+        minVisits = min(tempVisits);
         //avgVisits = avg(newVisits);
         //console.log(visitsPerUnit);
 ////console.log(avg_rates);
@@ -616,12 +654,14 @@ router.post('/:id/:range/conversions',function(req,res){
         }
         ////console.log(rates)
         var purchasesPerUnit = []
-        var visitsPerUnit = []
+        var visitsPerUnit = [];
+        var bouncesPerUnit = [];
         var maxDiff = 0;
         var minDiff = 0;
         var conversionRate = 0;
         var noOfPurchases = 0;
         var noOfVisits = 0;
+        var noOfBounces = 0;
         var startDate = moment(start);
         var endDate = moment(end);
         var diff = endDate.diff(startDate, range == "day" ? 'hours' : 'days');
@@ -633,7 +673,8 @@ router.post('/:id/:range/conversions',function(req,res){
             return rateObj.transaction == true;
         });
         // console.log("There are "+purchases.length+" purchases")
-        var visits = rates.filter(function(rateObj){
+        var visits = rates;
+        var bounces = rates.filter(function(rateObj){
             return rateObj.transaction == false;
         });
         // console.log("There are "+visits.length+" visits")

@@ -9,7 +9,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
          <!-- Include Date Range Picker -->
         <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
-        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" >
     </head>
     <style>
        @font-face{
@@ -151,6 +151,28 @@
             margin: auto;
             font-size: 15px;
         }
+        .popover-title, .popover-content{
+            font-size: 20px;
+            /*font-family: poiret;*/
+            font-weight: lighter;
+            color: #34495e;
+        }
+        .chart_info{
+            color: black;
+        }
+        .definitions{
+            margin:auto;
+            font-family:poiret;
+            font-size:15px;
+        }
+        .definitions ul{
+            margin-top:10px;
+            list-style-type:none;
+        }
+        .definitions ul li{
+            text-align:left;
+            margin-bottom:5px;
+        }
     </style>
  <body>
     <div class="row">
@@ -161,9 +183,10 @@
                     <ul>
                         <li><a class="option" href="/sites"><i class="nav_icon fa fa-sitemap"></i>Sites</a></li>
                         <li><a href="/sites/{{site._id}}"><i class="nav_icon fa fa-dashboard"></i>Dashboard</a></li>
-                        <li><a href="/sites/{{site._id}}/transactions"><i class="nav_icon fa fa-hourglass-2"></i>Transactions</a></li>
+                        <li><a href="/sites/{{site._id}}/transactions"><i class="nav_icon fa fa-hourglass-2"></i>Wait Time</a></li>
                         <li><a href="/sites/{{site._id}}/purchases"><i class="nav_icon fa fa-money"></i>Purchases</a></li>
                         <li><a href="/sites/{{site._id}}/visits"><i class="nav_icon fa fa-users"></i>Visits</a></li>
+                        <li><a href="/sites/{{site._id}}/conversions"><i class="nav_icon fa fa-balance-scale"></i><strong>Conversions</strong></a></li>
                         {{!--<li><a href="#">Behavior</a></li>--}}
                         <li><a class="option" href="/logout"><i class="nav_icon fa fa-sign-out"></i>Logout</a></li>
                     </ul>
@@ -175,9 +198,10 @@
                 </div>
                 <div style="margin-top:20px" class="text-center">
                     <div class="col-sm-12">
-                        <h2 id="profile_title">Conversion Analysis</h2>
-                    </div>  
-
+                        <h2 id="profile_title">Conversion Analysis
+                            <a class="chart_info" href="#" title="What is a Conversion?" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="A conversion occurs when a person that has visited makes a purchase before leaving"><i class="fa fa-info" aria-hidden="true"></i></a>
+                        </h2>
+                    </div>
                     <div class="col-sm-12 alert alert-warning alert-dismissible">
                         <a href="#" class="close" aria-label="close">x</a>
                         <strong>Oops!</strong> There is no data for specified period
@@ -206,7 +230,6 @@
                                 <svg  class="underline" width="200" height="2">
                                     <rect x="0" y="0" width="200" height="2">
                                 </svg>
-                                
                             </div>
                             <div class="col-sm-12">
                                  <p class="data_insight">Minimum Conversion Differential</p> 
@@ -224,20 +247,24 @@
                                 <svg  class="underline" width="200" height="2">
                                     <rect x="0" y="0" width="200" height="2">
                                 </svg>
-                                 
                             </div>
                         </div>
                         <div class="row col-sm-7">
-                          <div class="col-sm-12 chart">
-                            <canvas width="300" height="200" id="client_conversions_cntxt"></canvas>
-                        </div>
-                        <div class="col-sm-12 site_data">
-                            <div class="comp_chart">
-                                <canvas width="350" height ="600" id="conversion_comp_cntxt"></canvas>
+                            <div class="definitions">
+                                <ul>
+                                    <li>Purchase: A visit that has resulted in a sale</li>
+                                    <li>Visit: Organic traffic in and out of a site</li>
+                                </ul>
+                            </div>    
+                            <div class="col-sm-12 chart">
+                                <canvas width="300" height="200" id="client_conversions_cntxt"></canvas>
                             </div>
-                        </div>   
+                            <div class="col-sm-12 site_data">
+                                <div class="comp_chart">
+                                    <canvas width="350" height ="600" id="conversion_comp_cntxt"></canvas>
+                                </div>
+                            </div>   
                         </div>
-                        
                     </div>
                 </div>
             </div>
@@ -246,6 +273,9 @@
 <script type="text/javascript" src="/js/detail_charts/conversion_comp_chart.js"></script>
 <script type="text/javascript" src="/js/detail_charts/client_conversions_chart.js"></script>
 <script>
+    $(document).ready(function(){
+         $('[data-toggle="popover"]').popover(); 
+    });
    function setRange(range){
         switch (range){
             case "day":

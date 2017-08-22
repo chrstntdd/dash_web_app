@@ -7,7 +7,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-
     </head>
     <style>
        @font-face{
@@ -144,8 +143,8 @@
                     <div class="site_nav">
                         <ul>
                             <li><a class="option" href="/sites"><i class="nav_icon fa fa-sitemap"></i>Sites</a></li>
-                            <li><a href="/sites/{{site._id}}"><i class="nav_icon fa fa-dashboard"></i>Dashboard</a></li>
-                            <li><a href="/sites/{{site._id}}/transactions"><i class="nav_icon fa fa-hourglass-2"></i>Transactions</a></li>
+                            <li><a href="/sites/{{site._id}}"><i class="nav_icon fa fa-dashboard"></i><strong>Dashboard</strong></a></li>
+                            <li><a href="/sites/{{site._id}}/transactions"><i class="nav_icon fa fa-hourglass-2"></i>Wait Time</a></li>
                             <li><a href="/sites/{{site._id}}/purchases"><i class="nav_icon fa fa-money"></i>Purchases</a></li>
                             <li><a href="/sites/{{site._id}}/visits"><i class="nav_icon fa fa-users"></i>Visits</a></li>
                             <li><a href="/sites/{{site._id}}/conversions"><i class="nav_icon fa fa-balance-scale"></i>Conversions</a></li>
@@ -178,14 +177,14 @@
                         <div class="insights">
                             <div class="col-sm-12 site_data">
                                 <div>
-                                   <p class="data_insight">Longest Transaction</p> 
+                                   <p class="data_insight">Longest Wait Time</p> 
                                 </div>
                                 <p class="data_units"><strong id="max_transaction" class="data_number">0</strong> <small id="transaction" class="data_units">minutes waiting</small>
                                 </br>
                                 <svg  class="underline" width="200" height="2">
                                     <rect x="0" y="0" width="200" height="2">
                                 </svg>
-                                  <a class="chart_info" href="#" title="Transaction Time" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Longest time a customer waited to make a purchase in the last half hour"><i class="fa fa-info" aria-hidden="true"></i></a>
+                                  <a class="chart_info" href="#" title="Wait Time" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Longest time a customer waited to make a purchase in the last half hour"><i class="fa fa-info" aria-hidden="true"></i></a>
                                </p>
                             </div>
             
