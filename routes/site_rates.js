@@ -87,10 +87,34 @@ router.post('/new',function(req,res){
         }else{
             var days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
             var weekdayInt = moment().day();
-            
             var today = days[weekdayInt];
+            var schedule;
+            switch(today){
+                case "sunday":
+                    schedule = location.schedule.sunday;
+                    break;
+                case "monday":
+                      schedule = location.schedule.monday;
+                    break;
+                case "tuesday":
+                      schedule = location.schedule.tuesday;
+                    break;
+                case "wednesday":
+                      schedule = location.schedule.wednesday;
+                    break;
+                case "thursday":
+                      schedule = location.schedule.thursday;
+                    break;
+                case "friday":
+                      schedule = location.schedule.friday;
+                    break;
+                case "saturday":
+                      schedule = location.schedule.saturday;
+                    break;
+                default: break
+            }
             console.log("today is "+today);
-            var schedule = location.schedule
+            
             console.log(schedule)
             var thisHour = moment().hour();
             if(schedule.operating && thisHour > schedule.open && thisHour < schedule.close){
