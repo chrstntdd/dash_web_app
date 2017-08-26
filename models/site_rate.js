@@ -125,3 +125,8 @@ module.exports.get_total_impressions_for_range = function(site,start,end,callbac
 // Rate.find({transaction:false,site:site,date:{$gte:start,$lte:end}},callback);
 Rate.find({site:site,date:{$gte:start,$lte:end}},callback);    
 };
+module.exports.identify_staff_equipment = function(site){
+    Rate.find({site:site},function(err,sites){
+        
+    })
+}
