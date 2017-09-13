@@ -144,6 +144,7 @@ router.post('/new',function(req,res){
                     if(site.length > 0){
                         res.send("updated site ids with ids"+ids)
                     }
+                    res.send(site)
                 })
             }else{
                 //site is closed no more rates can be posted
