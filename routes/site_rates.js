@@ -118,8 +118,9 @@ router.post('/new',function(req,res){
             console.log(schedule)
             var thisHour = moment().hour();
                 thisHour -= 4;
-            if(schedule.operating && thisHour > schedule.open && thisHour < schedule.close){
-                Rate.push_rates(rates, function(err,rates){
+            if(schedule.operating && thisHour >= schedule.open && thisHour < schedule.close){
+                 var device_ids = location.device_ids;
+                Rate.push_rates(device_ids,rates, function(err,rates){
                     if(err){
                         res.send("Error");
                         //console.log(err);
@@ -143,7 +144,10 @@ router.post('/new',function(req,res){
                     var device_ids = location.device_ids;
                     if (device_ids.length > 0){
                         ids.forEach(function(id){
-                            if(device_ids.find(id) != null){
+                        var hasId = device_ids.some(function(item){
+                            return item == id
+                        })
+                            if(!hasId){
                                 location.device_ids.push(id)
                             }
                         })
@@ -153,6 +157,7 @@ router.post('/new',function(req,res){
                     }else{
                         location.device_ids = ids
                         location.save()
+                        console.log("added device_ids")
                         res.send("updated device_ids")
                     }
                     

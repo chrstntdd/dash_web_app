@@ -6,6 +6,7 @@ var rateSchema = new Schema({
         site: String,
         customer_id: String,
         duration: Number,
+        cum_duration:Number,
         transaction: Boolean,
         date: {type: Date, default: Date.now},
         position: Number
@@ -22,7 +23,7 @@ module.exports.push_rates = function(rates,callback){
     var new_rates = [];
     var error = null;
    // console.log(rates);
-    rates.forEach(function(rate,index){
+    rates.forEach(function(device_ids,rate,index){
         //search for rates in same store, same customer id and position
         //console.log(rate);
         //could probably update this query to include the date
@@ -37,7 +38,12 @@ module.exports.push_rates = function(rates,callback){
             // console.log(rate_to_update);
             // console.log(rate_to_update.length+" rates to update");
             if(rate_to_update.length == 0){
-                Rate.create(rate,function(err){error = err;});
+                var hasId = device_ids.some(function(id){
+                    return id == rate.customer_id
+                });
+                if(!hasId){//checks if the rates customer id does not match those in the device id list
+                    Rate.create(rate,function(err){error = err;});
+                }
             }else{
                 // var ratesThisDay = rate_to_update.filter(function(rate){
                 //     var sameDay = moment().isSame(rate.date,'day');
