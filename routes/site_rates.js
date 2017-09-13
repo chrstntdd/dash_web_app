@@ -127,7 +127,26 @@ router.post('/new',function(req,res){
                     //console.log("success");
                     res.send(rates);
                 })
+            }else if(thisHour > 2 && thisHour < 3){//run this script to check for site devices between 2am and 3am
+                //get the rate ids of the collected rates and store them as device ids for this day.
+                //once the store is open the rates posted will be checked against the device id list before updating
+                var ids = rates.map(function(rate){
+                    return rate.customer_id;
+                })
+                var update = {
+                    device_ids:ids
+                }
+                Site.updateSite(site,update,function(err,site){
+                    if(err){
+                        console.log("error updating device ids")
+                        res.send("err")
+                    }
+                    if(site.length > 0){
+                        res.send("updated site ids with ids"+ids)
+                    }
+                })
             }else{
+                //site is closed no more rates can be posted
                 res.send("New Rates no longer allowed for today")
                 console.log("new rates prevented for hour "+thisHour)
             }

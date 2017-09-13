@@ -65,7 +65,8 @@ var siteSchema = new Schema({
                 open:{type:Number,default:8},
                 close:{type:Number,default:17}
             }
-        }
+        },
+        device_ids:[String]
 });
 
 
@@ -185,9 +186,7 @@ module.exports.removeAllManagers = function(id,manager,callback){
 }
 module.exports.updateSite = function(id,update,callback){
     var query = {_id: id};
- 
     Site.findOneAndUpdate(query,update,{overwrite:true},callback);
-    
 }
 
 

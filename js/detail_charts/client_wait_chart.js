@@ -22,6 +22,9 @@ var wait_Chart = new Chart(cntxt,{
             text:"Average Wait per unit"
             
         },
+        tooltips:{
+                    enabled: false
+        },
         legend: {
             display:false       
         },
