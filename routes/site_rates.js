@@ -133,18 +133,19 @@ router.post('/new',function(req,res){
                 var ids = rates.map(function(rate){
                     return rate.customer_id;
                 })
+                console.log("ids are "+ids);
                 var update = {
                     device_ids:ids
                 }
-                Site.updateSite(site,update,function(err,site){
+                Site.updateSite(site,update,function(err,sites){
                     if(err){
                         console.log("error updating device ids")
                         res.send("err")
                     }
-                    if(site.length > 0){
+                    if(sites.length > 0){
                         res.send("updated site ids with ids"+ids)
                     }
-                    res.send(site)
+                    res.send(sites)
                 })
             }else{
                 //site is closed no more rates can be posted
