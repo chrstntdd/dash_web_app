@@ -134,19 +134,30 @@ router.post('/new',function(req,res){
                     return rate.customer_id;
                 })
                 console.log("ids are "+ids);
-                var update = {
-                    device_ids:ids
-                }
-                Site.updateSite(site,update,function(err,sites){
+             
+                Site.getSite(site,function(err,location){
                     if(err){
-                        console.log("error updating device ids")
-                        res.send("err")
+                        res.send("error updating site ids")
+                        return
                     }
-                    if(sites.length > 0){
-                        res.send("updated site ids with ids"+ids)
+                    var device_ids = location.device_ids;
+                    if (device_ids.length > 0){
+                        ids.forEach(function(id){
+                            if(device_ids.find(id) != null){
+                                location.device_ids.push(id)
+                            }
+                        })
+                        location.save();
+                        console.log("updated device ids")
+                        res.send(location.device_ids)
+                    }else{
+                        location.device_ids = ids
+                        location.save()
+                        res.send("updated device_ids")
                     }
-                    res.send(sites)
+                    
                 })
+             
             }else{
                 //site is closed no more rates can be posted
                 res.send("New Rates no longer allowed for today")
