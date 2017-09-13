@@ -127,7 +127,7 @@ router.post('/new',function(req,res){
                     //console.log("success");
                     res.send(rates);
                 })
-            }else if(thisHour > 2 && thisHour < 3){//run this script to check for site devices between 2am and 3am
+            }else if(thisHour > 0 && thisHour < 3){//run this script to check for site devices between 2am and 3am
                 //get the rate ids of the collected rates and store them as device ids for this day.
                 //once the store is open the rates posted will be checked against the device id list before updating
                 var ids = rates.map(function(rate){
