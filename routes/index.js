@@ -55,13 +55,14 @@ router.get('/sites',function(req,res){
 router.get('/sites/:id',function(req,res){
         var user = req.session.user;
         var id = req.params.id;
+        
         var page = id == "59ba6079692575148a721677" ? "test_dashboard" : "dashboard";
+        console.log('page is '+page)
         if(user != null){
             
             Site.getSite(id,function(err,site){
                 if(err)
                 throw err;
-             
                 if(site != null){
                     console.log('site not null')
                     req.session.site = site
@@ -83,11 +84,14 @@ router.get('/sites/:id',function(req,res){
 router.get('/sites/:id/transactions',function(req,res){
     var site = req.session.site
     var page = req.params.id == '59ba6079692575148a721677' ? 'test_transactions' : 'transactions'
+    console.log(site)
     res.render(page,{site:site})
+    
 });
 router.get('/sites/:id/purchases',function(req,res){
     var site = req.session.site
     var page = req.params.id == '59ba6079692575148a721677' ? 'test_purchases' : 'purchases'
+      console.log(site)
     res.render(page,{site:site})
 });
 router.get('/sites/:id/visits',function(req,res){
