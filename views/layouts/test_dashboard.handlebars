@@ -20,10 +20,10 @@
             height:100px;
         }
         .site_icon{
-            background-color:#f5f5f5;
+            /*background-color:#f5f5f5;*/
             border-radius:10px;
             margin:auto;
-            margin-top:-60px;
+            margin-top:5px;
             width:305px;
             height:125px;
         }
@@ -342,6 +342,22 @@ function min(collection){
         return 0
     }
 }
+function min_not_zero(collection){
+    if(collection.length > 0){
+        var toSort = [];
+            toSort = toSort.concat(collection)
+        var sorted = sortDescending(toSort);
+        ////console.log(sorted)
+        var last = sorted.pop()
+        if (last > 0 ){
+            return last;
+        }else{
+          min_not_zero(sorted)  
+        }
+    }else{
+        return 0
+    }
+}
        function getTodayQuickStats(){
           
                 var data = [];
@@ -353,7 +369,7 @@ function min(collection){
                            
                             business_chart.update();
                var max_time = max(data);
-               var min_time = min(data);
+               var min_time = min_not_zero(data);
                
                             sec_mins("#max_transaction",max_time);
                             sec_mins("#min_duration",min_time);

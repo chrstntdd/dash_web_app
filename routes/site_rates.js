@@ -27,7 +27,22 @@ function sortDescending(values){
     });
     return sorted;
 }
-
+function min_not_zero(collection){
+    if(collection.length > 0){
+        var toSort = [];
+            toSort = toSort.concat(collection)
+        var sorted = sortDescending(toSort);
+        ////console.log(sorted)
+        var last = sorted.pop()
+        if (last > 0 ){
+            return last;
+        }else{
+          min_not_zero(sorted)  
+        }
+    }else{
+        return 0
+    }
+}
 function min(collection){
     if(collection.length > 0){
         var toSort = [];
