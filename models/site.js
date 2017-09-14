@@ -184,6 +184,22 @@ module.exports.removeAllManagers = function(id,manager,callback){
     });
   
 }
+module.exports.update_site_employees = function(id,employees){
+
+    Site.findById(id,function(err,site){
+        if (err) throw err;
+        site.employees = employees;
+        site.save();
+    })
+}
+module.exports.update_site_devices = function(id,devices){
+
+    Site.findById(id,function(err,site){
+        if (err) throw err;
+        site.device_ids = devices
+        site.save()
+    })
+}
 module.exports.updateSite = function(id,update,callback){
     var query = {_id: id};
     Site.findOneAndUpdate(query,update,{overwrite:true},callback);

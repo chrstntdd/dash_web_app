@@ -148,25 +148,14 @@ router.post('/new',function(req,res){
                                 device_ids.push(id)
                             }
                         })
-                        var update = {
-                            device_ids:device_ids
-                        }
-                        Site.updateSite(site,update,function(err,site){
-                            if(err) throw err;
-                            console.log("updated device ids")
-                            res.send(location.device_ids)
-                        })
+                      Site.update_site_devices(site,device_ids)
                        
-                       
+                       res.send("updated devices")
                     }else{
-                         var update = {
-                            device_ids:ids
-                        }
-                         Site.updateSite(site,update,function(err,site){
-                            if(err) throw err;
-                            console.log("updated device ids")
-                            res.send(location.device_ids)
-                        })
+                      
+                        Site.update_site_devices(site,ids)
+                       
+                       res.send("updated devices")
                       
                     }
                     
