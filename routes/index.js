@@ -55,13 +55,17 @@ router.get('/sites',function(req,res){
 router.get('/sites/:id',function(req,res){
         var user = req.session.user;
         var id = req.params.id;
+        var page = id == "59ba6079692575148a721677" ? "test_dashboard" : "dashboard";
         if(user != null){
+            
             Site.getSite(id,function(err,site){
                 if(err)
                 throw err;
+             
                 if(site != null){
+                    console.log('site not null')
                     req.session.site = site
-                    res.render('dashboard',{
+                    res.render(page,{
                     user:user,
                     site:site,
                     helpers: {
@@ -170,4 +174,23 @@ router.post('/manage',function(req,res){
     }
 
 });
+
+
+router.get('/sites/example/transactions',function(req,res){
+    var site = req.session.site
+    res.render('test_transactions',{site:site})
+});
+router.get('/sites/example/purchases',function(req,res){
+    var site = req.session.site
+    res.render('test_purchases',{site:site})
+});
+router.get('/sites/example/visits',function(req,res){
+        var site = req.session.site
+    res.render('test_visits',{site:site})
+});
+router.get('/sites/example/conversions',function(req,res){
+        var site = req.session.site
+    res.render('test_conversions',{site:site})
+});
+
 module.exports = router;

@@ -140,7 +140,6 @@ router.post('/new',function(req,res){
                     if (device_ids.length > 0){
                         ids.forEach(function(id){
                        
-                         
                             if(device_ids.some(function(device_id){return device_id == id })){
                                 console.log('id '+id+' is already saved')
                             }else{
