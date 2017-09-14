@@ -15,5 +15,15 @@
                     ],
                     borderWidth: 1
                     }]
-            }
+            },
+            // options:{
+            //     tooltips:{
+            //         callbacks:{
+            //             label: function(tooltipItem,data){
+            //                 console.log(data)
+            //                 return tooltipItem
+            //             }
+            //         }
+            //     }
+            // }
         })
