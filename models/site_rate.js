@@ -38,10 +38,8 @@ module.exports.push_rates = function(rates,callback){
             // console.log(rate_to_update);
             // console.log(rate_to_update.length+" rates to update");
             if(rate_to_update.length == 0){
-                var hasId = device_ids.some(function(id){
-                    return id == rate.customer_id
-                });
-                if(!hasId){//checks if the rates customer id does not match those in the device id list
+        
+                if(device_ids.some(function(id){return id != rate_to_update.customer_id})){//checks if the rates customer id does not match those in the device id list
                     Rate.create(rate,function(err){error = err;});
                 }
             }else{

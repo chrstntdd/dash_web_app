@@ -143,7 +143,7 @@ router.post('/new',function(req,res){
                             return item == id
                         })
                          console.log('id '+id+' is already saved')
-                            if(!hasId){
+                            if(device_ids.some(function(device_id){return device_id == id })){
                                 console.log('id '+id+' is not already saved')
                                 device_ids.push(id)
                             }
