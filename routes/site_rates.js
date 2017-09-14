@@ -136,24 +136,28 @@ router.post('/new',function(req,res){
                 })
                 console.log("ids are "+ids);
              
-                Site.getSite(site,function(err,location){
-                    if(err){
-                        res.send("error updating site ids")
-                        return
-                    }
-                    var device_ids = location.device_ids;
+                var device_ids = location.device_ids;
                     if (device_ids.length > 0){
                         ids.forEach(function(id){
                         var hasId = device_ids.some(function(item){
                             return item == id
                         })
+                         console.log('id '+id+' is already saved')
                             if(!hasId){
-                                location.device_ids.push(id)
+                                console.log('id '+id+' is not already saved')
+                                device_ids.push(id)
                             }
                         })
-                        location.save();
-                        console.log("updated device ids")
-                        res.send(location.device_ids)
+                        var update = {
+                            device_ids:device_ids
+                        }
+                        Site.updateSite(site,update,function(err,site){
+                            if(err) throw err;
+                            console.log("updated device ids")
+                            res.send(location.device_ids)
+                        })
+                       
+                       
                     }else{
                         location.device_ids = ids
                         location.save()
@@ -161,7 +165,7 @@ router.post('/new',function(req,res){
                         res.send("updated device_ids")
                     }
                     
-                })
+                
              
             }else{
                 //site is closed no more rates can be posted
