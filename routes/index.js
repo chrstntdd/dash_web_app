@@ -82,19 +82,23 @@ router.get('/sites/:id',function(req,res){
 });
 router.get('/sites/:id/transactions',function(req,res){
     var site = req.session.site
-    res.render('transactions',{site:site})
+    var page = site._id == '59ba6079692575148a721677' ? 'test_transactions' : 'transactions'
+    res.render(page,{site:site})
 });
 router.get('/sites/:id/purchases',function(req,res){
     var site = req.session.site
-    res.render('purchases',{site:site})
+    var page = site._id == '59ba6079692575148a721677' ? 'test_purchases' : 'purchases'
+    res.render(page,{site:site})
 });
 router.get('/sites/:id/visits',function(req,res){
-        var site = req.session.site
-    res.render('visits',{site:site})
+    var site = req.session.site
+    var page = site._id == '59ba6079692575148a721677' ? 'test_visits' : 'visits'
+    res.render(page,{site:site})
 });
 router.get('/sites/:id/conversions',function(req,res){
-        var site = req.session.site
-    res.render('conversions',{site:site})
+    var site = req.session.site
+    var page = site._id == '59ba6079692575148a721677' ? 'test_conversions' : 'conversions'
+    res.render(page,{site:site})
 });
 router.get('/home',function(req,res){
     res.render('index');
@@ -175,22 +179,5 @@ router.post('/manage',function(req,res){
 
 });
 
-
-router.get('/sites/example/transactions',function(req,res){
-    var site = req.session.site
-    res.render('test_transactions',{site:site})
-});
-router.get('/sites/example/purchases',function(req,res){
-    var site = req.session.site
-    res.render('test_purchases',{site:site})
-});
-router.get('/sites/example/visits',function(req,res){
-        var site = req.session.site
-    res.render('test_visits',{site:site})
-});
-router.get('/sites/example/conversions',function(req,res){
-        var site = req.session.site
-    res.render('test_conversions',{site:site})
-});
 
 module.exports = router;
