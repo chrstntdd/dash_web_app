@@ -26,14 +26,10 @@
             border-radius:10px;
             margin:auto;
             margin-top:5px;
-            width:305px;
-            height:125px;
         }
         .site_icon img{
             display:block;
             margin:auto;
-            width:300px;
-            height:125px;
         }
        .dashboard_options{
             background: rgba(0, 0, 0, 0) linear-gradient(135deg, #34495e 0%, #41aba0 100%) repeat scroll 0 0;
@@ -196,7 +192,7 @@
             </div>
             <div class="row col-sm-10">
                 <div class="site_icon">
-                   <img src="https://i.imgur.com/ZvCy6v3.png">
+                   <img src="https://i.imgur.com/ZvCy6v3.png" width={{site.icon_width}} height={{site.icon_height}}>
                 </div>
                 <div style="margin-top:20px" class="text-center">
                     <div class="col-sm-12">
@@ -355,11 +351,13 @@
          
          var visitsPerUnit = [];
          var purchasesPerUnit = [];
-         var conv_rate = 35;
+         var conv_rate_raw = (Math.floor(Math.random()* 100)*.01)+.01
+         var conv_rate = conv_rate_raw.toFixed(2)
          var min_diff  = 10;
          var max_diff = 12;
+         
          var visits = Math.floor(Math.random()*100);
-         var purchases = Math.floor(Math.random()*100);
+         var purchases = visits * conv_rate;
          var units = []
          var range_limit = 10
          switch(range){

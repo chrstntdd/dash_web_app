@@ -82,22 +82,22 @@ router.get('/sites/:id',function(req,res){
 });
 router.get('/sites/:id/transactions',function(req,res){
     var site = req.session.site
-    var page = site._id == '59ba6079692575148a721677' ? 'test_transactions' : 'transactions'
+    var page = req.params.id == '59ba6079692575148a721677' ? 'test_transactions' : 'transactions'
     res.render(page,{site:site})
 });
 router.get('/sites/:id/purchases',function(req,res){
     var site = req.session.site
-    var page = site._id == '59ba6079692575148a721677' ? 'test_purchases' : 'purchases'
+    var page = req.params.id == '59ba6079692575148a721677' ? 'test_purchases' : 'purchases'
     res.render(page,{site:site})
 });
 router.get('/sites/:id/visits',function(req,res){
     var site = req.session.site
-    var page = site._id == '59ba6079692575148a721677' ? 'test_visits' : 'visits'
+    var page = req.params.id == '59ba6079692575148a721677' ? 'test_visits' : 'visits'
     res.render(page,{site:site})
 });
 router.get('/sites/:id/conversions',function(req,res){
     var site = req.session.site
-    var page = site._id == '59ba6079692575148a721677' ? 'test_conversions' : 'conversions'
+    var page = req.params.id == '59ba6079692575148a721677' ? 'test_conversions' : 'conversions'
     res.render(page,{site:site})
 });
 router.get('/home',function(req,res){

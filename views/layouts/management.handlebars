@@ -67,8 +67,6 @@
          .site_icon img{
              display:block;
              margin:auto;
-             width:300px;
-             height:125px;
          }
          .site_info{
              margin-top:75px;
@@ -122,7 +120,7 @@
                     {{#each sites}}
                          <div class="col-sm-4">
                              <div class="site_icon">
-                                <img class="img-responsive" src={{icon_url}}>
+                                <img class="img-responsive" src={{icon_url}} width={{icon_width}} height={{icon_height}} >
                             </div>
                         </div>
                         <div class="site_info col-sm-7">
