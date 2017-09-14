@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+        <!-- Include Date Range Picker -->
+        <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+    </head>
+    <style>
+       @font-face{
+           font-family:poiret;
+           src:url(/fonts/poiret-one.regular.ttf);
+       }
+        .border_top{
+            /*background-color:#1ABC9C;*/
+            background: rgba(0, 0, 0, 0) linear-gradient(135deg, #34495e 0%, #41aba0 100%) repeat scroll 0 0;
+            height:100px;
+        }
+        .site_icon{
+            background-color:#f5f5f5;
+            border-radius:10px;
+            margin:auto;
+            margin-top:-60px;
+            width:305px;
+            height:125px;
+        }
+        .site_icon img{
+            display:block;
+            margin:auto;
+            width:300px;
+            height:125px;
+        }
+        .dashboard_options{
+            background: rgba(0, 0, 0, 0) linear-gradient(135deg, #34495e 0%, #41aba0 100%) repeat scroll 0 0;
+            height:1000px;
+            padding:5px;
+        }
+        .dashboard_options li{
+            list-style-type:none;
+            font-size:20px;
+            margin:10px;
+        }
+        .dashboard_options a img{
+            display:block;
+            margin: auto;
+            margin-top:-75px;
+            height:50px;
+            width:50px;
+        }
+        .site_nav{
+          position: fixed;
+          background-color:rgba(255,255,255,0.2);
+          border-radius:5px;
+          margin-top:20px;
+        }
+        .site_nav ul li a{
+          color:white;
+          font-family:poiret;
+          text-align:left;
+        }
+        #profile_title, .outlier_title{
+            color:#34495e;
+            letter-spacing: 3px;
+            font-family: poiret;
+        }
+        .data_number{
+            font-size: 40px;
+            font-weight: lighter;
+            color: #333333;
+        }
+        .data_units{
+            font-size: 18px;
+            font-family: poiret;
+            color: #344953
+        }
+        .underline  rect{
+            fill:#333333;
+        }
+        .site_data{
+            margin: 50px 20px 20px 20px;
+            border-radius:10px;
+            background-color:#f5f5f5;
+        }
+        .chart{
+            margin:auto;
+            margin-bottom:0px;
+            background-color: #f5f5f5;
+
+        }
+        .day_input{
+            background-color: #34495e;
+            border-radius: 15px;
+            color: white;
+            font-family:poiret;
+            font-size: 30px;
+            text-align: center;
+            margin:auto;
+            height:100px;
+        }
+        .time_text{
+          font-family: poiret
+        }
+        .time_period_text{
+          font-family:poiret;
+          font-size:20px;
+          text-align: center;
+          display:inline-block;
+        }
+        .time_button{
+            display:inline-block;
+        }
+        .from_text,.to_text{
+          font-size: 15px;
+          margin: 0px 20px 0px 20px;
+          color:#333333
+        }
+        .time_unit{
+          font-size:20px;
+          color:#34495e;
+        }
+        .data_period{
+          margin-top:-10px;
+          position: relative;
+          display: inline-block;
+        }
+        .data_period .btn{
+        background-color:#34495e;
+        color:white;
+        }
+        .data_insight{
+            font-size: 20px;
+            font-weight: lighter;
+            color: #333333;
+        }
+        .underline  rect{
+            fill:#333333;
+        }
+        .nav_icon{
+            margin-right:20px;
+            font-size:20px;
+        }
+        .alert{
+            display:none;
+            margin: auto;
+            font-size: 15px;
+            
+        }
+    </style>
+    <body>
+        <div class="row">
+            <div class="border_top col-sm-12"></div>
+            <div class="dashboard_options col-sm-2">
+                <a href="/home"><img src="http://i.imgur.com/KW2Liea.png"></a>
+                <div class="site_nav">
+                    <ul>
+                        <li><a class="option" href="/sites"><i class="nav_icon fa fa-sitemap"></i>Sites</a></li>
+                        <li><a href="/sites/{{site._id}}"><i class="nav_icon fa fa-dashboard"></i>Dashboard</a></li>
+                        <li><a href="/sites/{{site._id}}/transactions"><i class="nav_icon fa fa-hourglass-2"></i><strong>Wait Time</strong></a></li>
+                        <li><a href="/sites/{{site._id}}/purchases"><i class="nav_icon fa fa-money"></i>Purchases</a></li>
+                        <li><a href="/sites/{{site._id}}/visits"><i class="nav_icon fa fa-users"></i>Visits</a></li>
+                        <li><a href="/sites/{{site._id}}/conversions"><i class="nav_icon fa fa-balance-scale"></i>Conversions</a></li>
+                        {{!--<li><a href="#">Behavior</a></li>--}}
+                        <li><a class="option" href="/logout"><i class="nav_icon fa fa-sign-out"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row col-sm-10">
+                <div class="site_icon">
+                    <img src="https://i.imgur.com/ZvCy6v3.png">
+                </div>
+                <div style="margin-top:-50px" class="text-center">
+                    <div class="col-sm-12">
+                        <h2 id="profile_title">Transaction Analysis</h2>
+                    </div>  
+                    <div class="col-sm-12 alert alert-warning alert-dismissible">
+                        <a href="#" class="close" aria-label="close">x</a>
+                        <strong>Oops!</strong> There is no data for specified period
+                    </div>
+                    <!--Chart for the current wait-->
+                    <div class="row col-sm-12 site_data">
+                        <div class="col-sm-offset-3 col-sm-6 data_period">
+                            <div class="btn-group">
+                                <button id="day_button" type="button" class="btn btn-lg" data-toggle="collapse" data-target="#date_collapse">Day</button>
+                                <button id="week_button" type="button" class="btn btn-lg" data-toggle="collapse" data-target="#date_collapse">Week</button>
+                                <button id="month_button" type="button" class="btn btn-lg" data-toggle="collapse" data-target="#date_collapse">Month</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-5 row">
+                            <div class="col-sm-12">
+                                <span id="time_period_sel" style="margin-right:20px"><i class="fa fa-calendar-o fa-2x" aria-hidden="true"></i></span>
+                                <button name="day" id="dec_time_back" type="button" class="time_button btn btn-default"><i class="fa fa-chevron-left"></i></button>
+                                <p class="time_period_text"></p>
+                                <button name="day" id="inc_time_fwd" type="button" class="time_button btn btn-default"><i class="fa fa-chevron-right"></i></button></br>
+                                <p class="time_text"><span class="from_text">from</span><span id="from_time" class="time_unit">8:00 AM</span><span class="to_text">to</span><span id="to_time" class="time_unit">5:00 PM</span></p>
+                            </div> 
+                            <div class="col-sm-12">
+                                <p class="data_insight">Longest Transaction</p> 
+                                <p class="data_units"><strong id="max_transaction" class="data_number">0</strong><span id="max"> minutes waiting</span>
+                                </br>
+                                <svg  class="underline" width="200" height="2">
+                                    <rect x="0" y="0" width="200" height="2">
+                                </svg>
+                            </div>
+                            <div class="col-sm-12">
+                                <p class="data_insight">Shortest Transaction</p> 
+                                <p class="data_units"><strong id="min_transaction" class="data_number">0</strong> <span id="min"> minutes waiting</span>
+                                </br>
+                                <svg class="underline" width="200" height="2">
+                                    <rect x="0" y="0" width="200" height="2">
+                                </svg>
+                                
+                            </div> 
+                            <div class="col-sm-12">
+                                <p class="data_insight">Total Transactions</p> 
+                                <p class="data_units"><strong id="total_transaction" class="data_number">0</strong>  transactions
+                                </br>
+                                <svg  class="underline" width="200" height="2">
+                                    <rect x="0" y="0" width="200" height="2">
+                                </svg>
+                               
+                            </div>
+                            <div class="col-sm-12">
+                                <p class="data_insight">Aggregate Average</p>
+                                <p class="data_units"><strong id="avg_wait" class="data_number">0</strong><span id="avg"> minutes</span> 
+                                </br>
+                                <svg  class="underline" width="200" height="2">
+                                    <rect x="0" y="0" width="200" height="2">
+                                </svg>
+                                  
+                            </div>
+                        </div>
+                         <div class="col-sm-7 chart">
+                            <canvas width="400" height="400" id="client_wait_cntxt"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+    <script type="text/javascript" src="/js/test/detail_charts/client_wait_chart.js"></script>
+    <script>
+    $("#time_period_sel").daterangepicker({
+        singleDatePicker: true,
+        startDate: moment()
+        },
+        function(start,end,label){
+            start = start.hour(8).minute(0);
+            end = moment(start).hour(17);
+            $(".time_period_text").text(start.format('MMM Do YYYY'));
+            getAverageRatesForRange(start,end,"day")
+        }
+    );
+    function sec_mins(id,time){
+        var min_sec = time < 1 ? "seconds" : "minutes"
+        switch (id){
+            case "#max_transaction":
+                $("#max").text(min_sec);
+                break
+            case "#min_transaction":
+                // console.log("time is "+time+" at element "+id);
+                $("#min").text(min_sec);
+                break
+            case "#avg_wait":
+                $("#avg").text(min_sec);
+                break
+            default:break;
+        }    
+        var time_for_seconds = time*60;
+        time_for_seconds = Math.floor(time_for_seconds);
+        time = time < 1 ? time_for_seconds : time;
+        $(id).text(time)
+        console.log(id);
+     }
+            function getAverageRatesForRange(start,end,range){
+                var xmlhttp = new XMLHttpRequest();
+                    xmlhttp.onreadystatechange = function(){
+                        if(this.status == 200 && this.readyState == 4){
+                            var stats = JSON.parse(this.responseText);
+                            console.log(stats);
+                            if (stats.status != "No Rates"){
+                                $(".alert").hide();
+                                wait_Chart.data.datasets[0].data = stats.avgWaitPerUnit;
+                                wait_Chart.data.labels = stats.units
+                                sec_mins("#min_transaction",stats.minWait);
+                                sec_mins("#max_transaction",stats.maxWait);
+                                sec_mins("#avg_wait",stats.avgWaitOverall);
+                                $("#total_transaction").text(stats.purchases);
+                                wait_Chart.update();
+                            }else{
+                                $(".alert").show();
+                                $(".alert").alert();
+                                $(".alert").attr({"display":"block"})
+                                wait_Chart.data.datasets[0].data = [];
+                                $("#min_transaction").text(0);
+                                $("#max_transaction").text(0);
+                                 $("#avg_wait").text(0);
+                                $("#total_transaction").text(0);
+                            }
+                        }
+                    };
+                    xmlhttp.open("POST","/api/rates/{{site._id}}/"+range+"/averages",true);
+                    xmlhttp.setRequestHeader("Content-Type","application/json");
+                var range = JSON.stringify({start:start,end:end});
+                    xmlhttp.send(range);
+            }
+    </script>
+    <script>
+        $(document).ready(function(){
+            var today = moment().format('MMM Do YYYY')
+            $(".time_period_text").text(today)
+            
+            $(".close").click(function(){
+                  $(".alert").hide();
+              })
+             $("#day_button").click(function(){
+                $("#inc_time_fwd").attr("name","day");
+                $("#dec_time_back").attr("name","day");
+                var today = moment().format('MMM Do YYYY')
+                var start = moment().hour(8).minutes(0)
+                var end  = moment().hour(17).minutes(0)
+                $(".time_period_text").text(today)
+                $("#from_time").text("8:00 AM");
+                $("#to_time").text("5:00 PM");
+                 getAverageRatesForRange(start,end,"day")
+            });
+            $("#week_button").click(function(){
+                $("#inc_time_fwd").attr("name","week");
+                $("#dec_time_back").attr("name","week");
+                $(".time_period_text").text("Week Stats")
+                var weekStart = moment().startOf('week')
+                var weekEnd = moment().endOf('week')
+                $("#from_time").text(weekStart.format('MMM Do YYYY'))
+                $("#to_time").text(weekEnd.format('MMM Do YYYY'))
+                 getAverageRatesForRange(weekStart.hour(8),weekEnd.hour(17),"week")
+            });
+            $("#month_button").click(function(){
+                $("#inc_time_fwd").attr("name","month");
+                $("#dec_time_back").attr("name","month");
+                var month = moment().month();
+                var months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
+                var currentMonth = months[month];
+                var monthStart = moment().startOf('month')
+                var monthEnd = moment().endOf('month')
+                $(".time_period_text").text(currentMonth)
+                $("#from_time").text(monthStart.format('MMM Do YYYY'))
+                $("#to_time").text(monthEnd.format('MMM Do YYYY'))
+                getAverageRatesForRange(monthStart.hour(8),monthEnd.hour(17),"month")
+            })
+            $("#inc_time_fwd").click(function(){
+          
+                switch ( $(this).attr("name")){
+                    case "day":
+                        var dayText = $(".time_period_text").text();
+                        var dayMoment = moment(dayText,'MMM Do YYYY').utcOffset(-4);
+                        //console.log(dayMoment.format())
+                        var start = dayMoment.add(1,'days').startOf('day');
+                        //console.log(start.format());
+                        var end = moment(dayText,'MMM Do YYYY').add(1,'days').endOf('day');
+                        //console.log(end);
+                        $(".time_period_text").text(start.format('MMM Do YYYY'))
+                        getAverageRatesForRange(start,end,"day");
+                        break
+                    case "week":
+                        var dayText = $("#from_time").text();
+                        var toText = $("#to_time").text();
+                        console.log(dayText)
+                        var dayMoment = moment(dayText,'MMM Do YYYY');
+                        var endMoment = moment(toText,'MMM Do YYYY');
+                        console.log(dayMoment)
+                        var start = dayMoment.add(7,'days');
+                        console.log(start)
+                        var endDay = endMoment.add(7,'days');
+                        console.log(endDay)
+                        var end = endDay.add(12,'hours');
+                        $("#from_time").text(start.format('MMM Do YYYY'))
+                        $("#to_time").text(end.format('MMM Do YYYY'))
+                        getAverageRatesForRange(start,end,"week");
+                        break
+                    case "month":
+                        var month = $(".time_period_text").text();
+                        var monthMoment = moment().month(month).date(1).hour(8)
+                        var nextMonth = monthMoment.add(1,'months').startOf('month')
+                        var start = nextMonth.hour(8);
+                   
+                         var months = ["January","February","March",
+                                        "April","May","June","July","August","September",
+                                        "October","November","December"]
+                        var nextMonth = months[nextMonth.month()];
+                        var end = moment().month(nextMonth).endOf('month')
+                        $(".time_period_text").text(nextMonth);
+                        $("#from_time").text(start.format('MMM Do YYYY'))
+                        $("#to_time").text(end.format('MMM Do YYYY'))
+                        getAverageRatesForRange(start,end,"month")
+                        break
+                    default:
+                        break
+                }
+            });
+            $("#dec_time_back").click(function(){
+        
+                switch ( $(this).attr("name")){
+                    case "day":
+                        var dayText = $(".time_period_text").text();
+                        console.log(dayText)
+                        var dayMoment = moment(dayText,"MMM Do YYYY");
+                        //console.log(dayMoment.format())
+                        var start = dayMoment.clone().subtract(1,'days').startOf('day');
+                        console.log(start.format());
+                        var end = start.clone().endOf('day');
+                        console.log(end.format());
+                        console.log(start.format());
+                          getAverageRatesForRange(start,end,"day");
+                        $(".time_period_text").text(start.format('MMM Do YYYY'))
+                      
+                        break
+                    case "week":
+                        var fromText = $("#from_time").text();
+                        var toText = $("#to_time").text();
+                        var dayMoment = moment(fromText,'MMM Do YYYY')
+                        var endMoment = moment(toText,'MMM Do YYYY')
+                        var start = dayMoment.subtract(7,'days');
+                        var endDay = endMoment.subtract(7,'days');
+                        var end = endDay.add(12,'hours');
+                        $("#from_time").text(start.format('MMM Do YYYY'));
+                        $("#to_time").text(end.format('MMM Do YYYY'));
+                        getAverageRatesForRange(start,end,"week");
+                        break
+                    case "month":
+                        var month = $(".time_period_text").text();
+                        var monthMoment = moment().month(month).date(1).hour(8)
+                        var start = monthMoment.subtract(1,'months').startOf('month')
+                        var months = ["January","February","March",
+                                        "April","May","June","July","August","September",
+                                        "October","November","December"]
+                        var prevMonth = months[start.month()];
+                        var end = moment().month(prevMonth).endOf('month')
+                        $(".time_period_text").text(prevMonth)
+                        $("#from_time").text(start.format('MMM Do YYYY'));
+                        $("#to_time").text(end.format('MMM Do YYYY'));
+                        getAverageRatesForRange(start,end,"month");
+                        break
+                    default:
+                        break
+                }
+            });            
+        })
+    </script>
+    <script>
+      var dayStart = moment().hour(8).minutes(0);
+      var dayEnd = moment().hour(17).minutes(0);
+      getAverageRatesForRange(dayStart,dayEnd,"day")
+    </script>
+</html>
