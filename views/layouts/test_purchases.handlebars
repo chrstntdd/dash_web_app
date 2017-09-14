@@ -342,13 +342,13 @@ function total(collection){
         maxPurchases = max(purchasesEachUnit);
         purchases = total(purchasesEachUnit);
       
-                            $(".alert").hide();
-                            purchases_chart.data.datasets[0].data = purchasesEachUnit;
-                            $("#min_purchases").text(minPurchases);
-                            $("#max_purchases").text(maxPurchases);
-                            $("#total_purchases").text(purchases)
-                            purchases_chart.data.labels = units
-                            purchases_chart.update();
+        $(".alert").hide();
+        purchases_chart.data.datasets[0].data = purchasesEachUnit;
+        $("#min_purchases").text(minPurchases);
+        $("#max_purchases").text(maxPurchases);
+        $("#total_purchases").text(purchases)
+        purchases_chart.data.labels = units
+        purchases_chart.update();
               
               
         }

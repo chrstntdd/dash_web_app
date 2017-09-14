@@ -247,40 +247,117 @@
             getVisitsForRange(start,end,"day")
         }
     );
-        function getVisitsForRange(start,end,range){
-            var xmlhttp = new XMLHttpRequest();
-                xmlhttp.onreadystatechange = function(){
-                    if(this.status == 200 && this.readyState == 4){
-                        var stats = JSON.parse(this.responseText);
-                        console.log(stats);
-                        if (stats.status == "No Rates"){
-                            $(".alert").show();
-                            $(".alert").alert();
-                            $(".alert").attr({"display":"block"})
-                            $("#min_Visits").text("0")
-                            $("#max_Visits").text("0")
-                            $("#total_Visits").text("0")
-                            client_visits_chart.data.datasets[0].data = []
-                            client_visits_chart.data.labels = []
-                            client_visits_chart.update()
-                        }else{
-                            
-                            console.log("Some Rates in"+range);
-                            client_visits_chart.data.datasets[0].data = stats.visitsEachUnit;
-                            $(".alert").hide();
-                            $("#min_Visits").text(stats.minVisits);
-                            $("#max_Visits").text(stats.maxVisits);
-                            $("#total_Visits").text(stats.visits)
-                            client_visits_chart.data.labels = stats.units
-                            client_visits_chart.update();
-                        }
+         function sortDescending(values){
+    var sorted = values.sort(function(a,b){
+        return b-a;
+    });
+    return sorted;
+}
+function sortAscending(values){
+    var sorted = values.sort(function(a,b){
+        return a-b;
+    });
+    return sorted;
+}
+function max(collection){
+    if(collection.length > 0){
+    var toSort = [];
+        toSort = toSort.concat(collection)
+    var sorted = sortAscending(toSort)
+     ////console.log(sorted)
+    return sorted.pop()
+    }else{
+        return 0
+    }
+}
+function min(collection){
+    if(collection.length > 0){
+        var toSort = [];
+            toSort = toSort.concat(collection)
+        var sorted = sortDescending(toSort);
+        ////console.log(sorted)
+        return sorted.pop()
+    }else{
+        return 0
+    }
+}
+function total(collection){
+    if (collection.length > 0){
+        var totalled = collection.reduce(function(total,value){
+        return total + value;
+    })
+    return totalled/collection.length;
+    }else{
+        return 0
+    }
+}
+function avg(collection){
+    if (collection.length > 0){
+        var totalled = collection.reduce(function(total,value){
+            return total + value;
+         })
+        
+    return totalled/collection.length;
+    }else{
+        return 0;
+    }
+}
+    function getVisitsForRange(start,end,range){
+        var visitsEachUnit = [];
+            var minVisits = 0;
+            var maxVisits = 0;
+            var avgWaitOverall = 0;
+            var visits = 0
+            var units = [];
+        switch(range){
+           case "day":
+                range_limit = 10
+                var hrsInDay = []//creates an array containing each hour in day 
+                for (i = 0; i < range_limit; ++i){
+                    var dayHour = moment().hours(8).minutes(0).seconds(0).add(i,'hours');
+                        hrsInDay.push(dayHour);
+                        units.push(dayHour.format('ha'));
                     }
-                };
-                
-                xmlhttp.open("POST","/api/rates/{{site._id}}/"+range+"/Visits",true);
-                xmlhttp.setRequestHeader("Content-Type","application/json");
-                var startEnd = JSON.stringify({start:start,end:end});
-                xmlhttp.send(startEnd);
+                    console.log(units);
+                    break
+            case "week":
+                range_limit = 7
+                var days = [];
+                for(i = 0; i < range_limit; i++){
+                    var day = moment().add(i,'days');
+                    days.push(day);
+                    units.push(day.format('Do'));
+                }
+                break
+            case "month":
+                range_limit = 30
+                var days = [];
+                for(i = 0; i < range_limit; i++){
+                    var day = moment().add(i,'days');
+                    days.push(day);
+                    units.push(day.format('Do'));
+                }
+                break
+            default: break
+         }
+        for(i = 0;i < range_limit; i++){
+            var stat =  Math.floor(Math.random()*10) + 1;
+               visitsEachUnit.push(stat);
+        }
+        minVisits = min(visitsEachUnit);
+        maxVisits = max(visitsEachUnit);
+        visits = Math.floor(Math.random()*100 + 10)
+        avgWaitOverall = avg(visitsEachUnit)
+      
+                            console.log("Some Rates in"+range);
+                            client_visits_chart.data.datasets[0].data = visitsEachUnit;
+                            $(".alert").hide();
+                            $("#min_Visits").text(minVisits);
+                            $("#max_Visits").text(maxVisits);
+                            $("#total_Visits").text(visits)
+                            client_visits_chart.data.labels = units
+                            client_visits_chart.update();
+            
         }
         function getAverageRatesForRange(start,end,range){
                 var xmlhttp = new XMLHttpRequest();
