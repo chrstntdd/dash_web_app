@@ -253,39 +253,104 @@
             getPurchasesForRange(start,end,"day")
         }
     );
+    function sortDescending(values){
+    var sorted = values.sort(function(a,b){
+        return b-a;
+    });
+    return sorted;
+}
+function sortAscending(values){
+    var sorted = values.sort(function(a,b){
+        return a-b;
+    });
+    return sorted;
+}
+function max(collection){
+    if(collection.length > 0){
+    var toSort = [];
+        toSort = toSort.concat(collection)
+    var sorted = sortAscending(toSort)
+     ////console.log(sorted)
+    return sorted.pop()
+    }else{
+        return 0
+    }
+}
+function min(collection){
+    if(collection.length > 0){
+        var toSort = [];
+            toSort = toSort.concat(collection)
+        var sorted = sortDescending(toSort);
+        ////console.log(sorted)
+        return sorted.pop()
+    }else{
+        return 0
+    }
+}
+function total(collection){
+    if (collection.length > 0){
+        var totalled = collection.reduce(function(total,value){
+        return total + value;
+    })
+    return totalled/collection.length;
+    }else{
+        return 0
+    }
+}
         function getPurchasesForRange(start,end,range){
-            
-            var xmlhttp = new XMLHttpRequest();
-                xmlhttp.onreadystatechange = function(){
-                    if(this.status == 200 && this.readyState == 4){
-                        var stats = JSON.parse(this.responseText);
-                        console.log(stats);
-                        if (stats.status == "No Rates"){
-                            $(".alert").show();
-                            $(".alert").alert();
-                            $(".alert").attr({"display":"block"})
-                             purchases_chart.data.datasets[0].data = []
-                            $("#min_purchases").text(0);
-                            $("#max_purchases").text(0);
-                            $("#total_purchases").text(0)
-                            purchases_chart.update();
-                        }else{
-                            $(".alert").hide();
-                            console.log(stats);
-                            purchases_chart.data.datasets[0].data = stats.purchasesEachUnit;
-                            $("#min_purchases").text(stats.minPurchases);
-                            $("#max_purchases").text(stats.maxPurchases);
-                            $("#total_purchases").text(stats.purchases)
-                            purchases_chart.data.labels = stats.units
-                            purchases_chart.update();
-                        }
+            var purchasesEachUnit = [];
+            var minPurchases = 0;
+            var maxPurchases = 0;
+            var purchases = 0;
+            var units = [];
+        switch(range){
+           case "day":
+                range_limit = 10
+                var hrsInDay = []//creates an array containing each hour in day 
+                for (i = 0; i < range_limit; ++i){
+                    var dayHour = moment().hours(8).minutes(0).seconds(0).add(i,'hours');
+                        hrsInDay.push(dayHour);
+                        units.push(dayHour.format('ha'));
                     }
-                };
-                
-                xmlhttp.open("POST","/api/rates/{{site._id}}/"+range+"/total",true);
-                xmlhttp.setRequestHeader("Content-Type","application/json");
-                var range = JSON.stringify({start:start,end:end});
-                xmlhttp.send(range);
+                    console.log(units);
+                    break
+            case "week":
+                range_limit = 7
+                var days = [];
+                for(i = 0; i < range_limit; i++){
+                    var day = moment().add(i,'days');
+                    days.push(day);
+                    units.push(day.format('Do'));
+                }
+                break
+            case "month":
+                range_limit = 30
+                var days = [];
+                for(i = 0; i < range_limit; i++){
+                    var day = moment().add(i,'days');
+                    days.push(day);
+                    units.push(day.format('Do'));
+                }
+                break
+            default: break
+         }
+        for(i = 0;i < range_limit; i++){
+            var stat =  Math.floor(Math.random()*10) + 1;
+               purchasesEachUnit.push(stat);
+        }
+        minPurchases = min(purchasesEachUnit);
+        maxPurchases = max(purchasesEachUnit);
+        purchases = total(purchasesEachUnit);
+      
+                            $(".alert").hide();
+                            purchases_chart.data.datasets[0].data = purchasesEachUnit;
+                            $("#min_purchases").text(minPurchases);
+                            $("#max_purchases").text(maxPurchases);
+                            $("#total_purchases").text(purchases)
+                            purchases_chart.data.labels = units
+                            purchases_chart.update();
+              
+              
         }
         function getAverageRatesForRange(start,end,range){
                 var xmlhttp = new XMLHttpRequest();
