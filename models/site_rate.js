@@ -19,7 +19,7 @@ module.exports.get_all_rates = function(site,callback){
     Rate.find({site:site},callback);
 };
 
-module.exports.push_rates = function(rates,callback){
+module.exports.push_rates = function(device_ids,rates,callback){
     var new_rates = [];
     var error = null;
    // console.log(rates);
