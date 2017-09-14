@@ -139,13 +139,12 @@ router.post('/new',function(req,res){
                 var device_ids = location.device_ids;
                     if (device_ids.length > 0){
                         ids.forEach(function(id){
-                        var hasId = device_ids.some(function(item){
-                            return item == id
-                        })
-                         console.log('id '+id+' is already saved')
+                       
+                         
                             if(device_ids.some(function(device_id){return device_id == id })){
-                                console.log('id '+id+' is not already saved')
-                                device_ids.push(id)
+                                console.log('id '+id+' is already saved')
+                            }else{
+                                 device_ids.push(id)
                             }
                         })
                       Site.update_site_devices(site,device_ids)
