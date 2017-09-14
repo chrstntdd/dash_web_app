@@ -277,37 +277,117 @@
         $(id).text(time)
         console.log(id);
      }
-            function getAverageRatesForRange(start,end,range){
-                var xmlhttp = new XMLHttpRequest();
-                    xmlhttp.onreadystatechange = function(){
-                        if(this.status == 200 && this.readyState == 4){
-                            var stats = JSON.parse(this.responseText);
-                            console.log(stats);
-                            if (stats.status != "No Rates"){
+     function sortDescending(values){
+    var sorted = values.sort(function(a,b){
+        return b-a;
+    });
+    return sorted;
+}
+function sortAscending(values){
+    var sorted = values.sort(function(a,b){
+        return a-b;
+    });
+    return sorted;
+}
+function max(collection){
+    if(collection.length > 0){
+    var toSort = [];
+        toSort = toSort.concat(collection)
+    var sorted = sortAscending(toSort)
+     ////console.log(sorted)
+    return sorted.pop()
+    }else{
+        return 0
+    }
+}
+function min(collection){
+    if(collection.length > 0){
+        var toSort = [];
+            toSort = toSort.concat(collection)
+        var sorted = sortDescending(toSort);
+        ////console.log(sorted)
+        return sorted.pop()
+    }else{
+        return 0
+    }
+}
+function total(collection){
+    if (collection.length > 0){
+        var totalled = collection.reduce(function(total,value){
+        return total + value;
+    })
+    return totalled/collection.length;
+    }else{
+        return 0
+    }
+}
+function avg(collection){
+    if (collection.length > 0){
+        var totalled = collection.reduce(function(total,value){
+            return total + value;
+         })
+        
+    return totalled/collection.length;
+    }else{
+        return 0;
+    }
+}
+    function getAverageRatesForRange(start,end,range){
+        var avgWaitPerUnit = [];
+            var minWait = 0;
+            var maxWait = 0;
+            var avgWaitOverall = 0;
+            var purchases = 0
+            var units = [];
+        switch(range){
+           case "day":
+                range_limit = 10
+                var hrsInDay = []//creates an array containing each hour in day 
+                for (i = 0; i < range_limit; ++i){
+                    var dayHour = moment().hours(8).minutes(0).seconds(0).add(i,'hours');
+                        hrsInDay.push(dayHour);
+                        units.push(dayHour.format('ha'));
+                    }
+                    console.log(units);
+                    break
+            case "week":
+                range_limit = 7
+                var days = [];
+                for(i = 0; i < range_limit; i++){
+                    var day = moment().add(i,'days');
+                    days.push(day);
+                    units.push(day.format('Do'));
+                }
+                break
+            case "month":
+                range_limit = 30
+                var days = [];
+                for(i = 0; i < range_limit; i++){
+                    var day = moment().add(i,'days');
+                    days.push(day);
+                    units.push(day.format('Do'));
+                }
+                break
+            default: break
+         }
+        for(i = 0;i < range_limit; i++){
+            var stat =  Math.floor(Math.random()*10) + 1;
+               avgWaitPerUnit.push(stat);
+        }
+        minWait = min(avgWaitPerUnit);
+        maxWait = max(avgWaitPerUnit);
+        purchases = Math.floor(Math.random()*100 + 10)
+        avgWaitOverall = avg(avgWaitPerUnit)
+      
                                 $(".alert").hide();
-                                wait_Chart.data.datasets[0].data = stats.avgWaitPerUnit;
-                                wait_Chart.data.labels = stats.units
-                                sec_mins("#min_transaction",stats.minWait);
-                                sec_mins("#max_transaction",stats.maxWait);
-                                sec_mins("#avg_wait",stats.avgWaitOverall);
-                                $("#total_transaction").text(stats.purchases);
+                                wait_Chart.data.datasets[0].data = avgWaitPerUnit;
+                                wait_Chart.data.labels = units
+                                sec_mins("#min_transaction",minWait);
+                                sec_mins("#max_transaction",maxWait);
+                                sec_mins("#avg_wait",avgWaitOverall);
+                                $("#total_transaction").text(purchases);
                                 wait_Chart.update();
-                            }else{
-                                $(".alert").show();
-                                $(".alert").alert();
-                                $(".alert").attr({"display":"block"})
-                                wait_Chart.data.datasets[0].data = [];
-                                $("#min_transaction").text(0);
-                                $("#max_transaction").text(0);
-                                 $("#avg_wait").text(0);
-                                $("#total_transaction").text(0);
-                            }
-                        }
-                    };
-                    xmlhttp.open("POST","/api/rates/{{site._id}}/"+range+"/averages",true);
-                    xmlhttp.setRequestHeader("Content-Type","application/json");
-                var range = JSON.stringify({start:start,end:end});
-                    xmlhttp.send(range);
+                 
             }
     </script>
     <script>
