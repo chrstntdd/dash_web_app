@@ -23,7 +23,7 @@ module.exports.push_rates = function(device_ids,rates,callback){
     var new_rates = [];
     var error = null;
    // console.log(rates);
-    rates.forEach(function(device_ids,rate,index){
+    rates.forEach(function(rate,index){
         //search for rates in same store, same customer id and position
         //console.log(rate);
         //could probably update this query to include the date
