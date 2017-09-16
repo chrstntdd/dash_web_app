@@ -153,7 +153,7 @@
                 </div>
              <div class="row col-sm-10">
                 <div class="site_icon">
-                    <img src={{site.icon_url}} width={{site.icon_width}} height={{site.icon_height}} >
+                    <img id="icon" src={{site.icon_url}} >
                 </div>
                  <div class="text-center">
                     <!-- Business chart of the past 30 minutes -->
@@ -287,6 +287,7 @@
     {{!--<script type="text/javascript" src="/js/main/conversions_chart.js"></script>--}}
     <script type="text/javascript" src="/js/main/business_chart.js"></script>
     <script>
+    $("#icon").css("{width:{{site.icon_width}};height:{{site.icon_height}};}")
      function sec_mins(id,time){
         var min_sec = time < 1 ? "seconds" : "minutes"
         switch (id){

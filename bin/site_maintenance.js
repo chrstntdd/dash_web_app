@@ -18,3 +18,12 @@
 //       mongoose.connect('mongodb://localhost/pogo');
 //   }
   
+//   Site.getSites(function(err,sites){
+//       if(err) throw err;
+//       if (sites.length > 0){
+//           sites.forEach(function(site){
+//              site.device_ids = [];
+//              site.save()
+//           })
+//       }
+//   })

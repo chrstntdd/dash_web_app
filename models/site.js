@@ -76,7 +76,7 @@ var Site = module.exports = mongoose.model('Site',siteSchema);
 
 
 module.exports.getSite = function(id,callback){
-    console.log('gettin a site at '+id)
+   // //console.log('gettin a site at '+id)
     Site.findById(id).populate('managers').exec(callback);
    
    
@@ -89,7 +89,7 @@ module.exports.monitoredSites = function(ids,callback){
 module.exports.managed_sites = function(ids,callback){
     var managed_sites = [];
     var error;
-    console.log('user manages '+ ids.length + ' sites')
+    //console.log('user manages '+ ids.length + ' sites')
     ids.forEach(function(site,index){
         var query = {_id:site};
         Site.find(query,function(err,site){
@@ -98,7 +98,7 @@ module.exports.managed_sites = function(ids,callback){
                 callback(err,[]);
             }
             if (site.length > 0){
-                console.log('found site '+site)
+                //console.log('found site '+site)
                 managed_sites.push(site[0])
             }
             if(index == ids.length-1){
@@ -133,7 +133,7 @@ module.exports.updateRate = function(id,rate,callback){
 module.exports.addManager = function(id,man_email,callback){
    User = require('./user');
    User.findOne({email:man_email},function(err,user){
-       console.log('looking for user');
+       //console.log('looking for user');
        if (err) throw err;
        function isMonitored(siteId){
            return siteId == id
@@ -142,7 +142,7 @@ module.exports.addManager = function(id,man_email,callback){
             user.managed_sites.push(id);
             user.save();
          Site.findById(id,function(err,site){
-            console.log(user);
+            //console.log(user);
             if (user){
             site.managers.push(user._id);
             site.save(callback);
@@ -181,7 +181,7 @@ module.exports.removeAllManagers = function(id,manager,callback){
             })
         }
         site.managers = [];
-        console.log(site.managers);
+        //console.log(site.managers);
         site.save(callback);
     });
   

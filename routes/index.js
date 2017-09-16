@@ -24,7 +24,7 @@ router.get('/',function(req,res){
 router.post('/private/api/watchdog',function(req,res){
     var site = req.body.site;
     var unit = req.body.unit;
-    console.log('Unit: '+unit+' alive at site: '+site)
+    //console.log('Unit: '+unit+' alive at site: '+site)
     res.send("Ok")
 });
 router.get('/sites',function(req,res){
@@ -35,7 +35,7 @@ router.get('/sites',function(req,res){
                     throw err;
                 }
                 if (sites.length > 0){
-                    console.log(sites);
+                    //console.log(sites);
                     res.render('management',{
                         user:user,
                         sites:sites,
@@ -53,20 +53,21 @@ router.get('/sites',function(req,res){
 });
 
 router.get('/sites/:id',function(req,res){
-        var user = req.session.user;
-        var id = req.params.id;
-        
-        var page = id == "59ba6079692575148a721677" ? "test_dashboard" : "dashboard";
-        console.log('page is '+page)
+    var site = req.session.site;
+    var user = req.session.user;
+    
+    var id = req.params.id;
+       
         if(user != null){
             
-            Site.getSite(id,function(err,site){
+            Site.findById(id,function(err,site){
                 if(err)
                 throw err;
                 if(site != null){
-                    console.log('site not null')
+                    var page = site._id == "59ba6079692575148a721677" ? "test_dashboard" : "dashboard";
+                    console.log('site info is '+site._id+' '+site.icon_url+' '+site.icon_width+' '+site.icon_height);
                     req.session.site = site
-                    res.render(page,{
+                    res.render('index',{
                     user:user,
                     site:site,
                     helpers: {
@@ -75,23 +76,26 @@ router.get('/sites/:id',function(req,res){
                             }
                         }    
                     });
+                }else{
+                    console.log('failed')
+                    res.render('/')
                 }
             });
         }else{
-            res.render('index')
+            res.redirect('/')
         }
 });
 router.get('/sites/:id/transactions',function(req,res){
     var site = req.session.site
     var page = req.params.id == '59ba6079692575148a721677' ? 'test_transactions' : 'transactions'
-    console.log(site)
+    //console.log(site)
     res.render(page,{site:site})
     
 });
 router.get('/sites/:id/purchases',function(req,res){
     var site = req.session.site
     var page = req.params.id == '59ba6079692575148a721677' ? 'test_purchases' : 'purchases'
-      console.log(site)
+      //console.log(site)
     res.render(page,{site:site})
 });
 router.get('/sites/:id/visits',function(req,res){
@@ -122,7 +126,7 @@ router.post('/mail',function(req,res){
     var name = req.body.name;
     var message = req.body.message;
     var content = "Name: "+name+"\nEmail: "+email+"\nMessage: "+message
-    //console.log("sending email from "+email+" to blake.rogers757@gmail.com with the message "+message);
+    ////console.log("sending email from "+email+" to blake.rogers757@gmail.com with the message "+message);
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth:{
@@ -138,10 +142,10 @@ router.post('/mail',function(req,res){
     }
     transporter.sendMail(mailOptions,function(error,info){
         if(error){
-            console.log(error);
+            //console.log(error);
             res.redirect('/');
         }else{
-            console.log("Email sent successfully");
+            //console.log("Email sent successfully");
             res.redirect('/');
         }
     })
@@ -152,18 +156,18 @@ router.post('/manage',function(req,res){
     var email = req.body.email.toLowerCase();
     var password = req.body.password;
 
-    console.log(req.body);
+    //console.log(req.body);
     if (email && password){
      User.getUser(email,function(err,user){
-         console.log("login called back");
+         //console.log("login called back");
         if (err){
-            console.log("Error logging in"+err);
+            //console.log("Error logging in"+err);
             res.send("Error Logging in"+err)
         };
         if (user != null){
-       bcrypt.compare(password,user.hash_Password,function(err,result){
+        bcrypt.compare(password,user.hash_Password,function(err,result){
            if (err){
-               console.log(err);
+               //console.log(err);
                res.send("Invalid password")
            }
            if (result == true){
