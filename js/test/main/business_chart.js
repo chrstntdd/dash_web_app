@@ -40,7 +40,7 @@ var business_chart = new Chart(business_cntxt, {
         options:{
                 title:{
                     display:false,
-                    //fontFamily:'poiret',
+                    fontFamily:'poiret',
                     fontSize: 20,
                     fontColor: '#34495e',
                     text: 'Business Last Half Hour'
@@ -56,7 +56,7 @@ var business_chart = new Chart(business_cntxt, {
                         scaleLabel:{
                             display:true,
                             labelString:"Customers",
-                            //fontFamily: "poiret",
+                            fontFamily: "poiret",
                             fontSize: 40,
                             fontColor: '#34495e'
                             
@@ -74,7 +74,7 @@ var business_chart = new Chart(business_cntxt, {
                         scaleLabel:{ 
                             display: true,
                             labelString: "Time",
-                            //fontFamily: "poiret",
+                            fontFamily: "poiret",
                             fontSize: 40,
                             fontColor: '#34495e'
                         },

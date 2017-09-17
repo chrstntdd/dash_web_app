@@ -15,6 +15,12 @@ var purchases_chart = new Chart(cntxt,{
                     backgroundColor:gradient,
                     hoverBackgroundColor: gradientHover,
                     borderWidth: 1
+                    },
+                    {
+                    data:[],
+                    backgroundColor:gradient,
+                    borderWidth:1,
+                    type:'line'
                     }]
             },
             options: {

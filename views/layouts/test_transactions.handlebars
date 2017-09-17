@@ -16,14 +16,7 @@
            font-family:poiret;
            src:url(/fonts/poiret-one.regular.ttf);
        }
-        .border_top{
-            /*background-color:#1ABC9C;*/
-            background: rgba(0, 0, 0, 0) linear-gradient(135deg, #34495e 0%, #41aba0 100%) repeat scroll 0 0;
-            height:100px;
-        }
         .site_icon{
-            /*background-color:#f5f5f5;*/
-            border-radius:10px;
             margin:auto;
             margin-top:5px;
         }
@@ -150,7 +143,7 @@
     </style>
     <body>
         <div class="row">
-            <div class="border_top col-sm-12"></div>
+            {{!--<div class="border_top col-sm-12"></div>--}}
             <div class="dashboard_options col-sm-2">
                 <a href="/home"><img src="http://i.imgur.com/KW2Liea.png"></a>
                 <div class="site_nav">
@@ -170,7 +163,7 @@
                 <div class="site_icon">
                     <img src="https://i.imgur.com/ZvCy6v3.png" width={{site.icon_width}} height={{site.icon_height}}>
                 </div>
-                <div style="margin-top:-50px" class="text-center">
+                <div class="text-center">
                     <div class="col-sm-12">
                         <h2 id="profile_title">Transaction Analysis</h2>
                     </div>  
@@ -274,61 +267,7 @@
         $(id).text(time)
         console.log(id);
      }
-     function sortDescending(values){
-    var sorted = values.sort(function(a,b){
-        return b-a;
-    });
-    return sorted;
-}
-function sortAscending(values){
-    var sorted = values.sort(function(a,b){
-        return a-b;
-    });
-    return sorted;
-}
-function max(collection){
-    if(collection.length > 0){
-    var toSort = [];
-        toSort = toSort.concat(collection)
-    var sorted = sortAscending(toSort)
-     ////console.log(sorted)
-    return sorted.pop()
-    }else{
-        return 0
-    }
-}
-function min(collection){
-    if(collection.length > 0){
-        var toSort = [];
-            toSort = toSort.concat(collection)
-        var sorted = sortDescending(toSort);
-        ////console.log(sorted)
-        return sorted.pop()
-    }else{
-        return 0
-    }
-}
-function total(collection){
-    if (collection.length > 0){
-        var totalled = collection.reduce(function(total,value){
-        return total + value;
-    })
-    return totalled/collection.length;
-    }else{
-        return 0
-    }
-}
-function avg(collection){
-    if (collection.length > 0){
-        var totalled = collection.reduce(function(total,value){
-            return total + value;
-         })
-        
-    return totalled/collection.length;
-    }else{
-        return 0;
-    }
-}
+
     function getAverageRatesForRange(start,end,range){
         var avgWaitPerUnit = [];
             var minWait = 0;

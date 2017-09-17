@@ -29,6 +29,7 @@ router.post('/private/api/watchdog',function(req,res){
 });
 router.get('/sites',function(req,res){
     var user = req.session.user;
+    console.log(user);
     if (user != null){
             Site.managed_sites(user.managed_sites,function(err,sites){
                 if(err){
@@ -48,26 +49,28 @@ router.get('/sites',function(req,res){
                 }
             });
     }else{
-        res.render('index')
+        res.redirect('../../')
     }
 });
 
 router.get('/sites/:id',function(req,res){
-    var site = req.session.site;
+   
     var user = req.session.user;
-    
     var id = req.params.id;
-       
+    
         if(user != null){
             
             Site.findById(id,function(err,site){
-                if(err)
-                throw err;
+                if(err){
+                    res.send(err);
+                }
+                
                 if(site != null){
+                    
                     var page = site._id == "59ba6079692575148a721677" ? "test_dashboard" : "dashboard";
-                    console.log('site info is '+site._id+' '+site.icon_url+' '+site.icon_width+' '+site.icon_height);
-                    req.session.site = site
-                    res.render('index',{
+                    //console.log('site info is '+site._id+' '+site.icon_url+' '+site.icon_width+' '+site.icon_height);
+                
+                    res.render(page,{
                     user:user,
                     site:site,
                     helpers: {
@@ -76,37 +79,61 @@ router.get('/sites/:id',function(req,res){
                             }
                         }    
                     });
+                   
                 }else{
                     console.log('failed')
-                    res.render('/')
+                    res.redirect('../../')
                 }
             });
         }else{
-            res.redirect('/')
+            res.redirect('../../')
         }
 });
 router.get('/sites/:id/transactions',function(req,res){
-    var site = req.session.site
-    var page = req.params.id == '59ba6079692575148a721677' ? 'test_transactions' : 'transactions'
-    //console.log(site)
-    res.render(page,{site:site})
+    var id = req.params.id;
+    Site.findById(id,function(err,site){
+        if(err) throw err;
+       
+            var page = req.params.id == '59ba6079692575148a721677' ? 'test_transactions' : 'transactions'
+            //console.log(site)
+            res.render(page,{site:site})
+        
+    })
+    
     
 });
 router.get('/sites/:id/purchases',function(req,res){
-    var site = req.session.site
-    var page = req.params.id == '59ba6079692575148a721677' ? 'test_purchases' : 'purchases'
-      //console.log(site)
-    res.render(page,{site:site})
+    var id = req.params.id;
+    Site.findById(id,function(err,site){
+        if(err) throw err;
+        if(site != null){
+            var page = req.params.id == '59ba6079692575148a721677' ? 'test_purchases' : 'purchases'
+            //console.log(site)
+            res.render(page,{site:site})
+        }
+    })
 });
 router.get('/sites/:id/visits',function(req,res){
-    var site = req.session.site
-    var page = req.params.id == '59ba6079692575148a721677' ? 'test_visits' : 'visits'
-    res.render(page,{site:site})
+    var id = req.params.id;
+    Site.findById(id,function(err,site){
+        if(err) throw err;
+        if(site != null){
+           var page = req.params.id == '59ba6079692575148a721677' ? 'test_visits' : 'visits'
+            //console.log(site)
+            res.render(page,{site:site})
+        }
+    })
 });
 router.get('/sites/:id/conversions',function(req,res){
-    var site = req.session.site
-    var page = req.params.id == '59ba6079692575148a721677' ? 'test_conversions' : 'conversions'
-    res.render(page,{site:site})
+    var id = req.params.id;
+    Site.findById(id,function(err,site){
+        if(err) throw err;
+        if(site != null){
+           var page = req.params.id == '59ba6079692575148a721677' ? 'test_conversions' : 'conversions'
+            //console.log(site)
+            res.render(page,{site:site})
+        }
+    })
 });
 router.get('/home',function(req,res){
     res.render('index');

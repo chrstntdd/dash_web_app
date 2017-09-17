@@ -16,18 +16,9 @@
            font-family:poiret;
            src:url(/fonts/poiret-one.regular.ttf);
        }
-        .border_top{
-            /*background-color:#1ABC9C;*/
-           background: rgba(0, 0, 0, 0) linear-gradient(135deg, #34495e 0%, #41aba0 100%) repeat scroll 0 0;
-            height:100px;
-        }
+        
         .site_icon{
-            background-color:#f5f5f5;
-            border-radius:10px;
             margin:auto;
-            margin-top:-60px;
-            width:170px;
-            height:100px;
         }
         .site_icon img{
             display:block;
@@ -176,7 +167,7 @@
     </style>
  <body>
     <div class="row">
-            <div class="border_top col-sm-12"></div>
+            {{!--<div class="border_top col-sm-12"></div>--}}
             <div class="dashboard_options col-sm-2">
                 <a href="/home"><img src="http://i.imgur.com/KW2Liea.png"></a>
                 <div class="site_nav">
@@ -194,9 +185,9 @@
             </div>
             <div class="row col-sm-10">
                 <div class="site_icon">
-                    <img src={{site.icon_url}}>
+                    <img id="icon" src={{site.icon_url}} width={{site.icon_width}} height={{site.icon_height}} >
                 </div>
-                <div style="margin-top:20px" class="text-center">
+                <div class="text-center">
                     <div class="col-sm-12">
                         <h2 id="profile_title">Conversion Analysis
                             <a class="chart_info" href="#" title="What is a Conversion?" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="A conversion occurs when a person that has visited makes a purchase before leaving"><i class="fa fa-info" aria-hidden="true"></i></a>
