@@ -57,7 +57,7 @@ module.exports.push_rates = function(device_ids,all_rates,callback){
                 //if the rate being posted is also being updated as purchase update the rate stored as well
                 var transaction = rates[index].transaction == true ? true : rateObj.transaction;
                 var frequency = rate_to_update.frequency
-                if(frequency.isNaN){
+                if(frequency == null){
                     frequency = 0;
                 }
                 frequency += 1;//update counter for times device has appeared today; devices of greater than 100 will be added to device_id list

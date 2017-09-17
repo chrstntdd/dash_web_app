@@ -201,7 +201,7 @@ router.get('/:id/today',function(req,res){
     var site = req.params.id;
     var start = moment().utcOffset(-4).startOf('day');//12 am this morning
     var end = moment().utcOffset(-4).endOf('day');//1159 tonight
-//console.log("getting quick stats for today from " + start.format() + " to " + end.format());
+    //console.log("getting quick stats for today from " + start.format() + " to " + end.format());
 
     Rate.get_stats(site,start,end,function(err,rates){
         if (err || rates.length == 0){ 
