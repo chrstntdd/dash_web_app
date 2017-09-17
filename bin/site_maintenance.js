@@ -1,5 +1,5 @@
-var Site = require('../models/site');
-var moment = require('moment');
+
+//var moment = require('moment');
 var mongoose = require('mongoose');
 
 
@@ -17,7 +17,7 @@ var mongoose = require('mongoose');
     console.log('env is '+ process.env.NODE_ENV + ' connecting locally')
     mongoose.connect('mongodb://localhost/pogo');
   }
-  
+  var Site = require('../models/site');
   Site.getSites(function(err,sites){
       if(err) throw err;
       if (sites.length > 0){
