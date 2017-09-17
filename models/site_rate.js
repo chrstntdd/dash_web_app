@@ -9,7 +9,8 @@ var rateSchema = new Schema({
         cum_duration:Number,
         transaction: Boolean,
         date: {type: Date, default: Date.now},
-        position: Number
+        position: Number,
+        frequency: {type: Number, default: 1}
         
 });
 
@@ -19,17 +20,23 @@ module.exports.get_all_rates = function(site,callback){
     Rate.find({site:site},callback);
 };
 
-module.exports.push_rates = function(device_ids,rates,callback){
+module.exports.push_rates = function(device_ids,all_rates,callback){
     var new_rates = [];
     var error = null;
    // console.log(rates);
+    var rates = all_rates.filter(function(rate){
+        return !device_ids.some(function(device_id){ return device_id == rate.customer_id })
+    });
+    var removed = all_rates.length - rates.length
+    console.log("Removed "+removed+"devices from push")
     rates.forEach(function(rate,index){
         //search for rates in same store, same customer id and position
         //console.log(rate);
         //could probably update this query to include the date
+        var site = rate.site;
         var dayStart = moment().utcOffset(-4).startOf('day');
         var dayEnd = moment().utcOffset(4).endOf('day');
-        Rate.find({site:rate.site,customer_id:rate.customer_id,position:rate.position,date:{$gte:dayStart,$lte:dayEnd}}, function(err,rate_to_update){
+        Rate.find({site:site,customer_id:rate.customer_id,position:rate.position,date:{$gte:dayStart,$lte:dayEnd}}, function(err,rate_to_update){
             if(err){
                 error = err
                 return ;
@@ -38,23 +45,28 @@ module.exports.push_rates = function(device_ids,rates,callback){
             // console.log(rate_to_update);
             // console.log(rate_to_update.length+" rates to update");
             if(rate_to_update.length == 0){
-        
-                if(device_ids.some(function(id){return id != rate_to_update.customer_id})){//checks if the rates customer id does not match those in the device id list
-                    Rate.create(rate,function(err){error = err;});
-                }
+                Rate.create(rate,function(err){error = err;});
             }else{
                 // var ratesThisDay = rate_to_update.filter(function(rate){
                 //     var sameDay = moment().isSame(rate.date,'day');
                 //     return sameDay;
                 // });
-//console.log('rates this day are '+ ratesThisDay);
+                //console.log('rates this day are '+ ratesThisDay);
                 rate_to_update.forEach(function(rateObj,place){
-console.log("updating rate: \n"+rates[index]);
+                console.log("updating rate: \n"+rates[index]);
                 //if the rate being posted is also being updated as purchase update the rate stored as well
                 var transaction = rates[index].transaction == true ? true : rateObj.transaction;
-                Rate.findOneAndUpdate({_id:rateObj._id},{duration:rates[index].duration,transaction:transaction},function(err){error = err;});
-
+                var frequency = rate_to_update.frequency + 1;//update counter for times device has appeared today; devices of greater than 100 will be added to device_id list
+                if(frequency < 100){
+                    Rate.findOneAndUpdate({_id:rateObj._id},{duration:rates[index].duration,transaction:transaction,frequency:frequency},function(err){error = err;});
+                }else{
+                    device_ids.push(rate.customer_id)
+                    console.log("added employee "+rate.customer_id+"to device_ids")
+                    Site.findOneAndUpdate({_id,site},{device_ids:device_ids},function(err){error = err})
+                }    
+                    
                 });
+                
             }
         });
     });

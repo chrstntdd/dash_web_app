@@ -143,7 +143,7 @@ router.post('/new',function(req,res){
                     //console.log("success");
                     res.send(rates);
                 })
-            }else if(thisHour > 0 && thisHour < 3){//run this script to check for site devices between 2am and 3am
+            }else if(thisHour >= 1 && thisHour < 3){//run this script to check for site devices between 1am and 3am
                 //get the rate ids of the collected rates and store them as device ids for this day.
                 //once the store is open the rates posted will be checked against the device id list before updating
                 var ids = rates.map(function(rate){
@@ -154,11 +154,10 @@ router.post('/new',function(req,res){
                 var device_ids = location.device_ids;
                     if (device_ids.length > 0){
                         ids.forEach(function(id){
-                       
                             if(device_ids.some(function(device_id){return device_id == id })){
                                 console.log('id '+id+' is already saved')
                             }else{
-                                 device_ids.push(id)
+                                device_ids.push(id)
                             }
                         })
                       Site.update_site_devices(site,device_ids)
