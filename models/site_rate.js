@@ -53,11 +53,13 @@ module.exports.push_rates = function(device_ids,all_rates,callback){
                 // });
                 //console.log('rates this day are '+ ratesThisDay);
                 rate_to_update.forEach(function(rateObj,place){
-                console.log("updating rate: \n"+rates[index]);
+               
                 //if the rate being posted is also being updated as purchase update the rate stored as well
                 var transaction = rates[index].transaction == true ? true : rateObj.transaction;
                 var frequency = rate_to_update.frequency + 1;//update counter for times device has appeared today; devices of greater than 100 will be added to device_id list
+                console.log("frequency is "+frequency)
                 if(frequency < 100){
+                    console.log("updating rate: \n"+rates[index]);
                     Rate.findOneAndUpdate({_id:rateObj._id},{duration:rates[index].duration,transaction:transaction,frequency:frequency},function(err){error = err;});
                 }else{
                     device_ids.push(rate.customer_id)
