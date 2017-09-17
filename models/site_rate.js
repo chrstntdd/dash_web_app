@@ -62,7 +62,7 @@ module.exports.push_rates = function(device_ids,all_rates,callback){
                 }else{
                     device_ids.push(rate.customer_id)
                     console.log("added employee "+rate.customer_id+"to device_ids")
-                    Site.findOneAndUpdate({_id,site},{device_ids:device_ids},function(err){error = err})
+                    Site.findOneAndUpdate({_id:site},{device_ids:device_ids},function(err){error = err})
                 }    
                     
                 });

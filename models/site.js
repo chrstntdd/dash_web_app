@@ -68,7 +68,8 @@ var siteSchema = new Schema({
                 close:{type:Number,default:17}
             }
         },
-        device_ids:[String]
+        device_ids:[String],
+        allotted_frequency:{type:Number, default:100}//the number of times a customer would likely appear. above which the device likely belongs to an employee
 });
 
 
