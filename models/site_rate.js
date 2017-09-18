@@ -45,6 +45,7 @@ module.exports.push_rates = function(device_ids,all_rates,callback){
             // console.log(rate_to_update);
             // console.log(rate_to_update.length+" rates to update");
             if(rate_to_update.length == 0){
+                console.log("stored customer")
                 Rate.create(rate,function(err){error = err;});
             }else{
                 // var ratesThisDay = rate_to_update.filter(function(rate){
@@ -54,22 +55,24 @@ module.exports.push_rates = function(device_ids,all_rates,callback){
                 //console.log('rates this day are '+ ratesThisDay);
                 rate_to_update.forEach(function(rateObj,place){
                
-                //if the rate being posted is also being updated as purchase update the rate stored as well
-                var transaction = rates[index].transaction == true ? true : rateObj.transaction;
-                var frequency = rate_to_update.frequency
-                if(frequency == null){
-                    frequency = 0;
-                }
-                frequency += 1;//update counter for times device has appeared today; devices of greater than 100 will be added to device_id list
-                console.log("frequency is "+frequency)
-                if(frequency < 100){
-                    console.log("updating rate: \n"+rates[index]);
-                    Rate.findOneAndUpdate({_id:rateObj._id},{duration:rates[index].duration,transaction:transaction,frequency:frequency},function(err){error = err;});
-                }else{
-                    device_ids.push(rate.customer_id)
-                    console.log("added employee "+rate.customer_id+"to device_ids")
-                    Site.findOneAndUpdate({_id:site},{device_ids:device_ids},function(err){error = err})
-                }    
+                    //if the rate being posted is also being updated as purchase update the rate stored as well
+                    var transaction = rates[index].transaction == true ? true : rateObj.transaction;
+                    var frequency = rate_to_update.frequency
+                    console.log("current frequency is "+frequency)
+                    if(frequency == null){
+                        console.log("no frequency for this device...")
+                        frequency = 0;
+                    }
+                    frequency += 1;//update counter for times device has appeared today; devices of greater than 100 will be added to device_id list
+                    console.log("final frequency is "+frequency)
+                    if(frequency < 100){
+                        console.log("updating rate:");
+                        Rate.findOneAndUpdate({_id:rateObj._id},{duration:rates[index].duration,transaction:transaction,frequency:frequency},function(err){error = err;});
+                    }else{
+                        device_ids.push(rate.customer_id)
+                        console.log("added employee "+rate.customer_id+"to device_ids")
+                        Site.findOneAndUpdate({_id:site},{device_ids:device_ids},function(err){error = err})
+                    }    
                     
                 });
                 
