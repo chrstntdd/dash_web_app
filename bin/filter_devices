@@ -17,16 +17,33 @@ var mongoose = require('mongoose');
     console.log('env is '+ process.env.NODE_ENV + ' connecting locally')
     mongoose.connect('mongodb://localhost/pogo');
   }
-  
+  function checkonly(array,element){
+    var first_index = array.findIndex(function(item){ return item == element})
+    if(first_index != -1){
+      var last_index = array.last_indexOf(element); 
+      if(last_index == first_index){ 
+        return true
+      }else{
+        array.splice(last_index,1);
+        checkonly(array,element)
+      }
+      
+    }
+    return true
+  }
   Site.getSites(function(err,sites){
       if(err) throw err;
       if (sites.length > 0){
           sites.forEach(function(site){
-            var allotted_frequency = site.allotted_frequency;
-            // Rate.remove({site:site._id, frequency:{$gte:allotted_frequency}},function(err){ 
-            // if(err) console.log(err);
-            // console.log("removed customers")
-            // });
+            // var employee_ids = site.employee_ids;
+            // var allotted_frequency = site.allotted_frequency;
+            
+            Rate.remove({site:site._id, frequency:{$gte:allotted_frequency}},function(err){ 
+            //var all_employee_ids = rates.map(function(rate){ return rate.customer_id});
+            
+            if(err) console.log(err);
+            console.log("removed customers")
+            });
           })
       }
   })
