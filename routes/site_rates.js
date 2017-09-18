@@ -101,7 +101,7 @@ router.post('/new',function(req,res){
             res.send("error getting site");
         }else{
             var days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
-            var weekdayInt= moment().utcOffset('+0400').day();
+            var weekdayInt= moment().utcOffset('-0400').day();
             
             var today = days[weekdayInt];
             var schedule;
@@ -132,8 +132,8 @@ router.post('/new',function(req,res){
             console.log("today is "+today);
             
             console.log(schedule)
-            var thisHour = moment().hour();
-                thisHour -= 4;
+            var thisHour = moment().utcOffset('-0400').hours();
+            
             if(schedule.operating && thisHour >= schedule.open && thisHour < schedule.close){
                  var device_ids = location.device_ids;
                 Rate.push_rates(device_ids,rates, function(err,rates){
