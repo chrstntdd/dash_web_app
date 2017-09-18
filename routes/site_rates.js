@@ -135,8 +135,9 @@ router.post('/new',function(req,res){
             var thisHour = moment().utcOffset('-0400').hours();
             
             if(schedule.operating && thisHour >= schedule.open && thisHour < schedule.close){
-                 var device_ids = location.device_ids;
-                Rate.push_rates(device_ids,rates, function(err,rates){
+                var device_ids = location.device_ids;
+                var employee_ids = location.employee_ids;
+                Rate.push_rates(device_ids,employee_ids,rates, function(err,rates){
                     if(err){
                         res.send("Error");
                         //console.log(err);
@@ -153,6 +154,7 @@ router.post('/new',function(req,res){
                 console.log("ids are "+ids);
              
                 var device_ids = location.device_ids;
+                
                     if (device_ids.length > 0){
                         ids.forEach(function(id){
                             if(device_ids.some(function(device_id){return device_id == id })){

@@ -68,6 +68,7 @@ var siteSchema = new Schema({
                 close:{type:Number,default:17}
             }
         },
+        employee_ids:[String],
         device_ids:[String],
         allotted_frequency:{type:Number, default:100}//the number of times a customer would likely appear. above which the device likely belongs to an employee
 });
@@ -187,11 +188,10 @@ module.exports.removeAllManagers = function(id,manager,callback){
     });
   
 }
-module.exports.update_site_employees = function(id,employees){
-
+module.exports.update_site_employees = function(id,employee_id){
     Site.findById(id,function(err,site){
         if (err) throw err;
-        site.employees = employees;
+        site.employee_ids.push(employee_id);
         site.save();
     })
 }

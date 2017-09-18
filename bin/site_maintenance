@@ -18,12 +18,13 @@ var mongoose = require('mongoose');
     console.log('env is '+ process.env.NODE_ENV + ' connecting locally')
     mongoose.connect('mongodb://localhost/pogo');
   }
-  
+  //clear site and employee device ids for the next day
   Site.getSites(function(err,sites){
       if(err) throw err;
       if (sites.length > 0){
           sites.forEach(function(site){
              site.device_ids = [];
+             site.employee_ids = [];
              console.log("updated site devices")
              site.save()
           })
