@@ -151,20 +151,20 @@ function sortDescending(values){
 
 module.exports.get_stats = function(site,start,end,callback){
     ////console.log("Getting stats for site " + site + " from " + start + " to " + end);
-    Rate.find({site:site,date:{$gte:start,$lte:end}},callback);
+    Rate.find({site:site,position:1,date:{$gte:start,$lte:end}},callback);
    
 };
 module.exports.get_avg_rates_for_range = function(site,start,end,callback){
-    Rate.find({transaction:true,site:site,date:{$gte:start,$lte:end}},callback);
+    Rate.find({transaction:true,position:1,site:site,date:{$gte:start,$lte:end}},callback);
 };
 
 module.exports.get_total_rates_for_range = function(site,start,end,callback){
- Rate.find({site:site,date:{$gte:start,$lte:end}},callback);
+ Rate.find({site:site,position:1,date:{$gte:start,$lte:end}},callback);
 // Rate.find({transaction:true,site:site,date:{$gte:start,$lte:end}},callback);
 };
 module.exports.get_total_impressions_for_range = function(site,start,end,callback){
 // Rate.find({transaction:false,site:site,date:{$gte:start,$lte:end}},callback);
-Rate.find({site:site,date:{$gte:start,$lte:end}},callback);    
+Rate.find({site:site,position:1,date:{$gte:start,$lte:end}},callback);    
 };
 module.exports.identify_staff_equipment = function(site){
     Rate.find({site:site},function(err,sites){
