@@ -64,7 +64,7 @@ module.exports.push_rates = function(device_ids,all_rates,callback){
                 console.log("frequency is "+frequency)
                 if(frequency < 100){
                     console.log("updating rate: \n"+rates[index]);
-                    Rate.findOneAndUpdate({_id:rateObj._id},{duration:rates[index].duration,transaction:transaction,frequency:frequency},{overwrite:true},function(err){error = err;});
+                    Rate.findOneAndUpdate({_id:rateObj._id},{duration:rates[index].duration,transaction:transaction,frequency:frequency},function(err){error = err;});
                 }else{
                     device_ids.push(rate.customer_id)
                     console.log("added employee "+rate.customer_id+"to device_ids")
