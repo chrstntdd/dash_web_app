@@ -34,7 +34,7 @@ module.exports.push_rates = function(device_ids,employee_ids,all_rates,callback)
     var rates = cus_emp_rates.filter(function(rate){
         return !employee_ids.some(function(device_id){ return device_id == rate.customer_id })
     });
-    var removed_emp_devices = all_rates.length - rates.length //number of employees removed from pushed rates
+    var removed_emp_devices = cus_emp_rates.length - rates.length //number of employees removed from pushed rates
     
     console.log("Removed "+removed_emp_devices+" employee devices from push")
     
