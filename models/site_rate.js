@@ -60,11 +60,11 @@ module.exports.push_rates = function(device_ids,all_rates,callback){
                 //     return sameDay;
                 // });
                 //console.log('rates this day are '+ ratesThisDay);
-                rate_to_update.forEach(function(rateObj,place){
+                rate_to_update.forEach(function(rateObj){
                
                     //if the rate being posted is also being updated as purchase update the rate stored as well
                     var transaction = rates[index].transaction == true ? true : rateObj.transaction;
-                    var frequency = rate_to_update.frequency
+                    var frequency = rateObj.frequency
                     console.log("current frequency is "+frequency)
                     if(frequency == null){
                         console.log("no frequency for this device...")
