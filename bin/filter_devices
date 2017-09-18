@@ -36,7 +36,7 @@ var mongoose = require('mongoose');
       if (sites.length > 0){
           sites.forEach(function(site){
             // var employee_ids = site.employee_ids;
-            // var allotted_frequency = site.allotted_frequency;
+            var allotted_frequency = site.allotted_frequency;
             
             Rate.remove({site:site._id, frequency:{$gte:allotted_frequency}},function(err){ 
             //var all_employee_ids = rates.map(function(rate){ return rate.customer_id});
