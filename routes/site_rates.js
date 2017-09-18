@@ -101,7 +101,8 @@ router.post('/new',function(req,res){
             res.send("error getting site");
         }else{
             var days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
-            var weekdayInt = moment().day();
+            var weekdayInt= moment().utcOffset('+0400').day();
+            
             var today = days[weekdayInt];
             var schedule;
             switch(today){
