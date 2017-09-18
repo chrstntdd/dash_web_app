@@ -46,7 +46,13 @@ module.exports.push_rates = function(device_ids,all_rates,callback){
             // console.log(rate_to_update.length+" rates to update");
             if(rate_to_update.length == 0){
                 console.log("stored customer")
-                Rate.create(rate,function(err){error = err;});
+             
+                
+                Rate.create(rate,function(err,rateObj){
+                    if(err) error = err;
+                    console.log("created rateObj:"+rateObj)
+                    
+                });
             }else{
                 // var ratesThisDay = rate_to_update.filter(function(rate){
                 //     var sameDay = moment().isSame(rate.date,'day');
@@ -67,7 +73,7 @@ module.exports.push_rates = function(device_ids,all_rates,callback){
                     console.log("final frequency is "+frequency)
                     if(frequency < 100){
                         console.log("updating rate:");
-                        Rate.findOneAndUpdate({_id:rateObj._id},{duration:rates[index].duration,transaction:transaction,frequency:frequency},function(err){error = err;});
+                        Rate.findOneAndUpdate({_id:rateObj._id},{duration:rates[index].duration,transaction:transaction,frequency:frequency},{upsert:true,setDefaultsOnInsert:true},function(err){error = err;});
                     }else{
                         device_ids.push(rate.customer_id)
                         console.log("added employee "+rate.customer_id+"to device_ids")
