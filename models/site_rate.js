@@ -32,7 +32,7 @@ module.exports.push_rates = function(device_ids,all_rates,callback){
     rates.forEach(function(rate,index){
         //search for rates in same store, same customer id and position
         //console.log(rate);
-        //could probably update this query to include the date
+        
         var site = rate.site;
         var dayStart = moment().utcOffset(-4).startOf('day');
         var dayEnd = moment().utcOffset(4).endOf('day');
@@ -44,6 +44,7 @@ module.exports.push_rates = function(device_ids,all_rates,callback){
             //if rates not found create 
             // console.log(rate_to_update);
             // console.log(rate_to_update.length+" rates to update");
+            console.log("found rate: "+rate_to_update);
             if(rate_to_update.length == 0){
                 console.log("stored customer")
              
@@ -85,7 +86,7 @@ module.exports.push_rates = function(device_ids,all_rates,callback){
             }
         });
     });
-    
+    console.log(error)
     callback(error,error == null ? "Succeed": "Failed to insert rates");
 };
 
