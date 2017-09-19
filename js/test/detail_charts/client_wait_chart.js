@@ -23,7 +23,7 @@ var wait_Chart = new Chart(cntxt,{
             
         },
         tooltips:{
-                    enabled: false
+            enabled: false
         },
         legend: {
             display:false       
