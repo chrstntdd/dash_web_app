@@ -229,6 +229,7 @@
         </div>
     </div>
     </body>
+     <script type="text/javascript" src="/js/test/main/site_data.js"></script>
     <script type="text/javascript" src="/js/test/detail_charts/client_purchases_chart.js"></script>
     <script>
         $("#time_period_sel").daterangepicker({
@@ -242,50 +243,7 @@
             getPurchasesForRange(start,end,"day")
         }
     );
-    function sortDescending(values){
-    var sorted = values.sort(function(a,b){
-        return b-a;
-    });
-    return sorted;
-}
-function sortAscending(values){
-    var sorted = values.sort(function(a,b){
-        return a-b;
-    });
-    return sorted;
-}
-function max(collection){
-    if(collection.length > 0){
-    var toSort = [];
-        toSort = toSort.concat(collection)
-    var sorted = sortAscending(toSort)
-     ////console.log(sorted)
-    return sorted.pop()
-    }else{
-        return 0
-    }
-}
-function min(collection){
-    if(collection.length > 0){
-        var toSort = [];
-            toSort = toSort.concat(collection)
-        var sorted = sortDescending(toSort);
-        ////console.log(sorted)
-        return sorted.pop()
-    }else{
-        return 0
-    }
-}
-function total(collection){
-    if (collection.length > 0){
-        var totalled = collection.reduce(function(total,value){
-        return total + value;
-    })
-    return totalled/collection.length;
-    }else{
-        return 0
-    }
-}
+
         function getPurchasesForRange(start,end,range){
             var purchasesEachUnit = [];
             var minPurchases = 0;
@@ -537,6 +495,6 @@ function total(collection){
     var dayStart = moment().hour(8).minutes(0);
     var dayEnd = moment().hour(17).minutes(0);
       getPurchasesForRange(dayStart,dayEnd,"day")
-      getAverageRatesForRange(dayStart,dayEnd,"day")
+      //getAverageRatesForRange(dayStart,dayEnd,"day")
 </script>
 </html>
