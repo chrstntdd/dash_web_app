@@ -67,7 +67,7 @@ router.get('/sites/:id',function(req,res){
                 
                 if(site != null){
                     
-                    var page = site._id == "59ba6079692575148a721677" ? "test_dashboard" : "dashboard";
+                    var page = site._id == "59ba6079692575148a721677" ? "test_dashboard" : site._id == "59c082c81a8a7400046bfa99" ? "test_dashboard" :"dashboard";
                     //console.log('site info is '+site._id+' '+site.icon_url+' '+site.icon_width+' '+site.icon_height);
                 
                     res.render(page,{
