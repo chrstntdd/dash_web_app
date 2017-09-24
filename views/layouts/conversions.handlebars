@@ -216,7 +216,7 @@
                                 <p class="time_period_text"></p>
                                 <button name="day" id="inc_time_fwd" type="button" class="time_button btn btn-default"><i class="fa fa-chevron-right"></i></button></br>
                                 <p class="time_text"><span class="from_text">from</span><span id="from_time" class="time_unit">8:00 AM</span><span class="to_text">to</span><span id="to_time" class="time_unit">3:00 PM</span></p>
-                            </div> 
+                            </div>
                             <div class="col-sm-12">
                                  <p class="data_insight">Conversion Rate</p> 
                                 <p class="data_units"><strong id="conversion_rate" class="data_number">0</strong>  %
@@ -251,98 +251,31 @@
                                 </ul>
                             </div>    
                             <div class="col-sm-12 chart">
-                                <canvas width="300" height="200" id="client_conversions_cntxt"></canvas>
+                                <canvas width="200" height="100" id="client_conversions_cntxt"></canvas>
                             </div>
-                            <div class="col-sm-12 site_data">
-                                <div class="comp_chart">
-                                    <canvas width="350" height ="600" id="conversion_comp_cntxt"></canvas>
-                                </div>
-                            </div>   
                         </div>
+                        <div class="col-sm-12 site_data">
+                            <div class="comp_chart">
+                                <canvas width="400" height ="250" id="conversion_comp_cntxt"></canvas>
+                            </div>
+                        </div>   
                     </div>
                 </div>
             </div>
         </div>
+             
+       
  </body>
+<script type="text/javascript" src="/js/main/site_data.js"></script>
 <script type="text/javascript" src="/js/detail_charts/conversion_comp_chart.js"></script>
 <script type="text/javascript" src="/js/detail_charts/client_conversions_chart.js"></script>
 <script>
     $(document).ready(function(){
          $('[data-toggle="popover"]').popover(); 
     });
-   function setRange(range){
-        switch (range){
-            case "day":
-              $("#time_period_sel").daterangepicker({
-                    singleDatePicker: true,
-                    startDate: moment()
-                    },
-                    function(start,end,label){
-                        start = start.hour(8).minute(0);
-                        end = moment(start).hour(17);
-                        $(".time_period_text").text(start.format('MMM Do YYYY'));
-                        getConversionsForRange(start,end,"day")
-                    }
-                ); 
-                break
-            case "week":
-                $("#time_period_sel").daterangepicker({
-                    singleDatePicker: false,
-                    startDate: moment(),
-                    endDate: moment().add(1,'weeks')
-                    },
-                    function(start,end,label){
-                        start = start.hour(8).minute(0);
-                        end = moment(start).hour(17);
-                        $(".time_period_text").text(start.format('MMM Do YYYY'));
-                        getConversionsForRange(start,end,"week")
-                    }
-                );
-                break;
-            case "month":
-                $("#time_period_sel").daterangepicker({
-                    singleDatePicker: false,
-                    startDate: moment(),
-                    endDate: moment().add(1,'months')
-                    },
-                    function(start,end,label){
-                        start = start.hour(8).minute(0);
-                        end = moment(start).add
-                        $(".time_period_text").text(start.format('MMM Do YYYY'));
-                        getConversionsForRange(start,end,"month");
-                    }
-                );
-                break
-            default: break
-        }
-    }
-    function max(collection){
-        if(collection.length > 0){
-        var toSort = [];
-            toSort = toSort.concat(collection)
-        var sorted = sortAscending(toSort)
-         //console.log(sorted)
-        return sorted.pop()
-        }else{
-            return 0
-        }
-    }
-    function sortAscending(values){
-        var sorted = values.sort(function(a,b){
-            return a-b;
-        });
-        return sorted;
-    }
-    function setStepSize(topUnit){
-        var steps = [1,2,3,4,5,6,10,20,100]
-        var step = 0;
-        steps.forEach(function(i){
-            if(topUnit > 5*i){
-                step = i
-            }
-        })
-        return step
-    }
+
+
+
         function getConversionsForRange(start,end,range){
             var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function(){

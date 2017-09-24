@@ -454,6 +454,7 @@ router.post('/:id/:range/averages',function(req,res){
     var end = req.body.end;
     var range = req.params.range
     //console.log("getting average rates for site:" + site + " in a range from " + start +" to " + end);
+
     Rate.get_avg_rates_for_range(site,start,end,function(err,rates){
     
          if (err){

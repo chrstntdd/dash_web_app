@@ -42,8 +42,15 @@ var conversion_comp_chart = new Chart(cntxt,{
                     fontColor: '#34495e',
                     text: 'Sales vs Visits'
                 },
-                 tooltips:{
-                    enabled: false
+                tooltips:{
+                    callbacks:{
+                        label: function(item,data){
+                            var index = item.datasetIndex
+                            var metric = index == 0 ? 'Purchases: ' : 'Visits: '
+                            var amount = item.yLabel
+                            return metric + amount
+                        }
+                    }
                 },
                 legend:{
                     display: true,

@@ -18,8 +18,13 @@ var client_visits_chart = new Chart(cntxt,{
                     }]
             },
             options: {
-                 tooltips:{
-                    enabled: false
+                tooltips:{
+                    callbacks:{
+                        label: function(item,data){
+                            var amount = item.yLabel
+                            return 'Visits: ' + amount
+                        }
+                    }
                 },
                 legend:{
                     display: false

@@ -46,7 +46,13 @@ var business_chart = new Chart(business_cntxt, {
                     text: 'Business Last Half Hour'
                 },
                  tooltips:{
-                    enabled: false
+                    intersect: false,
+                    callbacks:{
+                        label: function(tooltipItem,data){
+                            var amount = tooltipItem.yLabel;
+                            return 'Customers: ' + amount
+                        }
+                    }
                 },
                 legend:{
                     display: false

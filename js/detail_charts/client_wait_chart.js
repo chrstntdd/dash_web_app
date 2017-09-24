@@ -1,3 +1,11 @@
+function sec_mins(time){
+        var min_sec = time < 1 ? "seconds" : "minutes"
+        var time_for_seconds = time*60;
+            time_for_seconds = Math.floor(time_for_seconds);
+        time = time < 1 ? time_for_seconds : time;
+       return time
+     
+}
 var cntxt = document.getElementById("client_wait_cntxt").getContext('2d');
 var gradient = cntxt.createLinearGradient(0,0,0,600);
     gradient.addColorStop(0,'#82C4B2');
@@ -17,13 +25,22 @@ var wait_Chart = new Chart(cntxt,{
         title:{
             display:true,
             fontSize:18,
-            fontColor:"333333",
+            fontColor:"#333333",
             fontFamily:"poiret",
             text:"Average Wait per unit"
             
         },
         tooltips:{
-                    enabled: false
+                    enabled: true,
+                    callbacks:{
+                        label: function(tooltipItem,data){
+                            var amount = parseFloat(tooltipItem.yLabel);
+                            var duration = amount < 1 ? " seconds" : " minutes";
+                                amount = amount < 1 ? amount*60 : amount;
+                                amount = amount.toFixed(2);
+                            return amount + duration;
+                        }
+                    }
         },
         legend: {
             display:false       

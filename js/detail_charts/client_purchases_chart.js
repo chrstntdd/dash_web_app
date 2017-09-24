@@ -1,3 +1,11 @@
+ function sec_mins(time){
+        var min_sec = time < 1 ? "seconds" : "minutes"
+        var time_for_seconds = time*60;
+            time_for_seconds = Math.floor(time_for_seconds);
+        time = time < 1 ? time_for_seconds : time;
+       return time
+     
+}
  var cntxt = document.getElementById("client_purchases_cntxt").getContext('2d');
  
  var gradient = cntxt.createLinearGradient(0,0,0,400);
@@ -18,9 +26,15 @@ var purchases_chart = new Chart(cntxt,{
                     }]
             },
             options: {
-                 tooltips:{
-                    enabled: false
-                },
+                tooltips:{
+                    
+                    callbacks:{
+                        label: function(tooltipItem,data){
+                            var amount = tooltipItem.yLabel;
+                            return 'Purchases: ' + amount;
+                        }
+                    }
+            },
                 legend:{
                     display: false
                 },

@@ -4,7 +4,7 @@ var gradient = business_cntxt.createLinearGradient(0,0,0,400);
     gradient.addColorStop(0,'#82C4B2');
     gradient.addColorStop(1,'#4495E5');
 
-var now = moment().minutes()
+var now = moment().minutes();
 var times = []
 
 
@@ -45,9 +45,7 @@ var business_chart = new Chart(business_cntxt, {
                     fontColor: '#34495e',
                     text: 'Business Last Half Hour'
                 },
-                 tooltips:{
-                    enabled: false
-                },
+               
                 legend:{
                     display: false
                 },
