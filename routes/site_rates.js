@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Rate = require('../models/site_rate');
 var moment = require('moment');
-var Site = require('../models/site_rate');
+var Site = require('../models/site');
 function sortAscending(values){
     var sorted = values.sort(function(a,b){
         return a-b;
