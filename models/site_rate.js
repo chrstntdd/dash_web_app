@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var moment = require('moment');
-var Site = require('site');
+var Site = require('./site');
 var rateSchema = new Schema({
         site: String,
         customer_id: String,
