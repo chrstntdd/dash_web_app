@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var moment = require('moment');
-
+var Site = require('site');
 var rateSchema = new Schema({
         site: String,
         customer_id: String,
@@ -72,7 +72,7 @@ module.exports.push_rates = function(device_ids,employee_ids,all_rates,callback)
                 rate_to_update.forEach(function(rateObj){
                
                     //if the rate being posted is also being updated as purchase update the rate stored as well
-                    var transaction = rates[index].transaction == true ? true : rateObj.transaction;
+                    var transaction = rate.transaction == true ? true : rateObj.transaction;
                     var frequency = rateObj.frequency
                     //console.log("current frequency is "+frequency)
                     if(frequency == null){
@@ -83,7 +83,7 @@ module.exports.push_rates = function(device_ids,employee_ids,all_rates,callback)
                     //console.log("final frequency is "+frequency)
                     if(frequency < 100){
                         //console.log("updating rate:");
-                        Rate.findOneAndUpdate({_id:rateObj._id},{duration:rates[index].duration,transaction:transaction,frequency:frequency},{upsert:true,setDefaultsOnInsert:true},function(err){error = err;});
+                        Rate.findOneAndUpdate({_id:rateObj._id},{duration:rate.duration,transaction:transaction,frequency:frequency},{upsert:true,setDefaultsOnInsert:true},function(err){error = err;});
                     }else{
                         var employee_id = rateObj.customer_id;
                         //console.log("added employee "+rate.customer_id+"to employee_ids")

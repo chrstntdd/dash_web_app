@@ -79,7 +79,7 @@
             background-color:#f5f5f5;
         }
         .chart{
-            margin:auto;
+            /*margin:auto;*/
             margin-bottom:0px;
             background-color: #f5f5f5;
         }
@@ -228,7 +228,7 @@
                             </div>
                         </div>
                          <div class="col-sm-7 chart">
-                             <canvas width="400" height="400" id="client_wait_cntxt"></canvas>
+                             <canvas width="400" height="300" id="client_wait_cntxt"></canvas>
                         </div>
                     </div>
                 </div>
@@ -268,12 +268,10 @@
         }    
         var time_for_seconds = time*60;
         time_for_seconds = Math.floor(time_for_seconds);
-        
         time_for_hours = time/60;
         time_for_hours = Math.floor(time_for_hours);
-        
         var timeWaited = time < 1 ? time_for_seconds : time;//if time less than one use time in seconds 
-            //timeWaited = time > 60 && time < 1 ? time_for_hours : timeWaited
+        //timeWaited = time > 60 && time < 1 ? time_for_hours : timeWaited
         $(id).text(timeWaited)
         console.log(id);
      }
