@@ -217,7 +217,8 @@
                                 <p class="time_text"><span class="from_text">from</span><span id="from_time" class="time_unit">8:00 AM</span><span class="to_text">to</span><span id="to_time" class="time_unit">3:00 PM</span></p>
                             </div>
                             <div class="col-sm-12">
-                                 <p class="data_insight">Conversion Rate</p> 
+                                <p class="data_insight">Conversion Rate</p>
+                                <i class="fa fa-circle-o-notch fa-spin spinner" style="font-size:48px;color:#333333" ></i>
                                 <p class="data_units"><strong id="conversion_rate" class="data_number">0</strong>  %
                                 </br>
                                 <svg  class="underline" width="200" height="2">
@@ -225,7 +226,8 @@
                                 </svg>
                             </div>
                             <div class="col-sm-12">
-                                 <p class="data_insight">Minimum Conversion Differential</p> 
+                                <p class="data_insight">Minimum Conversion Differential</p>
+                                <i class="fa fa-circle-o-notch fa-spin spinner" style="font-size:48px;color:#333333" ></i>
                                 <p class="data_units"><strong id="min_conversion_diff" class="data_number">0</strong>  %
                                 </br>
                                 <svg  class="underline" width="200" height="2">
@@ -234,7 +236,8 @@
                                 
                             </div> 
                              <div class="col-sm-12">
-                                <p class="data_insight">Maximum Conversion Differential</p> 
+                                <p class="data_insight">Maximum Conversion Differential</p>
+                                <i class="fa fa-circle-o-notch fa-spin spinner" style="font-size:48px;color:#333333" ></i>
                                 <p class="data_units"><strong id="max_conversion_diff" class="data_number">0</strong> %
                                 </br>
                                 <svg  class="underline" width="200" height="2">
@@ -276,11 +279,21 @@
 
 
         function getConversionsForRange(start,end,range){
+                 $(".spinner").show();
+                $("#conversion_comp_cntxt").hide();
+                $("#client_conversions_cntxt").hide();
+                $("#min_conversion_diff").text("");
+                $("#max_conversion_diff").text("");
+                $("#conversion_rate").text("");
+               
             var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function(){
                     if(this.status == 200 && this.readyState == 4){
                         var stats = JSON.parse(this.responseText);
                         console.log(stats);
+                        $(".spinner").hide();
+                        $("#conversion_comp_cntxt").show();
+                        $("#client_conversions_cntxt").show();
                         if (stats.status == "No Rates"){
                             $(".alert").show();
                             $(".alert").alert();

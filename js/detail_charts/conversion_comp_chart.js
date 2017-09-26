@@ -16,7 +16,7 @@ var compGradient = cntxt.createLinearGradient(0,0,0,400);
     compGradientHover.addColorStop(1,'rgba(230,126,34,1)');
                               
 var conversion_comp_chart = new Chart(cntxt,{
-            type: 'bar',
+            type: 'horizontalBar',
             data: {
                 labels: ['8 am','9 am','10 am','11 am','12 pm','1 pm','2 pm','3 pm','4 pm,5 pm'],
                 datasets:[{
@@ -47,7 +47,7 @@ var conversion_comp_chart = new Chart(cntxt,{
                         label: function(item,data){
                             var index = item.datasetIndex
                             var metric = index == 0 ? 'Purchases: ' : 'Visits: '
-                            var amount = item.yLabel
+                            var amount = item.xLabel
                             return metric + amount
                         }
                     }
