@@ -15,12 +15,17 @@ function json(object){
 // IF a user is currently logged in direct them to the management dashboard. If not render the landing page
 router.get('/',function(req,res){
     if (req.session.user){
-        res.render('index',{user:req.session.user});
+        res.render('main/home',{user:req.session.user});
     }else{
-        res.render('index');
+        res.render('main/home');
     }
 });
-
+router.get('/dashboard',function(req,res){
+    res.render('main/panel/dashboard-2')
+})
+router.get('/dash',function(req,res){
+    res.render('main/frontend/dash')
+})
 router.post('/private/api/watchdog',function(req,res){
     var site = req.body.site;
     var unit = req.body.unit;
@@ -37,7 +42,7 @@ router.get('/sites',function(req,res){
                 }
                 if (sites.length > 0){
                     //console.log(sites);
-                    res.render('management',{
+                    res.render('main/management',{
                         user:user,
                         sites:sites,
                         helpers: {
@@ -67,7 +72,7 @@ router.get('/sites/:id',function(req,res){
                 
                 if(site != null){
                     
-                    var page = site._id == "59ba6079692575148a721677" ? "test_dashboard" : site._id == "59c082c81a8a7400046bfa99" ? "test_dashboard" :"dashboard";
+                    var page = site._id == "59ba6079692575148a721677" ? "test/test_dashboard" : site._id == "59c082c81a8a7400046bfa99" ? "test/test_dashboard" :"main/dashboard";
                     //console.log('site info is '+site._id+' '+site.icon_url+' '+site.icon_width+' '+site.icon_height);
                 
                     res.render(page,{
@@ -94,7 +99,7 @@ router.get('/sites/:id/transactions',function(req,res){
     Site.findById(id,function(err,site){
         if(err) throw err;
        
-           var page = site._id == "59ba6079692575148a721677" ? "test_dashboard" : site._id == "59c082c81a8a7400046bfa99" ? "test_transactions" :"transactions";
+           var page = site._id == "59ba6079692575148a721677" ? "test/test_dashboard" : site._id == "59c082c81a8a7400046bfa99" ? "test/test_transactions" :"main/transactions";
             //console.log(site)
             res.render(page,{site:site})
         
@@ -107,7 +112,7 @@ router.get('/sites/:id/purchases',function(req,res){
     Site.findById(id,function(err,site){
         if(err) throw err;
         if(site != null){
-            var page = site._id == "59ba6079692575148a721677" ? "test_dashboard" : site._id == "59c082c81a8a7400046bfa99" ? "test_purchases" :"purchases";
+            var page = site._id == "59ba6079692575148a721677" ? "test/test_dashboard" : site._id == "59c082c81a8a7400046bfa99" ? "test/test_purchases" :"main/purchases";
             //console.log(site)
             res.render(page,{site:site})
         }
@@ -118,7 +123,7 @@ router.get('/sites/:id/visits',function(req,res){
     Site.findById(id,function(err,site){
         if(err) throw err;
         if(site != null){
-           var page = site._id == "59ba6079692575148a721677" ? "test_dashboard" : site._id == "59c082c81a8a7400046bfa99" ? "test_visits" :"visits";
+           var page = site._id == "59ba6079692575148a721677" ? "test/test_dashboard" : site._id == "59c082c81a8a7400046bfa99" ? "test/test_visits" :"main/visits";
             res.render(page,{site:site})
         }
     })
@@ -128,23 +133,23 @@ router.get('/sites/:id/conversions',function(req,res){
     Site.findById(id,function(err,site){
         if(err) throw err;
         if(site != null){
-         var page = site._id == "59ba6079692575148a721677" ? "test_dashboard" : site._id == "59c082c81a8a7400046bfa99" ? "test_conversions" :"conversions";
+         var page = site._id == "59ba6079692575148a721677" ? "test/test_dashboard" : site._id == "59c082c81a8a7400046bfa99" ? "test/test_conversions" :"main/conversions";
             //console.log(site)
             res.render(page,{site:site})
         }
     })
 });
 router.get('/home',function(req,res){
-    res.render('index');
+    res.render('main/home');
 });
 
 router.get('/login',function(req,res){
-    res.render('login');
+    res.render('main/login');
 });
 router.get('/logout',function(req,res){
     req.session.user == null;
     req.session.site = null;
-    res.render('index')
+    res.render('main/home')
 });
 
 router.post('/mail',function(req,res){
@@ -212,6 +217,7 @@ router.post('/manage',function(req,res){
     }
 
 });
+
 
 
 module.exports = router;

@@ -329,7 +329,6 @@ router.post('/:id/range',function(req,res){
     res.send(results);
 });
 
-
 //*************GET THE TOTAL NUMBER OF RATES(COUNT OF CLIENTS THAT HAVE ENTERED SITE AND MADE A PURCHASE) 
 //******************************FOR A SPECIFIC SITE*********************
 router.post('/:id/:range/total',function(req,res){
@@ -465,7 +464,7 @@ router.post('/:id/:range/averages',function(req,res){
              res.send({status:"No Rates"});
              return ;
          }
-          //get the difference in days between start and end of range.
+        //get the difference in days between start and end of range.
         var startDate = moment(start);
 ////console.log(startDate);
         var endDate = moment(end);
@@ -474,8 +473,6 @@ router.post('/:id/:range/averages',function(req,res){
 ////console.log(diff);
         var days = [];
         var units = [];
-       
-
         //create a group of arrays of rates for each specific day
         var avgTimeWaitingPerUnit = [];//per min or per hour or per day averaged durations
         var avgTimeWaitingOverall = 0;//the average of all durations within time period
@@ -517,8 +514,7 @@ router.post('/:id/:range/averages',function(req,res){
                     var thisDayAvg = avg(thisDayPurchases);
                     avgTimeWaitingPerUnit.push(thisDayAvg);
                 }); 
-                    
-                    
+        
         }else{
         //else searching within a range less than a day. analyze by the hour
          var hrsInDay = []//creates an array containing each hour in day 
@@ -527,7 +523,6 @@ router.post('/:id/:range/averages',function(req,res){
                         hrsInDay.push(dayHour);
                         units.push(dayHour.format('ha'));
                     }
-                
                 var momentsOfPurchases = rates.map(function(purchase){
                     return purchase.date
                 });
@@ -560,11 +555,9 @@ router.post('/:id/:range/averages',function(req,res){
                     var avgDurations = avg(purchaseDurationsThisHour)
                     avgTimeWaitingPerUnit.push(avgDurations)
                 });
-
         }
 ////console.log(avg_rates);
 //send results
-     
                 res.send({  date:startDate,
                             avgWaitPerUnit: avgTimeWaitingPerUnit,
                             avgWaitOverall:avgTimeWaitingOverall,
@@ -574,8 +567,6 @@ router.post('/:id/:range/averages',function(req,res){
                             minWait:minWait,
                             units:units
                 })
-                            
-        
         });
     
     });
@@ -589,7 +580,6 @@ router.post('/:id/:range/visits',function(req,res){
     var range = req.params.range
     //console.log("getting total rates for site:" + site + " in a range from " + start +" to " + end);
     Rate.get_total_rates_for_range(site,start,end,function(err,rates){
-    
          if (err){
              throw err
          };

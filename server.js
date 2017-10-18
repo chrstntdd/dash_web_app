@@ -57,6 +57,12 @@ var io = socketIO(server);
     
     app.use('/css',express.static(path.join(__dirname,'/public/css')));
     
+    app.use('/plugins',express.static(path.join(__dirname,'/public/plugins')));
+    
+    app.use('/icons',express.static(path.join(__dirname,'/public/icons')));
+    
+    app.use('/pages',express.static(path.join(__dirname,'/public/pages')));
+    
     app.use('/js',express.static(path.join(__dirname,'/js')));
     
     app.use('/fonts',express.static(path.join(__dirname,'/public/fonts')));

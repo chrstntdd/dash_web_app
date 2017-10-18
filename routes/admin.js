@@ -11,7 +11,7 @@ router.get('/sites',function(req,res){
     if (user.email == 'blake.rogers757@gmail.com'|| user.email == 'kdiedrich@gmail.com'){
             var sites = Sites.getSites(function(error,sites){
             if(sites){
-                res.render('admin_sites',{sites:sites});
+                res.render('/main/admin_sites',{sites:sites});
                 }else{
                     
                     res.send(error);
