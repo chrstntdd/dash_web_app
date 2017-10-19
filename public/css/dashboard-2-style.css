@@ -383,7 +383,9 @@ a:focus {
   letter-spacing: .03em;
   line-height: 70px;
   text-transform: uppercase; }
-
+.logo img{
+  height:50px;
+}
 .navbar-custom {
   background-color: #263238;
   border: none;
