@@ -108,7 +108,5 @@ function setRange(range){
         })
         return step
     }
-   $(document).ready(function(){
-           $('[data-toggle="popover"]').popover();
-       });
+  
        

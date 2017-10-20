@@ -214,7 +214,7 @@
     <script type="text/javascript" src="/js/main/site_data.js"></script>
     <script>
  
-    getTodayQuickStats();
+    
     $("#icon").css("{width:{{site.icon_width}};height:{{site.icon_height}};}")
      function sec_mins(id,time){
         var min_sec = time < 1 ? "seconds" : "minutes"
@@ -241,17 +241,19 @@
                 xmlhttp.onreadystatechange = function(){
                     if(this.status == 200 && this.readyState == 4){
                         var stats = JSON.parse(this.responseText);
+                        console.log("stats are ...")
                         console.log(stats);
                         if(stats.status == "No Rates"){
                             console.log("No Rates");
                         }
                         if (stats.status != "No Rates"){
-                           
-                            var stepSize = setStepSize(max(stats.business));
-                            business_chart.data.datasets[0].data.push(stats.business)
+                            
+                           // var stepSize = setStepSize(max(stats.business));
+                         
+                            business_chart.data.datasets[0].data = stats.business
                             business_chart.data.datasets[0].labels = stats.timePeriod
-                            business_chart.options.scales.yAxes[0].ticks.stepSize = stepSize;
-                            business_chart.update(1000);
+                           // business_chart.options.scales.yAxes[0].ticks.stepSize = stepSize;
+                            business_chart.update();
                             sec_mins("#max_transaction",stats.maxWait);
                             sec_mins("#min_duration",stats.minVisit);
                             sec_mins("#longest_duration",stats.maxVisit);
@@ -259,6 +261,7 @@
                 }
             }
        }
+       
     function getRange(start,end){
             var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function(){
@@ -272,6 +275,7 @@
                 var range = JSON.stringify({start:start,end:end});
                 xmlhttp.send(range);
         }
+    getTodayQuickStats();
     </script>
 
 </html>
