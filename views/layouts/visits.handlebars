@@ -40,7 +40,6 @@
             /*margin-top:-75px;*/
             height:50px;
             width:50px;
-        
         }
       .site_nav{
           position:fixed;
@@ -254,20 +253,19 @@
                             $(".alert").show();
                             $(".alert").alert();
                             $(".alert").attr({"display":"block"})
-                            $("#min_Visits").text("0")
-                            $("#max_Visits").text("0")
-                            $("#total_Visits").text("0")
+                            $("#min_visits").text("0")
+                            $("#max_visits").text("0")
+                            $("#total_visits").text("0")
                             client_visits_chart.data.datasets[0].data = []
                             client_visits_chart.data.labels = []
                             client_visits_chart.update()
                         }else{
-                            
                             console.log("Some Rates in"+range);
                             client_visits_chart.data.datasets[0].data = stats.visitsEachUnit;
                             $(".alert").hide();
-                            $("#min_Visits").text(stats.minVisits);
-                            $("#max_Visits").text(stats.maxVisits);
-                            $("#total_Visits").text(stats.visits)
+                            $("#min_visits").text(stats.minVisits);
+                            $("#max_visits").text(stats.maxVisits);
+                            $("#total_visits").text(stats.visits)
                             client_visits_chart.data.labels = stats.units
                             client_visits_chart.update();
                         }
