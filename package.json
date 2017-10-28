@@ -14,10 +14,13 @@
     "type": "git",
     "url": "none"
   },
-  "keywords": ["none"],
-  "author": "Blake Rogers",
+  "keywords": [
+    "none"
+  ],
+  "author": "Blake Rogers and Christian Todd",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.17.0",
     "bcryptjs": "*",
     "bluebird": "^3.5.0",
     "body-parser": "*",
@@ -39,7 +42,23 @@
     "passport": "*",
     "passport-http": "*",
     "passport-local": "*",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "recharts": "^1.0.0-beta.0",
     "requestify": "^0.2.5",
     "socket.io": "^2.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "^16.0.18",
+    "@types/react-dom": "^16.0.2",
+    "@types/react-router": "^4.0.16",
+    "@types/react-router-dom": "^4.2.0",
+    "autoprefixer": "^7.1.6",
+    "fuse-box": "^2.4.0",
+    "node-sass": "^4.5.3",
+    "postcss-flexibility": "^2.0.0",
+    "typescript": "^2.5.3"
   }
 }

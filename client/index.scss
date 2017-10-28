@@ -1,0 +1,56 @@
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+// RESPONSIVE UTIL
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+@function between($to, $from, $toWidth, $fromWidth) {
+  $slope: ($to - $from) / ($toWidth - $fromWidth);
+  $base: $from - $slope * $fromWidth;
+  @return calc(#{$base} + #{100vw * $slope});
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+// BREAKPOINTS
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+$bp-xxsmall: 320px;
+$bp-xsmall: 576px;
+$bp-small: 768px;
+$bp-medium: 1024px;
+$bp-large: 1366px;
+$bp-xlarge: 1920px;
+$bp-xxlarge: 2560px;
+
+html * {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+:root {
+  // 10px in <$small
+  font-size: 10px;
+
+  // Calculate between $small and $large
+  @media (min-width: $bp-small) {
+    font-size: between(18px, 10px, $bp-large, $bp-small);
+  }
+
+  // Cap at 18px in >$large
+  @media (min-width: $bp-large) {
+    font-size: 18px;
+  }
+}
+
+html,
+body {
+  height: 100%;
+  font-family: Helvetica;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: #282c34;
+}

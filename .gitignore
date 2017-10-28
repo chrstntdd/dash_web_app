@@ -1,3 +1,5 @@
 .vscode
 .env
+.fusebox
+dist
 node_modules
