@@ -1,23 +1,4 @@
-// - - - - - - - - - - - - - - - - - - - - - - - - -
-// RESPONSIVE UTIL
-// - - - - - - - - - - - - - - - - - - - - - - - - -
-@function between($to, $from, $toWidth, $fromWidth) {
-  $slope: ($to - $from) / ($toWidth - $fromWidth);
-  $base: $from - $slope * $fromWidth;
-  @return calc(#{$base} + #{100vw * $slope});
-}
-
-// - - - - - - - - - - - - - - - - - - - - - - - - -
-// BREAKPOINTS
-// - - - - - - - - - - - - - - - - - - - - - - - - -
-$bp-xxsmall: 320px;
-$bp-xsmall: 576px;
-$bp-small: 768px;
-$bp-medium: 1024px;
-$bp-large: 1366px;
-$bp-xlarge: 1920px;
-$bp-xxlarge: 2560px;
-
+@import 'styles/rwd';
 html * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -49,6 +30,7 @@ body {
   height: 100%;
   font-family: Helvetica;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 body {

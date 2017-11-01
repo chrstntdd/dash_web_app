@@ -7,7 +7,7 @@ export default class Dashboard extends React.Component<PropTypes, StateType> {
   render() {
     return (
       <section>
-        <h1>Dasboard Page</h1>
+        <h1>Dashboard Page</h1>
       </section>
     );
   }
