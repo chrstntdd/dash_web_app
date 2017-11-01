@@ -4,7 +4,6 @@ const {
   CSSPlugin,
   SVGPlugin,
   SassPlugin,
-  BabelPlugin,
   PostCSSPlugin,
   QuantumPlugin,
   WebIndexPlugin,
@@ -102,17 +101,31 @@ Sparky.task('build', () => {
 
 /* Build tasks */
 Sparky.task('copy-favicons', () =>
-  Sparky.src('./**/**.*', { base: './client/favicons/' }).dest('./dist')
+  Sparky.src('./**/**.*', { base: './client/assets/favicons/' }).dest('./dist')
+);
+Sparky.task('copy-img', () =>
+  Sparky.src('./**/**.*', { base: './client/assets/img/' }).dest('./dist')
 );
 Sparky.task('clean', () => Sparky.src('./dist/*').clean('./dist/'));
 Sparky.task('set-production-env', () => (isProduction = true));
 
 /* yarn start */
-Sparky.task('default', ['clean', 'build', 'copy-favicons'], () => {});
+Sparky.task(
+  'default',
+  ['clean', 'build', 'copy-favicons', 'copy-img'],
+  () => {}
+);
 
 /* yarn dist */
 Sparky.task(
   'dist',
-  ['clean', 'set-production-env', 'build', 'copy-redirect', 'copy-favicons'],
+  [
+    'clean',
+    'set-production-env',
+    'build',
+    'copy-redirect',
+    'copy-favicons',
+    'copy-img'
+  ],
   () => {}
 );
