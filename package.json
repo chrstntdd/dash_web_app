@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "An app to utilize Dash Analytics technology",
   "engines": {
-    "node": "8.8.1",
+    "node": "8.9.0",
     "npm": "5.2.0"
   },
   "main": "app.js",
@@ -14,7 +14,9 @@
     "type": "git",
     "url": "none"
   },
-  "keywords": ["none"],
+  "keywords": [
+    "none"
+  ],
   "author": "Blake Rogers and Christian Todd",
   "license": "MIT",
   "dependencies": {
@@ -42,6 +44,7 @@
     "passport-http": "*",
     "passport-local": "*",
     "react": "^16.0.0",
+    "react-datepicker": "^0.60.0",
     "react-dom": "^16.0.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",

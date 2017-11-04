@@ -100,6 +100,7 @@ $SIDEBAR-WITDH: 300px;
       transform: translateX($SIDEBAR-WITDH);
     }
     header {
+      z-index: 2;
       position: fixed;
       top: 0px;
       @media (min-width: $bp-xxsmall) {
@@ -107,18 +108,21 @@ $SIDEBAR-WITDH: 300px;
       }
       background-color: #f2f2f2;
       width: 100%;
-      h3 {
-        margin: 0.75rem;
-        position: relative;
-        left: 50%;
-        transform: translate(-50%);
-        text-align: center;
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      flex-direction: row;
+      img {
+        height: 50px;
+        width: 50px;
       }
       a {
         position: fixed;
-        top: 5px;
-        right: 5px;
+        top: 10px;
+        right: 0;
         margin: 0.75rem;
+        text-decoration: none;
+        color: black;
       }
     }
     #widget-wrapper {
@@ -127,6 +131,8 @@ $SIDEBAR-WITDH: 300px;
       margin-top: 5rem;
       padding: 1rem;
       align-items: flex-start;
+
+      #time-container,
       #priority-stats,
       #customer-graph-wrapper,
       #customer-chart-wrapper {
@@ -136,20 +142,29 @@ $SIDEBAR-WITDH: 300px;
         flex-direction: row;
         flex-wrap: wrap;
       }
-
+      #time-container {
+        background-color: lightpink;
+        width: 100%;
+      }
       #priority-stats {
         background-color: lightblue;
         width: 100%;
       }
       #customer-graph-wrapper {
         background-color: lightcoral;
-
         width: 100%;
       }
       #customer-chart-wrapper {
         background-color: lightgreen;
         margin: 0.5rem;
+        height: 300px;
         width: 30vw;
+      }
+      #customer-scatter-wrapper {
+        background-color: lightgoldenrodyellow;
+        margin: 0.5rem;
+        height: 300px;
+        width: 65vw;
       }
       .cuck {
         background-color: lightseagreen;

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import * as moment from 'moment';
 import * as faker from 'faker';
 
+import CustomerScatterPlot from './CustomerScatterPlot';
 import CustomerChart from './CustomerChart';
 import CustomerGraph from './CustomerGraph';
 import TimeSelect from '../stateless/TimeSelect';
@@ -10,7 +11,8 @@ import Priority from '../stateless/Priority';
 
 import '../../styles/dashboard.scss';
 import * as hamburger from '../../assets/img/hamburger-menu.svg';
-import KSUicon from '../../assets/img/ksu.jpg';
+import * as dashLogo from '../../assets/img/dash-d.svg';
+import KSUIcon from '../../assets/img/ksu.jpg';
 
 enum Business {
   Busy = 'busy',
@@ -18,36 +20,48 @@ enum Business {
   Slow = 'slow'
 }
 
+/* Time will be in ms */
+enum PriorityType {
+  Int = 'number',
+  Time = 'time'
+}
+
 export interface PriorityData {
   title: string;
+  type: PriorityType;
   data: number | string;
   delta: number | string;
 }
 
 const currentVisitors: PriorityData = {
-  title: 'Current Visitors',
+  title: 'Visitors',
+  type: PriorityType.Int,
   data: 35,
   delta: 15
 };
 const currentWaitTime: PriorityData = {
-  title: 'Active Wait Time',
-  data: 12,
-  delta: -4
+  title: 'Wait Time',
+  type: PriorityType.Time,
+  data: 433276000,
+  delta: 413244
 };
 const currentPeopleInLine: PriorityData = {
   title: 'People In Line',
+  type: PriorityType.Int,
   data: 5,
   delta: 3
 };
 const averageWaitLastHour: PriorityData = {
-  title: 'Wait Time',
-  data: 13,
-  delta: 1
+  title: 'Avg. Wait Time',
+  type: PriorityType.Time,
+  data: 33276000,
+  delta: 433276000
 };
 const salesLastHour: PriorityData = {
-  title: 'Sales Today',
+  title: 'Sales',
+  type: PriorityType.Int,
   data: 56,
-  delta: -5
+  delta: 0
 };
 
 interface PropTypes {}
@@ -76,9 +90,7 @@ export default class Dashboard extends React.Component<PropTypes, StateType> {
     super(props);
     this.state = {
       isNavOpen: false,
-      time: moment()
-        .clone()
-        .toLocaleString(),
+      time: moment().format('LLLL'),
       hours: [
         '8:00 AM',
         '9:00 AM',
@@ -117,11 +129,10 @@ export default class Dashboard extends React.Component<PropTypes, StateType> {
       '3:00 PM',
       '4:00 PM'
     ];
+    const fakeData = times.map((time, i) => genFakeData(time));
     this.initLength = this.state.data.length;
     this.interval = setInterval(() => this.displayTime(), 1000);
-    this.setState({
-      data: times.map((time, i) => genFakeData(time))
-    });
+    this.setState({ data: fakeData });
   }
 
   componentWillUnmount() {
@@ -130,9 +141,7 @@ export default class Dashboard extends React.Component<PropTypes, StateType> {
 
   displayTime = () => {
     this.setState({
-      time: moment()
-        .clone()
-        .toLocaleString()
+      time: moment().format('LLLL')
     });
   };
 
@@ -173,7 +182,7 @@ export default class Dashboard extends React.Component<PropTypes, StateType> {
         <aside className={this.state.isNavOpen === true ? 'show' : ''}>
           <h4>Kennesaw State University</h4>
           <div id="site-logo">
-            <img src={KSUicon} alt="KSU logo" />
+            <img src={KSUIcon} alt="KSU logo" />
           </div>
           <nav id="dashboard-nav">
             <ul>
@@ -194,10 +203,13 @@ export default class Dashboard extends React.Component<PropTypes, StateType> {
           className={this.state.isNavOpen === true ? 'open' : ''}
         >
           <header>
-            <h3>{this.state.time}</h3>
+            <img src={dashLogo} />
             <Link to="/">Logout</Link>
           </header>
           <section id="widget-wrapper">
+            <div id="time-container">
+              <h3>{this.state.time}</h3>
+            </div>
             <div id="priority-stats">
               {this.state.priorityData.map((value, i) => {
                 return (
@@ -206,6 +218,7 @@ export default class Dashboard extends React.Component<PropTypes, StateType> {
                     title={value.title}
                     data={value.data}
                     delta={value.delta}
+                    type={value.type}
                   />
                 );
               })}
@@ -217,7 +230,9 @@ export default class Dashboard extends React.Component<PropTypes, StateType> {
             <div id="customer-chart-wrapper">
               <CustomerChart />
             </div>
-            <div className="cuck" />
+            <div id="customer-scatter-wrapper">
+              <CustomerScatterPlot />
+            </div>
             <div className="cuck" />
           </section>
 

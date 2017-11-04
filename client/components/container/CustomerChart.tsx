@@ -95,6 +95,13 @@ export default class CustomerChart extends React.Component<
     };
   }
 
+  componentDidMount() {
+    const width = document.getElementById('customer-chart-wrapper').clientWidth;
+    const height = document.getElementById('customer-chart-wrapper')
+      .clientHeight;
+    this.setState({ width, height });
+  }
+
   onPieEnter = (data, index) => {
     this.setState({
       activeIndex: index
@@ -102,8 +109,10 @@ export default class CustomerChart extends React.Component<
   };
 
   render() {
+    console.log(this.state);
+
     return (
-      <PieChart width={800} height={400}>
+      <PieChart width={this.state.width} height={this.state.height}>
         <Pie
           activeIndex={this.state.activeIndex}
           activeShape={renderActiveShape}

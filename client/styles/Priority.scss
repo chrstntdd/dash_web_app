@@ -5,22 +5,31 @@
   padding: 0.3rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   @media (min-width: $bp-xxsmall) {
-    width: between(90px, 250px, $bp-xxsmall, $bp-xlarge);
-    height: between(90px, 250px, $bp-xxsmall, $bp-xlarge);
+    width: between(90px, 220px, $bp-xxsmall, $bp-xlarge);
+    height: between(90px, 220px, $bp-xxsmall, $bp-xlarge);
   }
   margin: 0.3rem;
   .title {
+    @media (min-width: $bp-xxsmall) {
+      font-size: between(12px, 16px, $bp-xxsmall, $bp-xlarge);
+    }
     margin: 0;
   }
   .data {
-    font-size: 36px;
+    @media (min-width: $bp-xxsmall) {
+      font-size: between(18px, 36px, $bp-xxsmall, $bp-xlarge);
+    }
     margin: 0;
   }
   .delta {
+    text-align: center;
     margin: 0;
+    @media (min-width: $bp-xxsmall) {
+      font-size: between(10px, 16px, $bp-xxsmall, $bp-xlarge);
+    }
     span,
     .fa {
       color: black;
@@ -29,6 +38,9 @@
       }
       &.neg {
         color: red;
+      }
+      &.neutral {
+        color: orange;
       }
     }
   }

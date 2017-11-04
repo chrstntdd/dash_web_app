@@ -19,19 +19,33 @@ export default class CustomerGraph extends React.Component<
 > {
   constructor(props) {
     super(props);
+    this.state = {};
+  }
+  /* this variable is to ensure the component doesn't re-render unless it has to. */
+  initDataLength: number;
+
+  shouldComponentUpdate(props) {
+    /* only update when new data is passed in */
+    return props.data.length > this.initDataLength;
+  }
+
+  componentDidMount() {
+    const width = document.getElementById('customer-graph-wrapper').clientWidth;
+    this.setState({ width });
   }
 
   render() {
+    this.initDataLength = this.props.data.length;
     return (
       <LineChart
         key={Math.random()}
-        width={730}
+        width={this.state.width}
         height={350}
         data={this.props.data}
-        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+        margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis label="name" dataKey="name" />
+        <XAxis label="time" dataKey="name" />
         <YAxis />
         <Tooltip />
         <Legend />
