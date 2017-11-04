@@ -2,8 +2,7 @@
 #landing-page {
   height: 100vh;
   width: 100vw;
-  background: rgba(0, 0, 0, 0)
-    linear-gradient(135deg, $PRIMARY 0%, $SECONDARY 100%) repeat scroll 0 0;
+  background: rgba(0, 0, 0, 0) $GRADIENT1 repeat scroll 0 0;
   display: flex;
   align-items: center;
   flex-direction: column;

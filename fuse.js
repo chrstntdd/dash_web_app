@@ -9,6 +9,7 @@ const {
   WebIndexPlugin,
   UglifyJSPlugin,
   CSSResourcePlugin,
+  ImageBase64Plugin,
   Sparky
 } = require('fuse-box');
 const path = require('path');
@@ -61,6 +62,9 @@ Sparky.task('build', () => {
       WebIndexPlugin({
         template: './client/index.html',
         title: 'Dash Analytics'
+      }),
+      ImageBase64Plugin({
+        useDefault: true
       }),
       isProduction &&
         QuantumPlugin({

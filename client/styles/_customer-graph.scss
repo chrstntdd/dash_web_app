@@ -1,0 +1,7 @@
+@import 'rwd';
+#customer-chart-wrapper {
+  background-color: lightblue;
+  @media (min-width: $bp-xxsmall) {
+    width: between(300px, 650px, $bp-xxsmall, $bp-xlarge);
+  }
+}

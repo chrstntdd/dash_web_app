@@ -14,9 +14,7 @@
     "type": "git",
     "url": "none"
   },
-  "keywords": [
-    "none"
-  ],
+  "keywords": ["none"],
   "author": "Blake Rogers and Christian Todd",
   "license": "MIT",
   "dependencies": {
@@ -28,13 +26,13 @@
     "connect-flash": "*",
     "cookie-parser": "^1.4.1",
     "cookie-session": "^2.0.0-beta.2",
-    "d3": "^4.11.0",
     "express": "*",
     "express-handlebars": "*",
     "express-messages": "*",
     "express-session": "*",
     "express-validator": "*",
-    "moment": "^2.18.1",
+    "faker": "^4.1.0",
+    "moment": "^2.19.1",
     "mongodb": "*",
     "mongoose": "*",
     "node-gyp": "^3.6.0",
@@ -47,16 +45,20 @@
     "react-dom": "^16.0.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
+    "recharts": "^1.0.0-beta.0",
     "requestify": "^0.2.5",
     "smoothscroll-polyfill": "^0.4.0",
     "socket.io": "^2.0.2"
   },
   "devDependencies": {
     "@types/d3": "^4.11.0",
+    "@types/faker": "^4.1.1",
+    "@types/moment": "^2.13.0",
     "@types/react": "^16.0.18",
     "@types/react-dom": "^16.0.2",
     "@types/react-router": "^4.0.16",
     "@types/react-router-dom": "^4.2.0",
+    "@types/recharts": "^1.0.3",
     "autoprefixer": "^7.1.6",
     "fuse-box": "^2.4.0",
     "node-sass": "^4.5.3",

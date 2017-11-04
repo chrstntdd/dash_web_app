@@ -1,0 +1,35 @@
+@import 'rwd';
+
+.priority {
+  background-color: white;
+  padding: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  @media (min-width: $bp-xxsmall) {
+    width: between(90px, 250px, $bp-xxsmall, $bp-xlarge);
+    height: between(90px, 250px, $bp-xxsmall, $bp-xlarge);
+  }
+  margin: 0.3rem;
+  .title {
+    margin: 0;
+  }
+  .data {
+    font-size: 36px;
+    margin: 0;
+  }
+  .delta {
+    margin: 0;
+    span,
+    .fa {
+      color: black;
+      &.pos {
+        color: lightgreen;
+      }
+      &.neg {
+        color: red;
+      }
+    }
+  }
+}

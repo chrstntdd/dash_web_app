@@ -5,7 +5,7 @@ import '../../styles/navigation.scss';
 import * as logo from '../../assets/img/dash-d.svg';
 
 const Navigation = () => (
-  <nav>
+  <nav id="home-nav">
     <img src={logo} alt="" />
     <ul>
       <li>

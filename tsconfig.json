@@ -5,7 +5,15 @@
     "module": "commonjs",
     "jsx": "react",
     "target": "es5",
-    "types": ["react", "react-dom", "react-router", "react-router-dom"],
+    "types": [
+      "faker",
+      "moment",
+      "react",
+      "react-dom",
+      "react-router",
+      "react-router-dom",
+      "recharts"
+    ],
     "typeRoots": ["./node_modules/@types"]
   },
   "include": ["src/*.ts", "src/*.tsx"]
