@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {
-  LineChart,
-  Line,
+  ResponsiveContainer,
+  AreaChart,
+  Area,
   CartesianGrid,
   XAxis,
   YAxis,
@@ -11,57 +12,60 @@ import {
 interface PropTypes {
   data: [];
 }
-interface StateType {}
+interface StateType {
+  height: number;
+  width: number;
+  margin: number;
+}
 
-export default class CustomerGraph extends React.Component<
+export default class CustomerGraph extends React.PureComponent<
   PropTypes,
   StateType
 > {
   constructor(props) {
     super(props);
-    this.state = {};
-  }
-  /* this variable is to ensure the component doesn't re-render unless it has to. */
-  initDataLength: number;
-
-  shouldComponentUpdate(props) {
-    /* only update when new data is passed in */
-    return props.data.length > this.initDataLength;
+    this.state = {
+      height: 400,
+      width: 300,
+      margin: 5
+    };
   }
 
   componentDidMount() {
-    const width = document.getElementById('customer-graph-wrapper').clientWidth;
-    this.setState({ width });
+    const d = document;
+
+    const height = d.getElementById('customer-graph-wrapper').clientHeight;
+    const width = d.getElementById('customer-graph-wrapper').clientWidth;
+
+    this.setState({ width, height });
   }
 
   render() {
-    this.initDataLength = this.props.data.length;
     return (
-      <LineChart
-        key={Math.random()}
-        width={this.state.width}
-        height={350}
-        data={this.props.data}
-        margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis label="time" dataKey="name" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Line
-          isAnimationActive={false}
-          type="monotone"
-          dataKey="pv"
-          stroke="#8884d8"
-        />
-        <Line
-          isAnimationActive={false}
-          type="monotone"
-          dataKey="uv"
-          stroke="#82ca9d"
-        />
-      </LineChart>
+      <ResponsiveContainer height={this.state.height} width="100%">
+        <AreaChart
+          key={Math.random()}
+          data={this.props.data}
+          margin={{
+            top: this.state.margin,
+            right: 40,
+            left: this.state.margin,
+            bottom: 40
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis
+            label={{ value: 'Today', position: 'bottom' }}
+            dataKey="hour"
+          />
+          <YAxis
+            label={{ value: 'Customers', position: 'left', angle: -90, dx: 30 }}
+          />
+          <Tooltip />
+          <Legend verticalAlign="top" height={36} />
+          <Area type="monotone" dataKey="Customers" stroke="'#34495e'" />
+        </AreaChart>
+      </ResponsiveContainer>
     );
   }
 }

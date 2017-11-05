@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {
+  ResponsiveContainer,
   ScatterChart,
   Scatter,
   XAxis,
@@ -9,25 +10,30 @@ import {
   Legend
 } from 'recharts';
 
-const data = [
-  { x: 100, y: 200, z: 200 },
-  { x: 120, y: 100, z: 260 },
-  { x: 170, y: 300, z: 400 },
-  { x: 140, y: 250, z: 280 },
-  { x: 150, y: 400, z: 500 },
-  { x: 110, y: 280, z: 200 }
-];
+interface PropTypes {
+  data: [
+    {
+      x: number;
+      y: number;
+      z: number;
+    }
+  ];
+}
+interface StateType {
+  height: number;
+  width: number;
+}
 
-interface PropTypes {}
-interface StateType {}
-
-export default class CustomerScatterPlot extends React.Component<
+export default class CustomerScatterPlot extends React.PureComponent<
   PropTypes,
   StateType
 > {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      width: 400,
+      height: 300
+    };
   }
   componentDidMount() {
     const width = document.getElementById('customer-scatter-wrapper')
@@ -36,19 +42,18 @@ export default class CustomerScatterPlot extends React.Component<
       .clientHeight;
     this.setState({ width, height });
   }
+
   render() {
     return (
-      <ScatterChart
-        width={this.state.width}
-        height={this.state.height}
-        margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
-      >
-        <XAxis dataKey={'x'} name="stature" unit="cm" type="number" />
-        <YAxis dataKey={'y'} name="weight" unit="kg" />
-        <CartesianGrid />
-        <Scatter name="A school" data={data} fill="#8884d8" />
-        <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-      </ScatterChart>
+      <ResponsiveContainer height={this.state.height} width="100%">
+        <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+          <XAxis dataKey={'x'} name="stature" unit="cm" type="number" />
+          <YAxis dataKey={'y'} name="weight" unit="kg" />
+          <CartesianGrid />
+          <Scatter name="A school" data={this.props.data} fill="#8884d8" />
+          <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+        </ScatterChart>
+      </ResponsiveContainer>
     );
   }
 }

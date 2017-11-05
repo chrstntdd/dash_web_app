@@ -2,6 +2,11 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import * as moment from 'moment';
 import * as faker from 'faker';
+import {
+  dailyCustomers,
+  salesAndVisits,
+  genScatterData
+} from '../../util/genFakeData';
 
 import CustomerScatterPlot from './CustomerScatterPlot';
 import CustomerChart from './CustomerChart';
@@ -71,6 +76,7 @@ interface StateType {
   priorityData: [PriorityData];
   time: string;
   data: [ChartData];
+  donutData: [];
 }
 
 interface ChartData {
@@ -78,12 +84,6 @@ interface ChartData {
   uv: number;
   pv: number;
 }
-
-const genFakeData = (name: string): ChartData => ({
-  name,
-  uv: faker.random.number({ min: 50, max: 250 }),
-  pv: faker.random.number({ min: 50, max: 250 })
-});
 
 export default class Dashboard extends React.Component<PropTypes, StateType> {
   constructor(props) {
@@ -110,7 +110,16 @@ export default class Dashboard extends React.Component<PropTypes, StateType> {
         averageWaitLastHour,
         salesLastHour
       ],
-      data: []
+      data: [],
+      donutData: [],
+      scatterData: [
+        { x: 100, y: 200, z: 100 },
+        { x: 100, y: 100, z: 100 },
+        { x: 170, y: 300, z: 100 },
+        { x: 140, y: 250, z: 100 },
+        { x: 150, y: 400, z: 100 },
+        { x: 110, y: 280, z: 100 }
+      ]
     };
     this.displayTime = this.displayTime.bind(this);
   }
@@ -118,25 +127,20 @@ export default class Dashboard extends React.Component<PropTypes, StateType> {
   initLength;
 
   componentDidMount() {
-    const times = [
-      '8:00 AM',
-      '9:00 AM',
-      '10:00 AM',
-      '11:00 AM',
-      '12:00 PM',
-      '1:00 PM',
-      '2:00 PM',
-      '3:00 PM',
-      '4:00 PM'
-    ];
-    const fakeData = times.map((time, i) => genFakeData(time));
+    console.log(genScatterData(10));
+    const fakeData = dailyCustomers();
+    const fakeDonutData = salesAndVisits();
     this.initLength = this.state.data.length;
     this.interval = setInterval(() => this.displayTime(), 1000);
-    this.setState({ data: fakeData });
+    this.setState({
+      data: fakeData,
+      donutData: fakeDonutData
+    });
   }
 
   componentWillUnmount() {
     clearInterval(this.interval);
+    window.removeEventListener('resize', this.handleResize);
   }
 
   displayTime = () => {
@@ -145,16 +149,8 @@ export default class Dashboard extends React.Component<PropTypes, StateType> {
     });
   };
 
-  updateData = () => {
-    const newData = genFakeData('5:00 PM');
-    this.setState({
-      data: [...this.state.data, newData]
-    });
-  };
-
   handleClick = () => {
     this.setState({ isNavOpen: !this.state.isNavOpen });
-    this.forceUpdate();
   };
 
   handleSelect(e) {
@@ -224,14 +220,13 @@ export default class Dashboard extends React.Component<PropTypes, StateType> {
               })}
             </div>
             <div id="customer-graph-wrapper">
-              <button onClick={this.updateData}>UPDATE</button>
               <CustomerGraph data={this.state.data} />
             </div>
             <div id="customer-chart-wrapper">
-              <CustomerChart />
+              <CustomerChart data={this.state.donutData} />
             </div>
             <div id="customer-scatter-wrapper">
-              <CustomerScatterPlot />
+              <CustomerScatterPlot data={this.state.scatterData} />
             </div>
             <div className="cuck" />
           </section>

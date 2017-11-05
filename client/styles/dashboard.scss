@@ -28,10 +28,8 @@ $SIDEBAR-WITDH: 300px;
   transition: 0.3s ease all;
   aside {
     z-index: 11;
-    width: $SIDEBAR-WITDH;
     height: 100%;
     top: 0;
-    left: -$SIDEBAR-WITDH;
     position: fixed;
     background-color: $PRIMARY;
     transition: 0.3s ease all;
@@ -40,8 +38,19 @@ $SIDEBAR-WITDH: 300px;
     justify-content: flex-start;
     align-content: center;
     align-items: center;
+    @media (min-width: $bp-xxsmall) {
+      left: between(-170, -$SIDEBAR-WITDH, $bp-xxsmall, $bp-xlarge);
+      width: between(170px, $SIDEBAR-WITDH, $bp-xxsmall, $bp-xlarge);
+    }
+    // left: -$SIDEBAR-WITDH;
+    // width: $SIDEBAR-WITDH;
     &.show {
-      transform: translateX($SIDEBAR-WITDH);
+      @media (min-width: $bp-xxsmall) {
+        transform: translateX(
+          between(170px, $SIDEBAR-WITDH, $bp-xxsmall, $bp-xlarge)
+        );
+      }
+      // transform: translateX($SIDEBAR-WITDH);
     }
     h4 {
       color: white;
@@ -97,15 +106,21 @@ $SIDEBAR-WITDH: 300px;
     left: 0;
     transition: 0.3s ease all;
     &.open {
-      transform: translateX($SIDEBAR-WITDH);
+      @media (min-width: $bp-xxsmall) {
+        transform: translateX(
+          between(170px, $SIDEBAR-WITDH, $bp-xxsmall, $bp-xlarge)
+        );
+      }
+      // transform: translateX($SIDEBAR-WITDH);
     }
     header {
       z-index: 2;
       position: fixed;
-      top: 0px;
+      top: 0;
       @media (min-width: $bp-xxsmall) {
         height: between(60px, 55px, $bp-xxsmall, $bp-xlarge);
       }
+      min-height: 55px;
       background-color: #f2f2f2;
       width: 100%;
       display: flex;
@@ -129,7 +144,7 @@ $SIDEBAR-WITDH: 300px;
       display: flex;
       flex-wrap: wrap;
       margin-top: 5rem;
-      padding: 1rem;
+      // padding: 1rem;
       align-items: flex-start;
 
       #time-container,
@@ -141,6 +156,7 @@ $SIDEBAR-WITDH: 300px;
         justify-content: center;
         flex-direction: row;
         flex-wrap: wrap;
+        margin: 0.5rem;
       }
       #time-container {
         background-color: lightpink;
@@ -156,9 +172,11 @@ $SIDEBAR-WITDH: 300px;
       }
       #customer-chart-wrapper {
         background-color: lightgreen;
-        margin: 0.5rem;
+
         height: 300px;
-        width: 30vw;
+        @media (min-width: $bp-xxsmall) {
+          width: between(310px, 450px, $bp-xxsmall, $bp-xlarge);
+        }
       }
       #customer-scatter-wrapper {
         background-color: lightgoldenrodyellow;
@@ -177,14 +195,15 @@ $SIDEBAR-WITDH: 300px;
 }
 
 #side-menu-button {
+  background-color: transparent;
   position: fixed;
   top: 0;
-  left: 0;
   transition: all 0.3s ease-out;
   z-index: 11;
   width: 3rem;
   @media (min-width: $bp-xxsmall) {
     height: between(60px, 55px, $bp-xxsmall, $bp-xlarge);
+    left: between(10px, 15px, $bp-xxsmall, $bp-xlarge);
   }
   padding: 0.5rem;
   border: none;

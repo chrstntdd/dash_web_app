@@ -1,15 +1,13 @@
 import * as React from 'react';
-import { PieChart, Pie, Sector } from 'recharts';
+import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
+const COLORS = ['#34495e', '#41aba0', '#0088FE', '#c0ffee', '#FF8042'];
 
 interface PropTypes {}
-interface StateType {}
-
-const data = [
-  { name: 'Group A', value: 400 },
-  { name: 'Group B', value: 300 },
-  { name: 'Group C', value: 300 },
-  { name: 'Group D', value: 200 }
-];
+interface StateType {
+  activeIndex: number;
+  height: number;
+  width: number;
+}
 
 const renderActiveShape = props => {
   const RADIAN = Math.PI / 180;
@@ -66,25 +64,27 @@ const renderActiveShape = props => {
       />
       <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
       <text
-        x={ex + (cos >= 0 ? 1 : -1) * 12}
+        x={ex + (cos >= 0 ? 1 : -1) * 11}
         y={ey}
+        fontSize={window.innerWidth < 450 ? 12 : 16}
         textAnchor={textAnchor}
-        fill="#333"
-      >{`PV ${value}`}</text>
+        fill="black"
+      >{`${value} Sales`}</text>
       <text
         x={ex + (cos >= 0 ? 1 : -1) * 12}
         y={ey}
+        fontSize={window.innerWidth < 450 ? 10 : 12}
         dy={18}
         textAnchor={textAnchor}
-        fill="#999"
+        fill="black"
       >
-        {`(Rate ${(percent * 100).toFixed(2)}%)`}
+        {`(${(percent * 100).toFixed(2)}%)`}
       </text>
     </g>
   );
 };
 
-export default class CustomerChart extends React.Component<
+export default class CustomerChart extends React.PureComponent<
   PropTypes,
   StateType
 > {
@@ -109,23 +109,27 @@ export default class CustomerChart extends React.Component<
   };
 
   render() {
-    console.log(this.state);
-
     return (
-      <PieChart width={this.state.width} height={this.state.height}>
-        <Pie
-          activeIndex={this.state.activeIndex}
-          activeShape={renderActiveShape}
-          data={data}
-          dataKey="value"
-          cx={300}
-          cy={200}
-          innerRadius={60}
-          outerRadius={80}
-          fill="#8884d8"
-          onMouseEnter={this.onPieEnter}
-        />
-      </PieChart>
+      <ResponsiveContainer height="100%" width="100%">
+        <PieChart>
+          <Pie
+            activeIndex={this.state.activeIndex}
+            activeShape={renderActiveShape}
+            data={this.props.data}
+            dataKey="value"
+            cx="50%"
+            cy="50%"
+            innerRadius={window.innerWidth < 450 ? 30 : 40}
+            outerRadius={window.innerWidth < 450 ? 65 : 75}
+            fill="#8884d8"
+            onMouseEnter={this.onPieEnter}
+          >
+            {this.props.data.map((entry, i) => (
+              <Cell key={i} fill={COLORS[i % COLORS.length]} />
+            ))}
+          </Pie>
+        </PieChart>
+      </ResponsiveContainer>
     );
   }
 }
